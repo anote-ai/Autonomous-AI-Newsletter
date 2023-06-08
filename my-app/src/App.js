@@ -1,18 +1,22 @@
 import React from "react";
+import Feed from './components/Feed';
 
 function App() {
-  const [data, setData] = React.useState(null);
+  // const [data, setData] = React.useState(null);
 
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message))
-  }, []);
+  // React.useEffect(() => {
+  //   fetch("/api")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.message));
+  // }, []);
 
+  
   return (
-    <head>
-      HI!!!
-    </head>
+    <div>
+      
+      <Feed />
+     
+    </div>
   );
 }
 
