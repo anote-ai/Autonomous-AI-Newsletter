@@ -1,7 +1,9 @@
+
+
+import os
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import requests
-from dotenv import load_dotenv
-import os
 import openai
 from dotenv import load_dotenv
 import sys
@@ -10,13 +12,14 @@ import json
 load_dotenv()
 openai.api_key = os.getenv("API_KEY")
 
+
 def gpt(text):
     reply = openai.ChatCompletion.create(
-                model = "gpt-3.5-turbo",
-                messages = [
-                    {"role": "user", "content": text}
-                ]
-            )
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": text}
+        ]
+    )
     return reply["choices"][0]["message"]["content"]
 
 
@@ -44,29 +47,31 @@ def generatePrompt_date(text):
     '''
     return prompt
 
+
 def run(key_word):
     session = requests.Session()
     headers = {
-            'User-Agent' : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Connection' : 'Keep-Alive',
-            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Connection': 'Keep-Alive',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
     }
     url = f"https://news.google.com/search?q={key_word}&hl=en-US&gl=US&ceid=US%3Aen"
 
-    url_obj = session.get(url, headers = headers)
+    url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')
 
     news = []
 
-    for i in bs.find_all('a', class_ = "VDXfz"):
+    for i in bs.find_all('a', class_="VDXfz"):
         try:
             this_news = {}
-            url = "https://news.google.com/" + i['href'] # url at google
-            url_obj = session.get(url, headers = headers)
+            url = "https://news.google.com/" + i['href']  # url at google
+            url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
-            url = bs.find('a', href=True, rel="nofollow")["href"] # real news url
-            url_obj = session.get(url, headers = headers)
+            url = bs.find('a', href=True, rel="nofollow")[
+                "href"]  # real news url
+            url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
             prompt_summary = generatePrompt_summay(bs.text)
             prompt_date = generatePrompt_date(bs.text)
@@ -74,11 +79,11 @@ def run(key_word):
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
-            if len(news) >= 10:
+            if len(news) >= 5:
                 break
         except:
             pass
-    
+
     print(json.dumps(news))
     return news
 

@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const Feed = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({ data: [] });
 
   useEffect(() => {
     fetchData();
@@ -11,29 +11,20 @@ const Feed = () => {
 
   async function fetchData() {
     try {
-      const response = await fetch("/run-script?key_word=my%20secret%20key");
-      console.log(response);
+      const response = await fetch("http://localhost:3001/run-script", {
+        method: "GET",
+      });
+
       if (!response.ok) {
         const message = `An error has occurred: ${response.status} - ${response.statusText}`;
         throw new Error(message);
       }
 
       const data = await response.json();
-      console.log(data);
 
-      const result = {
-        status: response.status + "-" + response.statusText,
-        headers: {
-          "Content-Type": response.headers.get("Content-Type"),
-          "Content-Length": response.headers.get("Content-Length"),
-        },
-        length: response.headers.get("Content-Length"),
-      };
-
-      setData(result.data);
+      setData(data);
     } catch (err) {
-      setData(err.message);
-      return null;
+      setData({ data: [] });
     }
   }
 
@@ -118,8 +109,25 @@ const Feed = () => {
             Global Economics
           </Button>
         </div>
-        <div className="bg-white h-[60vh] w-[50vw] mt-10">
-          <h2 className="text-neutral-900">{data}</h2>
+        <div className="h-[60vh] w-[50vw] mt-10 overflow-y-scroll rounded-lg">
+          <div className="">
+            {data.data.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col justify-between w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4"
+              >
+                <React.Fragment>
+                  <h2 className="text-neutral-900 text-justify p-5 ">
+                    {item.summary}
+                  </h2>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <h1 className="text-neutral-900">{item.url}</h1>
+                  </a>
+                  <h1 className="text-neutral-900">{item.date}</h1>
+                </React.Fragment>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
