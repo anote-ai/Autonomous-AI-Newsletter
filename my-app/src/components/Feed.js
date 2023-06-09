@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
+  const [searchTerm, setSearchTerm] = useState(" ");
 
   useEffect(() => {
     fetchData();
@@ -12,7 +13,11 @@ const Feed = () => {
   async function fetchData() {
     try {
       const response = await fetch("http://localhost:3001/run-script", {
-        method: "GET",
+        method: "Get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key_word: searchTerm }), // Include the search term in the request body
       });
 
       if (!response.ok) {
@@ -27,12 +32,19 @@ const Feed = () => {
       setData({ data: [] });
     }
   }
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setData(data);
+    console.log("DONEEE!!!!!");
+  };
 
   return (
-    <div className="bg-[#1c1c1c] w-screen h-screen flex relative text-center  flex-col">
+    <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
       <div>
-        <h1 className="text-4xl mt-20 mb-4">Newsletter Creator</h1>
-        <h3 className="text-[20px]">
+        <h1 className="text-6xl font-bold mt-20 mb-4 text-white">
+          Newsletter Creator
+        </h1>
+        <h3 className="text-[32px] text-white font-bold">
           Your Stories, Your Voice, Your Newsletter.
         </h3>
       </div>
@@ -40,19 +52,39 @@ const Feed = () => {
         <form nonvalidate="true" autoComplete="off" className="pr-5">
           <TextField
             nonvalidate="true"
-            sx={{ width: 400, paddingRight: 2 }}
+            sx={{
+              width: 400,
+              paddingRight: 2,
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "white",
+                  "&:hover": {
+                    borderColor: "white !important",
+                  },
+                  "&.Mui-focused": {
+                    borderColor: "white",
+                  },
+                },
+                "& input": {
+                  color: "white",
+                },
+              },
+            }}
             size="small"
             variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button
             nonvalidate="true"
             variant="contained"
             sx={{
-              color: "white",
-              background: "#B096AC",
+              color: "black",
+              background: "#defe47",
               height: 40,
             }}
             className="bg-zinc-950"
+            onClick={handleSearch}
           >
             Create
           </Button>
@@ -62,8 +94,8 @@ const Feed = () => {
             nonvalidate="true"
             variant="outlined"
             sx={{
-              color: "white",
-              background: "#EB9486",
+              color: "black",
+              background: "#fe00fe",
               height: 40,
               "&:hover": {
                 background: "none", // Turn off hover effect
@@ -76,26 +108,15 @@ const Feed = () => {
             nonvalidate="true"
             variant="outlined"
             sx={{
-              color: "white",
-              background: "#B096AC",
+              color: "black",
+              background: "#28B2FB",
               height: 40,
             }}
             className="bg-zinc-950"
           >
             Health Tech
           </Button>
-          <Button
-            nonvalidate="true"
-            variant="outlined"
-            sx={{
-              color: "white",
-              background: "#CAE7B9",
-              height: 40,
-            }}
-            className="bg-zinc-950"
-          >
-            AI
-          </Button>
+
           <Button
             nonvalidate="true"
             variant="outlined"
@@ -114,10 +135,10 @@ const Feed = () => {
             {data.data.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col justify-between w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4"
+                className="flex flex-col justify-between w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 font-[18px]"
               >
                 <React.Fragment>
-                  <h2 className="text-neutral-900 text-justify p-5 ">
+                  <h2 className="text-neutral-900 text-left  py-2 ">
                     {item.summary}
                   </h2>
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
