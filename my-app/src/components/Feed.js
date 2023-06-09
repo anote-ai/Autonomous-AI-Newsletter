@@ -8,6 +8,7 @@ const Feed = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+
     async function fetchData() {
       try {
         const response = await fetch(
@@ -26,6 +27,7 @@ const Feed = () => {
         setData({ data: [] });
       } finally {
         setLoading(false);
+
       }
     }
 
@@ -181,7 +183,7 @@ const Feed = () => {
                 {data.data.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 font-[18px]"
+                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px]"
                   >
                     <React.Fragment>
                       <h1 className="text-neutral-900">{item.date}</h1>
@@ -193,10 +195,11 @@ const Feed = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <h1 className="text-neutral-900 bg-orange-300 rounded-lg ">
+                        <p className="text-neutral-900 text-[10px]  bg-orange-300 rounded-lg ">
                           {item.url}
-                        </h1>
+                        </p>
                       </a>
+
                     </React.Fragment>
                   </div>
                 ))}
