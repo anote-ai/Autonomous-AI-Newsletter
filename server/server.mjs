@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 app.get("/run-script", async (req, res) => {
   // Get the arguments from the query string or request body
   //   const key_word = req.body.key_word;
-  const key_word = req.body.key_word;
+  const key_word = req.query.key_word;
   executePython(
     "/Users/cesarbacaro-ley/Desktop/WORK-FOLDER/Mpressed/Anote-AutonomousNewsletter/server/python/news.py",
     [key_word],
