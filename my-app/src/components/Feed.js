@@ -29,7 +29,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="bg-amber-200 w-screen h-screen flex relative text-center  flex-col">
+    <div className="bg-[#1c1c1c] w-screen h-screen flex relative text-center  flex-col">
       <div>
         <h1 className="text-4xl mt-20 mb-4">Newsletter Creator</h1>
         <h3 className="text-[20px]">
