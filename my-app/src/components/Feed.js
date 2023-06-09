@@ -4,16 +4,18 @@ import Button from "@mui/material/Button";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
+  const [searchTerm, setSearchTerm] = useState(" ");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchTerm]);
 
   async function fetchData() {
     try {
-      const response = await fetch("http://localhost:3001/run-script", {
-        method: "GET",
-      });
+      const response = await fetch(
+        `http://localhost:3001/run-script?key_word=${searchTerm}`
+      );
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.status} - ${response.statusText}`;
@@ -25,14 +27,60 @@ const Feed = () => {
       setData(data);
     } catch (err) {
       setData({ data: [] });
+    } finally {
+      setLoading(false);
     }
   }
+  const handleTrendingClick = () => {
+    setSearchTerm("Trending");
+    setData(data);
+  };
+
+  const handleHealthTechClick = () => {
+    setSearchTerm("Health Tech");
+    setData(data);
+  };
+
+  const handleGlobalEconomicsClick = () => {
+    setSearchTerm("Global Economics");
+    setData(data);
+  };
+
+  const handleSearch = async (event) => {
+    console.log("fetching the data");
+    event.preventDefault();
+    setData({ data: [] });
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/run-script?key_word=${searchTerm}`
+      );
+
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.status} - ${response.statusText}`;
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+
+      setData(data);
+      console.log("data is loaded");
+      console.log(data);
+    } catch (err) {
+      setData({ data: [] });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="bg-amber-200 w-screen h-screen flex relative text-center  flex-col">
+    <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
       <div>
-        <h1 className="text-4xl mt-20 mb-4">Newsletter Creator</h1>
-        <h3 className="text-[20px]">
+        <h1 className="text-6xl font-bold mt-20 mb-4 text-white">
+          Newsletter Creator
+        </h1>
+        <h3 className="text-[32px] text-white font-bold">
           Your Stories, Your Voice, Your Newsletter.
         </h3>
       </div>
@@ -40,19 +88,39 @@ const Feed = () => {
         <form nonvalidate="true" autoComplete="off" className="pr-5">
           <TextField
             nonvalidate="true"
-            sx={{ width: 400, paddingRight: 2 }}
+            sx={{
+              width: 400,
+              paddingRight: 2,
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "white",
+                  "&:hover": {
+                    borderColor: "white !important",
+                  },
+                  "&.Mui-focused": {
+                    borderColor: "white",
+                  },
+                },
+                "& input": {
+                  color: "white",
+                },
+              },
+            }}
             size="small"
             variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button
             nonvalidate="true"
             variant="contained"
             sx={{
-              color: "white",
-              background: "#B096AC",
+              color: "black",
+              background: "#defe47",
               height: 40,
             }}
             className="bg-zinc-950"
+            onClick={handleSearch}
           >
             Create
           </Button>
@@ -62,13 +130,14 @@ const Feed = () => {
             nonvalidate="true"
             variant="outlined"
             sx={{
-              color: "white",
-              background: "#EB9486",
+              color: "black",
+              background: "#fe00fe",
               height: 40,
               "&:hover": {
                 background: "none", // Turn off hover effect
               },
             }}
+            onClick={handleTrendingClick}
           >
             Trending
           </Button>
@@ -76,26 +145,16 @@ const Feed = () => {
             nonvalidate="true"
             variant="outlined"
             sx={{
-              color: "white",
-              background: "#B096AC",
+              color: "black",
+              background: "#28B2FB",
               height: 40,
             }}
             className="bg-zinc-950"
+            onClick={handleHealthTechClick}
           >
             Health Tech
           </Button>
-          <Button
-            nonvalidate="true"
-            variant="outlined"
-            sx={{
-              color: "white",
-              background: "#CAE7B9",
-              height: 40,
-            }}
-            className="bg-zinc-950"
-          >
-            AI
-          </Button>
+
           <Button
             nonvalidate="true"
             variant="outlined"
@@ -105,28 +164,43 @@ const Feed = () => {
               height: 40,
             }}
             className="bg-zinc-950"
+            onClick={handleGlobalEconomicsClick}
           >
             Global Economics
           </Button>
         </div>
-        <div className="h-[60vh] w-[50vw] mt-10 overflow-y-scroll rounded-lg">
+        <div className="h-[50vh] w-[45vw] mt-10 items-center overflow-y-scroll rounded-lg">
           <div className="">
-            {data.data.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col justify-between w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4"
-              >
-                <React.Fragment>
-                  <h2 className="text-neutral-900 text-justify p-5 ">
-                    {item.summary}
-                  </h2>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <h1 className="text-neutral-900">{item.url}</h1>
-                  </a>
-                  <h1 className="text-neutral-900">{item.date}</h1>
-                </React.Fragment>
+            {loading ? (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-white">Loading...</p>
               </div>
-            ))}
+            ) : (
+              <div className="h-[50vh] w-[40vw] m-auto mt-10  rounded-lg">
+                {data.data.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 font-[18px]"
+                  >
+                    <React.Fragment>
+                      <h2 className="text-neutral-900 text-left  py-2 ">
+                        {item.summary}
+                      </h2>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <h1 className="text-neutral-900 bg-orange-300 rounded-lg ">
+                          {item.url}
+                        </h1>
+                      </a>
+                      <h1 className="text-neutral-900">{item.date}</h1>
+                    </React.Fragment>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
