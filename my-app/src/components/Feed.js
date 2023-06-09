@@ -8,29 +8,30 @@ const Feed = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/run-script?key_word=${searchTerm}`
+        );
+
+        if (!response.ok) {
+          const message = `An error has occurred: ${response.status} - ${response.statusText}`;
+          throw new Error(message);
+        }
+
+        const data = await response.json();
+
+        setData(data);
+      } catch (err) {
+        setData({ data: [] });
+      } finally {
+        setLoading(false);
+      }
+    }
+
     fetchData();
   }, [searchTerm]);
 
-  async function fetchData() {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/run-script?key_word=${searchTerm}`
-      );
-
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.status} - ${response.statusText}`;
-        throw new Error(message);
-      }
-
-      const data = await response.json();
-
-      setData(data);
-    } catch (err) {
-      setData({ data: [] });
-    } finally {
-      setLoading(false);
-    }
-  }
   const handleTrendingClick = () => {
     setSearchTerm("Trending");
     setData(data);
@@ -183,6 +184,7 @@ const Feed = () => {
                     className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 font-[18px]"
                   >
                     <React.Fragment>
+                      <h1 className="text-neutral-900">{item.date}</h1>
                       <h2 className="text-neutral-900 text-left  py-2 ">
                         {item.summary}
                       </h2>
@@ -195,7 +197,6 @@ const Feed = () => {
                           {item.url}
                         </h1>
                       </a>
-                      <h1 className="text-neutral-900">{item.date}</h1>
                     </React.Fragment>
                   </div>
                 ))}
