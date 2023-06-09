@@ -196,9 +196,12 @@ const Feed = () => {
                 {data.data.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px]"
+                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px] text-left"
                   >
                     <React.Fragment>
+                      <h1 className="text-neutral-900 text-[18px] font-bold">
+                        {item.title}
+                      </h1>
                       <h1 className="text-neutral-900 text-[10px] ">
                         {item.date}
                       </h1>
