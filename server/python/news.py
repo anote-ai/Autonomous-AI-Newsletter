@@ -44,6 +44,27 @@ def generatePrompt_date(text):
     '''
     return prompt
 
+def generate_title(summary):
+    prompt = f'''
+    your task is to generate a title for the following article summary, 
+    delimited with triple backticks.
+
+    ```
+    {summary}
+    ```
+    '''
+
+    reply = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=15,
+        n=1,
+        temperature=0.5,
+    )
+
+    return reply.choices[0].text.strip()
+
+
 def run(key_word):
     session = requests.Session()
     headers = {
@@ -70,11 +91,12 @@ def run(key_word):
             bs = BeautifulSoup(url_obj.text, "html.parser")
             prompt_summary = generatePrompt_summay(bs.text)
             prompt_date = generatePrompt_date(bs.text)
+            this_news['title'] = generate_title(bs.text)
             this_news['url'] = url
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
-            if len(news) >= 10:
+            if len(news) >= 2:
                 break
         except:
             pass
