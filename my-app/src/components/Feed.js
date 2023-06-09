@@ -52,6 +52,7 @@ const Feed = () => {
     event.preventDefault();
     setData({ data: [] });
     setLoading(true);
+    setSearchTerm("");
 
     try {
       const response = await fetch(
