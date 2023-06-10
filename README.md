@@ -1,5 +1,6 @@
 # Anote-AutonomousNewsletter
 To run the locally you should:
+
 Clone this repo to your local machine
 
 To run the Backend 
