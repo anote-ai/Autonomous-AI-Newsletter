@@ -1,5 +1,5 @@
 import React from "react";
-import Feed from './components/Feed';
+import Feed from "./components/Feed";
 
 function App() {
   // const [data, setData] = React.useState(null);
@@ -10,12 +10,9 @@ function App() {
   //     .then((data) => setData(data.message));
   // }, []);
 
-  
   return (
     <div>
-      
       <Feed />
-     
     </div>
   );
 }
