@@ -6,9 +6,9 @@ const Feed = () => {
   const [data, setData] = useState({ data: [] });
   const [searchTerm, setSearchTerm] = useState(" ");
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(" ");
 
   useEffect(() => {
-
     async function fetchData() {
       try {
         const response = await fetch(
@@ -27,7 +27,6 @@ const Feed = () => {
         setData({ data: [] });
       } finally {
         setLoading(false);
-
       }
     }
 
@@ -77,12 +76,39 @@ const Feed = () => {
     }
   };
 
+  const sendEmail = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("http://localhost:3001/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    if (data.status === 401 || !data) {
+      console.log("error");
+    } else {
+      setEmail("");
+      console.log("Email sent");
+    }
+  };
+
   return (
     <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
       <div>
         <h1 className="text-6xl font-bold mt-20 mb-4 text-white">
           Newsletter Creator
         </h1>
+        <button onClick={sendEmail} className="text-white">
+          send
+        </button>
         <h3 className="text-[32px] text-white font-bold">
           Your Stories, Your Voice, Your Newsletter.
         </h3>
@@ -199,7 +225,6 @@ const Feed = () => {
                           {item.url}
                         </p>
                       </a>
-
                     </React.Fragment>
                   </div>
                 ))}
