@@ -23,7 +23,7 @@ def gpt(text):
     return reply["choices"][0]["message"]["content"]
 
 
-def generatePrompt_summay(text):
+def generatePrompt_summary(text):
     prompt = f'''
     your task is to generate a brief summary of the recent news of the recent website text, delimited with triple backticks.
 
@@ -93,7 +93,7 @@ def run(key_word):
                 "href"]  # real news url
             url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
-            prompt_summary = generatePrompt_summay(bs.text)
+            prompt_summary = generatePrompt_summary(bs.text)
             prompt_date = generatePrompt_date(bs.text)
             this_news['title'] = generate_title(bs.text)
             this_news['url'] = url
