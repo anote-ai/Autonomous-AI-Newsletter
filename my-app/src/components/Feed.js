@@ -53,6 +53,7 @@ const Feed = () => {
     event.preventDefault();
     setData({ data: [] });
     setLoading(true);
+    setSearchTerm("");
 
     try {
       const response = await fetch(
@@ -139,13 +140,17 @@ const Feed = () => {
             variant="outlined"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          />{" "}
           <Button
             nonvalidate="true"
-            variant="contained"
+            variant="outlined"
             sx={{
               color: "black",
-              background: "#defe47",
+              background: "#11cb5f",
+              "&:hover": {
+                color: "white",
+                borderColor: "#11cb5f",
+              },
               height: 40,
             }}
             className="bg-zinc-950"
@@ -162,8 +167,10 @@ const Feed = () => {
               color: "black",
               background: "#fe00fe",
               height: 40,
+
               "&:hover": {
-                background: "none", // Turn off hover effect
+                color: "white",
+                borderColor: "#fe00fe",
               },
             }}
             onClick={handleTrendingClick}
@@ -177,6 +184,10 @@ const Feed = () => {
               color: "black",
               background: "#28B2FB",
               height: 40,
+              "&:hover": {
+                color: "white",
+                borderColor: "#28B2FB",
+              },
             }}
             className="bg-zinc-950"
             onClick={handleHealthTechClick}
@@ -188,9 +199,13 @@ const Feed = () => {
             nonvalidate="true"
             variant="outlined"
             sx={{
-              color: "white",
-              background: "##ECCA42",
+              color: "black",
+              background: "#ECCA42",
               height: 40,
+              "&:hover": {
+                color: "white",
+                borderColor: "#ECCA42",
+              },
             }}
             className="bg-zinc-950"
             onClick={handleGlobalEconomicsClick}
@@ -209,10 +224,15 @@ const Feed = () => {
                 {data.data.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px]"
+                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px] text-left"
                   >
                     <React.Fragment>
-                      <h1 className="text-neutral-900">{item.date}</h1>
+                      <h1 className="text-neutral-900 text-[18px] font-bold">
+                        {item.title}
+                      </h1>
+                      <h1 className="text-neutral-900 text-[10px] ">
+                        {item.date}
+                      </h1>
                       <h2 className="text-neutral-900 text-left  py-2 ">
                         {item.summary}
                       </h2>
@@ -221,7 +241,7 @@ const Feed = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <p className="text-neutral-900 text-[10px]  bg-orange-300 rounded-lg ">
+                        <p className="text-neutral-900 text-[15px]  bg-orange-300 rounded-lg ">
                           {item.url}
                         </p>
                       </a>
