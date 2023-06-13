@@ -21,5 +21,6 @@ npm run start
 #### To run the Frontend
 ```
 cd my-app
+npm install
 npm start
 ```
