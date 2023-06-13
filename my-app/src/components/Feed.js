@@ -236,6 +236,38 @@ const Feed = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center mt-8">
+        <form
+          id="emailForm"
+          action="http://localhost:3000/send-email"
+          method="POST"
+          className="bottom-3  flex flex-col bg-[#171515]   w-[20vw] rounded-lg"
+        >
+          <input
+            type="email"
+            name="toEmail"
+            placeholder="Recipient Email"
+            required
+            className="rounded-md p-2 mb-3"
+          />
+          <Button
+            nonvalidate="true"
+            variant="outlined"
+            sx={{
+              color: "black",
+              background: "#11cb5f",
+              height: 40,
+              marginTop: 2,
+              width: "20%",
+              margin: "auto",
+            }}
+            className="bg-zinc-950 "
+            onClick={handleSearch}
+          >
+            Send
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
