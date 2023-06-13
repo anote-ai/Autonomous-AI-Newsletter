@@ -26,6 +26,7 @@ def gpt(text):
 def generatePrompt_summary(text):
     prompt = f'''
     your task is to generate a brief summary of the recent news of the recent website text, delimited with triple backticks.
+    you should only response the summary when finished to get all the data related to the query without jumping to others articles.
 
     ```
     {text}
@@ -38,7 +39,7 @@ def generatePrompt_date(text):
     prompt = f'''
     your task is to find the published date of the following website text, delimited with triple backticks.
     if there is no information about the published date, use today's date.
-    you should retuen date in this format "mm/dd/yyyy".
+    you should return date in this format "mm/dd/yyyy".
     you should only response the date without any other text.
 
     ```
@@ -64,8 +65,9 @@ def generate_title(summary):
         n=1,
         temperature=0.5,
     )
-
-    return reply.choices[0].text.strip()
+    result = reply.choices[0].text.strip()
+    cleaned_text = result.replace(",", "").replace("'", "").replace("`", "").replace('"', "")
+    return cleaned_text
 
 
 def run(key_word):
@@ -100,12 +102,11 @@ def run(key_word):
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
-            if len(news) >= 2:
+            if len(news) >= 4:
                 break
         except:
             pass
 
-    print(json.dumps(news))
     return news
 
 
@@ -114,6 +115,7 @@ args = sys.argv[1:]
 
 key_word = args[0]
 
-run(key_word)
+final_result = run(key_word)
+print(json.dumps(final_result))
 
 sys.stdout.flush()
