@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { debounce } from "lodash";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
   const [searchTerm, setSearchTerm] = useState(" ");
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState(" ");
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const response = await fetch(
           `http://localhost:3001/run-script?key_word=${searchTerm}`
@@ -25,12 +25,15 @@ const Feed = () => {
         setData(data);
       } catch (err) {
         setData({ data: [] });
-      } finally {
-        setLoading(false);
       }
-    }
+    };
 
-    fetchData();
+    const debouncedFetchData = debounce(fetchData, 3000);
+    debouncedFetchData();
+
+    return () => {
+      debouncedFetchData.cancel();
+    };
   }, [searchTerm]);
 
   const handleTrendingClick = () => {
@@ -52,8 +55,8 @@ const Feed = () => {
     console.log("fetching the data");
     event.preventDefault();
     setData({ data: [] });
-    setLoading(true);
     setSearchTerm("");
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -68,6 +71,7 @@ const Feed = () => {
       const data = await response.json();
 
       setData(data);
+      setLoading(false);
       console.log("data is loaded");
       console.log(data);
     } catch (err) {
@@ -77,39 +81,13 @@ const Feed = () => {
     }
   };
 
-  const sendEmail = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch("http://localhost:3001/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-      }),
-    });
-
-    const data = await res.json();
-    console.log(data);
-
-    if (data.status === 401 || !data) {
-      console.log("error");
-    } else {
-      setEmail("");
-      console.log("Email sent");
-    }
-  };
-
   return (
     <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
       <div>
         <h1 className="text-6xl font-bold mt-20 mb-4 text-white">
           Newsletter Creator
         </h1>
-        <button onClick={sendEmail} className="text-white">
-          send
-        </button>
+
         <h3 className="text-[32px] text-white font-bold">
           Your Stories, Your Voice, Your Newsletter.
         </h3>
@@ -150,6 +128,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#11cb5f",
+                background: "#75f7ab",
               },
               height: 40,
             }}
@@ -171,6 +150,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#fe00fe",
+                background: "#f87bf8",
               },
             }}
             onClick={handleTrendingClick}
@@ -187,6 +167,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#28B2FB",
+                background: "#81ccf4",
               },
             }}
             className="bg-zinc-950"
@@ -205,9 +186,10 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#ECCA42",
+                background: "#ffe26f",
               },
             }}
-            className="bg-zinc-950"
+            className="bg-zinc-950 "
             onClick={handleGlobalEconomicsClick}
           >
             Global Economics
@@ -215,40 +197,41 @@ const Feed = () => {
         </div>
         <div className="h-[50vh] w-[45vw] mt-10 items-center overflow-y-scroll rounded-lg">
           <div className="">
-            {loading ? (
+            {loading && (
               <div className="flex items-center justify-center h-full">
-                <p className="text-white">Loading...</p>
+                <div className="animate-spin mt-[7rem]  rounded-full h-10 w-10 border-t-2 border-b-2 border-yellow-500"></div>
               </div>
-            ) : (
-              <div className="h-[50vh] w-[40vw] m-auto mt-10  rounded-lg">
+            )}
+            {data && data.data.length > 0 ? (
+              <div className="flex flex-col justify-center self-center ml-5 w-[90%] h-full">
                 {data.data.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-center w-100% p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px] text-left"
+                    className="flex flex-col justify-center w-full p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px] text-left"
                   >
-                    <React.Fragment>
-                      <h1 className="text-neutral-900 text-[18px] font-bold">
-                        {item.title}
-                      </h1>
-                      <h1 className="text-neutral-900 text-[10px] ">
-                        {item.date}
-                      </h1>
-                      <h2 className="text-neutral-900 text-left  py-2 ">
-                        {item.summary}
-                      </h2>
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <p className="text-neutral-900 text-[15px]  bg-orange-300 rounded-lg ">
-                          {item.url}
-                        </p>
-                      </a>
-                    </React.Fragment>
+                    <h1 className="text-neutral-900 text-[18px] font-bold">
+                      {item.title}
+                    </h1>
+                    <h1 className="text-neutral-900 text-[10px] ">
+                      {item.date}
+                    </h1>
+                    <h2 className="text-neutral-900 text-left py-2">
+                      {item.summary}
+                    </h2>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <p className="text-neutral-900 text-[15px] bg-orange-300 rounded-lg">
+                        {item.url}
+                      </p>
+                    </a>
                   </div>
                 ))}
               </div>
+            ) : (
+              <div className="h-[50vh] w-[40vw] m-auto mt-10  rounded-lg"></div>
             )}
           </div>
         </div>
