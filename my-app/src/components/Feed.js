@@ -128,6 +128,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#11cb5f",
+                background: "#75f7ab",
               },
               height: 40,
             }}
@@ -149,6 +150,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#fe00fe",
+                background: "#f87bf8",
               },
             }}
             onClick={handleTrendingClick}
@@ -165,6 +167,7 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#28B2FB",
+                background: "#81ccf4",
               },
             }}
             className="bg-zinc-950"
@@ -183,9 +186,10 @@ const Feed = () => {
               "&:hover": {
                 color: "white",
                 borderColor: "#ECCA42",
+                background: "#ffe26f",
               },
             }}
-            className="bg-zinc-950"
+            className="bg-zinc-950 "
             onClick={handleGlobalEconomicsClick}
           >
             Global Economics
