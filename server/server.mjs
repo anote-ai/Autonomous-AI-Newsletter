@@ -172,7 +172,7 @@ app.get("/run-script", async (req, res) => {
   const key_word = req.query.key_word;
 
   executePython(
-    "/Users/cesarbacaro-ley/Desktop/WORK-FOLDER/Mpressed/Anote-AutonomousNewsletter/server/python/news.py",
+    "./python/news.py",
     [key_word],
     res
   );
