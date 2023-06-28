@@ -7,6 +7,7 @@ const Feed = () => {
   const [data, setData] = useState({ data: [] });
   const [searchTerm, setSearchTerm] = useState(" ");
   const [loading, setLoading] = useState(false);
+  // const [file, setFile] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +36,31 @@ const Feed = () => {
       debouncedFetchData.cancel();
     };
   }, [searchTerm]);
+
+  // const handleFileChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   setFile(selectedFile);
+  // };
+
+  // const handleFileUpload = async () => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+
+  //   try {
+  //     const response = await fetch("./server/api/upload", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("file uploaded successfully", data);
+  //     } else {
+  //       console.error("file upload failed:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("file upload failed:", error);
+  //   }
+  // };
 
   const handleTrendingClick = () => {
     setSearchTerm("Trending");
@@ -78,6 +104,29 @@ const Feed = () => {
       setData({ data: [] });
     } finally {
       setLoading(false);
+    }
+  };
+
+  let sendEmail = async () => {
+    const emailList = document.getElementById("emailList").files[0];
+
+    const formData = new FormData();
+    formData.append("emailList", emailList);
+    formData.append("message", JSON.stringify(data.data));
+
+    try {
+      const response = await fetch("http://localhost:3001/send-email", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("Email sent successfully");
+      } else {
+        console.log("Failed to send email");
+      }
+    } catch (error) {
+      console.log("Error sending email:", error);
     }
   };
 
@@ -199,7 +248,7 @@ const Feed = () => {
           <div className="">
             {loading && (
               <div className="flex items-center justify-center h-full">
-                <div className="animate-spin mt-[7rem]  rounded-full h-10 w-10 border-t-2 border-b-2 border-yellow-500"></div>
+                <div className="animate-spin mt-[7rem] rounded-full h-10 w-10 border-t-2 border-b-2 border-[#ECCA42]"></div>
               </div>
             )}
             {data && data.data.length > 0 ? (
@@ -236,12 +285,13 @@ const Feed = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-8">
+
+      <div className=" flex justify-center mt-8">
         <form
           id="emailForm"
           action="http://localhost:3000/send-email"
           method="POST"
-          className="bottom-3  flex flex-col bg-[#171515]   w-[20vw] rounded-lg"
+          className="bottom-3  flex flex-row bg-[#171515]   w-[20vw] rounded-lg"
         >
           <input
             type="email"
@@ -262,7 +312,40 @@ const Feed = () => {
               margin: "auto",
             }}
             className="bg-zinc-950 "
-            onClick={handleSearch}
+            onClick={sendEmail}
+          >
+            Send
+          </Button>
+        </form>
+      </div>
+      <div className=" flex justify-center mt-8">
+        <form
+          id="emailForm"
+          action="http://localhost:3000/send-email"
+          method="POST"
+          className="bottom-3  flex flex-row bg-[#171515]   w-[20vw] rounded-lg"
+        >
+          <input
+            type="file"
+            id="emailList"
+            name="emailList"
+            accept=".csv"
+            required
+            className="rounded-md p-2 mb-3"
+          />
+          <Button
+            nonvalidate="true"
+            variant="outlined"
+            sx={{
+              color: "black",
+              background: "#11cb5f",
+              height: 40,
+              marginTop: 2,
+              width: "20%",
+              margin: "auto",
+            }}
+            className="bg-zinc-950 "
+            onClick={sendEmail}
           >
             Send
           </Button>
