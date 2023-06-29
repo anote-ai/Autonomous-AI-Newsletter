@@ -281,9 +281,10 @@ const Feed = () => {
             component="label"
             startIcon={<CloudUploadIcon />}
             sx={{
-              backgroundColor: "#28B2FB", // Replace with your desired color
+              backgroundColor: "#28B2FB",
+              color: "black", // Replace with your desired color
               "&:hover": {
-                backgroundColor: "darkblue", // Replace with your desired hover color
+                backgroundColor: "#81ccf4", // Replace with your desired hover color
               },
             }}
           >
