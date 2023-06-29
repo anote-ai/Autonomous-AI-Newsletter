@@ -12,10 +12,11 @@ const Feed = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("hello");
         const response = await fetch(
           `http://localhost:3001/run-script?key_word=${searchTerm}`
         );
-
+        console.log("Passed");
         if (!response.ok) {
           const message = `An error has occurred: ${response.status} - ${response.statusText}`;
           throw new Error(message);
