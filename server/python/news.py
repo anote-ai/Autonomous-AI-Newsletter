@@ -1,16 +1,13 @@
 
 
 import os
-from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import requests
 import openai
-from dotenv import load_dotenv
 import sys
 import json
 
-load_dotenv()
-openai.api_key = os.getenv("API_KEY")
+openai.api_key = "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"
 
 
 def gpt(text):
