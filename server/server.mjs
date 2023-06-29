@@ -6,7 +6,6 @@ import csv from "csv-parser";
 import multer from "multer";
 import cors from "cors";
 import fs from "fs";
-import dotenv from "dotenv";
 import HTML_TEMPLATE from "./mail-template.js";
 
 const app = express();
@@ -21,7 +20,6 @@ app.use(
 
 app.use(express.json());
 app.use(router);
-dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -29,8 +27,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "cebacaro@gmail.com",
-    pass: "hcrwlakzxkjcvclx",
+    user: "vidranatan@gmail.com",
+    pass: "fhytlgpsjyzutlnm",
   },
 });
 console.log(process.env.EMAIL);
