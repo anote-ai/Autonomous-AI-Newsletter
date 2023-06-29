@@ -227,7 +227,7 @@ const Feed = () => {
             Global Economics
           </Button>
         </div>
-        <div className="h-[50vh] w-[50vw] mt-10 items-center overflow-y-scroll rounded-lg">
+        <div className="h-[50vh] w-[50vw] mt-10 items-center overflow-y-scroll  rounded-lg scrollbar:bg-transparent scrollbar-thin">
           <div className="">
             {loading && (
               <div className="flex items-center justify-center h-full">
