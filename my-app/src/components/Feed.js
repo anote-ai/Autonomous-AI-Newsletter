@@ -38,31 +38,6 @@ const Feed = () => {
     };
   }, [searchTerm]);
 
-  // const handleFileChange = (event) => {
-  //   const selectedFile = event.target.files[0];
-  //   setFile(selectedFile);
-  // };
-
-  // const handleFileUpload = async () => {
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     const response = await fetch("./server/api/upload", {
-  //       method: "POST",
-  //       body: formData,
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("file uploaded successfully", data);
-  //     } else {
-  //       console.error("file upload failed:", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("file upload failed:", error);
-  //   }
-  // };
-
   const handleTrendingClick = () => {
     setSearchTerm("Trending");
     setData(data);
