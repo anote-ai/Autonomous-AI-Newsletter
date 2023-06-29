@@ -102,7 +102,7 @@ def run(key_word):
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
-            if len(news) >= 4:
+            if len(news) >= 5:
                 break
         except:
             pass
