@@ -3,14 +3,14 @@ import { spawn } from "child_process";
 const router = new express.Router();
 import nodemailer from "nodemailer";
 import csv from "csv-parser";
-// import multer from "multer";
+import multer from "multer";
 import cors from "cors";
-import * as fs from "fs";
+import fs from "fs";
 import dotenv from "dotenv";
 import HTML_TEMPLATE from "./mail-template.js";
 
 const app = express();
-// const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "uploads/" });
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -18,7 +18,7 @@ app.use(
     methods: "GET, POST, PUT, DELETE",
   })
 );
-app.use(cors());
+
 app.use(express.json());
 app.use(router);
 dotenv.config();
@@ -29,14 +29,20 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
+    user: "cebacaro@gmail.com",
+    pass: "hcrwlakzxkjcvclx",
   },
 });
+console.log(process.env.EMAIL);
 
-app.post("/send-email", async (req, res) => {
-  const file = req.files.emailList;
+app.post("/send-email", upload.single("emailList"), async (req, res) => {
+  const file = req.file;
   const { message } = req.body;
+
+  if (!file) {
+    res.status(400).json({ message: "No file uploaded" });
+    return;
+  }
 
   const mailOptions = {
     from: "<sender@gmail.com>",
@@ -46,17 +52,17 @@ app.post("/send-email", async (req, res) => {
   };
 
   try {
-    fs.createReadStream(file.tempFilePath) // Read the uploaded CSV file
+    fs.createReadStream(file.path) // Read the uploaded CSV file
       .pipe(csv())
       .on("data", async (row) => {
-        const to = row.email; // Assuming the email field is named "email" in the CSV
+        const to = row.Email; // Assuming the email field is named "email" in the CSV
         mailOptions.to = to;
 
         try {
           await transporter.sendMail(mailOptions);
-          console.log("Email sent successfully to:", to);
+          console.log("Email sent successfully to:");
         } catch (error) {
-          console.log("Error sending email to:", to, error);
+          console.log("Error sending email to:", error);
         }
       })
       .on("end", () => {
@@ -105,8 +111,6 @@ const executePython = (script, args, res) => {
 };
 
 app.get("/run-script", async (req, res) => {
-  // Get the arguments from the query string or request body
-  //   const key_word = req.body.key_word;
   const key_word = req.query.key_word;
 
   executePython("./python/news.py", [key_word], res);
