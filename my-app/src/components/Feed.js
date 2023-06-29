@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { debounce } from "lodash";
+import Input from "@mui/joy/Input";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
   const [searchTerm, setSearchTerm] = useState(" ");
   const [loading, setLoading] = useState(false);
-  // const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +51,13 @@ const Feed = () => {
   const handleGlobalEconomicsClick = () => {
     setSearchTerm("Global Economics");
     setData(data);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
   };
 
   const handleSearch = async (event) => {
@@ -260,21 +269,36 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center mt-1">
+      <div className=" flex justify-center mt-1 w-[100vw]">
         <form
           id="emailForm"
           action="http://localhost:3000/send-email"
           method="POST"
-          className="bottom-3  flex flex-row bg-[#171515]   w-[30vw] rounded-lg"
+          className="bottom-3  flex flex-row justify-between bg-[#171515]  w-[30vw] rounded-lg"
         >
-          <input
-            type="file"
-            id="emailList"
-            name="emailList"
-            accept=".csv"
-            required
-            className="rounded-lg p-2 mb-3 text-white"
-          />
+          <Button
+            variant="contained"
+            component="label"
+            startIcon={<CloudUploadIcon />}
+            sx={{
+              backgroundColor: "#28B2FB", // Replace with your desired color
+              "&:hover": {
+                backgroundColor: "darkblue", // Replace with your desired hover color
+              },
+            }}
+          >
+            Upload File
+            <Input
+              type="file"
+              id="emailList"
+              name="emailList"
+              accept=".csv"
+              size="sm"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+          </Button>
+          {fileName && <p className="text-white"> {fileName}</p>}
           <Button
             nonvalidate="true"
             variant="outlined"
@@ -287,10 +311,8 @@ const Feed = () => {
                 background: "#75f7ab",
               },
               height: 40,
-              marginTop: 2,
-              margin: "auto",
+              position: "relative",
             }}
-            className="bg-zinc-950 "
             onClick={sendEmail}
           >
             Send
