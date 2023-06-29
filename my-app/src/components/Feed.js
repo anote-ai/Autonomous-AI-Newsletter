@@ -291,39 +291,7 @@ const Feed = () => {
           id="emailForm"
           action="http://localhost:3000/send-email"
           method="POST"
-          className="bottom-3  flex flex-row bg-[#171515]   w-[20vw] rounded-lg"
-        >
-          <input
-            type="email"
-            name="toEmail"
-            placeholder="Recipient Email"
-            required
-            className="rounded-md p-2 mb-3"
-          />
-          <Button
-            nonvalidate="true"
-            variant="outlined"
-            sx={{
-              color: "black",
-              background: "#11cb5f",
-              height: 40,
-              marginTop: 2,
-              width: "20%",
-              margin: "auto",
-            }}
-            className="bg-zinc-950 "
-            onClick={sendEmail}
-          >
-            Send
-          </Button>
-        </form>
-      </div>
-      <div className=" flex justify-center mt-8">
-        <form
-          id="emailForm"
-          action="http://localhost:3000/send-email"
-          method="POST"
-          className="bottom-3  flex flex-row bg-[#171515]   w-[20vw] rounded-lg"
+          className="bottom-3  flex flex-row bg-[#171515]   w-[30vw] rounded-lg"
         >
           <input
             type="file"
@@ -331,7 +299,7 @@ const Feed = () => {
             name="emailList"
             accept=".csv"
             required
-            className="rounded-md p-2 mb-3"
+            className="rounded-lg p-2 mb-3 text-white"
           />
           <Button
             nonvalidate="true"
@@ -339,9 +307,13 @@ const Feed = () => {
             sx={{
               color: "black",
               background: "#11cb5f",
+              "&:hover": {
+                color: "white",
+                borderColor: "#11cb5f",
+                background: "#75f7ab",
+              },
               height: 40,
               marginTop: 2,
-              width: "20%",
               margin: "auto",
             }}
             className="bg-zinc-950 "
