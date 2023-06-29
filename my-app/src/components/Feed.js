@@ -12,11 +12,9 @@ const Feed = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("hello");
         const response = await fetch(
           `http://localhost:3001/run-script?key_word=${searchTerm}`
         );
-        console.log("Passed");
         if (!response.ok) {
           const message = `An error has occurred: ${response.status} - ${response.statusText}`;
           throw new Error(message);
@@ -109,15 +107,15 @@ const Feed = () => {
   return (
     <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
       <div>
-        <h1 className="text-6xl font-bold mt-20 mb-4 text-white">
+        <h1 className="text-6xl font-bold mt-10 mb-4 text-white">
           Newsletter Creator
         </h1>
 
-        <h3 className="text-[32px] text-white font-bold">
+        <h3 className="text-[22px] text-white font-bold">
           Your Stories, Your Voice, Your Newsletter.
         </h3>
       </div>
-      <div className="flex flex-col self-center mt-10">
+      <div className="flex flex-col self-center mt-8">
         <form nonvalidate="true" autoComplete="off" className="pr-5">
           <TextField
             nonvalidate="true"
@@ -163,7 +161,7 @@ const Feed = () => {
             Create
           </Button>
         </form>
-        <div className="flex mt-8 px-8 gap-10 justify-center">
+        <div className="flex mt-4 px-8 gap-10 justify-center">
           <Button
             nonvalidate="true"
             variant="outlined"
@@ -220,7 +218,7 @@ const Feed = () => {
             Global Economics
           </Button>
         </div>
-        <div className="h-[50vh] w-[45vw] mt-10 items-center overflow-y-scroll rounded-lg">
+        <div className="h-[50vh] w-[50vw] mt-10 items-center overflow-y-scroll rounded-lg">
           <div className="">
             {loading && (
               <div className="flex items-center justify-center h-full">
@@ -228,11 +226,11 @@ const Feed = () => {
               </div>
             )}
             {data && data.data.length > 0 ? (
-              <div className="flex flex-col justify-center self-center ml-5 w-[90%] h-full">
+              <div className="flex flex-col justify-center self-center ml-5 w-[90%] h-[40%]">
                 {data.data.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-center w-full p-5 rounded-lg  bg-orange-200 m-auto my-4 text-[18px] text-left"
+                    className="flex flex-col justify-center w-full p-5 rounded-lg  bg-orange-200 m-auto my-3 text-[18px] text-left"
                   >
                     <h1 className="text-neutral-900 text-[18px] font-bold">
                       {item.title}
@@ -262,7 +260,7 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center mt-8">
+      <div className=" flex justify-center mt-1">
         <form
           id="emailForm"
           action="http://localhost:3000/send-email"
