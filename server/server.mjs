@@ -31,11 +31,17 @@ const transporter = nodemailer.createTransport({
     pass: "fhytlgpsjyzutlnm",
   },
 });
-console.log(process.env.EMAIL);
 
 app.post("/send-email", upload.single("emailList"), async (req, res) => {
   const file = req.file;
-  const { message } = req.body;
+  const {
+    message,
+    selectedCardColor,
+    selectedTextColor,
+    selectedBackgroundColor,
+    selectedFont,
+    selectedTextFont,
+  } = req.body;
 
   if (!file) {
     res.status(400).json({ message: "No file uploaded" });
@@ -46,7 +52,14 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
     from: "<sender@gmail.com>",
     subject: "Your Newsletter",
     text: message,
-    html: HTML_TEMPLATE(message),
+    html: HTML_TEMPLATE(
+      message,
+      selectedCardColor,
+      selectedTextColor,
+      selectedBackgroundColor,
+      selectedFont,
+      selectedTextFont
+    ),
   };
 
   try {

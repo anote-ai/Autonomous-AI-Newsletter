@@ -4,12 +4,19 @@ import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { debounce } from "lodash";
 import Input from "@mui/joy/Input";
+import Dropdown from "./Dropdown";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
   const [searchTerm, setSearchTerm] = useState(" ");
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState("");
+  const [selectedCardColor, setSelectedCardColor] = useState("#FFCF56");
+  const [selectedTextColor, setSelectedTextColor] = useState("#F8F9FA");
+  const [selectedBackgroundColor, setSelectedBackgroundColor] =
+    useState("#171515");
+  const [selectedFont, setSelectedFont] = useState("Helvetica");
+  const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +44,26 @@ const Feed = () => {
       debouncedFetchData.cancel();
     };
   }, [searchTerm]);
+
+  const handleSelectedFont = (font) => {
+    setSelectedFont(font);
+  };
+
+  const handleTextFontChange = (font) => {
+    setSelectedTextFont(font);
+  };
+
+  const handleColorSelect = (color) => {
+    setSelectedCardColor(color);
+  };
+
+  const handleTextColorChange = (color) => {
+    setSelectedTextColor(color);
+  };
+
+  const handleBackgroundChange = (color) => {
+    setSelectedBackgroundColor(color);
+  };
 
   const handleTrendingClick = () => {
     setSearchTerm("Trending");
@@ -96,6 +123,11 @@ const Feed = () => {
     const formData = new FormData();
     formData.append("emailList", emailList);
     formData.append("message", JSON.stringify(data.data));
+    formData.append("selectedCardColor", selectedCardColor);
+    formData.append("selectedTextColor", selectedTextColor);
+    formData.append("selectedBackgroundColor", selectedBackgroundColor);
+    formData.append("selectedFont", selectedFont);
+    formData.append("selectedTextFont", selectedTextFont);
 
     try {
       const response = await fetch("http://localhost:3001/send-email", {
@@ -114,22 +146,48 @@ const Feed = () => {
   };
 
   return (
-    <div className="bg-[#171515] w-screen h-screen flex relative text-center  flex-col">
-      <div>
-        <h1 className="text-6xl font-bold mt-10 mb-4 text-white">
-          Newsletter Creator
-        </h1>
+    <div
+      className=" w-screen h-screen flex relative text-center  flex-col"
+      style={{ backgroundColor: selectedBackgroundColor }}
+    >
+      <div className="flex justify-between">
+        <div className="justify-center m-auto ">
+          <h1
+            className="text-6xl font-bold mt-10 mb-4 text-white"
+            style={{ color: selectedTextColor, fontFamily: selectedFont }}
+          >
+            Newsletter Creator
+          </h1>
 
-        <h3 className="text-[22px] text-white font-bold">
-          Your Stories, Your Voice, Your Newsletter.
-        </h3>
+          <h3
+            className="text-[22px]  font-bold"
+            style={{ color: selectedTextColor, fontFamily: selectedFont }}
+          >
+            Your Stories, Your Voice, Your Newsletter.
+          </h3>
+        </div>
+        <div className=" absolute right-10 mt-5">
+          <Dropdown
+            selectedCardColor={selectedCardColor}
+            selectedTextColor={selectedTextColor}
+            selectedBackgroundColor={selectedBackgroundColor}
+            selectedCardFont={selectedFont}
+            selectedTextFont={selectedTextFont}
+            onBackgroundSelect={handleBackgroundChange}
+            onColorSelect={handleColorSelect}
+            onTextSelect={handleTextColorChange}
+            onCardFontSelect={handleSelectedFont}
+            onTextFontSelect={handleTextFontChange}
+          />
+        </div>
       </div>
-      <div className="flex flex-col self-center mt-8">
-        <form nonvalidate="true" autoComplete="off" className="pr-5">
+      <div className="flex flex-col self-center mt-8 h-[65vh] w-[40vw]">
+        <form nonvalidate="true" autoComplete="off" className=" gap-5 ">
           <TextField
             nonvalidate="true"
             sx={{
-              width: 400,
+              width: 350,
+              height: 40,
               paddingRight: 2,
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -156,6 +214,7 @@ const Feed = () => {
             variant="outlined"
             sx={{
               color: "black",
+              marginRight: 4,
               background: "#11cb5f",
               "&:hover": {
                 color: "white",
@@ -164,7 +223,6 @@ const Feed = () => {
               },
               height: 40,
             }}
-            className="bg-zinc-950"
             onClick={handleSearch}
           >
             Create
@@ -227,7 +285,7 @@ const Feed = () => {
             Global Economics
           </Button>
         </div>
-        <div className="h-[50vh] w-[50vw] mt-10 items-center overflow-y-scroll  rounded-lg scrollbar:bg-transparent scrollbar-thin">
+        <div className="h-[50vh] w-[40vw] mt-10 items-center overflow-y-scroll  rounded-lg scrollbar:bg-transparent scrollbar-thin">
           <div className="">
             {loading && (
               <div className="flex items-center justify-center h-full">
@@ -240,22 +298,50 @@ const Feed = () => {
                   <div
                     key={index}
                     className="flex flex-col justify-center w-full p-5 rounded-lg  bg-orange-200 m-auto my-3 text-[18px] text-left"
+                    style={{
+                      backgroundColor: selectedCardColor,
+                    }}
                   >
-                    <h1 className="text-neutral-900 text-[18px] font-bold">
+                    <h1
+                      className="text-neutral-900 text-[18px] font-bold"
+                      style={{
+                        color: selectedTextColor,
+                        fontFamily: selectedTextFont,
+                      }}
+                    >
                       {item.title}
                     </h1>
-                    <h1 className="text-neutral-900 text-[10px] ">
+                    <h1
+                      className="text-neutral-900 text-[10px] "
+                      style={{
+                        color: selectedTextColor,
+                      }}
+                    >
                       {item.date}
                     </h1>
-                    <h2 className="text-neutral-900 text-left py-2">
+                    <h2
+                      className="text-neutral-900 text-left py-2"
+                      style={{
+                        color: selectedTextColor,
+                        fontFamily: selectedTextFont,
+                      }}
+                    >
                       {item.summary}
                     </h2>
                     <a
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{}}
                     >
-                      <p className="text-neutral-900 text-[15px] bg-orange-300 rounded-lg">
+                      <p
+                        className="text-neutral-900 text-[15px] bg-orange-300 rounded-lg"
+                        style={{
+                          backgroundColor: selectedCardColor,
+                          color: selectedTextColor,
+                          fontFamily: selectedTextFont,
+                        }}
+                      >
                         {item.url}
                       </p>
                     </a>
@@ -274,7 +360,7 @@ const Feed = () => {
           id="emailForm"
           action="http://localhost:3000/send-email"
           method="POST"
-          className="bottom-3  flex flex-row justify-between bg-[#171515]  w-[30vw] rounded-lg"
+          className="bottom-3  flex flex-row justify-between bg-transparent  w-[30vw] rounded-lg"
         >
           <Button
             variant="contained"
