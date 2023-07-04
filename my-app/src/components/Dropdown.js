@@ -88,13 +88,15 @@ const Dropdown = ({
           color: "black",
           marginBottom: "1rem",
           background: "#75f7ab",
+          fontWeight: "bold",
+          padding: "0.5rem",
           "&:hover": {
             color: "white",
             borderColor: "#11cb5f",
             background: "#75f7ab",
           },
           height: 40,
-          width: 200,
+          width: 300,
         }}
       >
         Customize your Newsletter

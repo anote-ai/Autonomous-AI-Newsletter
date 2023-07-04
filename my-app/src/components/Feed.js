@@ -188,7 +188,7 @@ const Feed = () => {
             sx={{
               width: 350,
               height: 40,
-              paddingRight: 2,
+              padding: 4,
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
                   borderColor: "white",
