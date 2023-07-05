@@ -133,23 +133,22 @@ const Dropdown = ({
                   textAlign: "center",
                 }}
               >
-                Card Color
+                Font
               </InputLabel>
               <Select
-                value={selectedCardColor}
-                onChange={handleColorChange}
-                className="flex absolute"
+                value={selectedCardFont}
+                onChange={handleCardFontChange}
+                className="flex"
+                style={{
+                  width: "80px",
+                  height: "30px",
+                  margin: "auto",
+                  fontSize: "10px",
+                }}
               >
-                {colors.map((color, idx) => (
-                  <MenuItem key={idx} value={color}>
-                    <div
-                      style={{
-                        backgroundColor: color,
-                        width: "80px",
-                        height: "20px",
-                        margin: "auto",
-                      }}
-                    />
+                {fonts.map((font, idx) => (
+                  <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
+                    {font}
                   </MenuItem>
                 ))}
               </Select>
@@ -175,7 +174,7 @@ const Dropdown = ({
                       style={{
                         backgroundColor: color,
                         width: "80px",
-                        height: "20px",
+                        height: "30px",
                         margin: "auto",
                       }}
                     />
@@ -187,7 +186,7 @@ const Dropdown = ({
               <InputLabel
                 style={{
                   color: "black",
-                  padding: "0.5rem",
+                  height: "2px",
                   textAlign: "left",
                   fontSize: "10px",
                 }}
@@ -224,29 +223,6 @@ const Dropdown = ({
           </div>
           <div className="flex gap-1 w-[24vw]">
             {/*e xt Font */}
-            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
-              <InputLabel
-                style={{
-                  color: "black",
-                  padding: "0.5rem",
-                  textAlign: "center",
-                }}
-              >
-                Font
-              </InputLabel>
-              <Select
-                value={selectedCardFont}
-                onChange={handleCardFontChange}
-                className="flex"
-                style={{ fontSize: "10px" }}
-              >
-                {fonts.map((font, idx) => (
-                  <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
-                    {font}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
 
             {/* Card Font */}
             <FormControl className="bg-[#f4e6e6] rounded-md  w-[8vw]">
@@ -292,6 +268,35 @@ const Dropdown = ({
                 {fontSizes.map((size, idx) => (
                   <MenuItem key={idx} value={size} style={{ fontSize: "10px" }}>
                     {size}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                }}
+              >
+                Card Color
+              </InputLabel>
+              <Select
+                value={selectedCardColor}
+                onChange={handleColorChange}
+                className="flex absolute"
+              >
+                {colors.map((color, idx) => (
+                  <MenuItem key={idx} value={color}>
+                    <div
+                      style={{
+                        backgroundColor: color,
+                        width: "80px",
+                        height: "20px",
+                        margin: "auto",
+                      }}
+                    />
                   </MenuItem>
                 ))}
               </Select>
