@@ -5,6 +5,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { debounce } from "lodash";
 import Input from "@mui/joy/Input";
 import Dropdown from "./Dropdown";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -17,6 +18,9 @@ const Feed = () => {
     useState("#171515");
   const [selectedFont, setSelectedFont] = useState("Helvetica");
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
+  const [selectedFontSize, setSelectedFontSize] = useState(" 12px ");
+  const [editableTitle, setEditableTitle] = useState("");
+  const [editableIndex, setEditableIndex] = useState(-1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +48,10 @@ const Feed = () => {
       debouncedFetchData.cancel();
     };
   }, [searchTerm]);
+
+  const handleSelectedFontSize = (size) => {
+    setSelectedFontSize(size);
+  };
 
   const handleSelectedFont = (font) => {
     setSelectedFont(font);
@@ -128,6 +136,7 @@ const Feed = () => {
     formData.append("selectedBackgroundColor", selectedBackgroundColor);
     formData.append("selectedFont", selectedFont);
     formData.append("selectedTextFont", selectedTextFont);
+    formData.append("selectedFontSize", selectedFontSize);
 
     try {
       const response = await fetch("http://localhost:3001/send-email", {
@@ -147,26 +156,24 @@ const Feed = () => {
 
   return (
     <div
-      className=" w-screen h-screen flex relative text-center  flex-col"
+      className=" w-screen h-screen flex  text-center  flex-col"
       style={{ backgroundColor: selectedBackgroundColor }}
     >
-      <div className="flex justify-between">
-        <div className="justify-center m-auto ">
-          <h1
-            className="text-6xl font-bold mt-10 mb-4 text-white"
-            style={{ color: selectedTextColor, fontFamily: selectedFont }}
-          >
-            Newsletter Creator
-          </h1>
+      <div className="flex  w-screen  flex-col">
+        <h1
+          className="text-6xl font-bold mt-10 mb-4 text-white"
+          style={{ color: selectedTextColor, fontFamily: selectedFont }}
+        >
+          Newsletter Creator
+        </h1>
 
-          <h3
-            className="text-[22px]  font-bold"
-            style={{ color: selectedTextColor, fontFamily: selectedFont }}
-          >
-            Your Stories, Your Voice, Your Newsletter.
-          </h3>
-        </div>
-        <div className=" absolute right-10 mt-5">
+        <h3
+          className="text-[22px]  font-bold"
+          style={{ color: selectedTextColor, fontFamily: selectedFont }}
+        >
+          Your Stories, Your Voice, Your Newsletter.
+        </h3>
+        <div className="flex justify-end w-[95vw]">
           <Dropdown
             selectedCardColor={selectedCardColor}
             selectedTextColor={selectedTextColor}
@@ -178,17 +185,21 @@ const Feed = () => {
             onTextSelect={handleTextColorChange}
             onCardFontSelect={handleSelectedFont}
             onTextFontSelect={handleTextFontChange}
+            onFontSizeSelect={handleSelectedFontSize}
           />
         </div>
       </div>
       <div className="flex flex-col self-center mt-8 h-[65vh] w-[40vw]">
-        <form nonvalidate="true" autoComplete="off" className=" gap-5 ">
+        <form
+          nonvalidate="true"
+          autoComplete="off"
+          className=" gap-5 flex flex-row justify-center items-center"
+        >
           <TextField
             nonvalidate="true"
             sx={{
               width: 350,
               height: 40,
-              padding: 4,
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
                   borderColor: "white",
@@ -307,10 +318,50 @@ const Feed = () => {
                       style={{
                         color: selectedTextColor,
                         fontFamily: selectedTextFont,
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {item.title}
+                      {editableIndex === index ? (
+                        <input
+                          style={{
+                            color: selectedTextColor,
+                            width: "100%",
+                            backgroundColor: selectedCardColor,
+                            borderRadius: "10px",
+                            border: "1px solid black",
+                          }}
+                          type="text"
+                          value={editableTitle}
+                          onChange={(e) => setEditableTitle(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              // Save the updated title in the data array
+                              const newData = [...data.data];
+                              newData[index].title = editableTitle;
+                              setData({ data: newData });
+
+                              // Reset the state variables
+                              setEditableTitle("");
+                              setEditableIndex(-1);
+                            }
+                          }}
+                        />
+                      ) : (
+                        <>
+                          {item.title}
+                          <ModeEditOutlineOutlinedIcon
+                            onClick={() => {
+                              // Start editing the title
+                              setEditableTitle(item.title);
+                              setEditableIndex(index);
+                            }}
+                            style={{ color: "black" }}
+                          />
+                        </>
+                      )}
                     </h1>
+
                     <h1
                       className="text-neutral-900 text-[10px] "
                       style={{
@@ -324,6 +375,7 @@ const Feed = () => {
                       style={{
                         color: selectedTextColor,
                         fontFamily: selectedTextFont,
+                        fontSize: selectedFontSize,
                       }}
                     >
                       {item.summary}

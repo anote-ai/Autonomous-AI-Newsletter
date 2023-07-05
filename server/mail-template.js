@@ -4,7 +4,8 @@ const HTML_TEMPLATE = (
   selectedTextColor,
   selectedBackgroundColor,
   selectedFont,
-  selectedTextFont
+  selectedTextFont,
+  selectedFontSize
 ) => {
   let data_arr = JSON.parse(data);
   let formated_data = data_arr
@@ -13,7 +14,7 @@ const HTML_TEMPLATE = (
   <div style="color:${selectedTextColor}; padding:10px; background-color:${selectedCardColor}; margin:1rem;">
     <h2 style=" text-align:left; font-family:${selectedTextFont}">${item.title}</h2>
     <p style=" text-align:left;">${item.date}</p>
-    <p style=" text-align:left;color:${selectedTextColor};font-family:${selectedTextFont};">${item.summary}</p>
+    <p style=" text-align:left;color:${selectedTextColor};font-family:${selectedTextFont}; fontSize:${selectedFontSize}">${item.summary}</p>
     <a style="display: block; text-align: left;color:${selectedTextColor};font-family:${selectedTextFont};" href="${item.url}">${item.url}</a>
   </div>
 `;

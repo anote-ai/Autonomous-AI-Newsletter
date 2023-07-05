@@ -43,7 +43,19 @@ const fonts = [
   "Courier New",
   "Verdana",
   "Georgia",
+  "Palatino",
+  "Garamond",
+  "Bookman",
+  "Comic Sans MS",
+  "Trebuchet MS",
+  "Arial Black",
+  "Impact",
+  "Lucida Sans Unicode",
+  "Tahoma",
+  "Lucida Console",
 ];
+
+const fontSizes = ["10px", "14px", "16px", "18px", "20px"];
 
 const Dropdown = ({
   selectedCardColor,
@@ -51,13 +63,19 @@ const Dropdown = ({
   backgroundColor,
   selectedCardFont,
   selectedTextFont,
+  selectedFontSize,
   onBackgroundSelect,
   onColorSelect,
   onTextSelect,
   onCardFontSelect,
   onTextFontSelect,
+  onFontSizeSelect,
 }) => {
   const [show, setShow] = useState(false);
+
+  const handleFontSizeChange = (event) => {
+    onFontSizeSelect(event.target.value);
+  };
 
   const handleColorChange = (event) => {
     onColorSelect(event.target.value);
@@ -80,9 +98,9 @@ const Dropdown = ({
   };
 
   return (
-    <div className="flex flex-col   rounded ">
+    <div className="flex flex-col w-[20vw] items-center relative rounded ">
       <Button
-        className="bg-slate-50 text-white  rounded-md w-[10vw] self-center top-0 mb-4"
+        className="bg-slate-50 text-white  rounded-md  self-center top-0  mb-4"
         onClick={() => setShow(!show)}
         sx={{
           color: "black",
@@ -96,159 +114,191 @@ const Dropdown = ({
             background: "#75f7ab",
           },
           height: 40,
-          width: 300,
+          width: 250,
+          zIndex: 1,
         }}
       >
         Customize your Newsletter
       </Button>
-      <div className="flex  h-[30vh] w-[25vw] gap-2">
-        {show && (
-          <div className=" flex flex-col w-[30vw] h-[30vh] gap-4 bg-[#c5c9c7] items-center p-2 m-auto  rounded-lg mt-4">
-            <h2 className="text-black font-bold">Colors</h2>
-            <div className="flex gap-1 w-[25vw]">
-              <FormControl className="bg-[#f4e6e6] rounded-md w-[10vw]">
-                <InputLabel
-                  style={{
-                    color: "black",
-                    padding: "0.5rem",
-                    textAlign: "center",
-                  }}
-                >
-                  Card Color
-                </InputLabel>
-                <Select
-                  value={selectedCardColor}
-                  onChange={handleColorChange}
-                  className="flex"
-                >
-                  {colors.map((color, idx) => (
-                    <MenuItem key={idx} value={color}>
-                      <div
-                        style={{
-                          backgroundColor: color,
-                          width: "80px",
-                          height: "20px",
-                          margin: "auto",
-                        }}
-                      />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl className="bg-[#f4e6e6] rounded-md  w-[10vw]">
-                <InputLabel
-                  style={{
-                    color: "black",
-                    padding: "0.5rem",
-                    textAlign: "center",
-                  }}
-                >
-                  Text Color
-                </InputLabel>
-                <Select
-                  value={selectedTextColor}
-                  onChange={handleTextChange}
-                  className="flex"
-                >
-                  {colors.map((color, idx) => (
-                    <MenuItem key={idx} value={color}>
-                      <div
-                        style={{
-                          backgroundColor: color,
-                          width: "80px",
-                          height: "20px",
-                          margin: "auto",
-                        }}
-                      />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl className="bg-[#f4e6e6] rounded-md w-[10vw]">
-                <InputLabel
-                  style={{
-                    color: "black",
-                    textAlign: "center",
-                    fontSize: "10px",
-                  }}
-                >
-                  Background Color
-                </InputLabel>
-                <Select
-                  value={backgroundColor}
-                  onChange={handleBackgroundChange}
-                  className="flex"
-                >
-                  {colors.map((color, idx) => (
-                    <MenuItem key={idx} value={color}>
-                      <div
-                        style={{
-                          backgroundColor: color,
-                          width: "80px",
-                          height: "20px",
-                          margin: "auto",
-                        }}
-                      />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <div>
-              <h2 className="text-black font-bold">Style</h2>
-            </div>
-            <div className="flex gap-1 w-[25vw]">
-              {/* Card Font */}
-              <FormControl className="bg-[#f4e6e6] rounded-md w-[10vw]">
-                <InputLabel
-                  style={{
-                    color: "black",
-                    padding: "0.5rem",
-                    textAlign: "center",
-                  }}
-                >
-                  Font
-                </InputLabel>
-                <Select
-                  value={selectedCardFont}
-                  onChange={handleCardFontChange}
-                  className="flex"
-                >
-                  {fonts.map((font, idx) => (
-                    <MenuItem key={idx} value={font}>
-                      {font}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
 
-              {/* Text Font */}
-              <FormControl className="bg-[#f4e6e6] rounded-md  w-[10vw]">
-                <InputLabel
-                  style={{
-                    color: "black",
-                    padding: "0.5rem",
-                    textAlign: "center",
-                  }}
-                >
-                  Card Font
-                </InputLabel>
-                <Select
-                  value={selectedTextFont}
-                  onChange={handleTextFontChange}
-                  className="flex"
-                >
-                  {fonts.map((font, idx) => (
-                    <MenuItem key={idx} value={font}>
-                      {font}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+      {show && (
+        <div className=" flex flex-col w-[25vw] h-[30vh] gap-4 bg-[#c5c9c7] mr-10 items-center p-2 absolute top-10 rounded-lg mt-4">
+          <h2 className="text-black font-bold">Colors</h2>
+          <div className="flex gap-1 w-[24vw]">
+            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                }}
+              >
+                Card Color
+              </InputLabel>
+              <Select
+                value={selectedCardColor}
+                onChange={handleColorChange}
+                className="flex absolute"
+              >
+                {colors.map((color, idx) => (
+                  <MenuItem key={idx} value={color}>
+                    <div
+                      style={{
+                        backgroundColor: color,
+                        width: "80px",
+                        height: "20px",
+                        margin: "auto",
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className="bg-[#f4e6e6] rounded-md  w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                }}
+              >
+                Text Color
+              </InputLabel>
+              <Select
+                value={selectedTextColor}
+                onChange={handleTextChange}
+                className="flex"
+              >
+                {colors.map((color, idx) => (
+                  <MenuItem key={idx} value={color}>
+                    <div
+                      style={{
+                        backgroundColor: color,
+                        width: "80px",
+                        height: "20px",
+                        margin: "auto",
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "left",
+                  fontSize: "10px",
+                }}
+              >
+                Background Color
+              </InputLabel>
+              <Select
+                value={backgroundColor}
+                onChange={handleBackgroundChange}
+                className="flex"
+                style={{
+                  "& div": {
+                    backgroundColor: backgroundColor,
+                  },
+                }}
+              >
+                {colors.map((color, idx) => (
+                  <MenuItem key={idx} value={color}>
+                    <div
+                      style={{
+                        backgroundColor: color,
+                        width: "80px",
+                        height: "20px",
+                        margin: "auto",
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
-        )}
-      </div>
+          <div>
+            <h2 className="text-black font-bold"> Card Style</h2>
+          </div>
+          <div className="flex gap-1 w-[24vw]">
+            {/*e xt Font */}
+            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                }}
+              >
+                Font
+              </InputLabel>
+              <Select
+                value={selectedCardFont}
+                onChange={handleCardFontChange}
+                className="flex"
+                style={{ fontSize: "10px" }}
+              >
+                {fonts.map((font, idx) => (
+                  <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
+                    {font}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* Card Font */}
+            <FormControl className="bg-[#f4e6e6] rounded-md  w-[8vw]">
+              <InputLabel
+                style={{
+                  color: "black",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                }}
+              >
+                Card Font
+              </InputLabel>
+              <Select
+                value={selectedTextFont}
+                onChange={handleTextFontChange}
+                className="flex"
+                style={{ fontSize: "10px" }}
+              >
+                {fonts.map((font, idx) => (
+                  <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
+                    {font}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw] ">
+              <InputLabel
+                style={{
+                  color: "black",
+                  textAlign: "center",
+                  display: "flex",
+                  fontSize: "10px",
+                }}
+              >
+                Font Size
+              </InputLabel>
+              <Select
+                value={selectedFontSize}
+                onChange={handleFontSizeChange}
+                className="flex"
+                style={{ fontSize: "10px" }}
+              >
+                {fontSizes.map((size, idx) => (
+                  <MenuItem key={idx} value={size} style={{ fontSize: "10px" }}>
+                    {size}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
