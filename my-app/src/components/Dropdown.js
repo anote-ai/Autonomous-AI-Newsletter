@@ -174,7 +174,7 @@ const Dropdown = ({
                       style={{
                         backgroundColor: color,
                         width: "80px",
-                        height: "30px",
+                        height: "20px",
                         margin: "auto",
                       }}
                     />
