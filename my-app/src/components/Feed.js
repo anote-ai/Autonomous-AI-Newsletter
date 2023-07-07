@@ -20,7 +20,15 @@ const Feed = () => {
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
   const [selectedFontSize, setSelectedFontSize] = useState(" 12px ");
   const [editableTitle, setEditableTitle] = useState("");
+  const [editableSummary, setEditableSummary] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
+  const [editableMainTitle, setEditableMainTitle] =
+    useState("Newsletter Creator");
+  const [editableSubTitle, setEditableSubTitle] = useState(
+    "Your Stories, Your Voice, Your Newsletter."
+  );
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [isEditingSubTitle, setIsEditingSubTitle] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,6 +145,10 @@ const Feed = () => {
     formData.append("selectedFont", selectedFont);
     formData.append("selectedTextFont", selectedTextFont);
     formData.append("selectedFontSize", selectedFontSize);
+    formData.append("editableMainTitle", editableMainTitle);
+    formData.append("editableSubTitle", editableSubTitle);
+    formData.append("editableTitle", editableTitle);
+    formData.append("editableSummary", editableSummary);
 
     try {
       const response = await fetch("http://localhost:3001/send-email", {
@@ -159,20 +171,113 @@ const Feed = () => {
       className=" w-screen h-screen flex  text-center  flex-col"
       style={{ backgroundColor: selectedBackgroundColor }}
     >
-      <div className="flex  w-screen  flex-col">
-        <h1
-          className="text-6xl font-bold mt-10 mb-4 text-white"
-          style={{ color: selectedTextColor, fontFamily: selectedFont }}
-        >
-          Newsletter Creator
-        </h1>
+      <div className="flex   text-6xl font-bold mt-10 mb-4 text-white flex-col">
+        {isEditingTitle ? (
+          <Input
+            style={{
+              color: selectedTextColor,
+              fontSize: "3.75rem",
+              fontWeight: "bold",
+              marginTop: "2.5rem",
 
-        <h3
-          className="text-[22px]  font-bold"
-          style={{ color: selectedTextColor, fontFamily: selectedFont }}
-        >
-          Your Stories, Your Voice, Your Newsletter.
-        </h3>
+              backgroundColor: selectedBackgroundColor,
+              border: "none",
+              textAlign: "center",
+              width: "40%",
+              marginLeft: "30%",
+              marginRight: "30%",
+            }}
+            type="text"
+            value={editableMainTitle}
+            onChange={(e) => setEditableMainTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setIsEditingTitle(false);
+              }
+            }}
+            onBlur={() => setIsEditingTitle(false)}
+            autoFocus
+            aria-label="Main Title"
+          />
+        ) : (
+          <div className="flex flex-col">
+            <div className="flex text-center justify-center">
+              <h1
+                className="text-6xl font-bold mt-10 mb-4 text-white"
+                style={{ color: selectedTextColor, fontFamily: selectedFont }}
+                onClick={() => setIsEditingTitle(true)}
+              >
+                {editableMainTitle || "Newsletter Creator"}
+              </h1>
+              <ModeEditOutlineOutlinedIcon
+                onClick={() => {
+                  setIsEditingTitle((prevState) => !prevState);
+                }}
+                style={{
+                  color: selectedTextColor,
+                  fontSize: "1rem",
+                  position: "absolute",
+                  top: "5rem",
+                  right: "32vw",
+                }}
+              />
+            </div>
+            <div>
+              {isEditingSubTitle ? (
+                <Input
+                  style={{
+                    color: selectedTextColor,
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    marginTop: "0.5rem",
+                    marginBottom: "1rem",
+                    backgroundColor: selectedBackgroundColor,
+
+                    textAlign: "center",
+                    width: "30%",
+                    height: "40px",
+                    margin: "auto",
+                  }}
+                  className="border-none"
+                  type="text"
+                  value={editableSubTitle}
+                  onChange={(e) => setEditableSubTitle(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      setIsEditingSubTitle(false);
+                    }
+                  }}
+                  onBlur={() => setIsEditingSubTitle(false)}
+                  autoFocus
+                  aria-label="Sub Title"
+                />
+              ) : (
+                <div className="flex justify-center">
+                  <h3
+                    className="text-[22px] font-bold"
+                    style={{
+                      color: selectedTextColor,
+                      fontFamily: selectedFont,
+                    }}
+                    onClick={() => setIsEditingSubTitle(true)}
+                  >
+                    {editableSubTitle ||
+                      "Your Stories, Your Voice, Your Newsletter."}
+                  </h3>
+                  <ModeEditOutlineOutlinedIcon
+                    onClick={() => setIsEditingSubTitle(true)}
+                    style={{
+                      color: selectedTextColor,
+                      fontSize: "1rem",
+                      marginLeft: "0.5rem",
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-end w-[95vw]">
           <Dropdown
             selectedCardColor={selectedCardColor}
@@ -219,6 +324,12 @@ const Feed = () => {
             variant="outlined"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e && e.key === "Enter") {
+                e.preventDefault();
+                handleSearch(e);
+              }
+            }}
           />{" "}
           <Button
             nonvalidate="true"
@@ -327,6 +438,7 @@ const Feed = () => {
                           style={{
                             color: selectedTextColor,
                             width: "100%",
+                            padding: "5px",
                             backgroundColor: selectedCardColor,
                             borderRadius: "10px",
                             border: "1px solid black",
@@ -354,9 +466,10 @@ const Feed = () => {
                             onClick={() => {
                               // Start editing the title
                               setEditableTitle(item.title);
+                              setEditableSummary(item.summary);
                               setEditableIndex(index);
                             }}
-                            style={{ color: "black" }}
+                            style={{ color: selectedTextColor }}
                           />
                         </>
                       )}
@@ -378,7 +491,37 @@ const Feed = () => {
                         fontSize: selectedFontSize,
                       }}
                     >
-                      {item.summary}
+                      {editableIndex === index ? (
+                        <textarea
+                          style={{
+                            color: selectedTextColor,
+                            width: "100%",
+                            padding: "10px",
+                            backgroundColor: selectedCardColor,
+                            borderRadius: "10px",
+                            border: "1px solid black",
+                            height: "200px",
+                            display: "block",
+                          }}
+                          type="text"
+                          value={editableSummary}
+                          onChange={(e) => setEditableSummary(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              // Save the updated title in the data array
+                              const newData = [...data.data];
+                              newData[index].summary = editableSummary;
+                              setData({ data: newData });
+
+                              // Reset the state variables
+                              setEditableSummary("");
+                              setEditableIndex(-1);
+                            }
+                          }}
+                        />
+                      ) : (
+                        <p>{item.summary}</p>
+                      )}
                     </h2>
                     <a
                       href={item.url}

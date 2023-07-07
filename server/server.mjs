@@ -42,6 +42,10 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
     selectedFont,
     selectedTextFont,
     selectedFontSize,
+    editableMainTitle,
+    editableSubTitle,
+    editableTitle,
+    editableSummary,
   } = req.body;
 
   if (!file) {
@@ -60,7 +64,11 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
       selectedBackgroundColor,
       selectedFont,
       selectedTextFont,
-      selectedFontSize
+      selectedFontSize,
+      editableMainTitle,
+      editableSubTitle,
+      editableTitle,
+      editableSummary
     ),
   };
 

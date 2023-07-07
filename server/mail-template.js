@@ -5,17 +5,27 @@ const HTML_TEMPLATE = (
   selectedBackgroundColor,
   selectedFont,
   selectedTextFont,
-  selectedFontSize
+  selectedFontSize,
+  editableMainTitle,
+  editableSubTitle,
+  editableTitle,
+  editableSummary
 ) => {
   let data_arr = JSON.parse(data);
   let formated_data = data_arr
     .map((item) => {
       return `
   <div style="color:${selectedTextColor}; padding:10px; background-color:${selectedCardColor}; margin:1rem;">
-    <h2 style=" text-align:left; font-family:${selectedTextFont}">${item.title}</h2>
+    <h2 style=" text-align:left; font-family:${selectedTextFont}">${
+        editableTitle || item.title
+      }</h2>
     <p style=" text-align:left;">${item.date}</p>
-    <p style=" text-align:left;color:${selectedTextColor};font-family:${selectedTextFont}; fontSize:${selectedFontSize}">${item.summary}</p>
-    <a style="display: block; text-align: left;color:${selectedTextColor};font-family:${selectedTextFont};" href="${item.url}">${item.url}</a>
+    <p style=" text-align:left;color:${selectedTextColor};font-family:${selectedTextFont}; fontSize:${selectedFontSize}">${
+        editableSummary || item.summary
+      }</p>
+    <a style="display: block; text-align: left;color:${selectedTextColor};font-family:${selectedTextFont};" href="${
+        item.url
+      }">${item.url}</a>
   </div>
 `;
     })
@@ -34,11 +44,11 @@ const HTML_TEMPLATE = (
         <div>
           <h1 style="font-size: 4rem; font-weight: bold; margin-top: 20px; margin-bottom: 4px; color:${selectedTextColor}; font-family:${selectedFont}"
           >
-            Newsletter Creator
+            ${editableMainTitle}
           </h1>
 
           <h3 style="font-size: 32px; color: white; font-weight: bold; font-family:${selectedFont};color:${selectedTextColor};">
-            Your Stories, Your Voice, Your Newsletter.
+            ${editableSubTitle}
 
           </h3>
 

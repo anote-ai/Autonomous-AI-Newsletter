@@ -108,6 +108,7 @@ const Dropdown = ({
           background: "#75f7ab",
           fontWeight: "bold",
           padding: "0.5rem",
+          top: 10,
           "&:hover": {
             color: "white",
             borderColor: "#11cb5f",
@@ -122,10 +123,13 @@ const Dropdown = ({
       </Button>
 
       {show && (
-        <div className=" flex flex-col w-[25vw] h-[30vh] gap-4 bg-[#c5c9c7] mr-10 items-center p-2 absolute top-10 rounded-lg mt-4">
-          <h2 className="text-black font-bold">Colors</h2>
+        <div className=" flex flex-col w-[25vw]  gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
+          <h2 className="text-black font-bold text-[20px] text-left">Colors</h2>
           <div className="flex gap-1 w-[24vw]">
-            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+            <FormControl
+              className="bg-[#ffffff]  rounded-md w-[8vw]"
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
@@ -153,7 +157,10 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl className="bg-[#f4e6e6] rounded-md  w-[8vw]">
+            <FormControl
+              className="bg-[#ffffff] rounded-md  w-[8vw]"
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
@@ -182,7 +189,10 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+            <FormControl
+              className="bg-[#ffffff] rounded-md w-[8vw]"
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
@@ -219,13 +229,19 @@ const Dropdown = ({
             </FormControl>
           </div>
           <div>
-            <h2 className="text-black font-bold"> Card Style</h2>
+            <h2 className="text-black font-bold text-[20px] text-left">
+              {" "}
+              Card Style
+            </h2>
           </div>
           <div className="flex gap-1 w-[24vw]">
             {/*e xt Font */}
 
             {/* Card Font */}
-            <FormControl className="bg-[#f4e6e6] rounded-md  w-[8vw]">
+            <FormControl
+              className="bg-[#ffffff] rounded-md  w-[8vw]"
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
@@ -248,7 +264,10 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw] ">
+            <FormControl
+              className="bg-[#ffffff] rounded-md w-[8vw] "
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
@@ -272,7 +291,10 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl className="bg-[#f4e6e6] rounded-md w-[8vw]">
+            <FormControl
+              className="bg-[#ffffff] rounded-md w-[8vw]"
+              style={{ border: "1px solid black" }}
+            >
               <InputLabel
                 style={{
                   color: "black",
