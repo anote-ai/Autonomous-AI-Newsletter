@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import Button from "@mui/material/Button";
+import Input from "@mui/joy/Input";
 
 const colors = [
   "#000000",
@@ -61,6 +62,7 @@ const Dropdown = ({
   selectedCardColor,
   selectedTextColor,
   backgroundColor,
+  selectedBackgroundColor,
   selectedCardFont,
   selectedTextFont,
   selectedFontSize,
@@ -70,11 +72,38 @@ const Dropdown = ({
   onCardFontSelect,
   onTextFontSelect,
   onFontSizeSelect,
+  mainTitle,
+  subTitle,
+  onMainTitleChange,
+  onSubtitleChange,
 }) => {
   const [show, setShow] = useState(false);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [isEditingSubTitle, setIsEditingSubTitle] = useState(false);
+  const [editableMainTitle, setEditableMainTitle] = useState(mainTitle);
+  const [editableSubTitle, setEditableSubTitle] = useState(subTitle);
+
+  const handleMainTitleSave = () => {
+    setIsEditingTitle(false);
+    onMainTitleChange(editableMainTitle);
+  };
+
+  const handleSubTitleSave = () => {
+    setIsEditingSubTitle(false);
+    onSubtitleChange(editableSubTitle);
+  };
+
+  const handleMainTitleEditing = () => {
+    setIsEditingTitle(true);
+  };
+
+  const handleSubTitleEditing = () => {
+    setIsEditingSubTitle(true);
+  };
 
   const handleFontSizeChange = (event) => {
     onFontSizeSelect(event.target.value);
+   
   };
 
   const handleColorChange = (event) => {
@@ -105,7 +134,7 @@ const Dropdown = ({
         sx={{
           color: "black",
           marginBottom: "1rem",
-          background: "#75f7ab",
+          background: "#11cb5f",
           fontWeight: "bold",
           padding: "0.5rem",
           top: 10,
@@ -123,32 +152,28 @@ const Dropdown = ({
       </Button>
 
       {show && (
-        <div className=" flex flex-col w-[25vw]  gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
+        <div className=" flex flex-col w-[25vw] h-[30vh] gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
           <h2 className="text-black font-bold text-[20px] text-left">Colors</h2>
           <div className="flex gap-1 w-[24vw]">
             <FormControl
               className="bg-[#ffffff]  rounded-md w-[8vw]"
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
                   padding: "0.5rem",
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 Font
-              </InputLabel>
+              </p>
               <Select
                 value={selectedCardFont}
                 onChange={handleCardFontChange}
                 className="flex"
-                style={{
-                  width: "80px",
-                  height: "30px",
-                  margin: "auto",
-                  fontSize: "10px",
-                }}
               >
                 {fonts.map((font, idx) => (
                   <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
@@ -161,15 +186,17 @@ const Dropdown = ({
               className="bg-[#ffffff] rounded-md  w-[8vw]"
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
                   padding: "0.5rem",
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 Text Color
-              </InputLabel>
+              </p>
               <Select
                 value={selectedTextColor}
                 onChange={handleTextChange}
@@ -193,25 +220,21 @@ const Dropdown = ({
               className="bg-[#ffffff] rounded-md w-[8vw]"
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
-                  height: "2px",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
+                  padding: "0.5rem",
                   textAlign: "left",
-                  fontSize: "10px",
                 }}
               >
-                Background Color
-              </InputLabel>
+                Background 
+              </p>
               <Select
-                value={backgroundColor}
+                value={selectedBackgroundColor}
                 onChange={handleBackgroundChange}
                 className="flex"
-                style={{
-                  "& div": {
-                    backgroundColor: backgroundColor,
-                  },
-                }}
               >
                 {colors.map((color, idx) => (
                   <MenuItem key={idx} value={color}>
@@ -242,20 +265,21 @@ const Dropdown = ({
               className="bg-[#ffffff] rounded-md  w-[8vw]"
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
                   padding: "0.5rem",
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 Card Font
-              </InputLabel>
+              </p>
               <Select
                 value={selectedTextFont}
                 onChange={handleTextFontChange}
                 className="flex"
-                style={{ fontSize: "10px" }}
               >
                 {fonts.map((font, idx) => (
                   <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
@@ -264,28 +288,29 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
+            
             <FormControl
               className="bg-[#ffffff] rounded-md w-[8vw] "
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
-                  textAlign: "center",
-                  display: "flex",
-                  fontSize: "10px",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
+                  padding: "0.5rem",
+                  textAlign: "left",
                 }}
               >
                 Font Size
-              </InputLabel>
+              </p>
               <Select
                 value={selectedFontSize}
                 onChange={handleFontSizeChange}
                 className="flex"
-                style={{ fontSize: "10px" }}
               >
                 {fontSizes.map((size, idx) => (
-                  <MenuItem key={idx} value={size} style={{ fontSize: "10px" }}>
+                  <MenuItem key={idx} value={size} style={{ fontSize: "10px"}}>
                     {size}
                   </MenuItem>
                 ))}
@@ -295,15 +320,17 @@ const Dropdown = ({
               className="bg-[#ffffff] rounded-md w-[8vw]"
               style={{ border: "1px solid black" }}
             >
-              <InputLabel
+              <p
                 style={{
                   color: "black",
+                  fontSize: "8px",
+                  fontWeight: "lighter",
                   padding: "0.5rem",
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 Card Color
-              </InputLabel>
+              </p>
               <Select
                 value={selectedCardColor}
                 onChange={handleColorChange}
@@ -323,6 +350,82 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
+          </div>
+          <div className="flex m-2 gap-2">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                background: "#11cb5f",
+                height: 40,
+                "&:hover": {
+                  color: "white",
+                  borderColor: "#11cb5f",
+                  background: "#75f7ab",
+                },
+              }}
+              onClick={handleMainTitleEditing}
+            >
+              Edit Title
+            </Button>
+            {isEditingTitle ? (
+              <Input
+                style={{
+                  fontSize: "10px",
+                }}
+                type="text"
+                value={editableMainTitle}
+                onChange={(e) => setEditableMainTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleMainTitleSave();
+                  }
+                }}
+                onBlur={handleMainTitleSave}
+                autoFocus
+                aria-label="Main Title"
+              />
+            ) : (
+              <div>{/* Render main title */}</div>
+            )}
+          </div>
+          <div className="flex  m-2 gap-2 text-[10px]">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                background: "#11cb5f",
+                height: 40,
+                "&:hover": {
+                  color: "white",
+                  borderColor: "#11cb5f",
+                  background: "#75f7ab",
+                },
+              }}
+              onClick={handleSubTitleEditing}
+            >
+              Edit SubTitle
+            </Button>
+            {isEditingSubTitle ? (
+              <Input
+                style={{
+                  fontSize: "10px",
+                }}
+                type="text"
+                value={editableSubTitle}
+                onChange={(e) => setEditableSubTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubTitleSave();
+                  }
+                }}
+                onBlur={handleSubTitleSave}
+                autoFocus
+                aria-label="Sub Title"
+              />
+            ) : (
+              <div>{/* Render subtitle */}</div>
+            )}
           </div>
         </div>
       )}

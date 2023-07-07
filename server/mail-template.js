@@ -44,7 +44,7 @@ const HTML_TEMPLATE = (
         <div>
           <h1 style="font-size: 4rem; font-weight: bold; margin-top: 20px; margin-bottom: 4px; color:${selectedTextColor}; font-family:${selectedFont}"
           >
-            ${editableMainTitle}
+            ${editableMainTitle || "Your Newsletter"}
           </h1>
 
           <h3 style="font-size: 32px; color: white; font-weight: bold; font-family:${selectedFont};color:${selectedTextColor};">

@@ -14,12 +14,11 @@ const Feed = () => {
   const [fileName, setFileName] = useState("");
   const [selectedCardColor, setSelectedCardColor] = useState("#FFCF56");
   const [selectedTextColor, setSelectedTextColor] = useState("#F8F9FA");
-  const [selectedBackgroundColor, setSelectedBackgroundColor] =
-    useState("#171515");
+  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState("#171515");
   const [selectedFont, setSelectedFont] = useState("Helvetica");
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
-  const [selectedFontSize, setSelectedFontSize] = useState(" 12px ");
-  const [editableTitle, setEditableTitle] = useState("#F8F9FA");
+  const [selectedFontSize, setSelectedFontSize] = useState("14px");
+  const [editableTitle, setEditableTitle] = useState("");
   const [editableSummary, setEditableSummary] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
   const [editableMainTitle, setEditableMainTitle] =
@@ -56,6 +55,13 @@ const Feed = () => {
       debouncedFetchData.cancel();
     };
   }, [searchTerm]);
+
+  const handleMainTitleChange = (newTitle) => {
+    setEditableMainTitle(newTitle);
+  };
+  const handleSubtitleChange = (newSubtitle) => {
+    setEditableSubTitle(newSubtitle);
+  };
 
   const handleSelectedFontSize = (size) => {
     setSelectedFontSize(size);
@@ -209,19 +215,8 @@ const Feed = () => {
               >
                 {editableMainTitle || "Newsletter Creator"}
               </h1>
-              <ModeEditOutlineOutlinedIcon
-                onClick={() => {
-                  setIsEditingTitle((prevState) => !prevState);
-                }}
-                style={{
-                  color: selectedTextColor,
-                  fontSize: "1rem",
-                  position: "absolute",
-                  top: "5rem",
-                  right: "32vw",
-                }}
-              />
             </div>
+
             <div>
               {isEditingSubTitle ? (
                 <Input
@@ -264,14 +259,6 @@ const Feed = () => {
                     {editableSubTitle ||
                       "Your Stories, Your Voice, Your Newsletter."}
                   </h3>
-                  <ModeEditOutlineOutlinedIcon
-                    onClick={() => setIsEditingSubTitle(true)}
-                    style={{
-                      color: selectedTextColor,
-                      fontSize: "1rem",
-                      marginLeft: "0.5rem",
-                    }}
-                  />
                 </div>
               )}
             </div>
@@ -291,6 +278,11 @@ const Feed = () => {
             onCardFontSelect={handleSelectedFont}
             onTextFontSelect={handleTextFontChange}
             onFontSizeSelect={handleSelectedFontSize}
+            editableMainTitle={handleMainTitleChange}
+            onMainTitleChange={handleMainTitleChange}
+            onSubtitleChange={handleSubtitleChange}
+            mainTitle={editableMainTitle}
+            subTitle={editableSubTitle}
           />
         </div>
       </div>
@@ -431,6 +423,7 @@ const Feed = () => {
                         fontFamily: selectedTextFont,
                         display: "flex",
                         justifyContent: "space-between",
+                        width: "100%",
                       }}
                     >
                       {editableIndex === index ? (
