@@ -19,7 +19,7 @@ const Feed = () => {
   const [selectedFont, setSelectedFont] = useState("Helvetica");
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
   const [selectedFontSize, setSelectedFontSize] = useState(" 12px ");
-  const [editableTitle, setEditableTitle] = useState("");
+  const [editableTitle, setEditableTitle] = useState("#F8F9FA");
   const [editableSummary, setEditableSummary] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
   const [editableMainTitle, setEditableMainTitle] =
