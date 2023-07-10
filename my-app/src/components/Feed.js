@@ -544,7 +544,7 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center mt-1 w-[100vw]">
+      <div className=" flex justify-center mt-1 w-[100vw]" style={{"backgroundColor": "black"}}>
         <form
           id="emailForm"
           action={ FrontendHost() + "/send-email"}
