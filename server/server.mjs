@@ -10,9 +10,14 @@ import HTML_TEMPLATE from "./mail-template.js";
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
+
+const isProd = process.env.NODE_ENV === "production";
+
+const frontendHost = isProd ?  "https://newsletter.tryanote.com" : "http://localhost:3000";
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: frontendHost,
     credentials: true,
     methods: "GET, POST, PUT, DELETE",
   })
@@ -138,7 +143,7 @@ app.get("/run-script", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", frontendHost);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
