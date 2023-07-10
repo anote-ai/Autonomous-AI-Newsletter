@@ -96,8 +96,8 @@ async function main() {
   });
 
   const info = await transporter.sendMail({
-    from: '"HEY HEY HEY" cebacaro@gmail.com"',
-    to: "cebacaro@gmail.com",
+    from: "vidranatan@gmail.com",
+    to: "vidranatan@gmail.com",
     subject: "Hello ✔",
     text: "Hello world?",
     html: html,

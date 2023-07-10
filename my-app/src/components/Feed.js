@@ -15,7 +15,8 @@ const Feed = () => {
   const [fileName, setFileName] = useState("");
   const [selectedCardColor, setSelectedCardColor] = useState("#FFCF56");
   const [selectedTextColor, setSelectedTextColor] = useState("#F8F9FA");
-  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState("#171515");
+  const [selectedBackgroundColor, setSelectedBackgroundColor] =
+    useState("#171515");
   const [selectedFont, setSelectedFont] = useState("Helvetica");
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
   const [selectedFontSize, setSelectedFontSize] = useState("14px");
@@ -175,10 +176,10 @@ const Feed = () => {
 
   return (
     <div
-      className=" w-screen h-screen flex  text-center  flex-col"
+      className=" w-[100vw] h-[100vh] flex  text-center  flex-col"
       style={{ backgroundColor: selectedBackgroundColor }}
     >
-      <div className="flex   text-6xl font-bold mt-10 mb-4 text-white flex-col">
+      <div className="flex   text-5xl font-bold  mb-1 text-white flex-col">
         {isEditingTitle ? (
           <Input
             style={{
@@ -210,7 +211,7 @@ const Feed = () => {
           <div className="flex flex-col">
             <div className="flex text-center justify-center">
               <h1
-                className="text-6xl font-bold mt-10 mb-4 text-white"
+                className="text-6xl font-bold mt-10 mb-2 text-white"
                 style={{ color: selectedTextColor, fontFamily: selectedFont }}
                 onClick={() => setIsEditingTitle(true)}
               >
@@ -287,7 +288,7 @@ const Feed = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col self-center mt-8 h-[65vh] w-[40vw]">
+      <div className="flex flex-col self-center mt-6 h-[65vh] w-[40vw]">
         <form
           nonvalidate="true"
           autoComplete="off"

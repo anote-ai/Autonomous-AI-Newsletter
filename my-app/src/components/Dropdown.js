@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { FormControl, Select, MenuItem } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import Input from "@mui/joy/Input";
 
@@ -61,7 +61,6 @@ const fontSizes = ["10px", "14px", "16px", "18px", "20px"];
 const Dropdown = ({
   selectedCardColor,
   selectedTextColor,
-  backgroundColor,
   selectedBackgroundColor,
   selectedCardFont,
   selectedTextFont,
@@ -103,7 +102,6 @@ const Dropdown = ({
 
   const handleFontSizeChange = (event) => {
     onFontSizeSelect(event.target.value);
-   
   };
 
   const handleColorChange = (event) => {
@@ -152,9 +150,9 @@ const Dropdown = ({
       </Button>
 
       {show && (
-        <div className=" flex flex-col w-[25vw] h-[30vh] gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
+        <div className=" flex flex-col w-[30vw]  gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
           <h2 className="text-black font-bold text-[20px] text-left">Colors</h2>
-          <div className="flex gap-1 w-[24vw]">
+          <div className="flex gap-1 w-[24vw] ">
             <FormControl
               className="bg-[#ffffff]  rounded-md w-[8vw]"
               style={{ border: "1px solid black" }}
@@ -229,7 +227,7 @@ const Dropdown = ({
                   textAlign: "left",
                 }}
               >
-                Background 
+                Background
               </p>
               <Select
                 value={selectedBackgroundColor}
@@ -257,7 +255,7 @@ const Dropdown = ({
               Card Style
             </h2>
           </div>
-          <div className="flex gap-1 w-[24vw]">
+          <div className="flex gap-1 w-[24vw] ">
             {/*e xt Font */}
 
             {/* Card Font */}
@@ -288,7 +286,7 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
-            
+
             <FormControl
               className="bg-[#ffffff] rounded-md w-[8vw] "
               style={{ border: "1px solid black" }}
@@ -310,7 +308,7 @@ const Dropdown = ({
                 className="flex"
               >
                 {fontSizes.map((size, idx) => (
-                  <MenuItem key={idx} value={size} style={{ fontSize: "10px"}}>
+                  <MenuItem key={idx} value={size} style={{ fontSize: "10px" }}>
                     {size}
                   </MenuItem>
                 ))}
@@ -351,7 +349,7 @@ const Dropdown = ({
               </Select>
             </FormControl>
           </div>
-          <div className="flex m-2 gap-2">
+          <div className="flex m-2 gap-2 ">
             <Button
               variant="outlined"
               sx={{
@@ -389,7 +387,7 @@ const Dropdown = ({
               <div>{/* Render main title */}</div>
             )}
           </div>
-          <div className="flex  m-2 gap-2 text-[10px]">
+          <div className="flex  m-2 gap-2 ">
             <Button
               variant="outlined"
               sx={{
