@@ -6,6 +6,7 @@ import { debounce } from "lodash";
 import Input from "@mui/joy/Input";
 import Dropdown from "./Dropdown";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import { FrontendHost, BackendHost } from "../util/Host"
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -33,7 +34,7 @@ const Feed = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/run-script?key_word=${searchTerm}`
+          BackendHost() + `/run-script?key_word=${searchTerm}`
         );
         if (!response.ok) {
           const message = `An error has occurred: ${response.status} - ${response.statusText}`;
@@ -118,7 +119,7 @@ const Feed = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/run-script?key_word=${searchTerm}`
+        BackendHost() + `/run-script?key_word=${searchTerm}`
       );
 
       if (!response.ok) {
@@ -157,7 +158,7 @@ const Feed = () => {
     formData.append("editableSummary", editableSummary);
 
     try {
-      const response = await fetch("http://localhost:3001/send-email", {
+      const response = await fetch(FrontendHost() + "/send-email", {
         method: "POST",
         body: formData,
       });
@@ -546,7 +547,7 @@ const Feed = () => {
       <div className=" flex justify-center mt-1 w-[100vw]">
         <form
           id="emailForm"
-          action="http://localhost:3000/send-email"
+          action={ FrontendHost() + "/send-email"}
           method="POST"
           className="bottom-3  flex flex-row justify-between bg-transparent  w-[30vw] rounded-lg"
         >
