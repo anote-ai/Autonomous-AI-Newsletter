@@ -6,6 +6,8 @@ import { debounce } from "lodash";
 import Input from "@mui/joy/Input";
 import Dropdown from "./Dropdown";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import HelpIcon from "@mui/icons-material/Help";
+import Modal from "./Modal";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -29,6 +31,11 @@ const Feed = () => {
   );
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingSubTitle, setIsEditingSubTitle] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [openInstructions, setOpenInstructions] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,8 +112,11 @@ const Feed = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
+    if (!file) {
+      setError(true);
+    } else {
       setFileName(file.name);
+      setError(false);
     }
   };
 
@@ -156,6 +166,13 @@ const Feed = () => {
     formData.append("editableSubTitle", editableSubTitle);
     formData.append("editableTitle", editableTitle);
     formData.append("editableSummary", editableSummary);
+    if (email) {
+      formData.append("email", email);
+      formData.append("password", password);
+    } else {
+      formData.append("email", "cebacaro@gmail.com");
+      formData.append("password", "hcrwlakzxkjcvclx");
+    }
 
     try {
       const response = await fetch("http://localhost:3001/send-email", {
@@ -165,6 +182,8 @@ const Feed = () => {
 
       if (response.ok) {
         console.log("Email sent successfully");
+        setEmail("");
+        setPassword("");
       } else {
         console.log("Failed to send email");
       }
@@ -250,7 +269,7 @@ const Feed = () => {
               ) : (
                 <div className="flex justify-center">
                   <h3
-                    className="text-[22px] font-bold"
+                    className="text-[22px] font-bold mb-0"
                     style={{
                       color: selectedTextColor,
                       fontFamily: selectedFont,
@@ -266,7 +285,7 @@ const Feed = () => {
           </div>
         )}
 
-        <div className="flex justify-end w-[95vw]">
+        <div className="flex justify-end w-[30vw] ml-[65%]">
           <Dropdown
             selectedCardColor={selectedCardColor}
             selectedTextColor={selectedTextColor}
@@ -287,11 +306,11 @@ const Feed = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col self-center mt-6 h-[65vh] w-[40vw]">
+      <div className="flex flex-col self-center mt-0 h-[65vh] w-[40vw]">
         <form
           nonvalidate="true"
           autoComplete="off"
-          className=" gap-5 flex flex-row justify-center items-center"
+          className=" gap-4 flex flex-row justify-center mt-0 items-center"
         >
           <TextField
             nonvalidate="true"
@@ -369,13 +388,14 @@ const Feed = () => {
               color: "black",
               background: "#28B2FB",
               height: 40,
+              width: "150px",
+              fontSize: "12px",
               "&:hover": {
                 color: "white",
                 borderColor: "#28B2FB",
                 background: "#81ccf4",
               },
             }}
-            className="bg-zinc-950"
             onClick={handleHealthTechClick}
           >
             Health Tech
@@ -388,6 +408,8 @@ const Feed = () => {
               color: "black",
               background: "#ECCA42",
               height: 40,
+              fontSize: "12px",
+              width: "200px",
               "&:hover": {
                 color: "white",
                 borderColor: "#ECCA42",
@@ -549,7 +571,7 @@ const Feed = () => {
           id="emailForm"
           action="http://localhost:3000/send-email"
           method="POST"
-          className="bottom-3  flex flex-row justify-between bg-transparent  w-[30vw] rounded-lg"
+          className="bottom-3  flex flex-row justify-between bg-transparent align-middle w-[40vw]  rounded-lg"
         >
           <Button
             variant="contained"
@@ -557,6 +579,7 @@ const Feed = () => {
             startIcon={<CloudUploadIcon />}
             sx={{
               backgroundColor: "#28B2FB",
+
               color: "black", // Replace with your desired color
               "&:hover": {
                 backgroundColor: "#81ccf4", // Replace with your desired hover color
@@ -574,7 +597,7 @@ const Feed = () => {
               onChange={handleFileChange}
             />
           </Button>
-          {fileName && <p className="text-white"> {fileName}</p>}
+          {fileName && <p className="text-white w-10"> {fileName}</p>}
           <Button
             nonvalidate="true"
             variant="outlined"
@@ -589,11 +612,203 @@ const Feed = () => {
               height: 40,
               position: "relative",
             }}
-            onClick={sendEmail}
+            onClick={() => {
+              if (!fileName) {
+                setError(true);
+              } else {
+                setError(false);
+                setIsOpen(false);
+                sendEmail(email, password);
+              }
+            }}
           >
             Send
           </Button>
+          {error && (
+            <label
+              className="text-red"
+              style={{ color: "red", marginLeft: "1rem" }}
+            >
+              Files needs to be loaded.
+            </label>
+          )}
         </form>
+        <Button
+          variant="outlined"
+          nonvalidate="true"
+          sx={{
+            color: "black",
+            background: "#11cb5f",
+            height: 40,
+            position: "absolute",
+            left: "78%",
+          }}
+          onClick={() => setIsOpen(true)}
+        >
+          Send from your Email
+        </Button>
+      </div>
+      <div>
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          <div className="flex flex-col gap-10 ">
+            <div className="flex flex-col justify-center text-white">
+              <h1 className="text-1xl text-left justify-start flex">Email</h1>
+              <Input
+                placeholder="email"
+                className="w-[80%]"
+                value={email}
+                id="email"
+                onChange={(e) => setEmail(e.target.value)}
+              ></Input>
+            </div>
+            <div className="flex flex-col justify-center text-white ">
+              <h1 className="text-1xl text-left justify-start flex">
+                Email-Key
+              </h1>
+              <div className="flex justify-between w-[100%] flex-col">
+                <div className="flex mb-12">
+                  <Input
+                    placeholder="exp: jsunemolpsyneduc"
+                    className="w-[80%]"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  ></Input>
+                  <HelpIcon
+                    style={{
+                      fontSize: "large",
+                      alignItems: "center",
+                      margin: "auto",
+                    }}
+                    onClick={() => setOpenInstructions(true)}
+                  />
+                </div>
+                <div className="flex m-auto flex-col">
+                  <Button
+                    nonvalidate="true"
+                    variant="outlined"
+                    sx={{
+                      color: "black",
+                      background: "#11cb5f",
+                      "&:hover": {
+                        color: "white",
+                        borderColor: "#11cb5f",
+                        background: "#75f7ab",
+                      },
+                      height: 40,
+                      position: "relative",
+                    }}
+                    onClick={() => {
+                      if (!fileName) {
+                        setError(true);
+                      } else {
+                        setError(false);
+                        setIsOpen(false);
+                        sendEmail(email, password);
+                      }
+                    }}
+                  >
+                    Send
+                  </Button>
+                  {error && (
+                    <label className="text-red" style={{ color: "red" }}>
+                      Files needs to be loaded.
+                    </label>
+                  )}
+                </div>
+                <Modal
+                  open={openInstructions}
+                  onClose={() => setOpenInstructions(false)}
+                  style={{
+                    width: "30%",
+                    left: "80%",
+                  }}
+                >
+                  <div className="flex flex-col text-sm h-[97%] ">
+                    <h1 className="text-[20px] mb-4 underline text-white ">
+                      Where to find your email key?
+                    </h1>
+                    <div className="overflow-y-scroll   scrollbar-thin text-white ">
+                      <ul className="text-1xl mt-4 gap-4 list-decimal m-4">
+                        <li>
+                          Go to <strong> 'Manage your google account'</strong>{" "}
+                          section.{" "}
+                        </li>
+                        <br />
+
+                        <li>
+                          Go to <strong>Security.</strong>
+                        </li>
+                        <img
+                          src={require("../Images/pic1.png")}
+                          alt="email"
+                          className="w-40 h-auto"
+                        />
+                        <br />
+                        <li>
+                          Click on <strong>2-Step Verification.</strong>
+                        </li>
+                        <img
+                          src={require("../Images/pic2.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                        <br />
+                        <li>Insert your password and click next.</li>
+                        <img
+                          src={require("../Images/pic3.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                        <br />
+                        <li>
+                          Scroll to the bottom of the page and click{" "}
+                          <strong>App password</strong>.
+                        </li>
+                        <img
+                          src={require("../Images/pic4.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                        <br />
+                        <li>
+                          On the <strong>Select app</strong> dropdown section
+                          select <strong>Mail</strong>.{" "}
+                        </li>
+                        <img
+                          src={require("../Images/pic5.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                        <br />
+                        <li>
+                          On the <strong>Select device</strong> dropdown section
+                          select the device you are using.
+                        </li>
+                        <img
+                          src={require("../Images/pic6.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                        <br />
+                        <li>
+                          Click <strong>GENERATE</strong> button to generate
+                          your email key.
+                        </li>
+                        <img
+                          src={require("../Images/pic7.png")}
+                          alt="email"
+                          className="w-50 h-auto"
+                        />
+                      </ul>
+                    </div>
+                    {/* Add more content here as needed */}
+                  </div>
+                </Modal>
+              </div>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

@@ -21,17 +21,6 @@ app.use(
 app.use(express.json());
 app.use(router);
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: "cebacaro@gmail.com",
-    pass: "hcrwlakzxkjcvclx",
-  },
-});
-
 app.post("/send-email", upload.single("emailList"), async (req, res) => {
   const file = req.file;
   const {
@@ -46,12 +35,36 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
     editableSubTitle,
     editableTitle,
     editableSummary,
+    email,
+    password,
   } = req.body;
+
+  let recipientEmail;
+  let recipientPassword;
 
   if (!file) {
     res.status(400).json({ message: "No file uploaded" });
     return;
   }
+
+  if (email) {
+    recipientEmail = email;
+    recipientPassword = password;
+  } else {
+    recipientEmail = "cebacaro@gmail.com";
+    recipientPassword = "hcrwlakzxkjcvclx";
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: recipientEmail,
+      pass: recipientPassword,
+    },
+  });
 
   const mailOptions = {
     from: "<sender@gmail.com>",

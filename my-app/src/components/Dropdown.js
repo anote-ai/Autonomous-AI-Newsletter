@@ -152,15 +152,15 @@ const Dropdown = ({
       {show && (
         <div className=" flex flex-col w-[30vw]  gap-4 bg-[#fefffe87] mr-10 border-[#0000005f] border-solid border-2  p-2 absolute top-10 rounded-lg mt-4">
           <h2 className="text-black font-bold text-[20px] text-left">Colors</h2>
-          <div className="flex gap-1 w-[24vw] ">
+          <div className="flex gap-2  justify-between ">
             <FormControl
-              className="bg-[#ffffff]  rounded-md w-[8vw]"
+              className="bg-[#ffffff]  rounded-md w-[9vw]"
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
@@ -181,13 +181,13 @@ const Dropdown = ({
               </Select>
             </FormControl>
             <FormControl
-              className="bg-[#ffffff] rounded-md  w-[8vw]"
+              className="bg-[#ffffff] rounded-md  w-[9vw]"
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
@@ -215,13 +215,13 @@ const Dropdown = ({
               </Select>
             </FormControl>
             <FormControl
-              className="bg-[#ffffff] rounded-md w-[8vw]"
+              className="bg-[#ffffff] rounded-md w-[9vw]"
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
@@ -255,18 +255,18 @@ const Dropdown = ({
               Card Style
             </h2>
           </div>
-          <div className="flex gap-1 w-[24vw] ">
+          <div className="flex gap-2 justify-between ">
             {/*e xt Font */}
 
             {/* Card Font */}
             <FormControl
-              className="bg-[#ffffff] rounded-md  w-[8vw]"
+              className="bg-[#ffffff] rounded-md  w-[9vw]"
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
@@ -288,13 +288,13 @@ const Dropdown = ({
             </FormControl>
 
             <FormControl
-              className="bg-[#ffffff] rounded-md w-[8vw] "
+              className="bg-[#ffffff] rounded-md w-[9vw] "
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
@@ -315,13 +315,13 @@ const Dropdown = ({
               </Select>
             </FormControl>
             <FormControl
-              className="bg-[#ffffff] rounded-md w-[8vw]"
+              className="bg-[#ffffff] rounded-md w-[9vw]"
               style={{ border: "1px solid black" }}
             >
               <p
                 style={{
                   color: "black",
-                  fontSize: "8px",
+                  fontSize: "6px",
                   fontWeight: "lighter",
                   padding: "0.5rem",
                   textAlign: "left",
