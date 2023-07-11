@@ -8,6 +8,7 @@ import Dropdown from "./Dropdown";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import Modal from "./Modal";
+import { FrontendHost, BackendHost } from "../util/Host"
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -41,7 +42,7 @@ const Feed = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/run-script?key_word=${searchTerm}`
+          BackendHost() + `/run-script?key_word=${searchTerm}`
         );
         if (!response.ok) {
           const message = `An error has occurred: ${response.status} - ${response.statusText}`;
@@ -129,7 +130,7 @@ const Feed = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/run-script?key_word=${searchTerm}`
+        BackendHost() + `/run-script?key_word=${searchTerm}`
       );
 
       if (!response.ok) {
@@ -175,7 +176,7 @@ const Feed = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/send-email", {
+      const response = await fetch(FrontendHost() + "/send-email", {
         method: "POST",
         body: formData,
       });
@@ -566,10 +567,10 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center mt-1 w-[100vw]">
+      <div className=" flex justify-center mt-1 w-[100vw]" style={{"backgroundColor": "black"}}>
         <form
           id="emailForm"
-          action="http://localhost:3000/send-email"
+          action={ FrontendHost() + "/send-email"}
           method="POST"
           className="bottom-3  flex flex-row justify-between bg-transparent align-middle w-[40vw]  rounded-lg"
         >
