@@ -153,7 +153,8 @@ const Feed = () => {
 
   let sendEmail = async () => {
     const emailList = document.getElementById("emailList").files[0];
-
+    console.log("emailList")
+    console.log(emailList)
     const formData = new FormData();
     formData.append("emailList", emailList);
     formData.append("message", JSON.stringify(data.data));
@@ -174,13 +175,15 @@ const Feed = () => {
       formData.append("email", "cebacaro@gmail.com");
       formData.append("password", "hcrwlakzxkjcvclx");
     }
-
     try {
-      const response = await fetch(FrontendHost() + "/send-email", {
+      //http://localhost:3001/
+      //const response = await fetch("http://localhost:3001/send-email",
+      const response = await fetch(BackendHost() + "/send-email", {
         method: "POST",
         body: formData,
       });
-
+      console.log("response")
+      console.log(response)
       if (response.ok) {
         console.log("Email sent successfully");
         setEmail("");
@@ -567,10 +570,10 @@ const Feed = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center mt-1 w-[100vw]" style={{"backgroundColor": "black"}}>
+      <div className=" flex justify-center mt-1 w-[100vw]">
         <form
           id="emailForm"
-          action={ FrontendHost() + "/send-email"}
+          action={ BackendHost() + "/send-email"}
           method="POST"
           className="bottom-3  flex flex-row justify-between bg-transparent align-middle w-[40vw]  rounded-lg"
         >
