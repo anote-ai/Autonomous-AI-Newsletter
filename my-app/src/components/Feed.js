@@ -8,7 +8,7 @@ import Dropdown from "./Dropdown";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import Modal from "./Modal";
-import { FrontendHost, BackendHost } from "../util/Host"
+import { FrontendHost, BackendHost } from "../util/Host";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -153,8 +153,8 @@ const Feed = () => {
 
   let sendEmail = async () => {
     const emailList = document.getElementById("emailList").files[0];
-    console.log("emailList")
-    console.log(emailList)
+    console.log("emailList");
+    console.log(emailList);
     const formData = new FormData();
     formData.append("emailList", emailList);
     formData.append("message", JSON.stringify(data.data));
@@ -182,8 +182,8 @@ const Feed = () => {
         method: "POST",
         body: formData,
       });
-      console.log("response")
-      console.log(response)
+      console.log("response");
+      console.log(response);
       if (response.ok) {
         console.log("Email sent successfully");
         setEmail("");
@@ -573,7 +573,7 @@ const Feed = () => {
       <div className=" flex justify-center mt-1 w-[100vw]">
         <form
           id="emailForm"
-          action={ BackendHost() + "/send-email"}
+          action={BackendHost() + "/send-email"}
           method="POST"
           className="bottom-3  flex flex-row justify-between bg-transparent align-middle w-[40vw]  rounded-lg"
         >
@@ -583,7 +583,7 @@ const Feed = () => {
             startIcon={<CloudUploadIcon />}
             sx={{
               backgroundColor: "#28B2FB",
-
+              height: "40px",
               color: "black", // Replace with your desired color
               "&:hover": {
                 backgroundColor: "#81ccf4", // Replace with your desired hover color
@@ -601,7 +601,9 @@ const Feed = () => {
               onChange={handleFileChange}
             />
           </Button>
-          {fileName && <p className="text-white w-10"> {fileName}</p>}
+          {fileName && (
+            <p className="text-white text-sm h-10 w-[20%]]"> {fileName}</p>
+          )}
           <Button
             nonvalidate="true"
             variant="outlined"
