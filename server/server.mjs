@@ -57,8 +57,7 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
 
   let recipientEmail;
   let recipientPassword;
-  console.log("file")
-  console.log(file)
+
   if (!file) {
     res.status(400).json({ message: "No file uploaded" });
     return;
@@ -72,7 +71,7 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
     recipientEmail = "vidranatan@gmail.com";
     recipientPassword = "fhytlgpsjyzutlnm";
   }
-  console.log("CHECKPOINT")
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -83,7 +82,7 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
       pass: recipientPassword,
     },
   });
-  console.log("CHECKPOINT-2")
+
   const mailOptions = {
     from: "<sender@gmail.com>",
     subject: "Your Newsletter",
@@ -102,16 +101,14 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
       editableSummary
     ),
   };
-  console.log("CHECKPOINT-3")
+
   try {
     fs.createReadStream(file.path) // Read the uploaded CSV file
       .pipe(csv())
       .on("data", async (row) => {
         const to = row.Email; // Assuming the email field is named "email" in the CSV
         mailOptions.to = to;
-        console.log("CHECKPOINT-4")
         try {
-          console.log("CHECKPOINT-5")
           await transporter.sendMail(mailOptions);
           console.log("Email sent successfully to:");
         } catch (error) {
