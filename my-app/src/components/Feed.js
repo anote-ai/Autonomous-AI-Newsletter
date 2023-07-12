@@ -25,6 +25,7 @@ const Feed = () => {
   const [editableTitle, setEditableTitle] = useState("");
   const [editableDate, setEditableDate] = useState("");
   const [editableSummary, setEditableSummary] = useState("");
+  const [editableUrl, setEditableUrl] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
   const [editableMainTitle, setEditableMainTitle] =
     useState("Newsletter Creator");
@@ -154,8 +155,6 @@ const Feed = () => {
 
   let sendEmail = async () => {
     const emailList = document.getElementById("emailList").files[0];
-    console.log("emailList");
-    console.log(emailList);
     const formData = new FormData();
     formData.append("emailList", emailList);
     formData.append("message", JSON.stringify(data.data));
@@ -170,6 +169,7 @@ const Feed = () => {
     formData.append("editableTitle", editableTitle);
     formData.append("editableSummary", editableSummary);
     formData.append("editableDate", editableDate);
+    formData.append("editableUrl", editableUrl);
     if (email) {
       formData.append("email", email);
       formData.append("password", password);
@@ -490,6 +490,7 @@ const Feed = () => {
                               setEditableTitle(item.title);
                               setEditableSummary(item.summary);
                               setEditableDate(item.date);
+                              setEditableUrl(item.url);
                               setEditableIndex(index);
                             }}
                             style={{ color: selectedTextColor }}
@@ -551,7 +552,7 @@ const Feed = () => {
                           style={{
                             color: selectedTextColor,
                             width: "100%",
-                            padding: "10px",
+                            padding: "8px",
                             backgroundColor: selectedCardColor,
                             borderRadius: "10px",
                             border: "1px solid black",
@@ -578,12 +579,7 @@ const Feed = () => {
                         <p>{item.summary}</p>
                       )}
                     </h2>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{}}
-                    >
+                    <h3>
                       <p
                         className="text-neutral-900 text-[15px] bg-orange-300 rounded-lg"
                         style={{
@@ -592,9 +588,46 @@ const Feed = () => {
                           fontFamily: selectedTextFont,
                         }}
                       >
-                        {item.url}
+                        {editableIndex === index ? (
+                          <input
+                            style={{
+                              color: selectedTextColor,
+                              width: "100%",
+                              padding: "8px",
+                              backgroundColor: selectedCardColor,
+                              borderRadius: "10px",
+                              border: "1px solid black",
+
+                              display: "block",
+                            }}
+                            type="text"
+                            value={editableUrl}
+                            onChange={(e) => setEditableUrl(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                // Save the updated title in the data array
+                                const newData = [...data.data];
+                                newData[index].url = editableUrl;
+                                setData({ data: newData });
+
+                                // Reset the state variables
+                                setEditableUrl("");
+                                setEditableIndex(-1);
+                              }
+                            }}
+                          />
+                        ) : (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{}}
+                          >
+                            {item.url}
+                          </a>
+                        )}
                       </p>
-                    </a>
+                    </h3>
                   </div>
                 ))}
               </div>
@@ -773,8 +806,13 @@ const Feed = () => {
                       <ul className="text-1xl mt-4 gap-4 list-decimal m-4">
                         <li>
                           Go to <strong> 'Manage your google account'</strong>{" "}
-                          section.{" "}
+                          section on the top right corner of your browser.{" "}
                         </li>
+                        <img
+                          src={require("../Images/pic.png")}
+                          alt="email"
+                          className="w-40 h-auto"
+                        />
                         <br />
 
                         <li>
