@@ -8,7 +8,7 @@ import Dropdown from "./Dropdown";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import Modal from "./Modal";
-import { FrontendHost, BackendHost } from "../util/Host";
+import { BackendHost } from "../util/Host";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -18,13 +18,14 @@ const Feed = () => {
   const [selectedCardColor, setSelectedCardColor] = useState("#FFCF56");
   const [selectedTextColor, setSelectedTextColor] = useState("#F8F9FA");
   const [selectedBackgroundColor, setSelectedBackgroundColor] =
-    useState("#171515");
+    useState("black");
   const [selectedFont, setSelectedFont] = useState("Helvetica");
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
   const [selectedFontSize, setSelectedFontSize] = useState("14px");
   const [editableTitle, setEditableTitle] = useState("");
   const [editableDate, setEditableDate] = useState("");
   const [editableSummary, setEditableSummary] = useState("");
+  const [editableUrl, setEditableUrl] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
   const [editableMainTitle, setEditableMainTitle] =
     useState("Newsletter Creator");
@@ -65,6 +66,21 @@ const Feed = () => {
       debouncedFetchData.cancel();
     };
   }, [searchTerm]);
+
+  const handleFieldUpdate = (index) => {
+    const newData = [...data.data];
+    newData[index].title = editableTitle;
+    newData[index].date = editableDate;
+    newData[index].summary = editableSummary;
+    newData[index].url = editableUrl;
+    setData({ data: newData });
+
+    setEditableIndex(-1);
+    setEditableTitle("");
+    setEditableDate("");
+    setEditableSummary("");
+    setEditableUrl("");
+  };
 
   const handleMainTitleChange = (newTitle) => {
     setEditableMainTitle(newTitle);
@@ -204,6 +220,14 @@ const Feed = () => {
       style={{ backgroundColor: selectedBackgroundColor }}
     >
       <div className="flex   text-5xl font-bold  mb-1 text-white flex-col">
+        <div className="absolute top-6 left-10 flex-row flex ">
+          <img
+            src={require("../Images/logo.png")}
+            alt=""
+            className="h-6 w-6 "
+          />
+          <h1 className="ml-[-2] absolute left-4 text-[25px]">Anote</h1>
+        </div>
         {isEditingTitle ? (
           <Input
             style={{
@@ -470,14 +494,7 @@ const Feed = () => {
                           onChange={(e) => setEditableTitle(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                              // Save the updated title in the data array
-                              const newData = [...data.data];
-                              newData[index].title = editableTitle;
-                              setData({ data: newData });
-
-                              // Reset the state variables
-                              setEditableTitle("");
-                              setEditableIndex(-1);
+                              handleFieldUpdate(index);
                             }
                           }}
                         />
@@ -490,6 +507,7 @@ const Feed = () => {
                               setEditableTitle(item.title);
                               setEditableSummary(item.summary);
                               setEditableDate(item.date);
+                              setEditableUrl(item.url);
                               setEditableIndex(index);
                             }}
                             style={{ color: selectedTextColor }}
@@ -514,6 +532,7 @@ const Feed = () => {
                             color: selectedTextColor,
                             width: "100%",
                             padding: "5px",
+                            fontSize: "8px",
                             backgroundColor: selectedCardColor,
                             borderRadius: "10px",
                             border: "1px solid black",
@@ -523,19 +542,12 @@ const Feed = () => {
                           onChange={(e) => setEditableDate(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                              // Save the updated title in the data array
-                              const newData = [...data.data];
-                              newData[index].date = editableDate;
-                              setData({ data: newData });
-
-                              // Reset the state variables
-                              setEditableDate("");
-                              setEditableIndex(-1);
+                              handleFieldUpdate(index);
                             }
                           }}
                         />
                       ) : (
-                        <>{item.date}</>
+                        <h3 className="text-[8px]">{item.date}</h3>
                       )}
                     </h1>
                     <h2
@@ -555,7 +567,7 @@ const Feed = () => {
                             backgroundColor: selectedCardColor,
                             borderRadius: "10px",
                             border: "1px solid black",
-                            height: "200px",
+                            height: "100px",
                             display: "block",
                           }}
                           type="text"
@@ -563,14 +575,7 @@ const Feed = () => {
                           onChange={(e) => setEditableSummary(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                              // Save the updated title in the data array
-                              const newData = [...data.data];
-                              newData[index].summary = editableSummary;
-                              setData({ data: newData });
-
-                              // Reset the state variables
-                              setEditableSummary("");
-                              setEditableIndex(-1);
+                              handleFieldUpdate(index);
                             }
                           }}
                         />
@@ -578,12 +583,7 @@ const Feed = () => {
                         <p>{item.summary}</p>
                       )}
                     </h2>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{}}
-                    >
+                    <h2 style={{}}>
                       <p
                         className="text-neutral-900 text-[15px] bg-orange-300 rounded-lg"
                         style={{
@@ -592,9 +592,37 @@ const Feed = () => {
                           fontFamily: selectedTextFont,
                         }}
                       >
-                        {item.url}
+                        {editableIndex === index ? (
+                          <textarea
+                            style={{
+                              color: selectedTextColor,
+                              width: "100%",
+                              padding: "5px",
+                              backgroundColor: selectedCardColor,
+                              borderRadius: "10px",
+                              border: "1px solid black",
+                            }}
+                            type="text"
+                            value={editableUrl}
+                            onChange={(e) => setEditableUrl(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                handleFieldUpdate(index);
+                              }
+                            }}
+                          />
+                        ) : (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[8px]"
+                          >
+                            {item.url}
+                          </a>
+                        )}
                       </p>
-                    </a>
+                    </h2>
                   </div>
                 ))}
               </div>
@@ -680,6 +708,11 @@ const Feed = () => {
           sx={{
             color: "black",
             background: "#11cb5f",
+            "&:hover": {
+              color: "white",
+              borderColor: "#11cb5f",
+              background: "#75f7ab",
+            },
             height: 40,
             position: "absolute",
             left: "78%",
@@ -773,8 +806,13 @@ const Feed = () => {
                       <ul className="text-1xl mt-4 gap-4 list-decimal m-4">
                         <li>
                           Go to <strong> 'Manage your google account'</strong>{" "}
-                          section.{" "}
+                          section on the top right corner of your browser.{" "}
                         </li>
+                        <img
+                          src={require("../Images/pic.png")}
+                          alt="email"
+                          className="w-40 h-auto"
+                        />
                         <br />
 
                         <li>
