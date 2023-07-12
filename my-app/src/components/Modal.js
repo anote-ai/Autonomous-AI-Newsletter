@@ -34,7 +34,7 @@ function Modal({ open, children, onClose, style }) {
       <div style={{ ...modalStyle, ...style }}>
         <Button
           onClick={onClose}
-          sx={{ position: "absolute", top: "0", right: "0" }}
+          sx={{ position: "absolute", top: "0", right: "0", color: "white" }}
         >
           Close
         </Button>
