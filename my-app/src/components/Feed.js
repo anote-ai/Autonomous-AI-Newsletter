@@ -23,6 +23,7 @@ const Feed = () => {
   const [selectedTextFont, setSelectedTextFont] = useState("Helvetica");
   const [selectedFontSize, setSelectedFontSize] = useState("14px");
   const [editableTitle, setEditableTitle] = useState("");
+  const [editableDate, setEditableDate] = useState("");
   const [editableSummary, setEditableSummary] = useState("");
   const [editableIndex, setEditableIndex] = useState(-1);
   const [editableMainTitle, setEditableMainTitle] =
@@ -168,6 +169,7 @@ const Feed = () => {
     formData.append("editableSubTitle", editableSubTitle);
     formData.append("editableTitle", editableTitle);
     formData.append("editableSummary", editableSummary);
+    formData.append("editableDate", editableDate);
     if (email) {
       formData.append("email", email);
       formData.append("password", password);
@@ -487,6 +489,7 @@ const Feed = () => {
                               // Start editing the title
                               setEditableTitle(item.title);
                               setEditableSummary(item.summary);
+                              setEditableDate(item.date);
                               setEditableIndex(index);
                             }}
                             style={{ color: selectedTextColor }}
@@ -496,12 +499,44 @@ const Feed = () => {
                     </h1>
 
                     <h1
-                      className="text-neutral-900 text-[10px] "
+                      className="text-neutral-900 text-[18px] font-bold"
                       style={{
                         color: selectedTextColor,
+                        fontFamily: selectedTextFont,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
                       }}
                     >
-                      {item.date}
+                      {editableIndex === index ? (
+                        <input
+                          style={{
+                            color: selectedTextColor,
+                            width: "100%",
+                            padding: "5px",
+                            backgroundColor: selectedCardColor,
+                            borderRadius: "10px",
+                            border: "1px solid black",
+                          }}
+                          type="text"
+                          value={editableDate}
+                          onChange={(e) => setEditableDate(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              // Save the updated title in the data array
+                              const newData = [...data.data];
+                              newData[index].date = editableDate;
+                              setData({ data: newData });
+
+                              // Reset the state variables
+                              setEditableDate("");
+                              setEditableIndex(-1);
+                            }
+                          }}
+                        />
+                      ) : (
+                        <>{item.date}</>
+                      )}
                     </h1>
                     <h2
                       className="text-neutral-900 text-left py-2"
