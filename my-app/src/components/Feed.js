@@ -547,7 +547,7 @@ const Feed = () => {
                           }}
                         />
                       ) : (
-                        <h3 className="text-[8px]">{item.date}</h3>
+                        <p className="text-[8px]">{item.date}</p>
                       )}
                     </h1>
                     <h2
@@ -616,7 +616,9 @@ const Feed = () => {
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[8px]"
+                            style={{
+                              fontSize: "14px",
+                            }}
                           >
                             {item.url}
                           </a>
