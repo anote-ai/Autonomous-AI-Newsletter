@@ -219,15 +219,19 @@ const Feed = () => {
       className=" w-[100vw] h-[100vh] flex  text-center  flex-col"
       style={{ backgroundColor: selectedBackgroundColor }}
     >
-      <div className="flex   text-5xl font-bold  mb-1 text-white flex-col">
-        <div className="absolute top-6 left-10 flex-row flex ">
-          <img
-            src={require("../Images/logo.png")}
-            alt=""
-            className="h-6 w-6 "
-          />
-          <h1 className="ml-[-2] absolute left-4 text-[25px]">Anote</h1>
+      <div className="flex  text-1xl font-bold text-5xl font-bold  mb-1 text-white flex-col">
+      <a href="https://anote.ai">
+        <div className="absolute top-6 left-8 flex-row flex ">
+
+            <img
+              src={require("../Images/logo.png")}
+              alt=""
+              className="h-6 w-6 "
+            />
+            <h1 className="ml-[-2] absolute left-5 text-[25px]">Anote</h1>
+
         </div>
+        </a>
         {isEditingTitle ? (
           <Input
             style={{
