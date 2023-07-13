@@ -85,7 +85,7 @@ app.post("/send-email", upload.single("emailList"), async (req, res) => {
 
   const mailOptions = {
     from: "<sender@gmail.com>",
-    subject: "Your Newsletter",
+    subject: `${editableMainTitle} - ${editableSubTitle}`,
     text: message,
     html: HTML_TEMPLATE(
       message,

@@ -190,8 +190,8 @@ const Feed = () => {
       formData.append("email", email);
       formData.append("password", password);
     } else {
-      formData.append("email", "cebacaro@gmail.com");
-      formData.append("password", "hcrwlakzxkjcvclx");
+      formData.append("email", "vidranatan@gmail.com");
+      formData.append("password", "fhytlgpsjyzutlnm");
     }
     try {
       //http://localhost:3001/
