@@ -132,14 +132,12 @@ const Dropdown = ({
         sx={{
           color: "black",
           marginBottom: "1rem",
-          background: "#11cb5f",
+          background: "#28b2fb",
           fontWeight: "bold",
           padding: "0.5rem",
           top: 10,
           "&:hover": {
-            color: "white",
-            borderColor: "#11cb5f",
-            background: "#75f7ab",
+            background: "#81ccf4",
           },
           height: 40,
           width: 250,
@@ -354,12 +352,10 @@ const Dropdown = ({
               variant="outlined"
               sx={{
                 color: "black",
-                background: "#11cb5f",
+                background: "#28b2fb",
                 height: 40,
                 "&:hover": {
-                  color: "white",
-                  borderColor: "#11cb5f",
-                  background: "#75f7ab",
+                  background: "#81ccf4",
                 },
               }}
               onClick={handleMainTitleEditing}
@@ -392,12 +388,10 @@ const Dropdown = ({
               variant="outlined"
               sx={{
                 color: "black",
-                background: "#11cb5f",
+                background: "#28b2fb",
                 height: 40,
                 "&:hover": {
-                  color: "white",
-                  borderColor: "#11cb5f",
-                  background: "#75f7ab",
+                  background: "#81ccf4",
                 },
               }}
               onClick={handleSubTitleEditing}

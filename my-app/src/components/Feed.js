@@ -383,11 +383,9 @@ const Feed = () => {
             sx={{
               color: "black",
               marginRight: 4,
-              background: "#11cb5f",
+              background: "#28b2fb",
               "&:hover": {
-                color: "white",
-                borderColor: "#11cb5f",
-                background: "#75f7ab",
+                background: "#81ccf4",
               },
               height: 40,
             }}
@@ -402,13 +400,11 @@ const Feed = () => {
             variant="outlined"
             sx={{
               color: "black",
-              background: "#fe00fe",
+              background: "cyan",
               height: 40,
-
+              fontSize: "12px",
               "&:hover": {
-                color: "white",
-                borderColor: "#fe00fe",
-                background: "#f87bf8",
+                background: "#28b2fb",
               },
             }}
             onClick={handleTrendingClick}
@@ -420,14 +416,12 @@ const Feed = () => {
             variant="outlined"
             sx={{
               color: "black",
-              background: "#28B2FB",
+              background: "cyan",
               height: 40,
               width: "150px",
               fontSize: "12px",
               "&:hover": {
-                color: "white",
-                borderColor: "#28B2FB",
-                background: "#81ccf4",
+                background: "#28b2fb",
               },
             }}
             onClick={handleHealthTechClick}
@@ -440,14 +434,12 @@ const Feed = () => {
             variant="outlined"
             sx={{
               color: "black",
-              background: "#ECCA42",
+              background: "cyan",
               height: 40,
               fontSize: "12px",
               width: "200px",
               "&:hover": {
-                color: "white",
-                borderColor: "#ECCA42",
-                background: "#ffe26f",
+                background: "#28b2fb",
               },
             }}
             className="bg-zinc-950 "
@@ -673,7 +665,7 @@ const Feed = () => {
           {fileName && (
             <p className="text-white text-sm h-10 w-[20%]]"> {fileName}</p>
           )}
-          <Button
+          {/*<Button
             nonvalidate="true"
             variant="outlined"
             sx={{
@@ -698,7 +690,7 @@ const Feed = () => {
             }}
           >
             Send
-          </Button>
+          </Button>*/}
           {error && (
             <label
               className="text-red"
@@ -713,15 +705,14 @@ const Feed = () => {
           nonvalidate="true"
           sx={{
             color: "black",
-            background: "#11cb5f",
+            background: "#28B2FB",
             "&:hover": {
-              color: "white",
-              borderColor: "#11cb5f",
-              background: "#75f7ab",
+              background: "#81ccf4",
             },
             height: 40,
-            position: "absolute",
-            left: "78%",
+            // position: "absolute",
+            // left: "78%",
+            position: "relative",
           }}
           onClick={() => setIsOpen(true)}
         >
@@ -769,11 +760,11 @@ const Feed = () => {
                     variant="outlined"
                     sx={{
                       color: "black",
-                      background: "#11cb5f",
+                      background: "#28b2fb",
                       "&:hover": {
                         color: "white",
                         borderColor: "#11cb5f",
-                        background: "#75f7ab",
+                        background: "#81ccf4",
                       },
                       height: 40,
                       position: "relative",
