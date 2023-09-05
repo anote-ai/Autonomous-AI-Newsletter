@@ -1,0 +1,90 @@
+import React from "react";
+// import MainComponent from "./MainComponent";
+import Feed from "./Feed";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import NoUserSession from "../subcomponents/login/NoUserSession";
+// import PaymentsComponent from "../subcomponents/payments/PaymentsComponent";
+import { useLocation } from "react-router-dom";
+import "../styles/Login.css";
+import "../styles/MainLayout.css";
+// import { pricingRedirectPath } from "../constants/RouteConstants";
+
+function CheckLogin(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // I don't think we have productHash for this project
+  // const [productHash, setProductHash] = useState("");
+  const [freeTrialCode, setFreeTrialCode] = useState("");
+
+  const accessToken = localStorage.getItem("accessToken");
+  const sessionToken = localStorage.getItem("sessionToken");
+  if (accessToken || sessionToken) {
+    if (!isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  } else {
+    if (isLoggedIn) {
+      setIsLoggedIn(false);
+    }
+  }
+  // may not need this part
+  // if (isLoggedIn && productHash != null && productHash != "") {
+  //   setProductHash("");
+  //   var fullPath = pricingRedirectPath + "?product_hash=" + productHash;
+  //   if (freeTrialCode != null && freeTrialCode != "") {
+  //     setFreeTrialCode("");
+  //     fullPath += "&free_trial_code=";
+  //     fullPath += freeTrialCode;
+  //   }
+  //   navigate(fullPath);
+  // }
+
+  var mainView = [];
+  if (!isLoggedIn) {
+    mainView = (
+      // <NoUserSession productHash={productHash} freeTrialCode={freeTrialCode} />
+      <NoUserSession freeTrialCode={freeTrialCode} />
+    );
+  } 
+  // else if (!props.showRestrictedRouteRequiringPayments) {
+  //   mainView = <PaymentsComponent />;
+  // } 
+  else {
+    mainView = <Feed darkTheme={props.darkTheme} />;
+  }
+
+  useEffect(() => {
+    const accessToken = new URLSearchParams(location.search).get("accessToken");
+    const refreshToken = new URLSearchParams(location.search).get(
+      "refreshToken"
+    );
+    // const productHashStr = new URLSearchParams(location.search).get(
+    //   "product_hash"
+    // );
+
+    // if (productHashStr) {
+    //   setProductHash(productHashStr);
+    // }
+    const freeTrialCodeStr = new URLSearchParams(location.search).get(
+      "free_trial_code"
+    );
+
+    if (freeTrialCodeStr) {
+      setFreeTrialCode(freeTrialCodeStr);
+    }
+
+    // Save the tokens in local storage if they exist
+    if (accessToken && refreshToken) {
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      props.setIsLoggedInParent(true);
+      navigate("/");
+    }
+  }, [location]);
+
+  return <div className="App">{mainView}</div>;
+}
+
+export default CheckLogin;

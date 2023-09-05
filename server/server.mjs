@@ -148,6 +148,7 @@ const executePython = (script, args, res) => {
     } else {
       if (success) {
         try {
+          console.log("get in the success")
           const resultData = JSON.parse(outputData);
           res.status(200).json({ data: resultData });
         } catch (error) {
