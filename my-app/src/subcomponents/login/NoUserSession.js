@@ -91,8 +91,8 @@ function NoUserSession(props) {
       </Modal> */}
       {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
           See How It Works
-      </Button>
-      <Modal size={"7xl"} show={showVideoModal} onClose={() => setShowVideoModal(false)}>
+      </Button> */}
+      {/* <Modal size={"7xl"} show={showVideoModal} onClose={() => setShowVideoModal(false)}>
           <Modal.Header className="bg-gray-800 text-white p-4">
             See How It Works
           </Modal.Header>

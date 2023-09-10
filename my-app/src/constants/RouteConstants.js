@@ -1,3 +1,11 @@
 export const loginPagePath = "/";
 export const DetailPagePath = "/detail";
 export const mainPagePath = "/mainPage";
+export const pricingRedirectPath = "/pricingRedirect";
+export const accountPath = "/account";
+export const listsPath = "/lists";
+export const sequencesPath = "/templates";
+export const contactPath = "/contact";
+export const optOutPath = "/optout";
+export const tosPath = "/termsofservice";
+export const privatePolicyPath = "/privacypolicy";

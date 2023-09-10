@@ -62,7 +62,7 @@ function ForgotPasswordComponent(props) {
         }}
         style={{ color: "#defe47" }}
       >
-        Back to Sababa
+        Back to Login
       </p>
       {props.statusMessage && (
         <p style={{ color: "#F65F50" }}>{props.statusMessage}</p>

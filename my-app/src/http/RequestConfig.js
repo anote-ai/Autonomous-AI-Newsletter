@@ -75,6 +75,7 @@ function fetcher(url, options = {}, retryCount = 0) {
 
   console.log("updateOptions(options)");
   console.log(updateOptions(options));
+  console.log(API_ENDPOINT + "/" + url);
 
   return fetch(API_ENDPOINT + "/" + url, updateOptions(options)).then((response) => {
     if (!response.ok) {
