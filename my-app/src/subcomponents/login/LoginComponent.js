@@ -19,6 +19,7 @@ function LoginComponent(props) {
     } else {
       dispatch(login({ email: email, password: password })).then((response) => {
         if (response.payload["status"] == "OK") {
+          console.log(response);
           if ("token" in response.payload) {
             localStorage.setItem("sessionToken", response.payload["token"]);
             window.location.reload();
@@ -42,7 +43,6 @@ function LoginComponent(props) {
         onChange={(e) => {
           setEmail(e.target.value);
         }}
-        style={{color: "black"}}
         className="my-2 w-1/2 mx-auto"
       />
       {/* <input
@@ -64,7 +64,6 @@ function LoginComponent(props) {
         onChange={(e) => {
           setPassword(e.target.value);
         }}
-        style={{color: "black"}}
         className="my-2 w-1/2 mx-auto"
       />
       {/* <input
