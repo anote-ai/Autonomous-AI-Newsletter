@@ -65,6 +65,14 @@ CREATE TABLE freeTrialsAccessed (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE userDetail (
+    user_id INTEGER PRIMARY KEY,
+    company_name VARCHAR(255),
+    news_letter_detail VARCHAR(255),
+    industry VARCHAR(255)
+);
+
+
 INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (2, "natan", CURRENT_TIMESTAMP);
 
 

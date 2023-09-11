@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, abort, redirect
 from flask.wrappers import Response
 import json
 from flask_cors import CORS, cross_origin
-from api_endpoints.user.handler import SignUpHandler
+from api_endpoints.userDetail.handler import detail_update_Handler, detail_get_Handler
 from constants.global_constants import kSessionTokenExpirationTime
 from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, decode_token, JWTManager
 from flask_mail import Mail
@@ -316,13 +316,29 @@ def customer_portal():
 #     return jsonify({"error": "Invalid JWT"}), 401
 #   return jsonify(ViewUnlockedProfilesHandler(request, user_email))
 
+@app.route('/getUserDetail')
+@jwt_or_session_token_required
+def getUserDetail():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    if not verifyAuthForPaymentsTrustedTesters(user_email):
+        abort(401)
+    return detail_get_Handler(request, user_email)
 
 @app.route('/setUserDetail', methods=['POST'])
+@jwt_or_session_token_required
 def setUserDetail():
-    # print("get in")
-    # print("request",request)
-    # print("request.json", request.json)
-    res = SignUpHandler(request)
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    if not verifyAuthForPaymentsTrustedTesters(user_email):
+        abort(401)
+    res = detail_update_Handler(request, user_email)
     if (res == True):
         response_data = {"message": "add user detail success"}
         response = jsonify(response_data)
@@ -333,6 +349,21 @@ def setUserDetail():
         response = jsonify(response_data)
         response.status_code = 400
         return response
+    # return CreateCheckoutSessionHandler(request, user_email)
+    # print("get in")
+    # print("request",request)
+    # print("request.json", request.json)
+    # res = SignUpHandler(request)
+    # if (res == True):
+    #     response_data = {"message": "add user detail success"}
+    #     response = jsonify(response_data)
+    #     response.status_code = 200
+    #     return response
+    # else:
+    #     response_data = {"message": res}
+    #     response = jsonify(response_data)
+    #     response.status_code = 400
+    #     return response
     
 @app.route('/viewUser', methods = ['GET'])
 @jwt_or_session_token_required

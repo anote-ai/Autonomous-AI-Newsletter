@@ -9,6 +9,7 @@ import "../styles/Login.css";
 import "../styles/MainLayout.css";
 import { Checkbox } from "@mui/material";
 import { pricingRedirectPath } from "../constants/RouteConstants";
+import DetailSession from "../subcomponents/UserDetail/DetailSession";
 
 function CheckLogin(props) {
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ function CheckLogin(props) {
     );
   } else if (!props.showRestrictedRouteRequiringPayments) {
     mainView = <PaymentsComponent />;
+  }
+  else if (!props.haveUserDetail) {
+    mainView = <DetailSession />;
   } else {
     mainView = <Feed darkTheme={props.darkTheme} />;
   }

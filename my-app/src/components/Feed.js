@@ -9,6 +9,9 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import HelpIcon from "@mui/icons-material/Help";
 import Modal from "./Modal";
 import { BackendHost } from "../util/Host";
+import { useNavigate } from "react-router-dom";
+import {useCompanyName, useNewsLetterDetail, useIndustry} from "../redux/DetailSlice"
+import { DetailPagePath } from "../constants/RouteConstants";
 
 const Feed = () => {
   const [data, setData] = useState({ data: [] });
@@ -39,7 +42,16 @@ const Feed = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
+  const companyName = useCompanyName();
+  const newsLetterDetail = useNewsLetterDetail();
+  const industry = useIndustry();
 
+  // console.log(companyName)
+  // console.log(companyName === undefined)
+  // if(companyName === undefined || companyName === '' || companyName.trim() === '' || newsLetterDetail === undefined || newsLetterDetail === '' || newsLetterDetail.trim() === '' || industry === undefined || industry === '' || industry.trim() === ''){
+  //   navigate(DetailPagePath);
+  // }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -220,18 +232,6 @@ const Feed = () => {
       style={{ backgroundColor: selectedBackgroundColor }}
     >
       <div className="flex  text-1xl font-bold text-5xl font-bold  mb-1 text-white flex-col">
-      <a href="https://anote.ai">
-        <div className="absolute top-6 left-8 flex-row flex ">
-
-            <img
-              src={require("../Images/logo.png")}
-              alt=""
-              className="h-6 w-6 "
-            />
-            <h1 className="ml-[-2] absolute left-5 text-[25px]">Anote</h1>
-
-        </div>
-        </a>
         {isEditingTitle ? (
           <Input
             style={{

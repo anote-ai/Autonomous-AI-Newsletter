@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { logout, useNumCredits } from "../redux/UserSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { accountPath, listsPath, sequencesPath, contactPath } from "../constants/RouteConstants";
+import { accountPath, loginPagePath, mainPagePath, DetailPagePath } from "../constants/RouteConstants";
 import { Dropdown, Navbar, Avatar, DarkThemeToggle } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
@@ -58,10 +58,10 @@ function MainNav(props) {
             {user && user.name && (
               <span className="block text-sm">{user.name}</span>
             )}
-            <span className="block truncate text-sm font-medium">
+            {/* <span className="block truncate text-sm font-medium">
               {numCredits} Credits Remaining
               <FontAwesomeIcon icon={faCoins} className="ml-2" />
-            </span>
+            </span> */}
           </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate(accountPath)}>
             Account
@@ -84,11 +84,10 @@ function MainNav(props) {
         <Navbar.Link active={location.pathname === "/"} href="/">
           <p>Home</p>
         </Navbar.Link>
-        <Navbar.Link active={location.pathname === listsPath} href={listsPath}>
-          Lists
+        <Navbar.Link active={location.pathname === DetailPagePath} href={DetailPagePath}>
+          User Detail
         </Navbar.Link>
-        <Navbar.Link active={location.pathname === sequencesPath} href={sequencesPath}>Templates</Navbar.Link>
-        {/* <Navbar.Link active={location.pathname === contactPath} href={contactPath}>Contact</Navbar.Link> */}
+        <Navbar.Link active={location.pathname === mainPagePath} href={mainPagePath}>Templates</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

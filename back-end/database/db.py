@@ -63,12 +63,36 @@ def check_user_by_id(id):
         return True
     return False
 
+def check_detail_by_userID(user_ID):
+    conn, cursor = get_db_connection()
+    cursor.execute('SELECT * FROM userDetail WHERE user_id=%s;', [user_ID])
+    detail = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    if(detail):
+        return True
+    return False
+
 # print(check_user_by_id(1))
+
+def get_detail_by_userID(user_ID):
+    conn, cursor = get_db_connection()
+    cursor.execute('SELECT company_name, news_letter_detail, industry FROM userDetail WHERE user_id=%s;', [user_ID])
+    detail = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    # print(detail)
+    if(detail):
+        return detail
+    return False
 
 def add_user_detail_byID(id, companyName, newsLetterDetail, industry):
     conn, cursor = get_db_connection()
     if(check_user_by_id(id)):
-        cursor.execute('UPDATE users SET company_name = %s, news_letter_detail = %s, industry = %s WHERE id = %s;', (companyName, newsLetterDetail, industry, id))
+        if(check_detail_by_userID(id)):
+            cursor.execute('UPDATE userDetail SET company_name = %s, news_letter_detail = %s, industry = %s WHERE user_id = %s;', (companyName, newsLetterDetail, industry, id))
+        else:
+            cursor.execute('INSERT INTO userDetail (user_id, company_name, news_letter_detail, industry) VALUES (%s, %s, %s, %s);', (id, companyName, newsLetterDetail, industry))
     else:
         return 'user not exist'
     conn.commit()

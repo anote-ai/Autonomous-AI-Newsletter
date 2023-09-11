@@ -4,7 +4,7 @@ import CheckLogin from "./components/CheckLogin";
 import PaymentsComponent from "./subcomponents/payments/PaymentsComponent";
 import PaymentsProduct from "./subcomponents/payments/PaymentsProduct";
 import { BrowserRouter as Router } from "react-router-dom";
-import {loginPagePath, mainPagePath, DetailPagePath} from "./constants/RouteConstants";
+import { loginPagePath, mainPagePath, DetailPagePath } from "./constants/RouteConstants";
 import {
   accountPath,
   pricingRedirectPath,
@@ -15,12 +15,14 @@ import { Helmet } from "react-helmet";
 import { Flowbite } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { useUser, viewUser } from "./redux/UserSlice";
+import { getDeatil, setCompanyName, setNewsLetterDetail, setIndustry } from './redux/DetailSlice'
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [haveDeatil, setHaveDetail] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
   const sessionToken = localStorage.getItem("sessionToken");
   if (accessToken || sessionToken) {
@@ -33,6 +35,7 @@ function App() {
     }
   }
 
+  var haveUserDetail = haveDeatil;
   var showRestrictedRouteRequiringUserSession = isLoggedIn;
 
   let dispatch = useDispatch();
@@ -40,6 +43,20 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(viewUser());
+      async function getDeatilData() {
+        let data = await dispatch(getDeatil())
+        console.log(data);
+        if (data.payload !== false) {
+          dispatch(setCompanyName(data.payload.companyName))
+          dispatch(setNewsLetterDetail(data.payload.newsLetterDetail))
+          dispatch(setIndustry(data.payload.industry))
+          setHaveDetail(true);
+        }
+        else {
+          setHaveDetail(false);
+        }
+      }
+      getDeatilData();
       // dispatch(refreshCredits());
     }
   }, [isLoggedIn]);
@@ -66,15 +83,15 @@ function App() {
     <Route
       index
       element={
-        <CheckLogin darkTheme={darkTheme} setIsLoggedInParent={setIsLoggedIn} showRestrictedRouteRequiringPayments={showRestrictedRouteRequiringPayments} />
+        <CheckLogin darkTheme={darkTheme} setIsLoggedInParent={setIsLoggedIn} showRestrictedRouteRequiringPayments={showRestrictedRouteRequiringPayments} haveUserDetail={haveUserDetail} />
       }
     />,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={DetailPagePath} element={<DetailSession />} />
     ) : null,
-    // showRestrictedRouteRequiringUserSession ? (
-    //   <Route path={contactPath} element={<ContactComponent />} />
-    // ) : null,
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
+      <Route path={mainPagePath} element={<Feed darkTheme={darkTheme}  />} />
+    ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />
     ) : null,
@@ -105,11 +122,11 @@ function App() {
             {/* {isLoggedIn && <Header />} */}
             {/* {isLoggedIn && <SideNav setIsLoggedInParent={setIsLoggedIn} />} */}
             <Routes>
-              { routes }
+              {routes}
               {/* <Route path={tosPath} element={<TermsOfService />} />
               <Route path={privatePolicyPath} element={<PrivatePolicy />} />
               <Route path={optOutPath} element={<OptOut />} /> */}
-              <Route path = {DetailPagePath} element = {<DetailSession></DetailSession>}></Route>
+              <Route path={DetailPagePath} element={<DetailSession></DetailSession>}></Route>
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
             {/* {!showRestrictedRouteRequiringPayments && <Navigate to={accountPath} />}, */}
