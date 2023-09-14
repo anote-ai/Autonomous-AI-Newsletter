@@ -82,7 +82,7 @@ function StylePage(props) {
   }
   function handleonselectedTitleStyle(font) {
     let tem = JSON.parse(JSON.stringify(editStyle));
-    tem.eachCard[editData.id].titleFontSize = font;
+    tem.eachCard[editData.id].titleStyle = font;
     setEditStyle(tem);
   }
   function handleonselectedDateColor(color) {
