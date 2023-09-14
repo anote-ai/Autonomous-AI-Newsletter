@@ -8,6 +8,7 @@ import { loginPagePath, mainPagePath, DetailPagePath } from "./constants/RouteCo
 import {
   accountPath,
   pricingRedirectPath,
+  testPage
 } from "./constants/RouteConstants";
 import MainNav from "./components/MainNav";
 import Footer from "./components/Footer";
@@ -18,6 +19,7 @@ import { useUser, viewUser } from "./redux/UserSlice";
 import { getDeatil, setCompanyName, setNewsLetterDetail, setIndustry } from './redux/DetailSlice'
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
+import GenerateSession from "./subcomponents/generate/GenerateSession";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -90,7 +92,7 @@ function App() {
       <Route path={DetailPagePath} element={<DetailSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
-      <Route path={mainPagePath} element={<Feed darkTheme={darkTheme}  />} />
+      <Route path={mainPagePath} element={<GenerateSession  />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />
@@ -107,8 +109,8 @@ function App() {
           dark: darkTheme,
         }}
       >
-        <div className="DashboardView flex flex-col min-h-screen">
-          <div id="wrapperDiv" className="flex-grow">
+        <div className="DashboardView flex flex-col min-h-full">
+          <div id="wrapperDiv" className="flex-grow min-h-full">
             {isLoggedIn && (
               <MainNav
                 // darkTheme={darkTheme}
@@ -126,7 +128,7 @@ function App() {
               {/* <Route path={tosPath} element={<TermsOfService />} />
               <Route path={privatePolicyPath} element={<PrivatePolicy />} />
               <Route path={optOutPath} element={<OptOut />} /> */}
-              <Route path={DetailPagePath} element={<DetailSession></DetailSession>}></Route>
+              {/* <Route path={testPage} element={<GenerateSession></GenerateSession>}></Route> */}
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
             {/* {!showRestrictedRouteRequiringPayments && <Navigate to={accountPath} />}, */}

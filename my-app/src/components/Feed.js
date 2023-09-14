@@ -52,32 +52,32 @@ const Feed = () => {
   // if(companyName === undefined || companyName === '' || companyName.trim() === '' || newsLetterDetail === undefined || newsLetterDetail === '' || newsLetterDetail.trim() === '' || industry === undefined || industry === '' || industry.trim() === ''){
   //   navigate(DetailPagePath);
   // }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          BackendHost() + `/run-script?key_word=${searchTerm}`
-        );
-        if (!response.ok) {
-          const message = `An error has occurred: ${response.status} - ${response.statusText}`;
-          throw new Error(message);
-        }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         BackendHost() + `/run-script?key_word=${searchTerm}`
+  //       );
+  //       if (!response.ok) {
+  //         const message = `An error has occurred: ${response.status} - ${response.statusText}`;
+  //         throw new Error(message);
+  //       }
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        setData(data);
-      } catch (err) {
-        setData({ data: [] });
-      }
-    };
+  //       setData(data);
+  //     } catch (err) {
+  //       setData({ data: [] });
+  //     }
+  //   };
 
-    const debouncedFetchData = debounce(fetchData, 3000);
-    debouncedFetchData();
+  //   const debouncedFetchData = debounce(fetchData, 3000);
+  //   debouncedFetchData();
 
-    return () => {
-      debouncedFetchData.cancel();
-    };
-  }, [searchTerm]);
+  //   return () => {
+  //     debouncedFetchData.cancel();
+  //   };
+  // }, [searchTerm]);
 
   const handleFieldUpdate = (index) => {
     const newData = [...data.data];
@@ -153,7 +153,7 @@ const Feed = () => {
   const handleSearch = async (event) => {
     console.log("fetching the data");
     event.preventDefault();
-    setData({ data: [] });
+    setData([]);
     setSearchTerm("");
     setLoading(true);
 
@@ -174,7 +174,7 @@ const Feed = () => {
       console.log("data is loaded");
       console.log(data);
     } catch (err) {
-      setData({ data: [] });
+      setData([]);
     } finally {
       setLoading(false);
     }
@@ -455,9 +455,9 @@ const Feed = () => {
                 <div className="animate-spin mt-[7rem] rounded-full h-10 w-10 border-t-2 border-b-2 border-[#ECCA42]"></div>
               </div>
             )}
-            {data && data.data.length > 0 ? (
+            {data && data.length > 0 ? (
               <div className="flex flex-col justify-center self-center ml-5 w-[90%] h-[40%]">
-                {data.data.map((item, index) => (
+                {data.map((item, index) => (
                   <div
                     key={index}
                     className="flex flex-col justify-center w-full p-5 rounded-lg  bg-orange-200 m-auto my-3 text-[18px] text-left"

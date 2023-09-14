@@ -75,34 +75,34 @@ const Dropdown = ({
   onCardFontSelect,
   onTextFontSelect,
   onFontSizeSelect,
-  // mainTitle,
-  // subTitle,
-  // onMainTitleChange,
-  // onSubtitleChange,
+  mainTitle,
+  subTitle,
+  onMainTitleChange,
+  onSubtitleChange,
 }) => {
   const [show, setShow] = useState(false);
-  // const [isEditingTitle, setIsEditingTitle] = useState(false);
-  // const [isEditingSubTitle, setIsEditingSubTitle] = useState(false);
-  // const [editableMainTitle, setEditableMainTitle] = useState(mainTitle);
-  // const [editableSubTitle, setEditableSubTitle] = useState(subTitle);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [isEditingSubTitle, setIsEditingSubTitle] = useState(false);
+  const [editableMainTitle, setEditableMainTitle] = useState(mainTitle);
+  const [editableSubTitle, setEditableSubTitle] = useState(subTitle);
 
-  // const handleMainTitleSave = () => {
-  //   setIsEditingTitle(false);
-  //   onMainTitleChange(editableMainTitle);
-  // };
+  const handleMainTitleSave = () => {
+    setIsEditingTitle(false);
+    onMainTitleChange(editableMainTitle);
+  };
 
-  // const handleSubTitleSave = () => {
-  //   setIsEditingSubTitle(false);
-  //   onSubtitleChange(editableSubTitle);
-  // };
+  const handleSubTitleSave = () => {
+    setIsEditingSubTitle(false);
+    onSubtitleChange(editableSubTitle);
+  };
 
-  // const handleMainTitleEditing = () => {
-  //   setIsEditingTitle(true);
-  // };
+  const handleMainTitleEditing = () => {
+    setIsEditingTitle(true);
+  };
 
-  // const handleSubTitleEditing = () => {
-  //   setIsEditingSubTitle(true);
-  // };
+  const handleSubTitleEditing = () => {
+    setIsEditingSubTitle(true);
+  };
 
   const handleFontSizeChange = (event) => {
     onFontSizeSelect(event.target.value);
@@ -148,7 +148,7 @@ const Dropdown = ({
           zIndex: 1,
         }}
       >
-        Customize Style
+        Customize your Newsletter
       </Button>
 
       {show && (
@@ -350,6 +350,78 @@ const Dropdown = ({
                 ))}
               </Select>
             </FormControl>
+          </div>
+          <div className="flex m-2 gap-2 ">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                background: "#28b2fb",
+                height: 40,
+                "&:hover": {
+                  background: "#81ccf4",
+                },
+              }}
+              onClick={handleMainTitleEditing}
+            >
+              Edit Title
+            </Button>
+            {isEditingTitle ? (
+              <Input
+                style={{
+                  fontSize: "10px",
+                }}
+                type="text"
+                value={editableMainTitle}
+                onChange={(e) => setEditableMainTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleMainTitleSave();
+                  }
+                }}
+                onBlur={handleMainTitleSave}
+                autoFocus
+                aria-label="Main Title"
+              />
+            ) : (
+              <div>{/* Render main title */}</div>
+            )}
+          </div>
+          <div className="flex  m-2 gap-2 ">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                background: "#28b2fb",
+                height: 40,
+                "&:hover": {
+                  background: "#81ccf4",
+                },
+              }}
+              onClick={handleSubTitleEditing}
+            >
+              Edit SubTitle
+            </Button>
+            {isEditingSubTitle ? (
+              <Input
+                style={{
+                  fontSize: "10px",
+                }}
+                type="text"
+                value={editableSubTitle}
+                onChange={(e) => setEditableSubTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubTitleSave();
+                  }
+                }}
+                onBlur={handleSubTitleSave}
+                autoFocus
+                aria-label="Sub Title"
+              />
+            ) : (
+              <div>{/* Render subtitle */}</div>
+            )}
           </div>
         </div>
       )}

@@ -60,10 +60,16 @@ function DetailSession(props) {
     function changePage(pageNumber) {
         setPageState(pageNumber);
     }
+    async function getPreviousStep() {
+        if (pageState > 1) {
+            let tem = pageState;
+            setPageState(tem -= 1);
+        }
+    }
     async function getNextStep() {
         if (pageState == 3) {
             try {
-                let returnBack = await dispatch(updateDetail({ companyName: companyName, newsLetterDetail: newsLetterDetail, industry: industry }));
+                // let returnBack = await dispatch(updateDetail({ companyName: companyName, newsLetterDetail: newsLetterDetail, industry: industry }));
                 alert("update success")
                 dispatch(setCompanyName(companyName));
                 dispatch(setNewsLetterDetail(newsLetterDetail));
@@ -102,9 +108,9 @@ function DetailSession(props) {
                         <span>nwsltr.ai</span>
                     </div>
 
-                    <a onClick={() => { changePage(1) }}>Step 1</a>
-                    <a onClick={() => { changePage(2) }}>Step 2</a>
-                    <a onClick={() => { changePage(3) }}>Step 3</a>
+                    <a style={pageState === 1 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(1) }}>Step 1</a>
+                    <a style={pageState === 2 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(2) }}>Step 2</a>
+                    <a style={pageState === 3 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(3) }}>Step 3</a>
                 </div>
 
                 <div className="rightContainer">
@@ -116,6 +122,7 @@ function DetailSession(props) {
                                     dataCurrent={companyName}
                                     changeState={(info) => { MsetCompany(info) }}
                                     pageNumber={pageState === 3}
+                                    previousPage ={() =>{getPreviousStep()}}
                                     nextPage={() => { getNextStep() }}
                                 />
                             )}
@@ -125,7 +132,9 @@ function DetailSession(props) {
                                     dataCurrent={newsLetterDetail}
                                     changeState={(info) => { MnewsLetter(info) }}
                                     pageNumber={pageState === 3}
+                                    previousPage ={() =>{getPreviousStep()}}
                                     nextPage={() => { getNextStep() }}
+
                                 />
                             )}
                             {pageState == 3 && (
@@ -134,6 +143,7 @@ function DetailSession(props) {
                                     dataCurrent={industry}
                                     changeState={(info) => { Mindustry(info) }}
                                     pageNumber={pageState === 3}
+                                    previousPage ={() =>{getPreviousStep()}}
                                     nextPage={() => { getNextStep() }}
                                 />
                             )}
