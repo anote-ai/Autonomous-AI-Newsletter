@@ -47,12 +47,14 @@ function CheckLogin(props) {
     );
   } else if (!props.showRestrictedRouteRequiringPayments) {
     mainView = <PaymentsComponent />;
-  }
-  else if (!props.haveUserDetail) {
-    mainView = <DetailSession />;
   } else {
-    mainView = <Feed darkTheme={props.darkTheme} />;
+    mainView = <DetailSession />;
   }
+  // else if (!props.haveUserDetail) {
+  //   mainView = <DetailSession />;
+  // } else {
+  //   mainView = <Feed darkTheme={props.darkTheme} />;
+  // }
 
   useEffect(() => {
     const accessToken = new URLSearchParams(location.search).get("accessToken");

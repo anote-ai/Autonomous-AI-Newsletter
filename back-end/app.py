@@ -22,6 +22,7 @@ from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPassw
 from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreatePortalSessionHandler, StripeWebhookHandler
 from database.db import create_user_if_does_not_exist 
 from api_endpoints.view_user.handler import ViewUserHandler
+from api_endpoints.gptData.hndler import getGPTData
 from database.db_auth import extractUserEmailFromRequest, is_session_token_valid, user_id_for_email, profile_lists_access_invalid, profiles_multi_access_invalid, sequences_access_invalid, sequence_texts_access_invalid, verifyAuthForSearch, verifyAuthForPaymentsTrustedTesters, verifyAuthForCheckoutSession, verifyAuthForPortalSession, sequence_texts_multi_access_invalid
 
 
@@ -33,7 +34,9 @@ config = {
     ],
 }
 CORS(app, resources={
-     r'/*': {'origins': config['ORIGINS']}}, supports_credentials=True)
+     r'/*': {'origins': 'http://localhost:3000'}}, supports_credentials=True)
+# CORS(app, resources={
+#      r'/*': {'origins': config['ORIGINS']}}, supports_credentials=True)
 
 app.secret_key = '6cac159dd02c902f822635ee0a6c3078'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -389,6 +392,23 @@ def ViewUser():
 # def classReturn():
 #     user = {"name" :"daniel", "age" :18}
 #     return flask.jsonify(user)
+
+@app.route('/run-script')
+def queryGPTData():
+    # try:
+    #     user_email = extractUserEmailFromRequest(request)
+    # except InvalidTokenError:
+    #     # If the JWT is invalid, return an error
+    #     return jsonify({"error": "Invalid JWT"}), 401
+    # if not verifyAuthForPaymentsTrustedTesters(user_email):
+    #     abort(401)
+    # return detail_get_Handler(request, user_email)
+    if (request.args.get('key_word') and not request.args.get('key_word').isspace()):
+        return getGPTData(request)
+    response_data = {"message": "input should not be empty or space only"}
+    response = jsonify(response_data)
+    response.status_code = 400
+    return response
 
 if __name__ == '__main__':
     app.run(port=5000)
