@@ -20,6 +20,7 @@ import { getDeatil, setCompanyName, setNewsLetterDetail, setIndustry } from './r
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
+import Profile from './components/Profile'
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -128,12 +129,12 @@ function App() {
               {/* <Route path={tosPath} element={<TermsOfService />} />
               <Route path={privatePolicyPath} element={<PrivatePolicy />} />
               <Route path={optOutPath} element={<OptOut />} /> */}
-              {/* <Route path={testPage} element={<GenerateSession></GenerateSession>}></Route> */}
+              <Route path={testPage} element={<Profile></Profile>}></Route>
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
             {/* {!showRestrictedRouteRequiringPayments && <Navigate to={accountPath} />}, */}
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Flowbite>
     </Router>
