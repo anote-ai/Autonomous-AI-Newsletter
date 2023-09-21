@@ -75,9 +75,8 @@ function LeftNav(props) {
                         </p>
                     </Sidebar.Item> */}
                 </Sidebar.ItemGroup>
-                <Sidebar.ItemGroup className="relative">
-                    <Sidebar.Item 
-                    className="mt-auto pt-auto absolute bottom-0"
+                <Sidebar.ItemGroup>
+                    <Sidebar.Item
                         onClick={() =>
                             dispatch(logout()).then((resp) => {
                                 props.setIsLoggedInParent(false);
