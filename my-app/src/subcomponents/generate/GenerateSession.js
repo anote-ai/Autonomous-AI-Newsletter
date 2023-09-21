@@ -67,21 +67,12 @@ function GenerateSession(props) {
     return (
         // <div className=" bg-gray-800 min-h-screen">
 
-        <div className="flex flex-col min-h-screen bg-gray-800">
+        <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
             <div className="flex-grow " style={{ height: "100%" }}>
-                <div id="mySidenav" class="sidenav">
-                    <div className="h1box">
-                        <img src="logo_dark.png" className="w-10 h-10" alt="logo" />
-                        <span>nwsltr.ai</span>
-                    </div>
 
-                    <a style={pageState === 4 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(4) }}>Step 4</a>
-                    <a style={pageState === 5 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(5) }}>Step 5</a>
-                    <a style={pageState === 6 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(6) }}>Step 6</a>
-                </div>
 
                 {pageState == 4 && (
-                    <div class="w-full md:w-2/3 mx-auto text-white py-8">
+                    <div class="w-full w-2/3 mx-auto text-white my-64">
                         <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
                             <DetailPage
                                 qestionTitle={"Tell Us What Does Your Newsletter Relate To?"}

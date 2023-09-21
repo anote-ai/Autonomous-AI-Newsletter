@@ -2,7 +2,6 @@
 // import { login } from "../../redux/UserSlice";
 import React, { useState, useEffect } from "react";
 // import "../../styles/Detail.css";
-import LeftNav from "./LeftNav";
 import { Table } from 'flowbite-react'
 // import { useLocation } from "react-router-dom";
 // import { updateDetail } from "../../redux/DetailSlice"
@@ -54,8 +53,7 @@ function Profile(props) {
         // <div className=" bg-gray-800 min-h-screen">
 
         <div>
-            <LeftNav></LeftNav>
-            <div className="h-screen w-4/5 ml-auto flex flex-col" >
+            <div className="h-screen w-5/6 ml-auto flex flex-col" >
                 <div className="h-1/5 w-full flex justify-center items-center">
                     <div className="h-4/5 w-4/5 flex justify-start">
                         <img src={tommy} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
