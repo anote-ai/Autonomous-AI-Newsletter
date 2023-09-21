@@ -101,7 +101,7 @@ function DetailSession(props) {
         // <div className=" bg-gray-800 min-h-screen">
 
         <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
-            <div class="w-full w-2/3 mx-auto text-white my-64">
+            <div class="w-2/3 mx-auto text-white my-64">
                 <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
                     <Progress
                         className="w-2/3 mx-auto my-5"
