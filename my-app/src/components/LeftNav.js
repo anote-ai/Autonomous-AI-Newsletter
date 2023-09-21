@@ -30,11 +30,11 @@ function LeftNav(props) {
         }
     }
     return (
-        <Sidebar className="fixed left-0 top-0 w-1/6" aria-label="Sidebar with logo branding example">
+        <Sidebar className="fixed left-0 top-0 w-1/6 h-screen" aria-label="Sidebar with logo branding example">
             <div className="flex w-full h-36 justify-center items-center">
                 <img src={noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
             </div>
-            <Sidebar.Items>
+            <Sidebar.Items className="">
                 <Sidebar.ItemGroup>
                     <Sidebar.Item
                         onClick ={() =>
@@ -74,9 +74,7 @@ function LeftNav(props) {
                             Sign In
                         </p>
                     </Sidebar.Item> */}
-                </Sidebar.ItemGroup>
-                <Sidebar.ItemGroup>
-                    <Sidebar.Item
+                    <Sidebar.Item className="absolute bottom-5 w-5/6"
                         onClick={() =>
                             dispatch(logout()).then((resp) => {
                                 props.setIsLoggedInParent(false);
