@@ -5,7 +5,7 @@ import "../../styles/Detail.css";
 import DetailPage from "./DetailPage";
 import { useLocation } from "react-router-dom";
 import { updateDetail } from "../../redux/DetailSlice"
-import { Modal, ModalBody, ModalHeader, Button } from 'flowbite-react';
+import { Modal, ModalBody, ModalHeader, Button, Progress } from 'flowbite-react';
 import { mainPagePath } from "../../constants/RouteConstants";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -100,58 +100,47 @@ function DetailSession(props) {
     return (
         // <div className=" bg-gray-800 min-h-screen">
 
-        <div className="flex flex-col min-h-screen bg-gray-800">
-            <div className="flex-grow" style={{ height: "100%" }}>
-                <div id="mySidenav" class="sidenav">
-                    <div className="h1box">
-                        <img src="logo_dark.png" className="w-10 h-10" alt="logo" />
-                        <span>nwsltr.ai</span>
-                    </div>
+        <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
+            <div class="w-full w-2/3 mx-auto text-white my-64">
+                <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
+                    <Progress
+                        className="w-2/3 mx-auto my-5"
+                        color="dark"
+                        progress={100 * (pageState/3) + 1}
+                        size="lg"
+                    />
+                    {pageState == 1 && (
+                        <DetailPage
+                            qestionTitle={"Tell Us About Company"}
+                            dataCurrent={companyName}
+                            changeState={(info) => { MsetCompany(info) }}
+                            pageNumber={pageState === 3}
+                            previousPage={() => { getPreviousStep() }}
+                            nextPage={() => { getNextStep() }}
+                        />
+                    )}
+                    {pageState == 2 && (
+                        <DetailPage
+                            qestionTitle={"Tell Us About Newsletter You Want To Write"}
+                            dataCurrent={newsLetterDetail}
+                            changeState={(info) => { MnewsLetter(info) }}
+                            pageNumber={pageState === 3}
+                            previousPage={() => { getPreviousStep() }}
+                            nextPage={() => { getNextStep() }}
 
-                    <a style={pageState === 1 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(1) }}>Step 1</a>
-                    <a style={pageState === 2 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(2) }}>Step 2</a>
-                    <a style={pageState === 3 ? { color: "#f1f1f1" } : {}} onClick={() => { changePage(3) }}>Step 3</a>
+                        />
+                    )}
+                    {pageState == 3 && (
+                        <DetailPage
+                            qestionTitle={"Tell Us about your industry"}
+                            dataCurrent={industry}
+                            changeState={(info) => { Mindustry(info) }}
+                            pageNumber={pageState === 3}
+                            previousPage={() => { getPreviousStep() }}
+                            nextPage={() => { getNextStep() }}
+                        />
+                    )}
                 </div>
-
-                <div className="rightContainer">
-                    <div class="w-full md:w-1/3 mx-auto text-white py-8">
-                        <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
-                            {pageState == 1 && (
-                                <DetailPage
-                                    qestionTitle={"Tell Us About Company"}
-                                    dataCurrent={companyName}
-                                    changeState={(info) => { MsetCompany(info) }}
-                                    pageNumber={pageState === 3}
-                                    previousPage ={() =>{getPreviousStep()}}
-                                    nextPage={() => { getNextStep() }}
-                                />
-                            )}
-                            {pageState == 2 && (
-                                <DetailPage
-                                    qestionTitle={"Tell Us About Newsletter You Want To Write"}
-                                    dataCurrent={newsLetterDetail}
-                                    changeState={(info) => { MnewsLetter(info) }}
-                                    pageNumber={pageState === 3}
-                                    previousPage ={() =>{getPreviousStep()}}
-                                    nextPage={() => { getNextStep() }}
-
-                                />
-                            )}
-                            {pageState == 3 && (
-                                <DetailPage
-                                    qestionTitle={"Tell Us about your industry"}
-                                    dataCurrent={industry}
-                                    changeState={(info) => { Mindustry(info) }}
-                                    pageNumber={pageState === 3}
-                                    previousPage ={() =>{getPreviousStep()}}
-                                    nextPage={() => { getNextStep() }}
-                                />
-                            )}
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
         </div>
     );

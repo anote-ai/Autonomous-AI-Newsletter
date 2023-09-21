@@ -10,7 +10,6 @@ import {
   pricingRedirectPath,
   testPage
 } from "./constants/RouteConstants";
-import MainNav from "./components/MainNav";
 import Footer from "./components/Footer";
 import { Helmet } from "react-helmet";
 import { Flowbite } from "flowbite-react";
@@ -21,6 +20,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
 import Profile from './components/Profile'
+import LeftNav from "./components/LeftNav";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -93,7 +93,7 @@ function App() {
       <Route path={DetailPagePath} element={<DetailSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
-      <Route path={mainPagePath} element={<GenerateSession  />} />
+      <Route path={mainPagePath} element={<GenerateSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />
@@ -113,10 +113,10 @@ function App() {
         <div className="DashboardView flex flex-col min-h-full">
           <div id="wrapperDiv" className="flex-grow min-h-full">
             {isLoggedIn && (
-              <MainNav
-                // darkTheme={darkTheme}
-                // setDarkTheme={setDarkTheme}
+              <LeftNav
                 setIsLoggedInParent={setIsLoggedIn}
+              // darkTheme={darkTheme}
+              // setDarkTheme={setDarkTheme}
               />
             )}
             <Helmet>
@@ -129,7 +129,7 @@ function App() {
               {/* <Route path={tosPath} element={<TermsOfService />} />
               <Route path={privatePolicyPath} element={<PrivatePolicy />} />
               <Route path={optOutPath} element={<OptOut />} /> */}
-              <Route path={testPage} element={<Profile></Profile>}></Route>
+              {/* <Route path={testPage} element={<Profile></Profile>}></Route> */}
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
             {/* {!showRestrictedRouteRequiringPayments && <Navigate to={accountPath} />}, */}
