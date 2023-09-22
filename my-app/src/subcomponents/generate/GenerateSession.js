@@ -9,7 +9,7 @@ import StylePage from "./StylePage";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DetailPagePath, mainPagePath } from "../../constants/RouteConstants";
-import DetailPage from "../UserDetail/DetailPage"
+import GeneratePage from "./GeneratePage"
 import { setTopic, useData, useTopic, useStyleInfo } from "../../redux/DetailSlice"
 import { red } from "@mui/material/colors";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
@@ -74,7 +74,7 @@ function GenerateSession(props) {
                 {pageState == 4 && (
                     <div class="w-full w-2/3 mx-auto text-white my-64">
                         <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
-                            <DetailPage
+                            <GeneratePage
                                 qestionTitle={"Tell Us What Does Your Newsletter Relate To?"}
                                 changeState={(info) => { MsetTypeQestion(info) }}
                                 dataCurrent={typeQestion}

@@ -3,7 +3,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 // import { login } from "../../redux/UserSlice";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 
-function DetailPage(props) {
+function GeneratePage(props) {
 
     const [text, setText] = useState(props.dataCurrent);
     useEffect(() => {
@@ -54,4 +54,4 @@ function DetailPage(props) {
     );
 }
 
-export default DetailPage;
+export default GeneratePage;
