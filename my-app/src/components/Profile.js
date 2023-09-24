@@ -3,12 +3,7 @@
 import React, { useState, useEffect } from "react";
 // import "../../styles/Detail.css";
 import { Table } from 'flowbite-react'
-// import { useLocation } from "react-router-dom";
-// import { updateDetail } from "../../redux/DetailSlice"
-// import { Modal, ModalBody, ModalHeader, Button } from 'flowbite-react';
-// import { mainPagePath } from "../../constants/RouteConstants";
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../redux/UserSlice";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
 import tommy from '../assets/tommy.png';
@@ -16,6 +11,8 @@ import right from '../assets/angle-double-right.svg'
 
 function Profile(props) {
     let user = useUser();
+    let navigate = useNavigate();
+
     const [recentNewsData, setRecentNewsData] = useState([
         {
             id: 1,
@@ -65,6 +62,9 @@ function Profile(props) {
                                 <div className=" h-full w-1/2">
                                     <button
                                         className=" bg-sky-500/50 h-full w-full"
+                                        onClick={() =>{
+                                            navigate('/detail')
+                                        }}
                                     >
                                         Edit Profile
                                     </button>
