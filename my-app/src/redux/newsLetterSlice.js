@@ -41,7 +41,7 @@ export const getDeatil = createAsyncThunk("detail/get", async (thunk) => {
 export function useDetailId() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.detailId;
+            return state.newsLetterReducer.current.detailId;
         } catch (e) {
             return null;
         }
@@ -50,7 +50,7 @@ export function useDetailId() {
 export function useCompanyName() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.companyName;
+            return state.newsLetterReducer.current.companyName;
         } catch (e) {
             return null;
         }
@@ -59,7 +59,7 @@ export function useCompanyName() {
 export function useNewsLetterDetail() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.newsLetterDetail;
+            return state.newsLetterReducer.current.newsLetterDetail;
         } catch (e) {
             return null;
         }
@@ -68,7 +68,7 @@ export function useNewsLetterDetail() {
 export function useIndustry() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.industry;
+            return state.newsLetterReducer.current.industry;
         } catch (e) {
             return null;
         }
@@ -78,7 +78,7 @@ export function useIndustry() {
 export function useTopic() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.topic;
+            return state.newsLetterReducer.current.topic;
         } catch (e) {
             return null;
         }
@@ -87,7 +87,7 @@ export function useTopic() {
 export function useData() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.data;
+            return state.newsLetterReducer.current.data;
         } catch (e) {
             return null;
         }
@@ -96,7 +96,7 @@ export function useData() {
 export function useStyleInfo() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.styleInfo;
+            return state.newsLetterReducer.current.styleInfo;
         } catch (e) {
             return null;
         }
