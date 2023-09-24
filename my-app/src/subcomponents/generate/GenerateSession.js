@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DetailPagePath, mainPagePath } from "../../constants/RouteConstants";
 import GeneratePage from "./GeneratePage"
-import { setTopic, useData, useTopic, useStyleInfo } from "../../redux/DetailSlice"
+import { setTopic, useData, useTopic, useStyleInfo } from "../../redux/newsLetterSlice"
 import { red } from "@mui/material/colors";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
 

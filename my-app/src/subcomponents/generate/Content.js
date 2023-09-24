@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, useData, clearData, setStyleInfo } from "../../redux/DetailSlice"
+import { setData, getGPTData, useTopic, useData, clearData, setStyleInfo } from "../../redux/newsLetterSlice"
 
 function Content(props) {
 

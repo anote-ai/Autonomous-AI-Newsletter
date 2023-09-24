@@ -10,7 +10,6 @@ import HelpIcon from "@mui/icons-material/Help";
 import Modal from "./Modal";
 import { BackendHost } from "../util/Host";
 import { useNavigate } from "react-router-dom";
-import {useCompanyName, useNewsLetterDetail, useIndustry} from "../redux/DetailSlice"
 import { DetailPagePath } from "../constants/RouteConstants";
 
 const Feed = () => {
@@ -43,10 +42,6 @@ const Feed = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const companyName = useCompanyName();
-  const newsLetterDetail = useNewsLetterDetail();
-  const industry = useIndustry();
-
   // console.log(companyName)
   // console.log(companyName === undefined)
   // if(companyName === undefined || companyName === '' || companyName.trim() === '' || newsLetterDetail === undefined || newsLetterDetail === '' || newsLetterDetail.trim() === '' || industry === undefined || industry === '' || industry.trim() === ''){

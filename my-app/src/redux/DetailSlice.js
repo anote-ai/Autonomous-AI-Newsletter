@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import fetcher from "../http/RequestConfig";
 import { useSelector } from 'react-redux';
+import { questionList } from "../constants/questionList"
 
 
 
@@ -38,205 +39,180 @@ export const getDeatil = createAsyncThunk("detail/get", async (thunk) => {
     return response_str;
 });
 
-export function useDetailId() {
+export function useDetailPageOne() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.detailId;
-        } catch (e) {
-            return null;
-        }
-    });
-}
-export function useCompanyName() {
-    return useSelector((state) => {
-        try {
-            return state.detailReducer.current.companyName;
-        } catch (e) {
-            return null;
-        }
-    });
-}
-export function useNewsLetterDetail() {
-    return useSelector((state) => {
-        try {
-            return state.detailReducer.current.newsLetterDetail;
-        } catch (e) {
-            return null;
-        }
-    });
-}
-export function useIndustry() {
-    return useSelector((state) => {
-        try {
-            return state.detailReducer.current.industry;
+            return state.detailReducer.pageOne;
         } catch (e) {
             return null;
         }
     });
 }
 
-export function useTopic() {
+export function useDetailPageTwo() {
     return useSelector((state) => {
         try {
-            return state.detailReducer.current.topic;
-        } catch (e) {
-            return null;
-        }
-    });
-}
-export function useData() {
-    return useSelector((state) => {
-        try {
-            return state.detailReducer.current.data;
-        } catch (e) {
-            return null;
-        }
-    });
-}
-export function useStyleInfo() {
-    return useSelector((state) => {
-        try {
-            return state.detailReducer.current.styleInfo;
+            return state.detailReducer.pageTwo;
         } catch (e) {
             return null;
         }
     });
 }
 
-function clearCurrent(state) {
-    state.current.detailId = 0;
-    state.current.companyName = '';
-    state.current.newsLetterDetail = '';
-    state.current.industry = '';
-    state.current.topic = '';
-    state.current.data = [];
-    state.current.styleInfo = {};
+export function useDetailPageThree() {
+    return useSelector((state) => {
+        try {
+            return state.detailReducer.pageThree;
+        } catch (e) {
+            return null;
+        }
+    });
 }
 
-export const PinitialState = {
-    current: {
-        detailId: 0,
-        companyName: '',
-        newsLetterDetail: '',
-        industry: '',
-        topic: '',
-        data: [
-            {
-                "date": "09/11/2023",
-                "id": 1,
-                "summary": "Georgia Bulldogs are trending to secure a commitment from 2024 defensive lineman Michai Boireau after his decommitment from Florida. Georgia now holds a 68.0 percent chance of landing him according to the On3 Recruiting Prediction Machine. Boireau, standing at 6-foot-5 and weighing 350 pounds, is ranked as the No. 717 player nationally and the No. 67 defensive lineman. Georgia is also looking to add to its nation's No. 1 recruiting class, with already 21 blue-chip commitments, including top-ranked players at various positions.",
-                "title": "Georgia Bulldogs Strengthen Nations No. 1 Recruiting",
-                "url": "https://www.on3.com/college/georgia-bulldogs/news/michai-boireau-georgia-bulldogs-trending-to-land-2024-defensive-lineman-recent-florida-decommit/"
-            },
-            {
-                "date": "09/16/2023",
-                "id": 2,
-                "summary": "Two key pass catchers, Chase Lane from Georgia Tech and Tre Harris from Ole Miss, are trending towards not playing in their upcoming game against each other. Lane, who is the second leading receiver for Georgia Tech, has been ruled out due to injury but is not expected to have a season-ending injury. Harris, the go-to receiver for Ole Miss, suffered a knee injury in their last game and his status for the game against Georgia Tech is in doubt. This could be a significant blow to both teams' offenses.",
-                "title": "Two Key Pass Catchers Out: Georgia Tech and Ole Miss Face",
-                "url": "https://247sports.com/college/ole-miss/article/two-key-pass-catchers-trending-towards-not-playing-in-georgia-tech-at-ole-miss--216051504/"
-            },
-            {
-                "date": "09/12/2023",
-                "id": 3,
-                "summary": "At the 2023 Dreamforce Conference, Salesforce announces updates to its AI systems, including Einstein, and a partnership with Google. UPS shares details of its union contract with Teamsters workers. Enphase Energy stock gets downgraded by Truist analysts.",
-                "title": "Explore the Impact of Salesforce AI UPS Union Contract",
-                "url": "https://finance.yahoo.com/video/salesforce-ai-ups-union-contract-142546554.html"
-            },
-            {
-                "date": "09/12/2023",
-                "id": 4,
-                "summary": "Supermodel Gisele Bündchen was spotted wearing a pair of black leather stiletto clogs with a back strap, adorned with studs along the base and a dark-stained wooden sole. This puts clogs at the forefront of fall fashion trends, showing that they can be both sexy and sensible. Celebrities like Reese Witherspoon and Sarah Jessica Parker have also embraced the clog trend. The updated versions of clogs for 2023 offer a modern twist on a classic shoe style.",
-                "title": "Gisele Bündchen Rocks the Trendiest Take on",
-                "url": "https://www.instyle.com/gisele-bundchen-clog-fall-trend-7968643"
-            },
-            {
-                "date": "10/27/2021",
-                "id": 5,
-                "summary": "Summary: The recent news regarding the SI.com website is that users are advised to enable JavaScript and disable any ad blockers in order to access the site.",
-                "title": "Enable JavaScript for Seamless Browsing: How to",
-                "url": "https://www.si.com/college/miami/football/miami-hurricanes-trending-up"
-            }
-        ],
-        styleInfo: {}
-    },
-    allData: [
-    ]
-};
+export function useDetailPageFour() {
+    return useSelector((state) => {
+        try {
+            return state.detailReducer.pageFour;
+        } catch (e) {
+            return null;
+        }
+    });
+}
 
-export const initialState = {
-    current: {
-        detailId: 0,
-        companyName: '',
-        newsLetterDetail: '',
-        industry: '',
-        topic: '',
-        data: [],
-        styleInfo: {}
-    },
-    allData: [
-    ]
-};
+// function clearCurrent(state) {
+//     state.current.detailId = 0;
+//     state.current.companyName = '';
+//     state.current.newsLetterDetail = '';
+//     state.current.industry = '';
+//     state.current.topic = '';
+//     state.current.data = [];
+//     state.current.styleInfo = {};
+// }
+
+export const initialState = questionList;
+
+// export const initialState = {
+//     userDetail: {
+//         pageOneQuestion:{
+//             companyName: "",
+//             url: "",
+//             nameOfNewsletter: "",
+//             companyLogo: "",
+//             descriptionOfNewsletter: "",
+//             category: [],
+//             majorityColor: [],
+//             fontStyles: ""
+//         },
+//         pageTwoQuestion:{
+//             emailPlatform: "",
+//             often: "",
+//             language: "",
+//             newsletterSize: "",
+//             audienceNumber:"",
+//             audienceAgeRange: "",
+//             audienceIncomeLevel: "",
+//             stylistic: "",
+//             emojiUsage: false,
+//             youTubeUrl:"",
+//             facebookUrl:"",
+//             instagramUrl: "",
+//             twitterUrl: "",
+//             linkedinUrl: "",
+//             pinterestUrl: "",
+//             shopUrl: "",
+//             portfolioUrl: "",
+//             threadsUrl: "",
+//         },
+//         pageThreeQuestion:{
+//             brandDescribetino: "",
+//             brandStatement: "",
+//             dailyJobObjective: "",
+//             helpTopics: "",
+//             uniqueClaim: "",
+//             newsletterHeaderImageOrLogo: "",
+//             accentColorsInBranding: "",
+//             hyperlinkColorsInBranding: "",
+//             buttonColorsInBranding: "",
+//             newsSources: ""
+//         },
+//         pageFourQuestion:{
+//             question1: "",
+//             question2: "",
+//             question3: "",
+//             question4: "",
+//             question5: "",
+//             question6: "",
+//             question7: "",
+//             question8: "",
+//             question9: "",
+//             question10: "",
+//             question11: "",
+//             question12: "",
+//             question13: "",
+//             question14: "",
+//             question15: "",
+//             question16: "",
+//             question17: "",
+//             question18: "",
+//             question19: "",
+//             question20: "",
+//             question21: "",
+//             question22: "",
+//             question23: "",
+//             question24: "",
+//             question25: "",
+//             question26: "",
+//             question27: "",
+//             question28: "",
+//             question29: "",
+//             question30: "",
+//             question31: "",
+//             question32: "",
+//             question33: "",
+//             question34: "",
+//         }
+//     },
+//     allData: [
+//     ]
+// };
 
 export const detailSlice = createSlice({
-    name: "detail",
-    initialState: initialState,
-    reducers: {
-        setDetailId: (state, action) => {
-            state.current.detailId = action.payload;
-        },
-        setCompanyName: (state, action) => {
-            state.current.companyName = action.payload;
-        },
-        setNewsLetterDetail: (state, action) => {
-            state.current.newsLetterDetail = action.payload;
-        },
-        setIndustry: (state, action) => {
-            state.current.industry = action.payload;
-        },
-        setTopic: (state, action) => {
-            state.current.topic = action.payload;
-        },
-        setData: (state, action) => {
-            state.current.data = action.payload;
-        },
-        setStyleInfo: (state, action) => {
-            state.current.styleInfo = action.payload;
-        },
-        setAllData: (state, action) => {
-            state.allData = action.payload;
-        },
-        clearData: (state, action) => {
-            state.current.data = [];
-        },
+  name: "detail",
+  initialState: initialState,
+  reducers: {
+    setPageOneQuestion: (state, action) => {
+      // Update state for page one
+      state.pageOne = action.payload;
     },
-    extraReducers: {
-        [getDeatil.fulfilled]: (state, action) => {
-            console.log(action);
-            state.current = {
-                ...state.current,
-                companyName: action.payload.companyName,
-                newsLetterDetail: action.payload.newsLetterDetail,
-                industry: action.payload.industry,
-            };
-        },
-        // [getGPTData.fulfilled]: (state, action) => {
-        //     console.log(action);
-        //     state.current = {
-        //         ...state.current,
-        //         data: action.payload
-        //     };
-        // },
+    setPageTwoQuestion: (state, action) => {
+      // Update state for page two
+      state.pageTwo = action.payload;
     },
+    setPageThreeQuestion: (state, action) => {
+      // Update state for page three
+      state.pageThree = action.payload;
+    },
+    setPageFourQuestion: (state, action) => {
+      // Update state for page four
+      state.pageFour = action.payload;
+    },
+    clearData: (state) => {
+      // Clear the state if needed
+      return {
+        // Your initial state here
+      };
+    },
+  },
+  // Your extraReducers for async thunks can go here
 });
 
+// Export your reducer and actions
 export const {
-    setDetailId,
-    setCompanyName,
-    setNewsLetterDetail,
-    setIndustry,
-    setTopic,
-    setData,
-    setStyleInfo,
-    setAllData,
-    clearData
+  setPageOneQuestion,
+  setPageTwoQuestion,
+  setPageThreeQuestion,
+  setPageFourQuestion,
+  clearData,
 } = detailSlice.actions;
+
+export default detailSlice.reducer;

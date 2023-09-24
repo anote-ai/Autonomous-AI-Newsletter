@@ -1,0 +1,1 @@
+export const fontSizes = ["1.5rem", "10px", "14px", "16px", "18px", "20px"];

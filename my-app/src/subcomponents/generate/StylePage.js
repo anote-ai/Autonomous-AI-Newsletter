@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, useData, clearData, useStyleInfo } from "../../redux/DetailSlice"
+import { setData, useData, clearData, useStyleInfo } from "../../redux/newsLetterSlice"
 import Dropdown from '../../components/Dropdown';
 import DropdownDetail from './DropdownDetail'
 

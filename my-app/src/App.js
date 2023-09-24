@@ -43,26 +43,26 @@ function App() {
 
   let dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(viewUser());
-      async function getDeatilData() {
-        let data = await dispatch(getDeatil())
-        console.log(data);
-        if (data.payload !== false) {
-          dispatch(setCompanyName(data.payload.companyName))
-          dispatch(setNewsLetterDetail(data.payload.newsLetterDetail))
-          dispatch(setIndustry(data.payload.industry))
-          setHaveDetail(true);
-        }
-        else {
-          setHaveDetail(false);
-        }
-      }
-      getDeatilData();
-      // dispatch(refreshCredits());
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     dispatch(viewUser());
+  //     async function getDeatilData() {
+  //       let data = await dispatch(getDeatil())
+  //       console.log(data);
+  //       if (data.payload !== false) {
+  //         // dispatch(setCompanyName(data.payload.companyName))
+  //         // dispatch(setNewsLetterDetail(data.payload.newsLetterDetail))
+  //         // dispatch(setIndustry(data.payload.industry))
+  //         setHaveDetail(true);
+  //       }
+  //       else {
+  //         setHaveDetail(false);
+  //       }
+  //     }
+  //     getDeatilData();
+  //     // dispatch(refreshCredits());
+  //   }
+  // }, [isLoggedIn]);
 
   let user = useUser();
 
