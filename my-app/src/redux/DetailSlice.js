@@ -6,16 +6,35 @@ import { questionList } from "../constants/questionList"
 
 
 export const updateDetail = createAsyncThunk("detail/set", async (payload, thunk) => {
-    const response = await fetcher("setUserDetail", {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(payload)
-    })
-    const response_str = await response.json();
-    return response_str;
+    // console.log(payload);
+    let payloadData;
+    if(payload.tableName === "userDetailPageOne" || payload.tableName === "userDetailPageTwo" ){
+        payloadData = {}
+        payload.payload.forEach((item) => {
+            payloadData[item.title] = item.data;
+        });
+    }
+    else{
+        payloadData = payload.payload.filter((item) =>{
+            return (item.data !== "" && !/^\s*$/.test(item.data))
+        })
+        console.log(payloadData);
+    }
+    try{
+        const response = await fetcher(`setUserDetail?table=${payload.tableName}`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(payloadData)
+        })
+        const response_str = await response.json();
+        return response_str;
+    }
+    catch(e){
+        alert(e);
+    }
 });
 
 export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk) => {
@@ -198,9 +217,7 @@ export const detailSlice = createSlice({
     },
     clearData: (state) => {
       // Clear the state if needed
-      return {
-        // Your initial state here
-      };
+      state = initialState;
     },
   },
   // Your extraReducers for async thunks can go here

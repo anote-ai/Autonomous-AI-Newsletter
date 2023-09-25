@@ -65,11 +65,57 @@ CREATE TABLE freeTrialsAccessed (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE userDetail (
-    user_id INTEGER PRIMARY KEY,
-    company_name VARCHAR(255),
-    news_letter_detail VARCHAR(255),
-    industry VARCHAR(255)
+CREATE TABLE userDetailPageOne (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `Brand or Company Name` VARCHAR(255),
+    `URL` VARCHAR(255),
+    `Name of Publication or Newsletter` VARCHAR(255),
+    `Newsletter Header Image or Company Logo` VARCHAR(255),
+    `Description of Newsletter` VARCHAR(255),
+    `Business Category` TEXT,
+    `colors used on the majority of your branding` VARCHAR(500),
+    `List your color palette` VARCHAR(500),
+    `Select your font styles` VARCHAR(255)
+);
+
+INSERT INTO userDetailPageOne (user_id, `Business Category`) VALUES (1, "[]");
+CREATE TABLE userDetailPageTwo (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `Which email platform do you use?` VARCHAR(500),
+    `How often do you send your newsletter?` VARCHAR(255),
+    `Publication Language` VARCHAR(255),
+    `Newsletter Size` VARCHAR(255),
+    `Audience Demographics` TEXT,
+    `Audience Age Range` TEXT,
+    `Audience Income Level` TEXT,
+    `Do you adhere to a stylistic choice?` TEXT,
+    `Does your brand writing style use emojis?` BOOLEAN,
+    `YouTube Channel URL` VARCHAR(255),
+    `Facebook URL` VARCHAR(255),
+    `Instagram URL` VARCHAR(255),
+    `Twitter URL` VARCHAR(255),
+    `Linkedin URL` VARCHAR(255),
+    `Pinterest URL` VARCHAR(255),
+    `Shop URL` VARCHAR(255),
+    `Portfolio URL` VARCHAR(255),
+    `Threads URL` VARCHAR(255)
+);
+
+CREATE TABLE userDetailPageThree (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    question_id int,
+    question_name VARCHAR(500),
+    data TEXT
+);
+CREATE TABLE userDetailPageFour (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    question_id int,
+    question_name VARCHAR(500),
+    data TEXT
 );
 
 

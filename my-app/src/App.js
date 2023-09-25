@@ -21,8 +21,11 @@ import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
 import Profile from './components/Profile'
 import LeftNav from "./components/LeftNav";
+import { questionList } from "./constants/questionList";
+import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 
 function App() {
+  const pattern = /^\['.*'\]$/;
   const [darkTheme, setDarkTheme] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [haveDeatil, setHaveDetail] = useState(true);
@@ -43,26 +46,47 @@ function App() {
 
   let dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     dispatch(viewUser());
-  //     async function getDeatilData() {
-  //       let data = await dispatch(getDeatil())
-  //       console.log(data);
-  //       if (data.payload !== false) {
-  //         // dispatch(setCompanyName(data.payload.companyName))
-  //         // dispatch(setNewsLetterDetail(data.payload.newsLetterDetail))
-  //         // dispatch(setIndustry(data.payload.industry))
-  //         setHaveDetail(true);
-  //       }
-  //       else {
-  //         setHaveDetail(false);
-  //       }
-  //     }
-  //     getDeatilData();
-  //     // dispatch(refreshCredits());
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(async () => {
+    if (isLoggedIn) {
+      dispatch(viewUser());
+      async function getDeatilData() {
+        let data = await dispatch(getDeatil())
+        // console.log(data);
+        if (data.payload !== false) {
+          let temData = JSON.parse(JSON.stringify(questionList));
+          for (const pageName in data.payload) {
+            const pageData = data.payload[pageName];
+            const questions = temData[pageName];
+
+            if (pageData && questions) {
+              questions.forEach((question) => {
+                const questionTitle = question.title;
+                if (pageData.hasOwnProperty(questionTitle)) {
+                  let fontData = pageData[questionTitle];
+                  if (pattern.test(fontData)) {
+                    fontData = fontData.replace(/'/g, '"');
+                    fontData = JSON.parse(fontData);
+                  }
+                  question.data = fontData;
+                }
+              });
+            }
+          }
+          // console.log(temData)
+          dispatch(setPageOneQuestion(temData['pageOne']))
+          dispatch(setPageTwoQuestion(temData['pageTwo']))
+          dispatch(setPageThreeQuestion(temData['pageThree']))
+          dispatch(setPageFourQuestion(temData['pageFour']))
+          setHaveDetail(true);
+        }
+        else {
+          setHaveDetail(false);
+        }
+      }
+      await getDeatilData();
+      // dispatch(refreshCredits());
+    }
+  }, [isLoggedIn]);
 
   let user = useUser();
 

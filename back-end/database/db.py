@@ -44,7 +44,7 @@ def get_db_connection():
 #         connection.close()
 #         print("MySQL connection closed")
 
-#create a user
+# create a user
 
 # def create_user():
 #     conn, cursor = get_db_connection()
@@ -53,60 +53,213 @@ def get_db_connection():
 #     conn.commit()
 #     conn.close()
 
+
 def check_user_by_id(id):
     conn, cursor = get_db_connection()
     cursor.execute('SELECT * FROM users WHERE id=%s;', [id])
     user = cursor.fetchone()
     conn.commit()
     conn.close()
-    if(user):
+    if (user):
         return True
     return False
 
-def check_detail_by_userID(user_ID):
+
+def check_detail_by_userId(user_ID, tableName):
     conn, cursor = get_db_connection()
-    cursor.execute('SELECT * FROM userDetail WHERE user_id=%s;', [user_ID])
+    # Use proper string formatting with placeholders (%s) for variables
+    query = f'SELECT * FROM {tableName} WHERE user_id=%s;'
+    cursor.execute(query, [user_ID])
     detail = cursor.fetchone()
     conn.commit()
     conn.close()
-    if(detail):
+    if detail:
         return True
+    print("detail", detail)
     return False
 
-# print(check_user_by_id(1))
 
-def get_detail_by_userID(user_ID):
+def get_detail_by_userID(user_ID, tabeName):
     conn, cursor = get_db_connection()
-    cursor.execute('SELECT company_name, news_letter_detail, industry FROM userDetail WHERE user_id=%s;', [user_ID])
-    detail = cursor.fetchone()
+    cursor.execute(f"""
+            SELECT * FROM {tabeName}
+            WHERE user_id = %s
+        """, [user_ID])
+    page_data = cursor.fetchone()
+    # print(page_data)
     conn.commit()
     conn.close()
     # print(detail)
-    if(detail):
-        return detail
+    if (page_data):
+        return page_data
     return False
 
-def add_user_detail_byID(id, companyName, newsLetterDetail, industry):
+def get_detail_by_userID_three_four(user_ID, tableName):
     conn, cursor = get_db_connection()
-    if(check_user_by_id(id)):
-        if(check_detail_by_userID(id)):
-            cursor.execute('UPDATE userDetail SET company_name = %s, news_letter_detail = %s, industry = %s WHERE user_id = %s;', (companyName, newsLetterDetail, industry, id))
-        else:
-            cursor.execute('INSERT INTO userDetail (user_id, company_name, news_letter_detail, industry) VALUES (%s, %s, %s, %s);', (id, companyName, newsLetterDetail, industry))
-    else:
-        return 'user not exist'
+    cursor.execute(f"""
+            SELECT question_name, data FROM {tableName}
+            WHERE user_id = %s
+        """, [user_ID])
+    page_data = cursor.fetchall()
+    # print(page_data)
     conn.commit()
     conn.close()
-    return True
+    if (page_data):
+        return page_data
+    return False
+
+
+def add_user_detail_by_id_page_one(user_id, company_name, url, newsletter_name, header_image, description, business_category, branding_colors, color_palette, font_styles):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+        if check_detail_by_userId(user_id, 'userDetailPageOne'):
+            # print('step3')
+            update_query = """
+                UPDATE userDetailPageOne 
+                SET 
+                    `Brand or Company Name` = %s, 
+                    `URL` = %s, 
+                    `Name of Publication or Newsletter` = %s, 
+                    `Newsletter Header Image or Company Logo` = %s, 
+                    `Description of Newsletter` = %s, 
+                    `Business Category` = %s, 
+                    `colors used on the majority of your branding` = %s, 
+                    `List your color palette` = %s, 
+                    `Select your font styles` = %s 
+                WHERE user_id = %s
+            """
+            cursor.execute(update_query, (
+                company_name, url, newsletter_name, header_image,
+                description, business_category, branding_colors,
+                color_palette, font_styles, user_id
+            ))
+        else:
+            # print("step4")
+            print(business_category)
+            insert_query = """
+                INSERT INTO userDetailPageOne 
+                (user_id, `Brand or Company Name`, `URL`, `Name of Publication or Newsletter`, 
+                `Newsletter Header Image or Company Logo`, `Description of Newsletter`, 
+                `Business Category`, `colors used on the majority of your branding`, 
+                `List your color palette`, `Select your font styles`)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute('INSERT INTO userDetailPageOne (user_id, `Brand or Company Name`, `URL`, `Name of Publication or Newsletter`, `Newsletter Header Image or Company Logo`, `Description of Newsletter`, `Business Category`, `colors used on the majority of your branding`, `List your color palette`, `Select your font styles`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', [
+                user_id, company_name, url, newsletter_name, header_image,
+                description, business_category, branding_colors,
+                color_palette, font_styles
+            ])
+        
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'
+
+def add_user_detail_by_id_page_two(user_id, email_platform, send_frequency, language, newsletter_size, audience_demographics, age_range, income_level, stylistic_choice, emojis, youtube_url, facebook_url, instagram_url, twitter_url, linkedin_url, pinterest_url, shop_url, portfolio_url, threads_url):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+        if check_detail_by_userId(user_id, 'userDetailPageTwo'):
+            # print('step3')
+            update_query = """
+                UPDATE userDetailPageTwo 
+                SET 
+                    `Which email platform do you use?` = %s, 
+                    `How often do you send your newsletter?` = %s, 
+                    `Publication Language` = %s, 
+                    `Newsletter Size` = %s, 
+                    `Audience Demographics` = %s, 
+                    `Audience Age Range` = %s, 
+                    `Audience Income Level` = %s, 
+                    `Do you adhere to a stylistic choice?` = %s, 
+                    `Does your brand writing style use emojis?` = %s, 
+                    `YouTube Channel URL` = %s, 
+                    `Facebook URL` = %s, 
+                    `Instagram URL` = %s, 
+                    `Twitter URL` = %s, 
+                    `Linkedin URL` = %s, 
+                    `Pinterest URL` = %s, 
+                    `Shop URL` = %s, 
+                    `Portfolio URL` = %s, 
+                    `Threads URL` = %s
+                WHERE user_id = %s
+            """
+            cursor.execute(update_query, (
+                email_platform, send_frequency, language, newsletter_size,
+                audience_demographics, age_range, income_level, stylistic_choice,
+                emojis, youtube_url, facebook_url, instagram_url, twitter_url,
+                linkedin_url, pinterest_url, shop_url, portfolio_url, threads_url, user_id
+            ))
+        else:
+            # print('step4')
+            insert_query = """
+                INSERT INTO userDetailPageTwo 
+                (user_id, `Which email platform do you use?`, `How often do you send your newsletter?`, 
+                `Publication Language`, `Newsletter Size`, `Audience Demographics`, 
+                `Audience Age Range`, `Audience Income Level`, `Do you adhere to a stylistic choice?`, 
+                `Does your brand writing style use emojis?`, `YouTube Channel URL`, `Facebook URL`, 
+                `Instagram URL`, `Twitter URL`, `Linkedin URL`, `Pinterest URL`, `Shop URL`, 
+                `Portfolio URL`, `Threads URL`)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (
+                user_id, email_platform, send_frequency, language, newsletter_size,
+                audience_demographics, age_range, income_level, stylistic_choice,
+                emojis, youtube_url, facebook_url, instagram_url, twitter_url,
+                linkedin_url, pinterest_url, shop_url, portfolio_url, threads_url
+            ))
+        
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'
+
+def add_user_detail_by_id_page_three_four(user_id, data_page, question_id, question_name, question_data):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+        cursor.execute(f"""
+            SELECT * FROM {data_page}
+            WHERE user_id = %s AND question_id = %s
+        """, (user_id, question_id))
+        existing_record = cursor.fetchone()
+        if existing_record:
+            # Update the existing record
+            cursor.execute(f"""
+                UPDATE {data_page}
+                SET question_name = %s, data = %s
+                WHERE user_id = %s AND question_id = %s
+            """, (question_name, question_data, user_id, question_id))
+        else:
+            # Insert a new record
+            cursor.execute(f"""
+                INSERT INTO {data_page} (user_id, question_id, question_name, data)
+                VALUES (%s, %s, %s, %s)
+            """, (user_id, question_id, question_name, question_data))
+        
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'
+
 
 def create_user_if_does_not_exist(email, google_id, person_name, profile_pic_url):
     conn, cursor = get_db_connection()
-    cursor.execute('SELECT COUNT(*), id FROM users WHERE email=%s GROUP BY id', [email])
+    cursor.execute(
+        'SELECT COUNT(*), id FROM users WHERE email=%s GROUP BY id', [email])
     count = cursor.fetchone()
     user_id = -1
     if count is None or count["COUNT(*)"] == 0:
         # Create new user
-        cursor.execute('INSERT INTO users (email, google_id, person_name, profile_pic_url) VALUES (%s,%s,%s,%s)', [email, google_id, person_name, profile_pic_url])
+        cursor.execute('INSERT INTO users (email, google_id, person_name, profile_pic_url) VALUES (%s,%s,%s,%s)', [
+                       email, google_id, person_name, profile_pic_url])
         row = cursor.fetchone()
         conn.commit()
         conn.close()
@@ -116,21 +269,26 @@ def create_user_if_does_not_exist(email, google_id, person_name, profile_pic_url
 
     return user_id
 
+
 def verify_password_reset_code(email, passwordResetCode):
     conn, cursor = get_db_connection()
     isVerified = False
     NOW = datetime.now()
-    cursor.execute("SELECT * FROM users WHERE email = %s AND password_reset_token = %s AND password_reset_token_expiration > %s", [email, passwordResetCode, NOW])
+    cursor.execute("SELECT * FROM users WHERE email = %s AND password_reset_token = %s AND password_reset_token_expiration > %s",
+                   [email, passwordResetCode, NOW])
     users = cursor.fetchall()
     if len(users) > 0:
         isVerified = True
     conn.close()
     return isVerified
 
+
 def user_for_credentials(email, password_hash):
     conn, cursor = get_db_connection()
-    cursor.execute('SELECT * FROM users WHERE email = %s AND password_hash = %s', [email, password_hash])
+    cursor.execute(
+        'SELECT * FROM users WHERE email = %s AND password_hash = %s', [email, password_hash])
     return cursor.fetchone()
+
 
 def get_salt_for_email(email):
     conn, cursor = get_db_connection()
@@ -141,46 +299,56 @@ def get_salt_for_email(email):
     else:
         return None
 
+
 def update_session_token_for_user(email, session_token):
     conn, cursor = get_db_connection()
     NOW = datetime.now()
     expiration_limit = NOW + kSessionTokenExpirationTime
-    cursor.execute("UPDATE users SET session_token = %s , session_token_expiration = %s WHERE email = %s", [session_token, expiration_limit, email])
+    cursor.execute("UPDATE users SET session_token = %s , session_token_expiration = %s WHERE email = %s", [
+                   session_token, expiration_limit, email])
     conn.commit()
     conn.close()
+
 
 def user_exists(email):
     conn, cursor = get_db_connection()
     cursor.execute('SELECT * FROM users WHERE email = %s', [email])
     return cursor.fetchone()
 
+
 def create_user_from_credentials(email, password_hash, salt, session_token):
     conn, cursor = get_db_connection()
     NOW = datetime.now()
     expiration_limit = NOW + kSessionTokenExpirationTime
-    cursor.execute('INSERT INTO users (email, password_hash, session_token, session_token_expiration, salt) VALUES (%s, %s, %s, %s, %s)', [email, password_hash, session_token, expiration_limit, salt])
+    cursor.execute('INSERT INTO users (email, password_hash, session_token, session_token_expiration, salt) VALUES (%s, %s, %s, %s, %s)', [
+                   email, password_hash, session_token, expiration_limit, salt])
     conn.commit()
     conn.close()
+
 
 def update_password_reset_token(email, generated_token):
     conn, cursor = get_db_connection()
 
     NOW = datetime.now()
     expiration_limit = NOW + kPasswordResetExpirationTime
-    cursor.execute("UPDATE users SET password_reset_token = %s , password_reset_token_expiration = %s WHERE email = %s", [generated_token, expiration_limit, email])
+    cursor.execute("UPDATE users SET password_reset_token = %s , password_reset_token_expiration = %s WHERE email = %s", [
+                   generated_token, expiration_limit, email])
 
     conn.commit()
     conn.close()
+
 
 def update_user_credentials(email, hashed_password, salt, token):
     conn, cursor = get_db_connection()
 
     NOW = datetime.now()
     expiration_limit = NOW + kSessionTokenExpirationTime
-    cursor.execute("UPDATE users SET password_hash = %s, salt = %s, session_token = %s , session_token_expiration = %s WHERE email = %s", [hashed_password, salt, token, expiration_limit, email])
+    cursor.execute("UPDATE users SET password_hash = %s, salt = %s, session_token = %s , session_token_expiration = %s WHERE email = %s", [
+                   hashed_password, salt, token, expiration_limit, email])
 
     conn.commit()
     conn.close()
+
 
 def stripe_subscription_for_user(userEmail):
     conn, cursor = get_db_connection()
@@ -203,16 +371,17 @@ def stripe_subscription_for_user(userEmail):
     else:
         print("not subscription")
         return None
-    
+
+
 def user_has_free_trial(userEmail, free_trial_code):
     conn, cursor = get_db_connection()
-    
+
     # Get a matching token that hasn't expired yet
     # cursor.execute('''
-    #     SELECT id, email 
-    #     FROM freeTrialAllowlist 
+    #     SELECT id, email
+    #     FROM freeTrialAllowlist
     #     WHERE (email = %s OR id NOT IN (
-    #         SELECT free_trial_allow_list_id 
+    #         SELECT free_trial_allow_list_id
     #         FROM freeTrialsAccessed
     #         GROUP BY free_trial_allow_list_id
     #         HAVING COUNT(*) >= max_non_email_count
@@ -227,7 +396,7 @@ def user_has_free_trial(userEmail, free_trial_code):
         WHERE email = %s AND token = %s AND token_expiration > CURRENT_TIMESTAMP LIMIT 1
     ''', [userEmail, free_trial_code])
     print("user_has_free_trial2")
-    
+
     freeTrialAllowlist = cursor.fetchone()
     print("user_has_free_trial3")
     if freeTrialAllowlist:
@@ -284,7 +453,8 @@ def user_has_free_trial(userEmail, free_trial_code):
         else:
             print("user_has_free_trial16")
             # Fetch user_id for given email
-            cursor.execute('SELECT id FROM users WHERE email = %s', [userEmail])
+            cursor.execute(
+                'SELECT id FROM users WHERE email = %s', [userEmail])
             print("user_has_free_trial17")
             user_id = cursor.fetchone()
             print("user_has_free_trial18")
@@ -307,7 +477,8 @@ def user_has_free_trial(userEmail, free_trial_code):
         print("user_has_free_trial22")
         conn.close()
         return False
-    
+
+
 def stripe_customer_for_user(userEmail):
     conn, cursor = get_db_connection()
     cursor.execute("""
@@ -325,7 +496,8 @@ def stripe_customer_for_user(userEmail):
     else:
         print("not stripe_customer_id")
         return None
-    
+
+
 def config_for_payment_tiers(userEmail, newPaymentTier):
     conn, cursor = get_db_connection()
     paidLevel = paid_user_for_user_email_with_cursor(conn, cursor, userEmail)
@@ -354,17 +526,21 @@ def config_for_payment_tiers(userEmail, newPaymentTier):
             config = downgrade_to_standard
     return config
 
+
 def paid_user_for_user_email_with_cursor(conn, cursor, user_email):
-    cursor.execute('SELECT gc.paid_user FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])
+    cursor.execute(
+        'SELECT gc.paid_user FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])
     paidUser = cursor.fetchone()
     if paidUser:
         return paidUser["paid_user"]
     else:
         return 0
-    
+
+
 def no_subscriptions_with_end_date_null(user_email):
     conn, cursor = get_db_connection()
-    cursor.execute("SELECT COUNT(*) FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE p.email = %s AND gc.end_date IS NULL", [user_email])
+    cursor.execute(
+        "SELECT COUNT(*) FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE p.email = %s AND gc.end_date IS NULL", [user_email])
     emailCount = cursor.fetchone()
     cursor.close()
     conn.close()
@@ -372,7 +548,8 @@ def no_subscriptions_with_end_date_null(user_email):
         return True
     else:
         return False
-    
+
+
 def add_subscription(subscription, user_id, customer_id, payment_plan, free_trial_end):
     conn, cursor = get_db_connection()
     try:
@@ -381,27 +558,35 @@ def add_subscription(subscription, user_id, customer_id, payment_plan, free_tria
         if stripe_info_id_db:
             stripe_info_id = stripe_info_id_db["id"]
         else:
-            cursor.execute("INSERT INTO StripeInfo (user_id, stripe_customer_id) VALUES (%s, %s)", (user_id, customer_id))
+            cursor.execute(
+                "INSERT INTO StripeInfo (user_id, stripe_customer_id) VALUES (%s, %s)", (user_id, customer_id))
             cursor.execute("SELECT LAST_INSERT_ID()")
             stripe_info_id = cursor.fetchone()["LAST_INSERT_ID()"]
 
-        cursor.execute("SELECT COUNT(*) FROM Subscriptions c JOIN StripeInfo p ON c.stripe_info_id=p.id WHERE p.user_id=%s AND c.start_date < CURRENT_TIMESTAMP AND (c.end_date IS NULL OR c.end_date > CURRENT_TIMESTAMP)", [user_id])
+        cursor.execute(
+            "SELECT COUNT(*) FROM Subscriptions c JOIN StripeInfo p ON c.stripe_info_id=p.id WHERE p.user_id=%s AND c.start_date < CURRENT_TIMESTAMP AND (c.end_date IS NULL OR c.end_date > CURRENT_TIMESTAMP)", [user_id])
         activePaidSubscriptions = cursor.fetchone()
         if activePaidSubscriptions["COUNT(*)"] == 0:
             if free_trial_end:
-                cursor.execute("UPDATE StripeInfo SET anchor_date = %s WHERE user_id = %s", [free_trial_end, user_id])
+                cursor.execute("UPDATE StripeInfo SET anchor_date = %s WHERE user_id = %s", [
+                               free_trial_end, user_id])
             else:
-                cursor.execute("UPDATE StripeInfo SET anchor_date = CURRENT_TIMESTAMP WHERE user_id = %s", [user_id])
+                cursor.execute(
+                    "UPDATE StripeInfo SET anchor_date = CURRENT_TIMESTAMP WHERE user_id = %s", [user_id])
 
         if free_trial_end:
-            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial, end_date) VALUES (%s, %s, %s, %s, %s)", [stripe_info_id, subscription['id'], int(payment_plan), 1, free_trial_end])
-            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial, start_date) VALUES (%s, %s, %s, %s, %s)", [stripe_info_id, subscription['id'], int(payment_plan), 0, free_trial_end])
+            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial, end_date) VALUES (%s, %s, %s, %s, %s)", [
+                           stripe_info_id, subscription['id'], int(payment_plan), 1, free_trial_end])
+            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial, start_date) VALUES (%s, %s, %s, %s, %s)", [
+                           stripe_info_id, subscription['id'], int(payment_plan), 0, free_trial_end])
         else:
-            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial) VALUES (%s, %s, %s, %s)", [stripe_info_id, subscription['id'], int(payment_plan), 0])
+            cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial) VALUES (%s, %s, %s, %s)", [
+                           stripe_info_id, subscription['id'], int(payment_plan), 0])
 
         conn.commit()
     finally:
         conn.close()
+
 
 def user_email_for_id(id):
     conn, cursor = get_db_connection()
@@ -411,17 +596,20 @@ def user_email_for_id(id):
     conn.close()
     return email["email"]
 
+
 def delete_subscription(subscription):
     conn, cursor = get_db_connection()
 
     try:
         print(subscription['id'])
         # print("SELECT p.user_id FROM StripeInfo p JOIN Subscriptions c ON p.id=c.stripe_info_id WHERE c.subscription_id = %s" + subscription['id'])
-        cursor.execute("SELECT p.user_id FROM StripeInfo p JOIN Subscriptions c ON p.id=c.stripe_info_id WHERE c.subscription_id = %s LIMIT 1", [subscription['id']])
+        cursor.execute("SELECT p.user_id FROM StripeInfo p JOIN Subscriptions c ON p.id=c.stripe_info_id WHERE c.subscription_id = %s LIMIT 1", [
+                       subscription['id']])
         # cursor.execute("SELECT user_id FROM StripeInfo WHERE id = (SELECT stripe_info_id FROM Subscriptions WHERE subscription_id = %s)", (subscription['id'],))
         user_id = cursor.fetchone()["user_id"]
 
-        cursor.execute("SELECT is_free_trial FROM Subscriptions WHERE subscription_id = %s AND start_date < CURRENT_TIMESTAMP AND (end_date IS NULL OR end_date > CURRENT_TIMESTAMP) ORDER BY start_date DESC LIMIT 1", (subscription['id'],))
+        cursor.execute(
+            "SELECT is_free_trial FROM Subscriptions WHERE subscription_id = %s AND start_date < CURRENT_TIMESTAMP AND (end_date IS NULL OR end_date > CURRENT_TIMESTAMP) ORDER BY start_date DESC LIMIT 1", (subscription['id'],))
         activeSubscription = cursor.fetchone()
         if activeSubscription["is_free_trial"] == 1:
             # If active subscription if free trial, make end_date of everything that starts after that Subsription NOW
@@ -431,7 +619,8 @@ def delete_subscription(subscription):
             """, [subscription['id']])
         else:
             # Else, make the end_date of the current active subscripion be the next anchor date
-            anchor_time = next_anchor_time_for_user_with_cursor(conn, cursor, user_id)
+            anchor_time = next_anchor_time_for_user_with_cursor(
+                conn, cursor, user_id)
             cursor.execute("""
                 UPDATE Subscriptions SET Subscriptions.end_date = %s
                 WHERE subscription_id = %s AND start_date < CURRENT_TIMESTAMP AND (end_date IS NULL OR end_date > CURRENT_TIMESTAMP)
@@ -441,13 +630,16 @@ def delete_subscription(subscription):
     finally:
         conn.close()
 
+
 def user_email_for_customer_id(id):
     conn, cursor = get_db_connection()
-    cursor.execute("SELECT p.email FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE c.stripe_customer_id = %s", [id])
+    cursor.execute(
+        "SELECT p.email FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE c.stripe_customer_id = %s", [id])
     email = cursor.fetchone()
     cursor.close()
     conn.close()
     return email["email"]
+
 
 def next_anchor_time_for_user(user_id):
     conn, cursor = get_db_connection()
@@ -455,8 +647,10 @@ def next_anchor_time_for_user(user_id):
     conn.close()
     return next_time
 
+
 def next_anchor_time_for_user_with_cursor(conn, cursor, user_id):
-    cursor.execute('SELECT c.anchor_date from StripeInfo c JOIN users p ON p.id=c.user_id WHERE p.id = %s', [user_id])
+    cursor.execute(
+        'SELECT c.anchor_date from StripeInfo c JOIN users p ON p.id=c.user_id WHERE p.id = %s', [user_id])
     result = cursor.fetchone()
 
     if result and result['anchor_date']:
@@ -464,42 +658,51 @@ def next_anchor_time_for_user_with_cursor(conn, cursor, user_id):
         now = datetime.now()
         # Create a target date based on current month and anchor day
         try:
-            target_date = datetime(now.year, now.month, anchor_date.day, anchor_date.hour, anchor_date.minute, anchor_date.second)
+            target_date = datetime(now.year, now.month, anchor_date.day,
+                                   anchor_date.hour, anchor_date.minute, anchor_date.second)
         except ValueError:  # This will be triggered when the day isn't in the current month
             # If this month doesn't have the same day as the anchor_date, get the last day of this month
-            next_month_start = (now.replace(day=1) + relativedelta(months=1)).replace(hour=anchor_date.hour, minute=anchor_date.minute, second=anchor_date.second)
+            next_month_start = (now.replace(day=1) + relativedelta(months=1)).replace(
+                hour=anchor_date.hour, minute=anchor_date.minute, second=anchor_date.second)
             target_date = next_month_start - timedelta(days=1)
 
         # If today's date is after the target_date, compute the next month's target_date
         if now > target_date:
             try:
-                target_date = datetime(now.year, now.month + 1, anchor_date.day, anchor_date.hour, anchor_date.minute, anchor_date.second)
-            except ValueError:  
-                next_month_start = (now.replace(day=1) + relativedelta(months=2)).replace(hour=anchor_date.hour, minute=anchor_date.minute, second=anchor_date.second)
+                target_date = datetime(now.year, now.month + 1, anchor_date.day,
+                                       anchor_date.hour, anchor_date.minute, anchor_date.second)
+            except ValueError:
+                next_month_start = (now.replace(day=1) + relativedelta(months=2)).replace(
+                    hour=anchor_date.hour, minute=anchor_date.minute, second=anchor_date.second)
                 target_date = next_month_start - timedelta(days=1)
 
         return target_date
     else:
         return None
 
+
 def refresh_credits(user_email):
     conn, cursor = get_db_connection()
-    cursor.execute("SELECT credits, credits_updated, id FROM users WHERE email = %s", (user_email,))
+    cursor.execute(
+        "SELECT credits, credits_updated, id FROM users WHERE email = %s", (user_email,))
     result = cursor.fetchone()
 
-    cursor.execute("SELECT c.anchor_date FROM StripeInfo c JOIN users p ON c.user_id=p.id WHERE p.id = %s", [result["id"]])
+    cursor.execute(
+        "SELECT c.anchor_date FROM StripeInfo c JOIN users p ON c.user_id=p.id WHERE p.id = %s", [result["id"]])
     anchorDateDb = cursor.fetchone()
     if (not anchorDateDb) or (not anchorDateDb["anchor_date"]):
         if result["credits"] > 0:
-             cursor.execute("UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
-             conn.commit()
+            cursor.execute(
+                "UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
+            conn.commit()
         conn.close()
         print("refresh_credits1")
         return {
             "numCredits": 0
         }
 
-    previousAnchorDate = previous_anchor_time_for_user_with_cursor(conn, cursor, result["id"])
+    previousAnchorDate = previous_anchor_time_for_user_with_cursor(
+        conn, cursor, result["id"])
     cursor.execute("""
         SELECT S.*
         FROM Subscriptions S
@@ -512,8 +715,9 @@ def refresh_credits(user_email):
     subscriptions = cursor.fetchall()
     if len(subscriptions) == 0:
         if result["credits"] > 0:
-             cursor.execute("UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
-             conn.commit()
+            cursor.execute(
+                "UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
+            conn.commit()
         conn.close()
         print("refresh_credits2")
         return {
@@ -524,7 +728,8 @@ def refresh_credits(user_email):
         if sub["is_free_trial"] == 1:
             if not result["credits_updated"] or sub["start_date"] >= result["credits_updated"]:
                 numCredits = planToCredits[sub["paid_user"]]
-                cursor.execute("UPDATE users SET credits=%s, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [numCredits, result["id"]])
+                cursor.execute("UPDATE users SET credits=%s, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [
+                               numCredits, result["id"]])
                 conn.commit()
                 conn.close()
                 print("refresh_credits33")
@@ -534,7 +739,8 @@ def refresh_credits(user_email):
         else:
             if not result["credits_updated"] or previousAnchorDate >= result["credits_updated"]:
                 numCredits = planToCredits[sub["paid_user"]]
-                cursor.execute("UPDATE users SET credits=%s, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [numCredits, result["id"]])
+                cursor.execute("UPDATE users SET credits=%s, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [
+                               numCredits, result["id"]])
                 conn.commit()
                 conn.close()
                 print("refresh_credits3")
@@ -547,9 +753,11 @@ def refresh_credits(user_email):
         return {
             "numCredits": result["credits"]
         }
-    
+
+
 def previous_anchor_time_for_user_with_cursor(conn, cursor, user_id):
-    cursor.execute('SELECT c.anchor_date from StripeInfo c JOIN users p ON p.id=c.user_id WHERE p.id = %s', [user_id])
+    cursor.execute(
+        'SELECT c.anchor_date from StripeInfo c JOIN users p ON p.id=c.user_id WHERE p.id = %s', [user_id])
     result = cursor.fetchone()
 
     if result and result['anchor_date']:
@@ -559,16 +767,19 @@ def previous_anchor_time_for_user_with_cursor(conn, cursor, user_id):
         else:
             # Convert to datetime object if necessary
             # You may need to adjust this depending on the expected format of anchor_date
-            anchor_date = datetime.strptime(result['anchor_date'], '%Y-%m-%d %H:%M:%S')
+            anchor_date = datetime.strptime(
+                result['anchor_date'], '%Y-%m-%d %H:%M:%S')
 
         now = datetime.now()
 
         # Create a target date based on current month and anchor day
         try:
-            target_date = datetime(now.year, now.month, anchor_date.day, anchor_date.hour, anchor_date.minute, anchor_date.second)
+            target_date = datetime(now.year, now.month, anchor_date.day,
+                                   anchor_date.hour, anchor_date.minute, anchor_date.second)
         except ValueError:  # This will be triggered when the day isn't in the current month
             # If this month doesn't have the same day as the anchor_date, get the last day of the previous month
-            target_date = datetime(now.year, now.month, 1, anchor_date.hour, anchor_date.minute, anchor_date.second) - relativedelta(days=1)
+            target_date = datetime(now.year, now.month, 1, anchor_date.hour,
+                                   anchor_date.minute, anchor_date.second) - relativedelta(days=1)
 
         # If the target date is still in the future, subtract a month
         if target_date > now:
@@ -576,26 +787,31 @@ def previous_anchor_time_for_user_with_cursor(conn, cursor, user_id):
         return target_date
     else:
         return None
-    
+
+
 def view_user(user_email):
     conn, cursor = get_db_connection()
-    cursor.execute('SELECT * FROM users WHERE email = %s LIMIT 1', [user_email])
+    cursor.execute(
+        'SELECT * FROM users WHERE email = %s LIMIT 1', [user_email])
     user = cursor.fetchone()
     # if user["credits_updated"]:
     #     credits_refresh_date = user["credits_updated"] + relativedelta(months=1)
     #     credits_refresh_str = credits_refresh_date.strftime('%Y-%m-%d')
     # else:
     #     credits_refresh_str = None
-    cursor.execute('SELECT anchor_date FROM StripeInfo WHERE user_id = %s', [user["id"]])
+    cursor.execute(
+        'SELECT anchor_date FROM StripeInfo WHERE user_id = %s', [user["id"]])
     stripeInfo = cursor.fetchone()
     credits_refresh_str = None
     if stripeInfo and stripeInfo["anchor_date"]:
-        credits_refresh_date = next_anchor_time_for_user_with_cursor(conn, cursor, user["id"])
+        credits_refresh_date = next_anchor_time_for_user_with_cursor(
+            conn, cursor, user["id"])
         if credits_refresh_date:
             credits_refresh_str = credits_refresh_date.strftime('%Y-%m-%d')
 
     paidLevel = paid_user_for_user_email_with_cursor(conn, cursor, user_email)
-    cursor.execute('SELECT c.paid_user FROM Subscriptions c JOIN StripeInfo p ON p.id=c.stripe_info_id WHERE p.user_id = %s AND c.end_date IS NULL AND c.start_date > CURRENT_TIMESTAMP ORDER BY c.start_date DESC LIMIT 1', [user["id"]])
+    cursor.execute(
+        'SELECT c.paid_user FROM Subscriptions c JOIN StripeInfo p ON p.id=c.stripe_info_id WHERE p.user_id = %s AND c.end_date IS NULL AND c.start_date > CURRENT_TIMESTAMP ORDER BY c.start_date DESC LIMIT 1', [user["id"]])
     next_plan = None
     nextPlanDb = cursor.fetchone()
     if nextPlanDb:
@@ -615,10 +831,12 @@ def view_user(user_email):
         "end_date": end_date,
         "credits_refresh": credits_refresh_str,
         "profile_pic_url": user["profile_pic_url"]
-     })
+    })
+
 
 def end_date_for_user_email_with_cursor(conn, cursor, user_email):
-    cursor.execute('SELECT gc.end_date FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])
+    cursor.execute(
+        'SELECT gc.end_date FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])
     paidUser = cursor.fetchone()
     if paidUser:
         return paidUser["end_date"]

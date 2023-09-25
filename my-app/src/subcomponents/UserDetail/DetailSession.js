@@ -57,20 +57,25 @@ function DetailSession(props) {
     function MfirstPageData(info) {
         // console.log(info)
         setFirstPageData(info);
+        // console.log(firstPageData)
         dispatch(setPageOneQuestion(info));
-        
+        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
+
     }
     function MsecondPageData(info) {
         setSecondPageData(info);
         dispatch(setPageTwoQuestion(info));
+        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageTwo' }))
     }
     function MthirdPageData(info) {
         setThirdPageData(info);
         dispatch(setPageThreeQuestion(info));
+        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageThree' }))
     }
     function MfourthPageData(info) {
         setFourthPageData(info);
         dispatch(setPageFourQuestion(info));
+        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageFour' }))
     }
 
     async function getPreviousStep() {
@@ -82,6 +87,10 @@ function DetailSession(props) {
     async function getNextStep() {
         if (pageState == 4) {
             try {
+                await dispatch(updateDetail({ payload: firstPageData, tableName: 'userDetailPageOne' }))
+                await dispatch(updateDetail({ payload: secondPageData, tableName: 'userDetailPageTwo' }))
+                await dispatch(updateDetail({ payload: thirdPageData, tableName: 'userDetailPageThree' }))
+                await dispatch(updateDetail({ payload: fourthPageData, tableName: 'userDetailPageFour' }))
                 // let returnBack = await dispatch(updateDetail({ companyName: companyName, newsLetterDetail: newsLetterDetail, industry: industry }));
                 alert("update success")
                 navigate("/")

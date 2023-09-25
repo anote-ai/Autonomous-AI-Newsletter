@@ -34,7 +34,7 @@ function DetailPage(props) {
                         required
                         type="text"
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                         }}
@@ -57,7 +57,7 @@ function DetailPage(props) {
                         type="text"
                         placeholder="http://"
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(eachdata.data);
@@ -109,7 +109,7 @@ function DetailPage(props) {
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -142,7 +142,7 @@ function DetailPage(props) {
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -168,7 +168,7 @@ function DetailPage(props) {
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -194,7 +194,7 @@ function DetailPage(props) {
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -220,7 +220,7 @@ function DetailPage(props) {
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -302,7 +302,7 @@ function DetailPage(props) {
         else if (eachdata.type === "incomeRange") {
             // console.log(categoryArray)
             let TemIncomeLevel = incomeLevel.map((each) => {
-                if (eachdata.data == each.name) {
+                if (eachdata.data.includes(each.name)) {
                     each.isActive = true;
                     return each
                 }
@@ -333,7 +333,7 @@ function DetailPage(props) {
         else if (eachdata.type === "styleSelect") {
             // console.log(categoryArray)
             let TemStylisticChoice = stylisticChoice.map((each) => {
-                if (eachdata.data == each.name) {
+                if (eachdata.data.includes(each.name)) {
                     each.isActive = true;
                     return each
                 }
@@ -370,7 +370,7 @@ function DetailPage(props) {
                         label={eachdata.title}
                         onChange={function (e) {
                             // console.log(e)
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e
                             setData(tem);
                             // console.log(data);
@@ -392,7 +392,7 @@ function DetailPage(props) {
                         className="my-2 w-1/2 h-40 mx-auto"
                         style={{ color: "black", width: "80%" }}
                         onChange={(e) => {
-                            let tem = [...data];
+                            let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                         }}
@@ -408,12 +408,12 @@ function DetailPage(props) {
                 // let tem = JSON.parse(JSON.stringify(element));
                 element.isActive = !element.isActive;
                 if (element.isActive === true) {
-                    let tem = [...data];
+                    let tem = JSON.parse(JSON.stringify(data));;
                     tem[idx].data.push(element.name);
                     setData(tem);
                 }
                 else {
-                    let tem = [...data];
+                    let tem = JSON.parse(JSON.stringify(data));;
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -423,7 +423,7 @@ function DetailPage(props) {
             else {
                 if (singleFlag === true && element.isActive === true) {
                     element.isActive = false;
-                    let tem = [...data];
+                    let tem = JSON.parse(JSON.stringify(data));;
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -440,12 +440,12 @@ function DetailPage(props) {
     //             // let tem = JSON.parse(JSON.stringify(element));
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
-    //                 let tem = [...data];
+    //                 let tem = JSON.parse(JSON.stringify(data));;
     //                 tem[5].data.push(element.name);
     //                 setData(tem);
     //             }
     //             else {
-    //                 let tem = [...data];
+    //                 let tem = JSON.parse(JSON.stringify(data));;
     //                 let newElementArray = tem[5].data.filter((item) => { return item !== element.name });
     //                 tem[5].data = newElementArray;
     //                 setData(tem);
@@ -469,7 +469,7 @@ function DetailPage(props) {
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
     //                 // let tem = JSON.parse(JSON.stringify(data));
-    //                 // let tem = [...data];
+    //                 // let tem = JSON.parse(JSON.stringify(data));;
     //                 let temObj = JSON.parse(JSON.stringify(tem[4]));
     //                 temObj.data = element.name;
     //                 // console.log(tem[4].data)
@@ -481,7 +481,7 @@ function DetailPage(props) {
     //             else {
     //                 // console.log("2")
     //                 // let tem = JSON.parse(JSON.stringify(data))
-    //                 // let tem = [...data];
+    //                 // let tem = JSON.parse(JSON.stringify(data));;
     //                 tem[4].data = "";
     //                 setData(tem);
     //             }
@@ -506,7 +506,7 @@ function DetailPage(props) {
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
     //                 // let tem = JSON.parse(JSON.stringify(data));
-    //                 // let tem = [...data];
+    //                 // let tem = JSON.parse(JSON.stringify(data));;
     //                 let temObj = JSON.parse(JSON.stringify(tem[5]));
     //                 temObj.data = element.name;
     //                 // console.log(tem[4].data)
@@ -518,7 +518,7 @@ function DetailPage(props) {
     //             else {
     //                 // console.log("2")
     //                 // let tem = JSON.parse(JSON.stringify(data))
-    //                 // let tem = [...data];
+    //                 // let tem = JSON.parse(JSON.stringify(data));;
     //                 tem[5].data = "";
     //                 setData(tem);
     //             }
@@ -541,12 +541,12 @@ function DetailPage(props) {
     //             // let tem = JSON.parse(JSON.stringify(element));
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
-    //                 let tem = [...data];
+    //                 let tem = JSON.parse(JSON.stringify(data));;
     //                 tem[6].data.push(element.name);
     //                 setData(tem);
     //             }
     //             else {
-    //                 let tem = [...data];
+    //                 let tem = JSON.parse(JSON.stringify(data));;
     //                 let newElementArray = tem[6].data.filter((item) => { return item !== element.name });
     //                 tem[6].data = newElementArray;
     //                 setData(tem);
