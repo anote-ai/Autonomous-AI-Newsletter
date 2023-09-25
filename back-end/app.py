@@ -329,6 +329,7 @@ def getUserDetail():
         return jsonify({"error": "Invalid JWT"}), 401
     if not verifyAuthForPaymentsTrustedTesters(user_email):
         abort(401)
+    # print("getIn")
     return detail_get_Handler(request, user_email)
 
 @app.route('/setUserDetail', methods=['POST'])
@@ -341,6 +342,7 @@ def setUserDetail():
         return jsonify({"error": "Invalid JWT"}), 401
     if not verifyAuthForPaymentsTrustedTesters(user_email):
         abort(401)
+    # print(request.json)
     res = detail_update_Handler(request, user_email)
     if (res == True):
         response_data = {"message": "add user detail success"}
@@ -348,6 +350,7 @@ def setUserDetail():
         response.status_code = 200
         return response
     else:
+        # print("res",res)
         response_data = {"message": res}
         response = jsonify(response_data)
         response.status_code = 400
