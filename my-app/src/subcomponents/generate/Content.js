@@ -28,7 +28,7 @@ function Content(props) {
     setError('');
     try {
       let topic = firstPageDataFRedux[5].data;
-      let data = await dispatch(getGPTData({topic}));
+      let data = await dispatch(getGPTData({ topic }));
       // console.log(data.payload);
       await dispatch(setData(data.payload));
       await setNData(data.payload)
@@ -89,11 +89,13 @@ function Content(props) {
                   </div>
                 </div>
               </div>
-              <p> Generating, do not skip other steps ...</p>
+              <div className='flex items-center justify-center'>
+                <p> Generating, do not skip other steps ...</p>
+              </div>
             </div>
           )}
           <div className='w-full flex flex-wrap'>
-            {!loading && nData && !error && nData.length !== 0 &&  (
+            {!loading && nData && !error && nData.length !== 0 && (
               nData.map((each) => (
                 <div key={each.id}
                   className="min-w-300 max-x-600">

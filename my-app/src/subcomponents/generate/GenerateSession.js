@@ -148,6 +148,7 @@ function GenerateSession(props) {
                             questionList={firstPageData}
                             previousPage={() => { getPreviousStep() }}
                             nextPage={(data) => {
+                                // console.log(data);
                                 MfirstPageData(data);
                                 getNextStep()
                             }}

@@ -3,6 +3,7 @@ export const DetailPagePath = "/detail";
 export const mainPagePath = "/mainPage";
 export const testPage = "/textpage"
 export const profile = "/home";
+export const allnewsletter = "/allnewsletter"
 export const pricingRedirectPath = "/pricingRedirect";
 export const accountPath = "/account";
 export const listsPath = "/lists";
