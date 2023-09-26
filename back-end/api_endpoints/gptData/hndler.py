@@ -119,7 +119,7 @@ def generate_title(summary):
 # sys.stdout.flush()
 
 def getGPTData(request):
-    key_word = request.args.get('key_word')
+    key_word = request.json.get('topic')
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -127,7 +127,13 @@ def getGPTData(request):
         'Connection': 'Keep-Alive',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
     }
-    url = f"https://news.google.com/search?q={key_word}&hl=en-US&gl=US&ceid=US%3Aen"
+
+    # print(key_word)
+    processed_data = ['%20'.join(item.split('&')).replace(' ', '%20') for item in key_word]
+    searchWord = '%20'.join(processed_data)
+    # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
+    url = f"https://news.google.com/search?q={searchWord}&hl=en-US&gl=US&ceid=US%3Aen"
+    print(url)
 
     url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')

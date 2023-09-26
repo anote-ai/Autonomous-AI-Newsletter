@@ -23,6 +23,7 @@ from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreateP
 from database.db import create_user_if_does_not_exist 
 from api_endpoints.view_user.handler import ViewUserHandler
 from api_endpoints.gptData.hndler import getGPTData
+from api_endpoints.newsLetter.handler import setNewsletter, getAllNewsletter
 from database.db_auth import extractUserEmailFromRequest, is_session_token_valid, user_id_for_email, profile_lists_access_invalid, profiles_multi_access_invalid, sequences_access_invalid, sequence_texts_access_invalid, verifyAuthForSearch, verifyAuthForPaymentsTrustedTesters, verifyAuthForCheckoutSession, verifyAuthForPortalSession, sequence_texts_multi_access_invalid
 
 
@@ -396,7 +397,7 @@ def ViewUser():
 #     user = {"name" :"daniel", "age" :18}
 #     return flask.jsonify(user)
 
-@app.route('/run-script')
+@app.route('/run-script', methods = ['POST'])
 def queryGPTData():
     # try:
     #     user_email = extractUserEmailFromRequest(request)
@@ -406,12 +407,51 @@ def queryGPTData():
     # if not verifyAuthForPaymentsTrustedTesters(user_email):
     #     abort(401)
     # return detail_get_Handler(request, user_email)
-    if (request.args.get('key_word') and not request.args.get('key_word').isspace()):
+    # if (request.args.get('key_word') and not request.args.get('key_word').isspace()):
+    try:
         return getGPTData(request)
-    response_data = {"message": "input should not be empty or space only"}
-    response = jsonify(response_data)
-    response.status_code = 400
-    return response
+    except:
+        response_data = {"message": "input should not be empty or space only"}
+        response = jsonify(response_data)
+        response.status_code = 400
+        return response
+    
+@app.route('/setNewsletterData', methods = ['POST'])
+@jwt_or_session_token_required
+def setNewsletterData():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    if not verifyAuthForPaymentsTrustedTesters(user_email):
+        abort(401)
+    # print(request.json)
+    res = setNewsletter(request, user_email)
+    if (res == True):
+        response_data = {"message": "add Newsletter success"}
+        response = jsonify(response_data)
+        response.status_code = 200
+        return response
+    else:
+        # print("res",res)
+        response_data = {"message": res}
+        response = jsonify(response_data)
+        response.status_code = 400
+        return response
+    
+@app.route('/getNewsletterData', methods = ['GET'])
+@jwt_or_session_token_required
+def getAllNewsletterData():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    if not verifyAuthForPaymentsTrustedTesters(user_email):
+        abort(401)
+    # print(request.json)
+    return getAllNewsletter(user_email)
 
 if __name__ == '__main__':
     app.run(port=5000)

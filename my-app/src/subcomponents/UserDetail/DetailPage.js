@@ -12,7 +12,8 @@ import { fontSizes } from "../../constants/FontSize";
 import { AllPeopleDemographics } from "../../constants/PeopleDemographics";
 import { AgeRange } from "../../constants/AgeRange";
 import { IncomeLevel } from "../../constants/IncomeLevel";
-import { StylisticChoice } from "../../constants/StylisticChoice"
+import { StylisticChoice } from "../../constants/StylisticChoice";
+import { ThemeTopic } from "../../constants/ThemeTopic";
 
 function DetailPage(props) {
 
@@ -397,6 +398,32 @@ function DetailPage(props) {
                             setData(tem);
                         }}
                     />
+                </div>
+            );
+        }
+        else if (eachdata.type === "themeSelect") {
+            return (
+                <div className="flex items-center ml-10 my-5">
+                    <h1>{eachdata.title}</h1>
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                    <Select
+                        value={eachdata.data}
+                        onChange={(e) => {
+                            let tem = JSON.parse(JSON.stringify(data));;
+                            tem[eachdata.id - 1].data = e.target.value
+                            setData(tem);
+                            // console.log(data);
+                        }}
+                        className="flex w-64 bg-slate-100 ml-10"
+
+                    >
+                        {ThemeTopic.map((font, idx) => (
+                            <MenuItem key={idx} value={font} style={{ fontSize: font }}>
+                                {font}
+                            </MenuItem>
+                        ))}
+                    </Select>
                 </div>
             );
         }

@@ -12,7 +12,7 @@ import { Sidebar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useUser, viewUser } from "../redux/UserSlice";
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import { HiShoppingBag, HiChartPie, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 
 function LeftNav(props) {
     const location = useLocation();
@@ -44,6 +44,16 @@ function LeftNav(props) {
                     >
                         <p>
                             Profile
+                        </p>
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                        onClick ={() =>
+                            navigate('accountPath')
+                        }
+                        icon={HiShoppingBag}
+                    >
+                        <p>
+                            Account
                         </p>
                     </Sidebar.Item>
                     <Sidebar.Item

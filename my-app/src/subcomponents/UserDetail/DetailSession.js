@@ -30,20 +30,20 @@ function DetailSession(props) {
     const [progressValue, setProgressVaule] = useState(0);
 
 
-    useEffect(() => {
-        let temValue = progressValue
-        let progressInterval = setInterval(() => {
-            if (parseInt(temValue) === parseInt(100 * (pageState / pageTotal))) {
-                clearInterval(progressInterval);
-            }
-            else if (parseInt(temValue) < parseInt(100 * (pageState / pageTotal))) {
-                setProgressVaule(temValue += 0.5)
-            }
-            else {
-                setProgressVaule(temValue -= 0.5)
-            }
-        }, 0.5)
-    }, [pageState])
+    // useEffect(() => {
+    //     let temValue = progressValue
+    //     let progressInterval = setInterval(() => {
+    //         if (parseInt(temValue) === parseInt(100 * (pageState / pageTotal))) {
+    //             clearInterval(progressInterval);
+    //         }
+    //         else if (parseInt(temValue) < parseInt(100 * (pageState / pageTotal))) {
+    //             setProgressVaule(temValue += 0.5)
+    //         }
+    //         else {
+    //             setProgressVaule(temValue -= 0.5)
+    //         }
+    //     }, 0.5)
+    // }, [pageState])
 
     let routes = []
     routes = [
@@ -175,7 +175,7 @@ function DetailSession(props) {
                                     text={route}
                                     isActive={pageState === index}
                                     index={index}
-                                    currentIndex={pageState}
+                                    currentIndex={pageState - 1}
                                     total={routes.length - 1}
                                 />
                             ))}

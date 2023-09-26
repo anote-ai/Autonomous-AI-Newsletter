@@ -852,3 +852,35 @@ def end_date_for_user_email_with_cursor(conn, cursor, user_email):
 #                    email, password_hash, session_token, expiration_limit, salt])
 #     conn.commit()
 #     conn.close()
+
+def add_newsletter(user_id, title, data):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+            # Update the existing record
+            # Insert a new record
+        cursor.execute("INSERT INTO AllNewsletterInfo (user_id, title, data) VALUES (%s, %s, %s)", (user_id, title, data))
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'
+    
+def get_all_newsletter(user_id):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+            # Update the existing record
+            # Insert a new record
+        query = "SELECT title, data FROM AllNewsletterInfo WHERE user_id = %s"
+        cursor.execute(query, (user_id,))
+        newsletters = cursor.fetchall()
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return newsletters
+    else:
+        return 'user not exist'

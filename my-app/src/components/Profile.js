@@ -8,6 +8,7 @@ import { useUser } from "../redux/UserSlice";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
 import tommy from '../assets/tommy.png';
 import right from '../assets/angle-double-right.svg'
+import noUserImg from '../assets/noUserImg.png';
 
 function Profile(props) {
     let user = useUser();
@@ -53,7 +54,7 @@ function Profile(props) {
             <div className="h-screen w-5/6 ml-auto flex flex-col" >
                 <div className="h-1/5 w-full flex justify-center items-center">
                     <div className="h-4/5 w-4/5 flex justify-start">
-                        <img src={tommy} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
+                        <img src={noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
                         <div className="h-2/3 w-80 flex flex-col my-auto">
                             <div className="h-1/2 w-full flex justify-start">
                                 <div className="flex justify-start items-center font-bold h-full w-1/2">

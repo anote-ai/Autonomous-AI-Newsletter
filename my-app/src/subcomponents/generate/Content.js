@@ -1,98 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, useData, clearData, setStyleInfo } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData } from "../../redux/newsLetterSlice"
+import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 
 function Content(props) {
 
   let dispatch = useDispatch();
   let getDataFromRedux = useData();
   const [nData, setNData] = useState(getDataFromRedux);
-  console.log(nData);
+  let firstPageDataFRedux = useDetailPageOne()
+  let secondPageDataFRedux = useDetailPageTwo();
+  let thirdPageDataFRedux = useDetailPageThree();
+  let fourthPageDataFRedux = useDetailPageFour();
+  // console.log(nData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorInfo, setErrorInfo] = useState('');
-  let searchInfo = useTopic();
   const [openModal, setOpenModal] = useState(false);
   const [editData, setEditData] = useState({});
 
 
   async function generateGPTData() {
+    console.log(firstPageDataFRedux[5].data);
     setLoading(true);
     setError(false);
     setError('');
-    try{
-
-      let data = await dispatch(getGPTData(searchInfo));
-      console.log(data.payload);
-      dispatch(setData(data.payload));
-      setNData(data.payload)
-      console.log(nData);
+    try {
+      let topic = firstPageDataFRedux[5].data;
+      let data = await dispatch(getGPTData({topic}));
+      // console.log(data.payload);
+      await dispatch(setData(data.payload));
+      await setNData(data.payload)
+      props.changeData(data.payload);
+      // console.log(nData);
     }
-    catch(e){
+    catch (e) {
       setError(true);
       setErrorInfo(e);
     }
     setLoading(false)
   }
-  // useEffect(() => {
-  //   async function getDataFB() {
-  //     // console.log(nData.length == 0);
-  //     if (nData.length == 0) {
-  //       // console.log(nData);
-  //       await generateGPTData();
-  //     }
-  //   }
-  //   getDataFB();
-  // }, [])
   async function clearRData() {
     dispatch(clearData());
     setNData([])
   }
 
-  async function mSetData() {
-    let styleInitial = {
-      backGrondColor: 'rgb(17 24 39);',
-      titleColor: 'rgb(255 255 255);',
-      titleFontSize: "1.5rem;",
-      titleStyle:"Helvetica",
-      dateColor: "rgb(156 163 175);",
-      //font-weight:
-      dateFontSize: "16px",
-      dateStyle:"Helvetica",
-      contentColor: "rgb(156 163 175);",
-      contentFontSize: "16px",
-      contentStyle:"Helvetica",
-      urlColor: "rgb(156 163 175);",
-      urlFontSize: "16px",
-      urlStyle:"Helvetica",
-      cardColor:'rgb(31 41 55);',
-      eachCard:{}
-    }
-    let eachCardTem = [];
-    for(let i = 0; i < nData.length; i++){
-      let temObj = {};
-      temObj.titleColor = 'default';
-      temObj.titleFontSize = 'default';
-      temObj.titleStyle = 'default';
-      temObj.dateColor = 'default';
-      temObj.dateFontSize = 'default';
-      temObj.dateStyle = 'default';
-      temObj.contentColor = 'default';
-      temObj.contentFontSize = 'default';
-      temObj.contentStyle = 'default';
-      temObj.urlColor = 'default';
-      temObj.urlFontSize = 'default';
-      temObj.urlStyle = 'default';
-      temObj.cardColor = 'default';
-      styleInitial.eachCard[`${nData[i].id}`] = temObj;
-    }
-    // console.log(styleInitial);
-    await dispatch(setStyleInfo(styleInitial));
-    await dispatch(setData(nData));
-    props.changeState(nData);
-    props.nextPage();
-  }
   const handleEdit = (each) => {
     setEditData(each);
     setOpenModal(true);
@@ -100,11 +53,12 @@ function Content(props) {
   const handleSave = () => {
     const updatedData = nData.map(item => {
       if (item.id === editData.id) {
-        return { ...item, ...editData};
+        return { ...item, ...editData };
       }
       return item;
     });
     setNData(updatedData);
+    props.changeData(updatedData);
     setOpenModal(false);
   }
 
@@ -115,7 +69,7 @@ function Content(props) {
           <h1>{props.qestionTitle}</h1>
         </div>
         <div className='flex flex-col items-center overflow-y-auto h-full'>
-          {error &&(
+          {error && (
             <p class="font-bold text-red">{errorInfo}</p>
           )}
           {loading && (
@@ -139,7 +93,7 @@ function Content(props) {
             </div>
           )}
           <div className='w-full flex flex-wrap'>
-            {!loading && nData.length !== 0 && !error && (
+            {!loading && nData && !error && nData.length !== 0 &&  (
               nData.map((each) => (
                 <div key={each.id}
                   className="min-w-300 max-x-600">
@@ -232,10 +186,10 @@ function Content(props) {
           </button>
 
           <button
-            disabled={loading || nData.length === 0}
+            disabled={loading || !nData || nData.length === 0}
             onClick={() => {
               // getText();
-              mSetData();
+              props.nextPage();
             }}
             className="ButtonType6"
           >
