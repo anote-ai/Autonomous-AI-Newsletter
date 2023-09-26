@@ -23,6 +23,7 @@ import GenerateSession from "./subcomponents/generate/GenerateSession";
 import Profile from './components/Profile'
 import LeftNav from "./components/LeftNav";
 import Allnewsletter from "./subcomponents/allNewsletter/Allnewsletter"
+import AllnewsletterSession from "./subcomponents/allNewsletter/AllnewsletterSession"
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 
@@ -122,7 +123,7 @@ function App() {
       <Route path={mainPagePath} element={<GenerateSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
-      <Route path={allnewsletter} element={<Allnewsletter />} />
+      <Route path={allnewsletter} element={<AllnewsletterSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />
