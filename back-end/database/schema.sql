@@ -118,6 +118,13 @@ CREATE TABLE userDetailPageFour (
     data TEXT
 );
 
+CREATE TABLE AllNewsletterInfo (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255),
+    data TEXT
+);
+
 
 INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (2, "natan", CURRENT_TIMESTAMP);
 

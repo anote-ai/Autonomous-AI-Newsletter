@@ -46,7 +46,7 @@ function App() {
 
   let dispatch = useDispatch();
 
-  useEffect(async () => {
+  useEffect( () => {
     if (isLoggedIn) {
       dispatch(viewUser());
       async function getDeatilData() {
@@ -83,7 +83,7 @@ function App() {
           setHaveDetail(false);
         }
       }
-      await getDeatilData();
+      getDeatilData();
       // dispatch(refreshCredits());
     }
   }, [isLoggedIn]);
