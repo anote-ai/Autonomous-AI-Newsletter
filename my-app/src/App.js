@@ -8,7 +8,8 @@ import { loginPagePath, mainPagePath, DetailPagePath } from "./constants/RouteCo
 import {
   accountPath,
   pricingRedirectPath,
-  testPage
+  testPage,
+  allnewsletter
 } from "./constants/RouteConstants";
 import Footer from "./components/Footer";
 import { Helmet } from "react-helmet";
@@ -21,6 +22,7 @@ import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
 import Profile from './components/Profile'
 import LeftNav from "./components/LeftNav";
+import Allnewsletter from "./subcomponents/allNewsletter/Allnewsletter"
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 
@@ -118,6 +120,9 @@ function App() {
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={mainPagePath} element={<GenerateSession />} />
+    ) : null,
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
+      <Route path={allnewsletter} element={<Allnewsletter />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />

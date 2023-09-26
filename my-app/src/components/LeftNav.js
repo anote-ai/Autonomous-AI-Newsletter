@@ -7,7 +7,7 @@ import star from '../assets/star.svg'
 import cloud from '../assets/cloud.svg'
 import settings from '../assets/settings.svg'
 import signOut from '../assets/sign-out-alt.svg'
-import { accountPath, loginPagePath, mainPagePath, DetailPagePath } from "../constants/RouteConstants";
+import { accountPath, loginPagePath, mainPagePath, DetailPagePath, allnewsletter } from "../constants/RouteConstants";
 import { Sidebar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -58,7 +58,7 @@ function LeftNav(props) {
                     </Sidebar.Item>
                     <Sidebar.Item
                         onClick ={() =>
-                            navigate('/')
+                            navigate(allnewsletter)
                         }
                         icon={HiViewBoards}
                     >

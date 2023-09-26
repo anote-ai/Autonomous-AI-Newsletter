@@ -69,6 +69,21 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     // return true
 });
 
+export const getAllNewsletter = createAsyncThunk("newsletter/getAll", async (payload, thunk) => {
+
+    const response = await fetcher('getNewsletterData', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
 export function useTopic() {
     return useSelector((state) => {
         try {

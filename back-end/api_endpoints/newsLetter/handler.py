@@ -7,6 +7,7 @@ from database.db import add_newsletter, get_all_newsletter, user_id_for_email
 import bcrypt
 import re
 from flask_mail import Message
+import ast
 
 def getAllNewsletter(userEmail):
     user_id = user_id_for_email(userEmail)
@@ -14,6 +15,9 @@ def getAllNewsletter(userEmail):
     try:
         # print(business_category)
         result = get_all_newsletter(user_id)
+        for obj in result:
+            obj["data"] = ast.literal_eval(obj["data"])
+
         return result
     except Exception as e:
         print("Error inserting newsletter:", str(e))

@@ -37,20 +37,20 @@ export const updateDetail = createAsyncThunk("detail/set", async (payload, thunk
     }
 });
 
-export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk) => {
-    console.log(payload);
-    console.log(`run-script?key_word=${payload}`);
-    const response = await fetcher(`run-script?key_word=${payload}`, {
-        method: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-        },
-    });
-    const response_str = await response.json();
-    console.log(response_str)
-    return response_str;
-});
+// export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk) => {
+//     console.log(payload);
+//     console.log(`run-script?key_word=${payload}`);
+//     const response = await fetcher(`run-script?key_word=${payload}`, {
+//         method: "GET",
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-type': 'application/json',
+//         },
+//     });
+//     const response_str = await response.json();
+//     console.log(response_str)
+//     return response_str;
+// });
 
 export const getDeatil = createAsyncThunk("detail/get", async (thunk) => {
     const response = await fetcher("getUserDetail");
