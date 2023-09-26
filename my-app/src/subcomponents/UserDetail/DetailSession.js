@@ -48,7 +48,7 @@ function DetailSession(props) {
     let routes = []
     routes = [
         "Basic Information",
-        "Basic Information Pt2",
+        "Additional Information",
         "Specific Information",
         "Interview Questions"
     ];
@@ -133,7 +133,7 @@ function DetailSession(props) {
                     </svg>
                 )}
                 <span
-                    className={`capitalize ${index === currentIndex ? "font-semibold" : ""
+                    className={`capitalize text-xl ${index === currentIndex ? "font-semibold" : ""
                         } `}
                 >
                     {text}
@@ -165,10 +165,10 @@ function DetailSession(props) {
         // <div className=" bg-gray-800 min-h-screen">
 
         <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
-            <div class="w-3/4 mx-auto text-white my-16 overflow-scroll">
-                <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
-                    <div>
-                        <ol className="flex items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
+            <div class="w-3/4 mx-auto text-white my-[5vh]">
+                <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
+                    <div className="mb-10">
+                        <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
                             {routes.map((route, index) => (
                                 <Step
                                     number={index + 1}
@@ -188,6 +188,7 @@ function DetailSession(props) {
                         size="lg"
                     /> */}
                     {pageState == 1 && (
+                        <div className=" max-h-[60vh] overflow-y-scroll">
                         <DetailPage
                             qestionTitle={"Basic Information"}
                             dataCurrent={firstPageData}
@@ -199,8 +200,10 @@ function DetailSession(props) {
                                 getNextStep()
                             }}
                         />
+                        </div>
                     )}
                     {pageState == 2 && (
+                        <div className=" max-h-[60vh] overflow-y-scroll">
                         <DetailPage
                             qestionTitle={"Basic Information"}
                             dataCurrent={secondPageData}
@@ -213,8 +216,10 @@ function DetailSession(props) {
                             }}
 
                         />
+                        </div>
                     )}
                     {pageState == 3 && (
+                        <div className=" max-h-[60vh] overflow-y-scroll">
                         <DetailPage
                             qestionTitle={"Brand Specific Information"}
                             dataCurrent={thirdPageData}
@@ -226,6 +231,7 @@ function DetailSession(props) {
                                 getNextStep()
                             }}
                         />
+                        </div>
                     )}
                     {pageState == 4 && (
                         <DetailPage

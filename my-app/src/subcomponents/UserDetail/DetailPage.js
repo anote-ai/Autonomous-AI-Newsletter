@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useMemo, useRef, useEffect } from "react";
 // import { login } from "../../redux/UserSlice";
-import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select } from "flowbite-react";
 import { categoryList } from "../../constants/categoryList";
 import { colors } from "../../constants/ColorDropdown";
-import { FormControl, Select, MenuItem } from "@material-ui/core";
+import { FormControl, MenuItem } from "@material-ui/core";
 import { fontsStyle } from "../../constants/FontStyle";
 import { oftenTime } from "../../constants/OftenSend";
 import { LanguageSelect } from "../../constants/LanguageSelect";
@@ -14,6 +14,8 @@ import { AgeRange } from "../../constants/AgeRange";
 import { IncomeLevel } from "../../constants/IncomeLevel";
 import { StylisticChoice } from "../../constants/StylisticChoice";
 import { ThemeTopic } from "../../constants/ThemeTopic";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function DetailPage(props) {
 
@@ -27,10 +29,12 @@ function DetailPage(props) {
     const buildCard = (eachdata) => {
         if (eachdata.type === "input") {
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                <div className="flex flex-col items-center mx-10">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;*</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp; (optional)</span>)}
+                    </span>
                     <TextInput
                         required
                         type="text"
@@ -39,19 +43,22 @@ function DetailPage(props) {
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                         }}
-                        style={{ color: "black", width: "100%" }}
-                        className="my-2 w-1/2 mx-auto"
+                        
+                        className="my-2 w-full mx-auto"
                         value={eachdata.data}
                     ></TextInput>
+                    </div>
                 </div>
             );
         }
         else if (eachdata.type === "url") {
             return (
-                <div className="flex flex-col items-center" >
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                <div className="flex flex-col items-center mx-10">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
+                    </span>
                     <TextInput
                         addon="url"
                         required
@@ -63,10 +70,10 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(eachdata.data);
                         }}
-                        style={{ color: "black", width: "100%" }}
-                        className="my-2 w-1/2 mx-auto"
+                        className="my-2 w-full mx-auto"
                         value={eachdata.data}
                     ></TextInput>
+                    </div>
                 </div >
             );
         }
@@ -82,11 +89,12 @@ function DetailPage(props) {
                 }
             });
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                <div className="flex flex-col mx-10 my-5">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
+                    </span>
+                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
                         {TemCategoryArray.map((eachCategory) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
@@ -103,10 +111,12 @@ function DetailPage(props) {
         }
         else if (eachdata.type === "colorSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
@@ -115,11 +125,11 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        className="flex w-24 bg-slate-100 ml-10"
+                        // className="flex w-24 bg-slate-100 ml-10"
 
                     >
                         {colors.map((color, idx) => (
-                            <MenuItem key={idx} value={color}>
+                            <option key={idx} value={color}>
                                 <div
                                     style={{
                                         backgroundColor: color,
@@ -128,18 +138,21 @@ function DetailPage(props) {
                                         margin: "auto",
                                     }}
                                 />
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
+                    </div>
                 </div>
             )
         }
         else if (eachdata.type === "fontSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
@@ -148,24 +161,27 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        className="flex w-64 bg-slate-100 ml-10"
+                        // className="flex w-64 bg-slate-100 ml-10"
 
                     >
                         {fontsStyle.map((font, idx) => (
-                            <MenuItem key={idx} value={font} style={{ fontSize: "10px", fontFamily: font }}>
+                            <option key={idx} value={font} style={{ fontSize: "10px", fontFamily: font }}>
                                 {font}
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
+                    </div>
                 </div>
             )
         }
         else if (eachdata.type === "timeSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
@@ -174,24 +190,26 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        className="flex w-64 bg-slate-100 ml-10"
 
                     >
                         {oftenTime.map((font, idx) => (
-                            <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
+                            <option key={idx} value={font} style={{ fontSize: "10px" }}>
                                 {font}
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
+                    </div>
                 </div>
             )
         }
         else if (eachdata.type === "languageSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
@@ -200,24 +218,25 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        className="flex w-64 bg-slate-100 ml-10"
-
                     >
                         {LanguageSelect.map((font, idx) => (
-                            <MenuItem key={idx} value={font} style={{ fontSize: "10px" }}>
+                            <option key={idx} value={font} style={{ fontSize: "10px" }}>
                                 {font}
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
+                    </div>
                 </div>
             )
         }
         else if (eachdata.type === "fontSizeSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
@@ -226,15 +245,15 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        className="flex w-64 bg-slate-100 ml-10"
 
                     >
                         {fontSizes.map((font, idx) => (
-                            <MenuItem key={idx} value={font} style={{ fontSize: font }}>
+                            <option key={idx} value={font} style={{ fontSize: font }}>
                                 {font}
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
+                    </div>
                 </div>
             )
         }
@@ -252,8 +271,8 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center">
                     <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemPeopleDemographics.map((Demographics) => {
                             return (
@@ -283,8 +302,8 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center">
                     <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemAgeRange.map((eachAgeRange) => {
                             return (
@@ -314,8 +333,8 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center">
                     <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemIncomeLevel.map((eachIncomeLevel) => {
                             return (
@@ -345,8 +364,8 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center">
                     <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemStylisticChoice.map((eachStylisticChoice) => {
                             return (
@@ -377,21 +396,20 @@ function DetailPage(props) {
                             // console.log(data);
                         }}
                     />
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                 </div>
             )
         }
         else if (eachdata.type === "text") {
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  require</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  optional</span>)}
+                <div className="grid grid-cols-2 mx-10 items-center">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                    {eachdata.require === false && (<span className="text-xs">&nbsp;  (optional)</span>)}</span>
                     <Textarea
                         value={eachdata.data}
-                        className="my-2 w-1/2 h-40 mx-auto"
-                        style={{ color: "black", width: "80%" }}
+                        className="w-full h-40 mx-auto"
                         onChange={(e) => {
                             let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
@@ -403,25 +421,23 @@ function DetailPage(props) {
         }
         else if (eachdata.type === "themeSelect") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    <h1>{eachdata.title}</h1>
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; require</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  optional &nbsp;&nbsp;</span>)}
+                <div className="grid grid-cols-2 items-center mx-10 my-5">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <Select
                         value={eachdata.data}
                         onChange={(e) => {
                             let tem = JSON.parse(JSON.stringify(data));;
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
-                            // console.log(data);
                         }}
-                        className="flex w-64 bg-slate-100 ml-10"
-
                     >
                         {ThemeTopic.map((font, idx) => (
-                            <MenuItem key={idx} value={font} style={{ fontSize: font }}>
+                            <option key={idx} value={font} style={{ fontSize: font }}>
                                 {font}
-                            </MenuItem>
+                            </option>
                         ))}
                     </Select>
                 </div>
@@ -611,31 +627,34 @@ function DetailPage(props) {
                     type="text"
                     onChange={(e) => {
                     }}
-                    style={{ color: "black", width: "100%" }}
+                    
                     className="my-2 w-1/2 mx-auto"
                     value={'text'}
                 ></TextInput>
             </div> */}
             {viewCard}
-            <div className="flex flex-row items-center justify-around">
-                <button
+            <div className=" absolute bottom-5 left-10">
+                <Button
+                    outline
                     onClick={() => {
-                        // getText();
                         props.previousPage();
                     }}
-                    className="ButtonType6"
                 >
+                    <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-0.5" />
                     Previous
-                </button>
-                <button
+                </Button>
+            </div>
+            <div className="absolute bottom-5 right-10">
+                <Button
+                    outline
                     onClick={() => {
-                        // getText();
                         props.nextPage(data);
                     }}
-                    className="ButtonType6"
+                    
                 >
                     Next
-                </button>
+                    <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
+                </Button>
             </div>
         </div>
     );
