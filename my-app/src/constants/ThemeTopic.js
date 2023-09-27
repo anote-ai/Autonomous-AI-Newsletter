@@ -1,1 +1,1 @@
-export const ThemeTopic = ["Freshly brewed", "High Gloss", "The NewPort"];
+export const ThemeTopic = ["Freshly Brewed", "High Gloss", "The NewPort"];

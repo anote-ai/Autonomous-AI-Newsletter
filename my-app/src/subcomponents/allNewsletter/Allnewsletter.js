@@ -89,6 +89,7 @@ function Allnewsletter() {
                         </div>
                     </div>
                 )}
+                {console.log("nData",nData)}
                 {loading === false && nData && nData.length !== 0 && (
                     <div className='w-5/6 h-full flex justify-start flex-wrap mx-auto overflow-scroll'>
                         {nData.map((each) => (

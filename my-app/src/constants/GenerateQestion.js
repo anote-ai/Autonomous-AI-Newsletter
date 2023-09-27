@@ -1,25 +1,32 @@
 export const GenerateQestion = {
     pageOne: [
         {
-            title: '30-Day Content Ideas',
+            title: 'NewsLetter Name',
             require: true,
             type: 'input',
             data: '',
             id: 1
         },
         {
+            title: '30-Day Content Ideas',
+            require: true,
+            type: 'input',
+            data: '',
+            id: 2
+        },
+        {
             title: 'Which Theme you want for this NewsLetter',
             require: true,
             type: 'themeSelect',
             data: '',
-            id: 2
+            id: 3
         },
         {
             title: "Recent Content description?",
             require: false,
             type: 'text',
             data: '',
-            id: 3
+            id: 4
         }
     ],
     data:[],

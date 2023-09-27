@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useMemo, useRef, useEffect } from "react";
 // import { login } from "../../redux/UserSlice";
-import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { categoryList } from "../../constants/categoryList";
 import { colors } from "../../constants/ColorDropdown";
 import { FormControl, MenuItem } from "@material-ui/core";
+import { Select as Select2 } from "@material-ui/core";
 import { fontsStyle } from "../../constants/FontStyle";
 import { oftenTime } from "../../constants/OftenSend";
 import { LanguageSelect } from "../../constants/LanguageSelect";
@@ -94,7 +95,7 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     </span>
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
+                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
                         {TemCategoryArray.map((eachCategory) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
@@ -117,7 +118,7 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select2
                         value={eachdata.data}
                         onChange={(e) => {
                             let tem = JSON.parse(JSON.stringify(data));
@@ -125,11 +126,11 @@ function DetailPage(props) {
                             setData(tem);
                             // console.log(data);
                         }}
-                        // className="flex w-24 bg-slate-100 ml-10"
+                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
 
                     >
                         {colors.map((color, idx) => (
-                            <option key={idx} value={color}>
+                            <MenuItem key={idx} value={color}>
                                 <div
                                     style={{
                                         backgroundColor: color,
@@ -138,9 +139,9 @@ function DetailPage(props) {
                                         margin: "auto",
                                     }}
                                 />
-                            </option>
+                            </MenuItem>
                         ))}
-                    </Select>
+                    </Select2>
                     </div>
                 </div>
             )
@@ -153,10 +154,10 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select1
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -169,7 +170,7 @@ function DetailPage(props) {
                                 {font}
                             </option>
                         ))}
-                    </Select>
+                    </Select1>
                     </div>
                 </div>
             )
@@ -182,10 +183,10 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select1
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -197,7 +198,7 @@ function DetailPage(props) {
                                 {font}
                             </option>
                         ))}
-                    </Select>
+                    </Select1>
                     </div>
                 </div>
             )
@@ -210,10 +211,10 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select1
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -224,7 +225,7 @@ function DetailPage(props) {
                                 {font}
                             </option>
                         ))}
-                    </Select>
+                    </Select1>
                     </div>
                 </div>
             )
@@ -237,10 +238,10 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select1
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                             // console.log(data);
@@ -252,7 +253,7 @@ function DetailPage(props) {
                                 {font}
                             </option>
                         ))}
-                    </Select>
+                    </Select1>
                     </div>
                 </div>
             )
@@ -273,7 +274,7 @@ function DetailPage(props) {
                     <h1>{eachdata.title}</h1>
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemPeopleDemographics.map((Demographics) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${Demographics.isActive
@@ -304,7 +305,7 @@ function DetailPage(props) {
                     <h1>{eachdata.title}</h1>
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemAgeRange.map((eachAgeRange) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachAgeRange.isActive
@@ -335,7 +336,7 @@ function DetailPage(props) {
                     <h1>{eachdata.title}</h1>
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemIncomeLevel.map((eachIncomeLevel) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachIncomeLevel.isActive
@@ -366,7 +367,7 @@ function DetailPage(props) {
                     <h1>{eachdata.title}</h1>
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
                         {TemStylisticChoice.map((eachStylisticChoice) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachStylisticChoice.isActive
@@ -390,7 +391,7 @@ function DetailPage(props) {
                         label={eachdata.title}
                         onChange={function (e) {
                             // console.log(e)
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e
                             setData(tem);
                             // console.log(data);
@@ -411,7 +412,7 @@ function DetailPage(props) {
                         value={eachdata.data}
                         className="w-full h-40 mx-auto"
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
                             setData(tem);
                         }}
@@ -426,20 +427,22 @@ function DetailPage(props) {
                     {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                     {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
-                    <Select
+                    <Select1
                         value={eachdata.data}
                         onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));;
+                            let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
+                            console.log("tem", tem);
                             setData(tem);
                         }}
                     >
+                        <option disabled key="default" value=""></option>
                         {ThemeTopic.map((font, idx) => (
                             <option key={idx} value={font} style={{ fontSize: font }}>
                                 {font}
                             </option>
                         ))}
-                    </Select>
+                    </Select1>
                 </div>
             );
         }
@@ -451,12 +454,16 @@ function DetailPage(props) {
                 // let tem = JSON.parse(JSON.stringify(element));
                 element.isActive = !element.isActive;
                 if (element.isActive === true) {
-                    let tem = JSON.parse(JSON.stringify(data));;
+                    let tem = JSON.parse(JSON.stringify(data));
+                    if (!Array.isArray(tem[idx].data)) {
+                        tem[idx].data = [];
+                    }
                     tem[idx].data.push(element.name);
                     setData(tem);
                 }
                 else {
-                    let tem = JSON.parse(JSON.stringify(data));;
+                    let tem = JSON.parse(JSON.stringify(data));
+                    console.log("tem[idx].data2",tem[idx].data)
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -466,7 +473,8 @@ function DetailPage(props) {
             else {
                 if (singleFlag === true && element.isActive === true) {
                     element.isActive = false;
-                    let tem = JSON.parse(JSON.stringify(data));;
+                    let tem = JSON.parse(JSON.stringify(data));
+                    console.log("tem[idx].data3",tem[idx].data)
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -483,12 +491,12 @@ function DetailPage(props) {
     //             // let tem = JSON.parse(JSON.stringify(element));
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
-    //                 let tem = JSON.parse(JSON.stringify(data));;
+    //                 let tem = JSON.parse(JSON.stringify(data));
     //                 tem[5].data.push(element.name);
     //                 setData(tem);
     //             }
     //             else {
-    //                 let tem = JSON.parse(JSON.stringify(data));;
+    //                 let tem = JSON.parse(JSON.stringify(data));
     //                 let newElementArray = tem[5].data.filter((item) => { return item !== element.name });
     //                 tem[5].data = newElementArray;
     //                 setData(tem);
@@ -512,7 +520,7 @@ function DetailPage(props) {
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
     //                 // let tem = JSON.parse(JSON.stringify(data));
-    //                 // let tem = JSON.parse(JSON.stringify(data));;
+    //                 // let tem = JSON.parse(JSON.stringify(data));
     //                 let temObj = JSON.parse(JSON.stringify(tem[4]));
     //                 temObj.data = element.name;
     //                 // console.log(tem[4].data)
@@ -524,7 +532,7 @@ function DetailPage(props) {
     //             else {
     //                 // console.log("2")
     //                 // let tem = JSON.parse(JSON.stringify(data))
-    //                 // let tem = JSON.parse(JSON.stringify(data));;
+    //                 // let tem = JSON.parse(JSON.stringify(data));
     //                 tem[4].data = "";
     //                 setData(tem);
     //             }
@@ -549,7 +557,7 @@ function DetailPage(props) {
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
     //                 // let tem = JSON.parse(JSON.stringify(data));
-    //                 // let tem = JSON.parse(JSON.stringify(data));;
+    //                 // let tem = JSON.parse(JSON.stringify(data));
     //                 let temObj = JSON.parse(JSON.stringify(tem[5]));
     //                 temObj.data = element.name;
     //                 // console.log(tem[4].data)
@@ -561,7 +569,7 @@ function DetailPage(props) {
     //             else {
     //                 // console.log("2")
     //                 // let tem = JSON.parse(JSON.stringify(data))
-    //                 // let tem = JSON.parse(JSON.stringify(data));;
+    //                 // let tem = JSON.parse(JSON.stringify(data));
     //                 tem[5].data = "";
     //                 setData(tem);
     //             }
@@ -584,12 +592,12 @@ function DetailPage(props) {
     //             // let tem = JSON.parse(JSON.stringify(element));
     //             element.isActive = !element.isActive;
     //             if (element.isActive === true) {
-    //                 let tem = JSON.parse(JSON.stringify(data));;
+    //                 let tem = JSON.parse(JSON.stringify(data));
     //                 tem[6].data.push(element.name);
     //                 setData(tem);
     //             }
     //             else {
-    //                 let tem = JSON.parse(JSON.stringify(data));;
+    //                 let tem = JSON.parse(JSON.stringify(data));
     //                 let newElementArray = tem[6].data.filter((item) => { return item !== element.name });
     //                 tem[6].data = newElementArray;
     //                 setData(tem);
