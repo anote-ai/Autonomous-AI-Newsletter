@@ -50,7 +50,7 @@ function App() {
 
   let dispatch = useDispatch();
 
-  useEffect( () => {
+  useEffect(() => {
     if (isLoggedIn) {
       dispatch(viewUser());
       async function getDeatilData() {
@@ -87,22 +87,6 @@ function App() {
           setHaveDetail(false);
         }
       }
-      async function getData() {
-        try {
-            let getData = await dispatch(getAllNewsletter());
-            let temData = []
-            // console.log(getData)
-            if (getData && getData.payload.length !== 0) {
-                temData = getData.payload;
-            }
-            // console.log("data", temData);
-            dispatch(setAllData(temData));
-        }
-        catch(e){
-            alert(e);
-        }
-    }
-    getData();
       getDeatilData();
       // dispatch(refreshCredits());
     }

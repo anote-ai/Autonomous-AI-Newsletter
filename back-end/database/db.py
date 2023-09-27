@@ -875,12 +875,27 @@ def get_all_newsletter(user_id):
         # print('step2')
             # Update the existing record
             # Insert a new record
-        query = "SELECT title, data FROM AllNewsletterInfo WHERE user_id = %s"
+        query = "SELECT id, title, data FROM AllNewsletterInfo WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         newsletters = cursor.fetchall()
         # print("step3")
         conn.commit()
         conn.close()
         return newsletters
+    else:
+        return 'user not exist'
+    
+def delete_newsletter_byId(user_id, id):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+            # Update the existing record
+            # Insert a new record
+        query = "DELETE FROM AllNewsletterInfo WHERE user_id = %s AND id = %s"
+        cursor.execute(query, (user_id, id))
+        conn.commit()
+        conn.close()
+        return {'message': 'Newsletter deleted successfully'}
     else:
         return 'user not exist'

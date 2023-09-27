@@ -10,15 +10,37 @@ import { useUser } from "../redux/UserSlice";
 import tommy from '../assets/tommy.png';
 import right from '../assets/angle-double-right.svg'
 import noUserImg from '../assets/noUserImg.png';
-import { useAllData } from '../redux/newsLetterSlice';
+import { useAllData, setAllData, getAllNewsletter } from '../redux/newsLetterSlice';
 import { useLocation } from "react-router-dom";
 
 function Profile(props) {
+    const dispatch = useDispatch();
     let user = useUser();
     let getAlluser = useAllData();
     let navigate = useNavigate();
-    console.log(getAlluser)
+    const [ndata, setNdata] = useState(getAlluser)
+    // console.log(getAlluser)
     let totalSearch = 0;
+
+    useEffect(()=>{
+        async function getData() {
+            try {
+              let getData = await dispatch(getAllNewsletter());
+              let temData = []
+              // console.log(getData)
+              if (getData && getData.payload.length !== 0) {
+                temData = getData.payload;
+              }
+              // console.log("data", temData);
+              setNdata(temData)
+              dispatch(setAllData(temData));
+            }
+            catch (e) {
+              alert(e);
+            }
+          }
+          getData();
+    },[])
 
     const [recentNewsData, setRecentNewsData] = useState([
         {
@@ -105,11 +127,11 @@ function Profile(props) {
                                     <div class="LP-Home-Insights-Item-Content">Total Newsletters Sent</div>
                                 </div>
                                 <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{getAlluser && getAlluser.length ? getAlluser.length : 0}</div>
+                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{ndata && ndata.length ? ndata.length : 0}</div>
                                     <div class="LP-Home-Insights-Item-Content">Total Newsletters Generated</div>
                                 </div>
                                 <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{getAlluser && getAlluser.length ? (
+                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{ndata && ndata.length ? (
                                         getAlluser.reduce((totalSearch, element) => totalSearch + element['data'].length, 0)
                                     ) : (
                                         0

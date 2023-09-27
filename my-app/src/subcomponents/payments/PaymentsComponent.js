@@ -61,8 +61,9 @@ const PaymentsComponent = () => {
   let currentPlanIndexOverride = paidUserStatus - 1;
 
   return (
-    <div className="text-black bg-zinc-100 dark:text-white dark:bg-gray-900 min-h-screen">
-      {/* <div className="items-center flex flex-col">
+    <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
+      <div className="text-black bg-zinc-100 dark:text-white dark:bg-gray-900 min-h-screen">
+        {/* <div className="items-center flex flex-col">
         <p className="sm:text-4xl text-3xl font-medium title-font text-anoteblack-100">
           Billing
         </p>
@@ -70,54 +71,55 @@ const PaymentsComponent = () => {
         <h3>Next Credit Refresh: {nextCreditRefreshStr}</h3>
       </div> */}
 
-      <div className="relative flex justify-center py-20">
-        <div className="absolute  left-10 flex flex-col text-left">
-          <span>
-            <span className="font-semibold">Current Plan : </span>
-            {currentPlanStr}
-          </span>
-          {(nextCreditRefreshStr != "" && nextCreditRefreshStr != null) && <span>
-            <span className="font-semibold">Next Credit Refresh: </span>
-            {nextCreditRefreshStr}
-          </span>}
-          {(endDate != "" && endDate != null) && <span>
-            <span className="font-semibold">Plan Expires: </span>
-            {endDate}
-          </span>}
-          {newPlanStartsStr != "" && <span>
-            {newPlanStartsStr}
-          </span>}
+        <div className="relative flex justify-center py-20">
+          <div className="absolute  left-10 flex flex-col text-left">
+            {/* <span>
+              <span className="font-semibold">Current Plan : </span>
+              {currentPlanStr}
+            </span>
+            {(nextCreditRefreshStr != "" && nextCreditRefreshStr != null) && <span>
+              <span className="font-semibold">Next Credit Refresh: </span>
+              {nextCreditRefreshStr}
+            </span>}
+            {(endDate != "" && endDate != null) && <span>
+              <span className="font-semibold">Plan Expires: </span>
+              {endDate}
+            </span>}
+            {newPlanStartsStr != "" && <span>
+              {newPlanStartsStr}
+            </span>} */}
+          </div>
+          <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
+            AutonomousNewsletter Pricing Plans
+          </h1>
+          <div className="absolute right-10 mx-auto flex">
+            <Button
+              onClick={() => {
+                window.open("https://anote.ai/pricing", "_blank");
+              }}
+              className="mr-2 font-semibold"
+            >
+              Other Products
+            </Button>
+            <Button
+              onClick={() => {
+                window.open("https://docs.anote.ai/sababa/sababa.html", "_blank");
+              }}
+              className="font-semibold"
+            >
+              <span>Learn More</span>
+              <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-5 h-5" />
+            </Button>
+          </div>
         </div>
-        <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
-          Sababa Pricing Plans
-        </h1>
-        <div className="absolute right-10 mx-auto flex">
-          <Button
-            onClick={() => {
-              window.open("https://anote.ai/pricing", "_blank");
-            }}
-            className="mr-2 font-semibold"
-          >
-            Other Products
-          </Button>
-          <Button
-            onClick={() => {
-              window.open("https://docs.anote.ai/sababa/sababa.html", "_blank");
-            }}
-            className="font-semibold"
-          >
-            <span>Learn More</span>
-            <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-5 h-5" />
-          </Button>
-        </div>
+        <Pricing
+          currentPlanIndexOverride={currentPlanIndexOverride}
+          productIndex={4}
+          nameOverride={"Plans"}
+          isCancelable={isCancelable}
+          disableUpgrade={true}
+        />
       </div>
-      <Pricing
-        currentPlanIndexOverride={currentPlanIndexOverride}
-        productIndex={4}
-        nameOverride={"Plans"}
-        isCancelable={isCancelable}
-        disableUpgrade={true}
-      />
     </div>
   );
 };
