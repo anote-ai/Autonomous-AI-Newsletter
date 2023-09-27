@@ -15,32 +15,37 @@ function AllnewsletterSession() {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         async function getData() {
-            let getData = await dispatch(getAllNewsletter());
-            let temData = []
-            console.log(getData)
-            if (getData && getData.payload.length !== 0) {
-                temData = getData.payload;
-
-                // temData = getData.payload.map((item) => {
-                //     let temObj = {};
-                //     temObj.title = item["title"];
-                //     console.log("item first", item);
-                //     let arrayData = item['data']
-                //         .replace(/"/g, '\\"')
-                //         .replace(/'/g, "\\'")
-                //         .replace(/\\"/g, '"')
-                //         .replace(/\\'/g, "'")
-                //     console.log('second cover', arrayData);
-                //     arrayData = JSON.parse(arrayData);
-                //     // console.log(arrayData[0]['summary'])
-                //     temObj["data"] = arrayData;
-                //     return temObj;
-                // })
+            try {
+                let getData = await dispatch(getAllNewsletter());
+                let temData = []
+                console.log(getData)
+                if (getData && getData.payload.length !== 0) {
+                    temData = getData.payload;
+    
+                    // temData = getData.payload.map((item) => {
+                    //     let temObj = {};
+                    //     temObj.title = item["title"];
+                    //     console.log("item first", item);
+                    //     let arrayData = item['data']
+                    //         .replace(/"/g, '\\"')
+                    //         .replace(/'/g, "\\'")
+                    //         .replace(/\\"/g, '"')
+                    //         .replace(/\\'/g, "'")
+                    //     console.log('second cover', arrayData);
+                    //     arrayData = JSON.parse(arrayData);
+                    //     // console.log(arrayData[0]['summary'])
+                    //     temObj["data"] = arrayData;
+                    //     return temObj;
+                    // })
+                }
+                console.log("data", temData);
+                setNData(temData);
+                dispatch(setAllData(temData));
+                setLoading(false);
             }
-            console.log("data", temData);
-            setNData(temData);
-            dispatch(setAllData(temData));
-            setLoading(false);
+            catch(e){
+                alert(e);
+            }
         }
         getData();
     }, [])
