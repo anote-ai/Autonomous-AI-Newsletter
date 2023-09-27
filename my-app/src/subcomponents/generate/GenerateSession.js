@@ -164,7 +164,7 @@ function GenerateSession(props) {
           )}
           {pageState == 2 && (
             <div className="">
-            <ContentLayout layoutType={firstPageData[1].data}
+            <ContentLayout layoutType={firstPageData[2].data}
                 previousPage={() => {
                     getPreviousStep();
                 }}
