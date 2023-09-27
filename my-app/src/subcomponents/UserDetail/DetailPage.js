@@ -17,6 +17,7 @@ import { StylisticChoice } from "../../constants/StylisticChoice";
 import { ThemeTopic } from "../../constants/ThemeTopic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { CharacterList } from "../../constants/CharacterList";
 
 function DetailPage(props) {
 
@@ -438,6 +439,32 @@ function DetailPage(props) {
                     >
                         <option disabled key="default" value=""></option>
                         {ThemeTopic.map((font, idx) => (
+                            <option key={idx} value={font} style={{ fontSize: font }}>
+                                {font}
+                            </option>
+                        ))}
+                    </Select1>
+                </div>
+            );
+        }
+        else if (eachdata.type === "characterSelect") {
+            return (
+                <div className="grid grid-cols-2 items-center mx-10 my-5">
+                    <span className="text-lg flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
+                    <Select1
+                        value={eachdata.data}
+                        onChange={(e) => {
+                            let tem = JSON.parse(JSON.stringify(data));
+                            tem[eachdata.id - 1].data = e.target.value
+                            console.log("tem", tem);
+                            setData(tem);
+                        }}
+                    >
+                        <option disabled key="default" value=""></option>
+                        {CharacterList.map((font, idx) => (
                             <option key={idx} value={font} style={{ fontSize: font }}>
                                 {font}
                             </option>

@@ -122,6 +122,8 @@ CREATE TABLE AllNewsletterInfo (
     user_id INTEGER not null,
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255),
+    theme VARCHAR(255),
+    character_name VARCHAR(255),
     data TEXT
 );
 

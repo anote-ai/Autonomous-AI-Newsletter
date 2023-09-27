@@ -52,7 +52,9 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
 
     let reqBody = {
         topic: payload.firstPageData[0].data,
-        data : payload.data
+        data : payload.data,
+        theme: payload.firstPageData[2].data,
+        character: payload.firstPageData[3].data
     }
     console.log(JSON.stringify(reqBody))
     const response = await fetcher('setNewsletterData', {

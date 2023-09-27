@@ -22,11 +22,18 @@ export const GenerateQestion = {
             id: 3
         },
         {
+            title: 'Choose Your Character-Style Writer Personas',
+            require: true,
+            type: 'characterSelect',
+            data: '',
+            id: 4
+        },
+        {
             title: "Recent Content description?",
             require: false,
             type: 'text',
             data: '',
-            id: 4
+            id: 5
         }
     ],
     data:[],
