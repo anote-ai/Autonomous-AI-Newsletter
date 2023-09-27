@@ -23,7 +23,7 @@ from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreateP
 from database.db import create_user_if_does_not_exist 
 from api_endpoints.view_user.handler import ViewUserHandler
 from api_endpoints.gptData.hndler import getGPTData
-from api_endpoints.newsLetter.handler import setNewsletter, getAllNewsletter
+from api_endpoints.newsLetter.handler import setNewsletter, getAllNewsletter, deleteNewsletter
 from database.db_auth import extractUserEmailFromRequest, is_session_token_valid, user_id_for_email, profile_lists_access_invalid, profiles_multi_access_invalid, sequences_access_invalid, sequence_texts_access_invalid, verifyAuthForSearch, verifyAuthForPaymentsTrustedTesters, verifyAuthForCheckoutSession, verifyAuthForPortalSession, sequence_texts_multi_access_invalid
 
 
@@ -452,6 +452,19 @@ def getAllNewsletterData():
         abort(401)
     # print(request.json)
     return getAllNewsletter(user_email)
+
+@app.route('/deleteNewsletterData', methods = ['POST'])
+@jwt_or_session_token_required
+def deleteNewsletterData():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    if not verifyAuthForPaymentsTrustedTesters(user_email):
+        abort(401)
+    # print(request.json)
+    return deleteNewsletter(request, user_email)
 
 if __name__ == '__main__':
     app.run(port=5000)

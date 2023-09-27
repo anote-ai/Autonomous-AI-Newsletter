@@ -4,7 +4,7 @@ import { Button, Card } from 'flowbite-react';
 // import Image from 'next/image'
 import { useAllData, setAllData, getAllNewsletter, clearData } from "../../redux/newsLetterSlice"
 import defaultCardImg from '../../Images/defaultCardImg.png'
-import LPProduct from "./NewsletterPage";
+import NewsletterPage from "./NewsletterPage";
 
 function AllnewsletterSession() {
 
@@ -49,6 +49,15 @@ function AllnewsletterSession() {
         }
         getData();
     }, [])
+    const handleDelete =  (id) =>{
+        let tem = JSON.parse(JSON.stringify(nData));
+        let newData = tem.filter((each) =>{
+            return each.id != id;
+        })
+        console.log(newData)
+        setNData(newData)
+        dispatch(setAllData(newData));
+    }
     return (
         <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
@@ -92,10 +101,12 @@ function AllnewsletterSession() {
                 {loading === false && nData && nData.length !== 0 && (
                     <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                         {nData.map((each) => (
-                            <LPProduct
+                            <NewsletterPage
                                 image={defaultCardImg}
                                 title={each.title}
                                 description={each.data[0].title}
+                                id = {each.id}
+                                deleteData = {(id) => handleDelete(id)}
                                 // route={"/labels"}
                             />
                         ))}

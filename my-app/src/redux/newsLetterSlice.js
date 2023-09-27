@@ -69,6 +69,31 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     // return true
 });
 
+export const deleteNewsletterById = createAsyncThunk("newsletter/delete", async (payload, thunk) => {
+    // console.log(payload);
+    // console.log(`run-script?key_word=${payload}`);
+    // https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
+    // console.log(payload);
+    // let searchTopic = "";
+    // if(payload.topic.length == 1){
+    //     searchTopic = payload.topic[0];
+    // }
+    // else if(payload.topic.length > 1){
+        
+    // }
+    console.log(payload);
+    const response = await fetcher(`deleteNewsletterData?id=${payload}`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    console.log(response_str)
+    return response_str;
+});
+
 export const getAllNewsletter = createAsyncThunk("newsletter/getAll", async (payload, thunk) => {
 
     const response = await fetcher('getNewsletterData', {
