@@ -65,9 +65,9 @@ function Content(props) {
   return (
     <div className="h-full w-full">
       <div className=' overflow-y-auto h-full'>
-        <div className="flex justify-center items-center">
+        {/* <div className="flex justify-center items-center">
           <h1>{props.qestionTitle}</h1>
-        </div>
+        </div> */}
         <div className='flex flex-col items-center overflow-y-auto h-full'>
           {error && (
             <p class="font-bold text-red">{errorInfo}</p>
@@ -195,7 +195,7 @@ function Content(props) {
             }}
             className="ButtonType6"
           >
-            Next
+            Save
           </button>
         </div>
       </div>

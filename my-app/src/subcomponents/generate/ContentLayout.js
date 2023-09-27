@@ -41,12 +41,16 @@ const sectionArrangements = {
   ],
 };
 
-const ContentLayout = (props) => {
-  const [sections, setSections] = useState([]);
+const ContentLayout = ({layoutType,
+  sections,
+  setSections,
+  previousPage,
+  nextPage}) => {
+  
   console.log("sections",sections)
   useEffect(() => {
-    setSections(sectionArrangements[props.layoutType] || []);
-  }, [props.layoutType]);
+    setSections(sectionArrangements[layoutType] || []);
+  }, [layoutType]);
   
   const findSection = useCallback((id) => {
     const section = sections.find((s) => `${s.id}` === id);
@@ -79,7 +83,7 @@ const ContentLayout = (props) => {
         <div className="p-4">
           {sections.map(({ id, content, css },index, array) => (
             <div className={
-              `${props.layoutType === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3') 
+              `${layoutType === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3') 
               ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}` 
               : ''} ${''}`
             }>
@@ -100,7 +104,7 @@ const ContentLayout = (props) => {
                 <Button
                     outline
                     onClick={() => {
-                        props.previousPage();
+                        previousPage();
                     }}
                 >
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-0.5" />
@@ -111,7 +115,7 @@ const ContentLayout = (props) => {
                 <Button
                     outline
                     onClick={() => {
-                        props.nextPage();
+                        nextPage();
                     }}
                     
                 >

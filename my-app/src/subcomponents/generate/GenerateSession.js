@@ -31,6 +31,7 @@ function GenerateSession(props) {
   let reduxUseData = useData();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
   const [letterData, setLettterData] = useState(reduxUseData);
+  const [sections, setSections] = useState([]);
   let pageTotal = 3;
 
   // let ddddd = useTopic();
@@ -164,7 +165,10 @@ function GenerateSession(props) {
           )}
           {pageState == 2 && (
             <div className="">
-            <ContentLayout layoutType={firstPageData[2].data}
+            <ContentLayout 
+                layoutType={firstPageData[2].data}
+                sections={sections}
+                setSections={setSections}
                 previousPage={() => {
                     getPreviousStep();
                 }}
