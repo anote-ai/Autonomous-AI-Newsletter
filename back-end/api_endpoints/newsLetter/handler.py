@@ -28,10 +28,12 @@ def setNewsletter(request, userEmail):
     user_id = user_id_for_email(userEmail)
     data = str(request.json.get("data", '[]'))
     title = request.json.get("topic", 'text')
+    theme = request.json.get("theme", 'null')
+    character_name = request.json.get("character", "null")
     # print(data)
     try:
         # print(business_category)
-        result = add_newsletter(user_id, title, data)
+        result = add_newsletter(user_id, title, theme, character_name, data)
         return result
     except Exception as e:
         print("Error inserting newsletter:", str(e))

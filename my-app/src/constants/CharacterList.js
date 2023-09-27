@@ -1,0 +1,1 @@
+export const CharacterList = ["The Sloane Ranger", "The Saucy Intellect", "The Winsome Jester", "The On-Trend Everygirl", "The Energetic Expert"];
