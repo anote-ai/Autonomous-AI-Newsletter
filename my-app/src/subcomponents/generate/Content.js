@@ -95,6 +95,16 @@ function Content(props) {
             </div>
           )}
           <div className='w-full flex flex-wrap'>
+            <div className='flex items-center justify-center h-10 w-full'>
+              {
+                firstPageDataFRedux[3].data !== '' && (
+                  <div class="mr-4 h-full">
+                    <img className="h-full aspect-square" src={firstPageDataFRedux[3].data} alt={'Company Logo'} loading="lazy" />
+                  </div>
+                )
+              }
+              <h1 class="text-3xl font-bold">{firstPageDataFRedux[0].data}</h1>
+            </div>
             {!loading && nData && !error && nData.length !== 0 && (
               nData.map((each) => (
                 <div key={each.id}
