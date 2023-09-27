@@ -234,6 +234,7 @@ function DetailSession(props) {
                         </div>
                     )}
                     {pageState == 4 && (
+                        <div className="h-[68vh] max-h-[68vh] overflow-y-scroll bg-gray-800 pt-8">
                         <DetailPage
                             qestionTitle={"Brand Persona Interview Questions"}
                             dataCurrent={fourthPageData}
@@ -245,6 +246,7 @@ function DetailSession(props) {
                                 getNextStep()
                             }}
                         />
+                        </div>
                     )}
                 </div>
             </div>

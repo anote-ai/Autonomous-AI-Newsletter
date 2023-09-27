@@ -79,12 +79,12 @@ function Profile(props) {
         // <div className=" bg-gray-800 min-h-screen">
 
         <div>
-            <div className="h-screen w-5/6 ml-auto flex flex-col" >
+            <div className="h-screen w-5/6 ml-auto flex flex-col bg-gray-600" >
                 <div className="h-1/5 w-full flex justify-center items-center">
                     <div className="h-4/5 w-4/5 flex justify-start">
                         <img src={noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
                         <div className="h-2/3 w-80 flex flex-col my-auto">
-                            <div className="h-1/2 w-full flex justify-start">
+                            <div className="h-1/2 w-full flex justify-start ml-3">
                                 <div className="flex justify-start items-center font-bold h-full w-1/2">
                                     <h3>{user && user.name ? user.name : user.email}</h3>
                                 </div>
@@ -123,20 +123,20 @@ function Profile(props) {
                             <div class="text-3xl sm:text-4xl lg:text-5xl my-10 text-center font-medium lg:font-bold"></div>
                             <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
                                 <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">900000</div>
-                                    <div class="LP-Home-Insights-Item-Content">Total Newsletters Sent</div>
+                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">900000</div>
+                                    <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Sent</div>
                                 </div>
                                 <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{ndata && ndata.length ? ndata.length : 0}</div>
-                                    <div class="LP-Home-Insights-Item-Content">Total Newsletters Generated</div>
+                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? ndata.length : 0}</div>
+                                    <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Generated</div>
                                 </div>
                                 <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-200">{ndata && ndata.length ? (
+                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? (
                                         getAlluser.reduce((totalSearch, element) => totalSearch + element['data'].length, 0)
                                     ) : (
                                         0
                                     )}</div>
-                                    <div class="LP-Home-Insights-Item-Content">Total News Searched</div>
+                                    <div class="LP-Home-Insights-Item-Content text-white">Total News Searched</div>
                                 </div>
                             </div>
                         </div>
