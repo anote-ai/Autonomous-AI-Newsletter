@@ -26,6 +26,7 @@ import Allnewsletter from "./subcomponents/allNewsletter/Allnewsletter"
 import AllnewsletterSession from "./subcomponents/allNewsletter/AllnewsletterSession"
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
+import { useAllData, setAllData, getAllNewsletter } from "./redux/newsLetterSlice"
 
 function App() {
   const pattern = /^\['.*'\]$/;
@@ -86,6 +87,22 @@ function App() {
           setHaveDetail(false);
         }
       }
+      async function getData() {
+        try {
+            let getData = await dispatch(getAllNewsletter());
+            let temData = []
+            // console.log(getData)
+            if (getData && getData.payload.length !== 0) {
+                temData = getData.payload;
+            }
+            // console.log("data", temData);
+            dispatch(setAllData(temData));
+        }
+        catch(e){
+            alert(e);
+        }
+    }
+    getData();
       getDeatilData();
       // dispatch(refreshCredits());
     }

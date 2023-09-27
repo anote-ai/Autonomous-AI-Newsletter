@@ -48,7 +48,7 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     // else if(payload.topic.length > 1){
         
     // }
-    console.log(payload.firstPageData);
+    console.log(payload.firstPageData[0].data);
 
     let reqBody = {
         topic: payload.firstPageData[0].data,

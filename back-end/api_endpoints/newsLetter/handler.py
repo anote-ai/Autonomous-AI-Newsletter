@@ -27,7 +27,7 @@ def setNewsletter(request, userEmail):
     # add_user_detail_by_id_page_one(user_id, company_name, url, newsletter_name, header_image, description, business_category, branding_colors, color_palette, font_styles)
     user_id = user_id_for_email(userEmail)
     data = str(request.json.get("data", '[]'))
-    title = request.json.get("title", 'text')
+    title = request.json.get("topic", 'text')
     # print(data)
     try:
         # print(business_category)

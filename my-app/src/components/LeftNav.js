@@ -48,7 +48,7 @@ function LeftNav(props) {
                     </Sidebar.Item>
                     <Sidebar.Item
                         onClick ={() =>
-                            navigate('accountPath')
+                            navigate(accountPath)
                         }
                         icon={HiShoppingBag}
                     >
