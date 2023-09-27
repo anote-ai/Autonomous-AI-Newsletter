@@ -12,13 +12,16 @@ import right from '../assets/angle-double-right.svg'
 import noUserImg from '../assets/noUserImg.png';
 import { useAllData, setAllData, getAllNewsletter } from '../redux/newsLetterSlice';
 import { useLocation } from "react-router-dom";
+import { useDetailPageOne } from '../redux/DetailSlice'
 
 function Profile(props) {
     const dispatch = useDispatch();
     let user = useUser();
     let getAlluser = useAllData();
     let navigate = useNavigate();
+    let getUserDetailPageOne = useDetailPageOne();
     const [ndata, setNdata] = useState(getAlluser)
+
     // console.log(getAlluser)
     let totalSearch = 0;
 
@@ -82,7 +85,7 @@ function Profile(props) {
             <div className="h-screen w-5/6 ml-auto flex flex-col bg-gray-600" >
                 <div className="h-1/5 w-full flex justify-center items-center">
                     <div className="h-4/5 w-4/5 flex justify-start">
-                        <img src={noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
+                        <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
                         <div className="h-2/3 w-80 flex flex-col my-auto">
                             <div className="h-1/2 w-full flex justify-start ml-3">
                                 <div className="flex justify-start items-center font-bold h-full w-1/2">

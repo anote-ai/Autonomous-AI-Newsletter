@@ -11,6 +11,7 @@ import { accountPath, loginPagePath, mainPagePath, DetailPagePath, allnewsletter
 import { Sidebar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useDetailPageOne } from "../redux/DetailSlice"
 import { useUser, viewUser } from "../redux/UserSlice";
 import { HiShoppingBag, HiChartPie, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 
@@ -18,6 +19,7 @@ function LeftNav(props) {
     const location = useLocation();
     let dispatch = useDispatch();
     let navigate = useNavigate();
+    let getUserDetailPageOne = useDetailPageOne();
     let user = useUser();
     useEffect(() => {
         dispatch(viewUser());
@@ -32,7 +34,7 @@ function LeftNav(props) {
     return (
         <Sidebar className="fixed left-0 top-0 w-1/6 h-screen" aria-label="Sidebar with logo branding example">
             <div className="flex w-full h-36 justify-center items-center">
-                <img src={noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
+                <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
             </div>
             <Sidebar.Items className="">
                 <Sidebar.ItemGroup>
