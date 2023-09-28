@@ -53,17 +53,18 @@ const sectionArrangements = {
 };
 
 const ContentLayout = ({ layoutType,
-  sections,
-  setSections,
+  // sections,
+  // setSections,
   previousPage,
   nextPage }) => {
   let dispatch = useDispatch();
   let firstPageDataFRedux = useTopic();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
-  const [select, setSelect] = useState("");
+  const [select, setSelect] = useState("layOut");
+  const [sections, setSections] = useState([]);
 
 
-  console.log("sections", sections)
+  // console.log("sections", sections)
   useEffect(() => {
     setSections(sectionArrangements[firstPageData[2].data] || []);
   }, [firstPageData]);
@@ -91,17 +92,26 @@ const ContentLayout = ({ layoutType,
   }, [findSection]);
 
   const handleOnpageOneDataChange = (data) => {
-    if(select === "layOut"){
+    if (select === "layOut") {
       setFirstPageData(data);
       setTopic(data);
     }
-    
+  }
+
+  const handleOnSelect = (data) => {
+    console.log("select")
+    if (data !== select) {
+      setSelect(data);
+    }
+    else {
+      setSelect("layOut");
+    }
   }
 
 
   return (
     <div>
-      <span className='text-lg font-semibold text-sky-500' onClick={()=>{setSelect("layOut")}}>Drag and Drop Elements according to your preference</span>
+      <span className='text-lg font-semibold text-sky-500' >Drag and Drop Elements according to your preference</span>
       <div className='h-[70vh] max-h-[70vh] overflow-y-scroll'>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
@@ -109,8 +119,9 @@ const ContentLayout = ({ layoutType,
               <div className={
                 `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                   ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
-                  : ''} ${''}`
-              }>
+                  : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5` 
+              }
+              onClick={ ()=>{handleOnSelect(id)}}>
                 <DraggableSection
                   css={css}
                   key={id}
@@ -150,9 +161,9 @@ const ContentLayout = ({ layoutType,
       <div className="fixed right-0 top-[6%] w-1/6 h-[94%] bg-gray-900 " aria-label="Sidebar with logo branding example">
         <RightControl
           updateData={(data) => { handleOnpageOneDataChange(data) }}
-          firstPageData = {firstPageData}
-          select = {select}
-          >
+          firstPageData={firstPageData}
+          select={select}
+        >
 
         </RightControl>
       </div>
