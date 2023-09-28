@@ -1,3 +1,4 @@
+import ast
 from flask import jsonify
 import os
 from bs4 import BeautifulSoup
@@ -5,6 +6,8 @@ import requests
 import openai
 import sys
 import json
+from database.db import user_id_for_email
+from database.db import get_detail_by_userID, get_detail_by_userID_three_four
 
 openai.api_key = "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"
 
@@ -19,6 +22,19 @@ def gpt(text):
     # print('reply', reply)
     return reply["choices"][0]["message"]["content"]
 
+def generateIdeas(text):
+    prompt = f'''
+    Your task is to come up with 30 innovative and engaging ideas for an email newsletter based on the questions and answers we asked our users below to generate.
+    can you list all 30 ideas
+    information:
+
+    ```
+    {text}
+    ```
+    '''
+    print(prompt)
+    # print("title reply", reply)
+    return prompt
 
 def generatePrompt_summary(text):
     prompt = f'''
@@ -45,6 +61,7 @@ def generatePrompt_date(text):
     '''
     return prompt
 
+
 def generate_title(summary):
     prompt = f'''
     your task is to generate a title for the following article summary,
@@ -64,7 +81,8 @@ def generate_title(summary):
     )
     # print("title reply", reply)
     result = reply.choices[0].text.strip()
-    cleaned_text = result.replace(",", "").replace("'", "").replace("`", "").replace('"', "")
+    cleaned_text = result.replace(",", "").replace(
+        "'", "").replace("`", "").replace('"', "")
     return cleaned_text
 
 
@@ -129,7 +147,8 @@ def getGPTData(request):
     }
 
     # print(key_word)
-    processed_data = ['%20'.join(item.split('&')).replace(' ', '%20') for item in key_word]
+    processed_data = ['%20'.join(item.split('&')).replace(
+        ' ', '%20') for item in key_word]
     searchWord = '%20'.join(processed_data)
     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
     url = f"https://news.google.com/search?q={searchWord}&hl=en-US&gl=US&ceid=US%3Aen"
@@ -169,3 +188,75 @@ def getGPTData(request):
 
     return jsonify(news)
 
+
+def getIdeasFromGPT(request, userEmail):
+    user_id = user_id_for_email(userEmail)
+    try:
+        resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
+        # print('pageOne')
+        resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
+        # print('pageTwo')
+        resultPageThree = get_detail_by_userID_three_four(
+            user_id, "userDetailPageThree")
+        # print('pageThree')
+        resultPageFour = get_detail_by_userID_three_four(
+            user_id, "userDetailPageFour")
+        # print('pageFour')
+        if (resultPageOne == False or resultPageTwo == False):
+            return 'false'
+        # print("step 1")
+        page_three_data = {}
+        page_four_data = {}
+        # print("resultPageThree", resultPageThree)
+        if (resultPageThree != False):
+            for row in resultPageThree:
+                # print(row)
+                page_three_data[row.get('question_name')] = row.get('data')
+        # print(resultPageFour)
+        if (resultPageFour != False):
+            for row in resultPageFour:
+                page_four_data[row.get('question_name')] = row.get('data')
+        # print("step 2")
+        # print("resultPageTwo", resultPageTwo.get('Does your brand writing style use emojis?'))
+        emoji = False
+        if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+            emoji = True
+        # print(emoji)
+        data = {
+            'Brand or Company Name': resultPageOne.get('Brand or Company Name'),
+            'Name of Publication or Newsletter': resultPageOne.get('Name of Publication or Newsletter'),
+            'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
+            'Business Category': resultPageOne.get('Business Category'),
+            'Publication Language': resultPageTwo.get('Publication Language'),
+            'Audience Demographics': resultPageTwo.get('Audience Demographics'),
+            'Audience Age Range': resultPageTwo.get('Audience Age Range'),
+            'Audience Income Level': resultPageTwo.get('Audience Income Level'),
+            'Do you adhere to a stylistic choice?': resultPageTwo.get('Do you adhere to a stylistic choice?'),
+        }
+        for key, value in data.items():
+            try:
+                parsed_value = ast.literal_eval(value)
+                if isinstance(parsed_value, list):
+                    data[key] = parsed_value
+            except (SyntaxError, ValueError):
+                pass
+        data.update(page_three_data)
+        data.update(page_four_data)
+        formatted_text = ""
+
+        for key, value in data.items():
+            if isinstance(value, list):
+                value_str = ", ".join(value)
+            else:
+                value_str = value
+
+            formatted_text += f"{key}: {value_str}\n"
+        # print(formatted_text)
+        prompt = generateIdeas(formatted_text)
+        ideas = gpt(prompt)
+        print(ideas)
+
+        return ideas
+
+    except:
+        return 'error'
