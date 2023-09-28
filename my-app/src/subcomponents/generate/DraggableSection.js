@@ -29,7 +29,7 @@ const DraggableSection = ({ css, id, content, moveSection, findSection }) => {
       const opacity = isOver ? 0.5 : 1;
 
   return (
-    <div ref={(node) => drag(drop(node))} style={{ opacity }}  className={`${css} bg-gray-600 cursor-pointer p-2 mb-5 rounded-md shadow-md`}>
+    <div ref={(node) => drag(drop(node))} style={{ opacity }}  className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
       {content}
     </div>
   );
