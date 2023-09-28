@@ -61,8 +61,8 @@ const PaymentsComponent = () => {
   let currentPlanIndexOverride = paidUserStatus - 1;
 
   return (
-    <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
-      <div className="text-black bg-zinc-100 dark:text-white dark:bg-gray-900 min-h-screen">
+    <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">
+      <div className="text-black bg-zinc-100 dark:text-white dark:bg-gray-900 h-full">
         {/* <div className="items-center flex flex-col">
         <p className="sm:text-4xl text-3xl font-medium title-font text-anoteblack-100">
           Billing

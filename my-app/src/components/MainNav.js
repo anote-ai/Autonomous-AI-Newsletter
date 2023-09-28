@@ -1,21 +1,24 @@
 import { React, useEffect, useState } from "react";
 import { logout, useNumCredits } from "../redux/UserSlice";
+import noUserImg from '../assets/noUserImg.png';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { accountPath, loginPagePath, mainPagePath, DetailPagePath } from "../constants/RouteConstants";
+import { accountPath, loginPagePath, mainPagePath, DetailPagePath, allnewsletter } from "../constants/RouteConstants";
 import { Dropdown, Navbar, Avatar, DarkThemeToggle } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
+import { useDetailPageOne } from "../redux/DetailSlice"
 import { useUser, viewUser } from "../redux/UserSlice";
 import "../styles/Footer.css"
 
 function MainNav(props) {
-  const tabNames = ["Home", "Lists", "Settings"];
+  // const tabNames = ["Profile", "Account", "All Letters", "Create"];
   const location = useLocation();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let user = useUser();
+  let getUserDetailPageOne = useDetailPageOne();
   console.log("user", user);
   let numCredits = useNumCredits();
 
@@ -23,13 +26,8 @@ function MainNav(props) {
     dispatch(viewUser());
   }, []);
 
-  var imageUrl = null;
-  if (user && "profile_pic_url" in user) {
-    imageUrl = user["profile_pic_url"];
-  }
-
   return (
-    <Navbar className="bg-zinc-200 navbar-fixed" fluid rounded>
+    <Navbar className="bg-zinc-200 navbar-fixed h-[6%]" fluid rounded>
       <Navbar.Brand href="https://anote.ai/">
         {/* Image only when the theme is light  */}
         <div className="h-10 w-10 bg-center bg-contain bg-[url('../public/logo_light.png')] dark:bg-[url('../public/logo_dark.png')]"></div>
@@ -51,7 +49,8 @@ function MainNav(props) {
           }}
           inline
           label={
-            imageUrl=="" ? <Avatar rounded></Avatar> : <Avatar img={imageUrl} rounded></Avatar>
+            // <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
+            getUserDetailPageOne[3].data === '' ? <Avatar img={noUserImg} rounded> </Avatar> : <Avatar img={getUserDetailPageOne[3].data} rounded></Avatar>
           }
         >
           <Dropdown.Header>
@@ -81,13 +80,15 @@ function MainNav(props) {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link active={location.pathname === "/"} href="/">
-          <p>Home</p>
+        <Navbar.Link href="/">
+          <p>Profile</p>
         </Navbar.Link>
-        <Navbar.Link active={location.pathname === DetailPagePath} href={DetailPagePath}>
-          User Detail
+        <Navbar.Link href={allnewsletter}>
+          <p>All Letters</p>
         </Navbar.Link>
-        <Navbar.Link active={location.pathname === mainPagePath} href={mainPagePath}>Templates</Navbar.Link>
+        <Navbar.Link href={mainPagePath}>
+          <p>Create</p>
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

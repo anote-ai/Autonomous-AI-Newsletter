@@ -27,6 +27,7 @@ import AllnewsletterSession from "./subcomponents/allNewsletter/AllnewsletterSes
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 import { useAllData, setAllData, getAllNewsletter } from "./redux/newsLetterSlice"
+import MainNav from "./components/MainNav";
 
 function App() {
   const pattern = /^\['.*'\]$/;
@@ -141,10 +142,10 @@ function App() {
           dark: darkTheme,
         }}
       >
-        <div className="DashboardView flex flex-col min-h-full">
-          <div id="wrapperDiv" className="flex-grow min-h-full">
+        <div className="DashboardView flex flex-col h-screen w-screen">
+          <div id="wrapperDiv" className="flex-grow h-full">
             {isLoggedIn && (
-              <LeftNav
+              <MainNav
                 setIsLoggedInParent={setIsLoggedIn}
               // darkTheme={darkTheme}
               // setDarkTheme={setDarkTheme}

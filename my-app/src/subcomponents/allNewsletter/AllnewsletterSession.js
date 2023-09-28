@@ -59,7 +59,7 @@ function AllnewsletterSession() {
         dispatch(setAllData(newData));
     }
     return (
-        <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
+        <div className="flex flex-col h-[94%] w-full my-auto bg-gray-600">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
                 <div className='w-5/6 h-full flex items-center justify-center border-b-2 border-b-slate-100'>
                     <h2 className='text-slate-200 font-bold from-neutral-50'>All newsletter</h2>
