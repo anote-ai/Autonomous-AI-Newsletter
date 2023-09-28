@@ -25,25 +25,25 @@ function Profile(props) {
     // console.log(getAlluser)
     let totalSearch = 0;
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getData() {
             try {
-              let getData = await dispatch(getAllNewsletter());
-              let temData = []
-              // console.log(getData)
-              if (getData && getData.payload.length !== 0) {
-                temData = getData.payload;
-              }
-              // console.log("data", temData);
-              setNdata(temData)
-              dispatch(setAllData(temData));
+                let getData = await dispatch(getAllNewsletter());
+                let temData = []
+                // console.log(getData)
+                if (getData && getData.payload.length !== 0) {
+                    temData = getData.payload;
+                }
+                // console.log("data", temData);
+                setNdata(temData)
+                dispatch(setAllData(temData));
             }
             catch (e) {
-              alert(e);
+                alert(e);
             }
-          }
-          getData();
-    },[])
+        }
+        getData();
+    }, [])
 
     const [recentNewsData, setRecentNewsData] = useState([
         {
@@ -81,28 +81,27 @@ function Profile(props) {
     return (
         // <div className=" bg-gray-800 min-h-screen">
 
-        <div>
-            <div className="h-screen w-5/6 ml-auto flex flex-col bg-gray-600" >
-                <div className="h-1/5 w-full flex justify-center items-center">
-                    <div className="h-4/5 w-4/5 flex justify-start">
-                        <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
-                        <div className="h-2/3 w-80 flex flex-col my-auto">
-                            <div className="h-1/2 w-full flex justify-start ml-3">
-                                <div className="flex justify-start items-center font-bold h-full w-1/2">
-                                    <h3>{user && user.name ? user.name : user.email}</h3>
-                                </div>
-                                <div className=" h-full w-1/2">
-                                    <button
-                                        className=" bg-sky-500/50 h-full w-full"
-                                        onClick={() => {
-                                            navigate('/detail')
-                                        }}
-                                    >
-                                        Edit Profile
-                                    </button>
-                                </div>
+        <div className="flex flex-col h-full mt-auto w-screen bg-gray-600" >
+            <div className="h-1/5 w-full flex justify-center items-center">
+                <div className="h-4/5 w-4/5 flex justify-start">
+                    <img src={getUserDetailPageOne[3].data !== '' ? getUserDetailPageOne[3].data : noUserImg} alt='img' className="aspect-square h-full ml-0 inline-block"></img>
+                    <div className="h-2/3 w-80 flex flex-col my-auto">
+                        <div className="h-1/2 w-full flex justify-start ml-3">
+                            <div className="flex justify-start items-center font-bold h-full w-1/2">
+                                <h3>{user && user.name ? user.name : user.email}</h3>
                             </div>
-                            {/* <div className="h-1/2 w-full flex justify-start ">
+                            <div className=" h-full w-1/2">
+                                <button
+                                    className=" bg-sky-500/50 h-full w-full"
+                                    onClick={() => {
+                                        navigate('/detail')
+                                    }}
+                                >
+                                    Edit Profile
+                                </button>
+                            </div>
+                        </div>
+                        {/* <div className="h-1/2 w-full flex justify-start ">
                                 <div className="flex justify-start items-center h-full w-1/2">
                                     <p>999 Subscribers</p>
                                 </div>
@@ -110,40 +109,40 @@ function Profile(props) {
                                     <p>123 Followers</p>
                                 </div>
                             </div> */}
-                        </div>
                     </div>
                 </div>
-                <div className="h-4/5">
-                    <div className="h-1/12 w-full flex justify-center items-center">
-                        Profile Info
-                    </div>
-                    <div className="h-1/12 w-4/5 mx-auto flex justify-between border-b-4">
-                        {/* <p className="border-b-4 border-black">Recent Newsletter</p>
+            </div>
+            <div className="h-4/5">
+                <div className="h-1/12 w-full flex justify-center items-center">
+                    Profile Info
+                </div>
+                <div className="h-1/12 w-4/5 mx-auto flex justify-between border-b-4">
+                    {/* <p className="border-b-4 border-black">Recent Newsletter</p>
                         <p className="border-b-4 border-black">Total Click</p> */}
-                    </div>
-                    <div className="h-10/12 w-4/5 mx-auto flex justify-between flex-col pt-4 overflow-y-auto">
-                        <div class="">
-                            <div class="text-3xl sm:text-4xl lg:text-5xl my-10 text-center font-medium lg:font-bold"></div>
-                            <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
-                                <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">900000</div>
-                                    <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Sent</div>
-                                </div>
-                                <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? ndata.length : 0}</div>
-                                    <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Generated</div>
-                                </div>
-                                <div class="md:w-2/5 my-10">
-                                    <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? (
-                                        getAlluser.reduce((totalSearch, element) => totalSearch + element['data'].length, 0)
-                                    ) : (
-                                        0
-                                    )}</div>
-                                    <div class="LP-Home-Insights-Item-Content text-white">Total News Searched</div>
-                                </div>
+                </div>
+                <div className="h-10/12 w-4/5 mx-auto flex justify-between flex-col pt-4 overflow-y-auto">
+                    <div class="">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl my-10 text-center font-medium lg:font-bold"></div>
+                        <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
+                            <div class="md:w-2/5 my-10">
+                                <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">900000</div>
+                                <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Sent</div>
+                            </div>
+                            <div class="md:w-2/5 my-10">
+                                <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? ndata.length : 0}</div>
+                                <div class="LP-Home-Insights-Item-Content text-white">Total Newsletters Generated</div>
+                            </div>
+                            <div class="md:w-2/5 my-10">
+                                <div class="text-6xl lg:text-7xl mb-4 font-semibold lg:font-bold text-cyan-600">{ndata && ndata.length ? (
+                                    getAlluser.reduce((totalSearch, element) => totalSearch + element['data'].length, 0)
+                                ) : (
+                                    0
+                                )}</div>
+                                <div class="LP-Home-Insights-Item-Content text-white">Total News Searched</div>
                             </div>
                         </div>
-                        {/* {recentNewsData && recentNewsData.length !== 0 && (
+                    </div>
+                    {/* {recentNewsData && recentNewsData.length !== 0 && (
                             recentNewsData.map((each) => (
                                 <div className="w-full h-30 flex justify-start hover:border-4 mb-5">
                                     <div className="w-1/2 h-full flex flex-col">
@@ -163,7 +162,6 @@ function Profile(props) {
                                 </div>
                             ))
                         )} */}
-                    </div>
                 </div>
             </div>
         </div>

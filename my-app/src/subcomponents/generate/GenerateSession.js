@@ -129,8 +129,8 @@ function GenerateSession(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
 
-    <div className="flex flex-col h-screen w-5/6 ml-auto min-h-screen bg-gray-600">
-      <div class="w-3/4 mx-auto text-white my-[5vh] overflow-scroll">
+    <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">
+      <div class="w-3/4 mx-auto text-white my-auto overflow-scroll">
         <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
           <div className="mb-10">
             <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
