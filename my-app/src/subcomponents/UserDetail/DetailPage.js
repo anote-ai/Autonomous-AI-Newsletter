@@ -491,15 +491,16 @@ function DetailPage(props) {
                             value={eachdata.data}
                             onChange={(e) => {
                                 let tem = JSON.parse(JSON.stringify(data));
+                                // console.log(e.target.value)
                                 tem[eachdata.id - 1].data = e.target.value
                                 console.log("tem", tem);
                                 setData(tem);
                             }}
                         >
                             <option disabled key="default" value=""></option>
-                            {console.log("props.ideas",props.ideas)}
+                            {/* {console.log("props.ideas",props.ideas)} */}
                             {props.ideas.map((font, idx) => (
-                                <option key={idx} value={font} style={{ fontSize: font }}>
+                                <option key={idx} value={font.id} style={{ fontSize: font }}>
                                     {font.title}
                                 </option>
                             ))}

@@ -6,7 +6,7 @@ import requests
 import openai
 import sys
 import json
-from database.db import user_id_for_email, add_ideas_withId, delete_Ideas_byId, get_all_Ideas
+from database.db import user_id_for_email, add_ideas_withId, delete_Ideas_byId, get_all_Ideas, update_Ideas_byId
 from database.db import get_detail_by_userID, get_detail_by_userID_three_four
 import re
 
@@ -291,17 +291,35 @@ def getAllIdeas(userEmail):
         print("Error get Idea", str(e))
         return "error"
 
+def updateIdeas(request, userEmail):
+    user_id = user_id_for_email(userEmail)
+    id = request.json.get("id", 'null')
+    title = request.json.get("title", "null")
+    used = request.json.get("used", False)
+    if(id == 'null' or id ==""):
+        return "not Id provide"
+    # print("id", id)
+    # print("title", title)
+    
+    try:
+        # print(business_category)
+        update_Ideas_byId (user_id, id, title, used)
+        return {'message': 'Idea update successfully'}
+    except Exception as e:
+        print("Error update ideas:", str(e))
+        return "error"
+
 def deleteIdeas(request, userEmail):
     user_id = user_id_for_email(userEmail)
     id = request.json.get("data", '[]')
     if(id == 'null' or id ==""):
         return "not Id provide"
-    # print(data)
+    print(id)
     try:
         # print(business_category)
-        for eachid in id:
-            delete_Ideas_byId (user_id, eachid)
-        return {'message': 'Newsletter deleted successfully'}
+        for eachData in id:
+            delete_Ideas_byId (user_id, eachData.get("id"))
+        return {'message': 'Idea deleted successfully'}
     except Exception as e:
-        print("Error inserting newsletter:", str(e))
+        print("Error delete Ideas:", str(e))
         return "error"

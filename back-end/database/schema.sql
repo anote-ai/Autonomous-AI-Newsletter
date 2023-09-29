@@ -123,6 +123,7 @@ CREATE TABLE AllNewsletterInfo (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255),
     theme VARCHAR(255),
+    idea_id BIGINT,
     character_name VARCHAR(255),
     data TEXT
 );
