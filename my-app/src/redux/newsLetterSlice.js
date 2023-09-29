@@ -48,14 +48,16 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     // else if(payload.topic.length > 1){
         
     // }
-    console.log(payload.firstPageData[0].data);
+    // console.log(payload.firstPageData[0].data);
 
     let reqBody = {
         topic: payload.firstPageData[0].data,
         data : payload.data,
+        idea_id: payload.firstPageData[3].data,
         theme: payload.firstPageData[2].data,
-        character: payload.firstPageData[3].data
+        character: payload.firstPageData[4].data
     }
+    console.log(reqBody)
     console.log(JSON.stringify(reqBody))
     const response = await fetcher('setNewsletterData', {
         method: "POST",

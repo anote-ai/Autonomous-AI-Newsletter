@@ -853,14 +853,14 @@ def end_date_for_user_email_with_cursor(conn, cursor, user_email):
 #     conn.commit()
 #     conn.close()
 
-def add_newsletter(user_id, title, theme, character_name,  data):
+def add_newsletter(user_id, title, theme, idea_id, character_name,  data):
     conn, cursor = get_db_connection()
     # print('step1')
     if check_user_by_id(user_id):
         # print('step2')
             # Update the existing record
             # Insert a new record
-        cursor.execute("INSERT INTO AllNewsletterInfo (user_id, title, theme, character_name, data) VALUES (%s, %s, %s, %s, %s)", (user_id, title, theme, character_name, data))
+        cursor.execute("INSERT INTO AllNewsletterInfo (user_id, title, theme, idea_id, character_name, data) VALUES (%s, %s, %s, %s, %s, %s)", (user_id, title, theme, idea_id, character_name, data))
         # print("step3")
         conn.commit()
         conn.close()
