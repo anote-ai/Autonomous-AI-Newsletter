@@ -18,9 +18,10 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     // else if(payload.topic.length > 1){
         
     // }
-    console.log(payload.topic);
+    console.log(payload.temUrlArr);
     let reqBody = {
-        topic:payload.topic
+        topic:payload.topic,
+        urlList:payload.temUrlArr
     }
     console.log(JSON.stringify(reqBody))
     const response = await fetcher('run-script', {
@@ -201,6 +202,15 @@ export function useData() {
         }
     });
 }
+export function useUrlArr() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.urlArr;
+        } catch (e) {
+            return null;
+        }
+    });
+}
 export function useAllData() {
     return useSelector((state) => {
         try {
@@ -245,12 +255,15 @@ export const newsLetterSlice = createSlice({
         setData: (state, action) => {
             state.data = action.payload;
         },
+        setUrlArr: (state, action) => {
+            state.urlArr = action.payload;
+        },
         setAllData: (state, action) => {
             state.allData = action.payload;
         },
         clearData: (state, action) => {
             state.data = [];
-            for(let i = 0; i < 3; i++){
+            for(let i = 0; i < 6; i++){
                 state.pageOne[i].data = '';
             }
         },
@@ -279,6 +292,7 @@ export const {
     setTopic,
     setIdeas,
     setData,
+    setUrlArr,
     setAllData,
     clearData
 } = newsLetterSlice.actions;

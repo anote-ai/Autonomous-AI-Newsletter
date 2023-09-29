@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, useData, clearData } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 
 function Content(props) {
@@ -13,7 +13,9 @@ function Content(props) {
   let secondPageDataFRedux = useDetailPageTwo();
   let thirdPageDataFRedux = useDetailPageThree();
   let fourthPageDataFRedux = useDetailPageFour();
+  let temUrlList = useUrlArr();
   // console.log(nData);
+  // const [rUrlArr, setRUrlArr] = useState(temUrlArr);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorInfo, setErrorInfo] = useState('');
@@ -22,14 +24,20 @@ function Content(props) {
 
 
   async function generateGPTData() {
-    console.log(firstPageDataFRedux[5].data);
+    // console.log(firstPageDataFRedux[5].data);
     setLoading(true);
     setError(false);
     setError('');
     try {
       let topic = firstPageDataFRedux[5].data;
-      let data = await dispatch(getGPTData({ topic }));
+      let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
+      // console.log("first", temUrlArr);
+      let data = await dispatch(getGPTData({ topic, temUrlArr }));
       // console.log(data.payload);
+      // console.log(data.payload)
+      temUrlArr.push(data.payload[0]['url']);
+      // console.log("tem", temUrlArr)
+      await dispatch(setUrlArr(temUrlArr));
       await dispatch(setData(data.payload));
       await setNData(data.payload)
       props.changeData(data.payload);
