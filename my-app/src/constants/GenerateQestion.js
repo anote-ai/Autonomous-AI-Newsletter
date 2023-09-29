@@ -45,6 +45,7 @@ export const GenerateQestion = {
     ],
     ideas: [],
     data:[],
+    urlArr: [],
     allData: []
 }
 export const GenerateQestionDemoData = {

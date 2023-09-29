@@ -139,6 +139,8 @@ def generate_title(summary):
 
 def getGPTData(request):
     key_word = request.json.get('topic')
+    searchUrlArr = request.json.get('urlList', [])
+    print(searchUrlArr)
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -153,7 +155,7 @@ def getGPTData(request):
     searchWord = '%20'.join(processed_data)
     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
     url = f"https://news.google.com/search?q={searchWord}&hl=en-US&gl=US&ceid=US%3Aen"
-    print(url)
+    # print(url)
 
     url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')
@@ -164,10 +166,14 @@ def getGPTData(request):
         try:
             this_news = {}
             url = "https://news.google.com/" + i['href']  # url at google
+            print("first", url)
             url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
             url = bs.find('a', href=True, rel="nofollow")[
                 "href"]  # real news url
+            if(url in searchUrlArr):
+                continue
+            # print("seconed", url)
             # print("real url", url)
             url_obj = session.get(url, headers=headers)
             # print("url_obj", url_obj)
@@ -182,13 +188,63 @@ def getGPTData(request):
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
             newsId += 1
-            if len(news) >= 5:
-                break
+            break
         except:
             pass
 
     return jsonify(news)
 
+# def getGPTDataFirstFive(request):
+#     key_word = request.json.get('topic')
+#     session = requests.Session()
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
+#         'Content-Type': 'application/x-www-form-urlencoded',
+#         'Connection': 'Keep-Alive',
+#         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+#     }
+
+#     # print(key_word)
+#     processed_data = ['%20'.join(item.split('&')).replace(
+#         ' ', '%20') for item in key_word]
+#     searchWord = '%20'.join(processed_data)
+#     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
+#     url = f"https://news.google.com/search?q={searchWord}&hl=en-US&gl=US&ceid=US%3Aen"
+#     print(url)
+
+#     url_obj = session.get(url, headers=headers)
+#     bs = BeautifulSoup(url_obj.text, 'html.parser')
+
+#     news = []
+#     newsId = 1
+#     for i in bs.find_all('a', class_="VDXfz"):
+#         try:
+#             this_news = {}
+#             url = "https://news.google.com/" + i['href']  # url at google
+#             url_obj = session.get(url, headers=headers)
+#             bs = BeautifulSoup(url_obj.text, "html.parser")
+#             url = bs.find('a', href=True, rel="nofollow")[
+#                 "href"]  # real news url
+#             # print("real url", url)
+#             url_obj = session.get(url, headers=headers)
+#             # print("url_obj", url_obj)
+#             bs = BeautifulSoup(url_obj.text, "html.parser")
+#             # print("bs", bs.text)
+#             prompt_summary = generatePrompt_summary(bs.text)
+#             prompt_date = generatePrompt_date(bs.text)
+#             this_news['id'] = newsId
+#             this_news['title'] = generate_title(bs.text)
+#             this_news['url'] = url
+#             this_news['summary'] = gpt(prompt_summary)
+#             this_news['date'] = gpt(prompt_date)
+#             news.append(this_news)
+#             newsId += 1
+#             if len(news) >= 5:
+#                 break
+#         except:
+#             pass
+
+#     return jsonify(news)
 
 def getIdeasFromGPT(request, userEmail):
     user_id = user_id_for_email(userEmail)
