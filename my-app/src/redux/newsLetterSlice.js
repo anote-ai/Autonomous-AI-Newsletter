@@ -111,10 +111,49 @@ export const getAllNewsletter = createAsyncThunk("newsletter/getAll", async (pay
     // return true
 });
 
+export const getAllIdeas = createAsyncThunk("Ideas/getAll", async (payload, thunk) => {
+
+    const response = await fetcher('getAllIdeasData', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
+export const generateIdeas = createAsyncThunk("Ideas/generate", async (payload, thunk) => {
+
+    const response = await fetcher('getIdeasFromGPT', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
 export function useTopic() {
     return useSelector((state) => {
         try {
             return state.newsLetterReducer.pageOne;
+        } catch (e) {
+            return null;
+        }
+    });
+}
+export function useIdeas() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.ideas;
         } catch (e) {
             return null;
         }
@@ -167,6 +206,9 @@ export const newsLetterSlice = createSlice({
         setTopic: (state, action) => {
             state.pageOne = action.payload;
         },
+        setIdeas: (state, action) => {
+            state.ideas = action.payload;
+        },
         setData: (state, action) => {
             state.data = action.payload;
         },
@@ -202,6 +244,7 @@ export const newsLetterSlice = createSlice({
 
 export const {
     setTopic,
+    setIdeas,
     setData,
     setAllData,
     clearData

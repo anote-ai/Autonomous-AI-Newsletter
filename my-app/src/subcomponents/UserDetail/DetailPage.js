@@ -18,6 +18,11 @@ import { ThemeTopic } from "../../constants/ThemeTopic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { CharacterList } from "../../constants/CharacterList";
+import { useDispatch } from "react-redux";
+import {
+    setIdeas,
+    generateIdeas
+} from "../../redux/newsLetterSlice";
 
 function DetailPage(props) {
 
@@ -27,28 +32,29 @@ function DetailPage(props) {
     const [ageRange, setAgeRange] = useState(AgeRange);
     const [incomeLevel, setIncomLevel] = useState(IncomeLevel);
     const [stylisticChoice, setStylisticChoice] = useState(StylisticChoice);
+    const [aIdeas, setAIdeas] = useState(props.ideas)
     let viewCard = null
     const buildCard = (eachdata) => {
         if (eachdata.type === "input") {
             return (
                 <div className="flex flex-col items-center mx-10">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;*</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp; (optional)</span>)}
-                    </span>
-                    <TextInput
-                        required
-                        type="text"
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                        }}
-                        
-                        className="my-2 w-full mx-auto"
-                        value={eachdata.data}
-                    ></TextInput>
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;*</span>)}
+                            {eachdata.require === false && (<span className="text-sm">&nbsp; (optional)</span>)}
+                        </span>
+                        <TextInput
+                            required
+                            type="text"
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                            }}
+
+                            className="my-2 w-full mx-auto"
+                            value={eachdata.data}
+                        ></TextInput>
                     </div>
                 </div>
             );
@@ -57,24 +63,24 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    </span>
-                    <TextInput
-                        addon="url"
-                        required
-                        type="text"
-                        placeholder="http://"
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(eachdata.data);
-                        }}
-                        className="my-2 w-full mx-auto"
-                        value={eachdata.data}
-                    ></TextInput>
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                            {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
+                        </span>
+                        <TextInput
+                            addon="url"
+                            required
+                            type="text"
+                            placeholder="http://"
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(eachdata.data);
+                            }}
+                            className="my-2 w-full mx-auto"
+                            value={eachdata.data}
+                        ></TextInput>
                     </div>
                 </div >
             );
@@ -93,8 +99,8 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col mx-10 my-5">
                     <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
-                    {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
+                        {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                        {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     </span>
                     <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
                         {TemCategoryArray.map((eachCategory) => {
@@ -115,34 +121,34 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
-                    </span>
-                    <Select2
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(data);
-                        }}
-                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select2
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(data);
+                            }}
+                            className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
 
-                    >
-                        {colors.map((color, idx) => (
-                            <MenuItem key={idx} value={color}>
-                                <div
-                                    style={{
-                                        backgroundColor: color,
-                                        width: "80px",
-                                        height: "20px",
-                                        margin: "auto",
-                                    }}
-                                />
-                            </MenuItem>
-                        ))}
-                    </Select2>
+                        >
+                            {colors.map((color, idx) => (
+                                <MenuItem key={idx} value={color}>
+                                    <div
+                                        style={{
+                                            backgroundColor: color,
+                                            width: "80px",
+                                            height: "20px",
+                                            margin: "auto",
+                                        }}
+                                    />
+                                </MenuItem>
+                            ))}
+                        </Select2>
                     </div>
                 </div>
             )
@@ -151,27 +157,27 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
-                    </span>
-                    <Select1
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(data);
-                        }}
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select1
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(data);
+                            }}
                         // className="flex w-64 bg-slate-100 ml-10"
 
-                    >
-                        {fontsStyle.map((font, idx) => (
-                            <option key={idx} value={font} style={{ fontSize: "10px", fontFamily: font }}>
-                                {font}
-                            </option>
-                        ))}
-                    </Select1>
+                        >
+                            {fontsStyle.map((font, idx) => (
+                                <option key={idx} value={font} style={{ fontSize: "10px", fontFamily: font }}>
+                                    {font}
+                                </option>
+                            ))}
+                        </Select1>
                     </div>
                 </div>
             )
@@ -180,26 +186,26 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
-                    </span>
-                    <Select1
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(data);
-                        }}
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select1
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(data);
+                            }}
 
-                    >
-                        {oftenTime.map((font, idx) => (
-                            <option key={idx} value={font} style={{ fontSize: "10px" }}>
-                                {font}
-                            </option>
-                        ))}
-                    </Select1>
+                        >
+                            {oftenTime.map((font, idx) => (
+                                <option key={idx} value={font} style={{ fontSize: "10px" }}>
+                                    {font}
+                                </option>
+                            ))}
+                        </Select1>
                     </div>
                 </div>
             )
@@ -208,25 +214,25 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
-                    </span>
-                    <Select1
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(data);
-                        }}
-                    >
-                        {LanguageSelect.map((font, idx) => (
-                            <option key={idx} value={font} style={{ fontSize: "10px" }}>
-                                {font}
-                            </option>
-                        ))}
-                    </Select1>
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select1
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(data);
+                            }}
+                        >
+                            {LanguageSelect.map((font, idx) => (
+                                <option key={idx} value={font} style={{ fontSize: "10px" }}>
+                                    {font}
+                                </option>
+                            ))}
+                        </Select1>
                     </div>
                 </div>
             )
@@ -235,26 +241,26 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                    <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
-                    </span>
-                    <Select1
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            setData(tem);
-                            // console.log(data);
-                        }}
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select1
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                setData(tem);
+                                // console.log(data);
+                            }}
 
-                    >
-                        {fontSizes.map((font, idx) => (
-                            <option key={idx} value={font} style={{ fontSize: font }}>
-                                {font}
-                            </option>
-                        ))}
-                    </Select1>
+                        >
+                            {fontSizes.map((font, idx) => (
+                                <option key={idx} value={font} style={{ fontSize: font }}>
+                                    {font}
+                                </option>
+                            ))}
+                        </Select1>
                     </div>
                 </div>
             )
@@ -407,8 +413,8 @@ function DetailPage(props) {
             return (
                 <div className="grid grid-cols-2 mx-10 items-center">
                     <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
-                    {eachdata.require === false && (<span className="text-xs">&nbsp;  (optional)</span>)}</span>
+                        {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                        {eachdata.require === false && (<span className="text-xs">&nbsp;  (optional)</span>)}</span>
                     <Textarea
                         value={eachdata.data}
                         className="w-full h-40 mx-auto"
@@ -425,8 +431,8 @@ function DetailPage(props) {
             return (
                 <div className="grid grid-cols-2 items-center mx-10 my-5">
                     <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                        {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
                     <Select1
                         value={eachdata.data}
@@ -451,8 +457,8 @@ function DetailPage(props) {
             return (
                 <div className="grid grid-cols-2 items-center mx-10 my-5">
                     <span className="text-lg flex">{eachdata.title}
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                        {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
                     <Select1
                         value={eachdata.data}
@@ -473,6 +479,45 @@ function DetailPage(props) {
                 </div>
             );
         }
+        else if (eachdata.type === "ideaSelect") {
+            return (
+                <div>
+                    <div className="grid grid-cols-2 items-center mx-10 my-5">
+                        <span className="text-lg flex">{eachdata.title}
+                            {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                            {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        </span>
+                        <Select1
+                            value={eachdata.data}
+                            onChange={(e) => {
+                                let tem = JSON.parse(JSON.stringify(data));
+                                tem[eachdata.id - 1].data = e.target.value
+                                console.log("tem", tem);
+                                setData(tem);
+                            }}
+                        >
+                            <option disabled key="default" value=""></option>
+                            {console.log("props.ideas",props.ideas)}
+                            {props.ideas.map((font, idx) => (
+                                <option key={idx} value={font} style={{ fontSize: font }}>
+                                    {font.title}
+                                </option>
+                            ))}
+                        </Select1>
+                    </div>
+                    <div className="grid grid-cols-2 items-center mx-10 my-5">
+                        <Button
+                            onClick={() => {
+                                console.log("generateIdea in detail")
+                                props.GenerateIdea()
+                            }}
+                        >
+                            Generate Ideas
+                        </Button>
+                    </div>
+                </div>
+            );
+        }
     }
 
     let changeActive = (sourceData, setSourceData, sourceElement, idx, singleFlag) => {
@@ -490,7 +535,7 @@ function DetailPage(props) {
                 }
                 else {
                     let tem = JSON.parse(JSON.stringify(data));
-                    console.log("tem[idx].data2",tem[idx].data)
+                    console.log("tem[idx].data2", tem[idx].data)
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -501,7 +546,7 @@ function DetailPage(props) {
                 if (singleFlag === true && element.isActive === true) {
                     element.isActive = false;
                     let tem = JSON.parse(JSON.stringify(data));
-                    console.log("tem[idx].data3",tem[idx].data)
+                    console.log("tem[idx].data3", tem[idx].data)
                     let newElementArray = tem[idx].data.filter((item) => { return item !== element.name });
                     tem[idx].data = newElementArray;
                     setData(tem);
@@ -685,7 +730,7 @@ function DetailPage(props) {
                     onClick={() => {
                         props.nextPage(data);
                     }}
-                    
+
                 >
                     Next
                     <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
