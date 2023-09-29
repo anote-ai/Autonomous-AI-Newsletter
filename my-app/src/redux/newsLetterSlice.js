@@ -141,6 +141,37 @@ export const generateIdeas = createAsyncThunk("Ideas/generate", async (payload, 
     // return true
 });
 
+export const updateIdeas = createAsyncThunk("Ideas/update", async (payload, thunk) => {
+    console.log("payload", payload)
+    const response = await fetcher('updateIdeasData', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
+export const deleteIdeas = createAsyncThunk("Ideas/delete", async (payload, thunk) => {
+    const response = await fetcher('deleteIdeasData', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
 export function useTopic() {
     return useSelector((state) => {
         try {

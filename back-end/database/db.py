@@ -929,6 +929,14 @@ def get_all_Ideas(user_id):
     else:
         return 'user not exist'
     
+def update_Ideas_byId(user_id, id, title, used):
+    conn, cursor = get_db_connection()
+    cursor.execute("UPDATE AllIdeas SET title = %s , used = %s WHERE user_id = %s AND id = %s", [
+                   title, used, user_id, id])
+    conn.commit()
+    conn.close()
+    return True
+    
 def delete_Ideas_byId(user_id, id):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):

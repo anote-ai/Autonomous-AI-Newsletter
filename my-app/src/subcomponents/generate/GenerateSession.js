@@ -21,7 +21,9 @@ import {
   setIdeas,
   setData,
   getAllIdeas,
-  generateIdeas
+  generateIdeas,
+  updateIdeas,
+  deleteIdeas
 } from "../../redux/newsLetterSlice";
 import { red } from "@mui/material/colors";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
@@ -48,7 +50,7 @@ function GenerateSession(props) {
     let getIdeas = async () => {
       try {
         let allData = await dispatch(getAllIdeas());
-        console.log('aaaaaaaa', allData.payload)
+        // console.log('aaaaaaaa', allData.payload)
         dispatch(setIdeas(allData.payload))
         setAIdeas(allData.payload)
       }
@@ -63,9 +65,14 @@ function GenerateSession(props) {
     try {
       let data = await dispatch(generateIdeas());
       let tem = JSON.parse(JSON.stringify(aIdeas));
-      console.log("data", data)
+      // console.log("data", tem)
+
       if (data.payload && data.payload.length !== 0) {
-        tem = [...tem, ...data.payload];
+        let deleteList = tem.filter((each) =>{return each.used !== true})
+        let reqBode = {data: deleteList}
+        let usedTrueList = tem.filter(item => item.used === true);
+        tem = [...usedTrueList, ...data.payload];
+        let deleteIdeasR = await dispatch(deleteIdeas(reqBode))
       }
       console.log('tem', tem)
       setAIdeas(tem);
@@ -88,6 +95,18 @@ function GenerateSession(props) {
         let returnBack = await dispatch(
           setNewsletter({ firstPageData: firstPageData, data: letterData })
         );
+        // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
+        let data = aIdeas.filter((each)=>{
+          return each.id == firstPageData[3].data
+        })
+
+        let reqBody = {
+          id:data[0].id,
+          title:data[0].title,
+          used:true
+        }
+        
+        let updateIdea = await dispatch(updateIdeas(reqBody))
         alert("update success");
         navigate("/");
       } catch (e) {
