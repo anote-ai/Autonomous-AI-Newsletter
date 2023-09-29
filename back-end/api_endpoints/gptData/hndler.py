@@ -6,8 +6,9 @@ import requests
 import openai
 import sys
 import json
-from database.db import user_id_for_email
+from database.db import user_id_for_email, add_ideas_withId, delete_Ideas_byId, get_all_Ideas
 from database.db import get_detail_by_userID, get_detail_by_userID_three_four
+import re
 
 openai.api_key = "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"
 
@@ -24,15 +25,15 @@ def gpt(text):
 
 def generateIdeas(text):
     prompt = f'''
-    Your task is to come up with 30 innovative and engaging ideas for an email newsletter based on the questions and answers we asked our users below to generate.
-    can you list all 30 ideas
+    Your task is to come up with 5 innovative and engaging ideas for an email newsletter based on the questions and answers we asked our users below to generate.
+    you should only response the ideas data without any other text or description.
     information:
 
     ```
     {text}
     ```
     '''
-    print(prompt)
+    # print(prompt)
     # print("title reply", reply)
     return prompt
 
@@ -254,9 +255,53 @@ def getIdeasFromGPT(request, userEmail):
         # print(formatted_text)
         prompt = generateIdeas(formatted_text)
         ideas = gpt(prompt)
-        print(ideas)
-
-        return ideas
+        # print(ideas)
+        cleaned_data = [re.sub(r'^\d+\.\s*', '', item.strip()) for item in ideas.split('\n') if item.strip()]
+        # print(cleaned_data)
+        res = []
+        for each in cleaned_data:
+            id = add_ideas_withId(user_id, each)
+            obj = {'id':id,
+                   'title': each,
+                   'used': False}
+            print(obj)
+            res.append(obj)
+        # cleaned_data = [re.sub(r'^\d+\.\s*\"(.*?)\"$', r'\1', item.strip()) for item in ideas.split('\n') if item.strip()]
+        # print(cleaned_data)
+        return res
 
     except:
         return 'error'
+    
+def getAllIdeas(userEmail):
+    user_id = user_id_for_email(userEmail)
+    # print(data)
+    try:
+        # print(business_category)
+        result = get_all_Ideas(user_id)
+        print(result)
+        for obj in result:
+            flag = False
+            if obj.get('used') == 1:
+                flag = True
+            obj['used'] = flag
+        # print(result)
+        return result
+    except Exception as e:
+        print("Error get Idea", str(e))
+        return "error"
+
+def deleteIdeas(request, userEmail):
+    user_id = user_id_for_email(userEmail)
+    id = request.json.get("data", '[]')
+    if(id == 'null' or id ==""):
+        return "not Id provide"
+    # print(data)
+    try:
+        # print(business_category)
+        for eachid in id:
+            delete_Ideas_byId (user_id, eachid)
+        return {'message': 'Newsletter deleted successfully'}
+    except Exception as e:
+        print("Error inserting newsletter:", str(e))
+        return "error"

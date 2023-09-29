@@ -899,3 +899,43 @@ def delete_newsletter_byId(user_id, id):
         return {'message': 'Newsletter deleted successfully'}
     else:
         return 'user not exist'
+    
+def add_ideas_withId(user_id, data):
+    conn, cursor = get_db_connection()
+    if check_user_by_id(user_id):
+        cursor.execute("INSERT INTO AllIdeas (user_id, title) VALUES (%s, %s)", (user_id, data))
+        # print("step3")
+        conn.commit()
+        inserted_id = cursor.lastrowid
+        conn.close()
+        return inserted_id
+    else:
+        return 'user not exist'
+    
+def get_all_Ideas(user_id):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+            # Update the existing record
+            # Insert a new record
+        query = "SELECT id, title, used FROM AllIdeas WHERE user_id = %s"
+        cursor.execute(query, (user_id,))
+        newsletters = cursor.fetchall()
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return newsletters
+    else:
+        return 'user not exist'
+    
+def delete_Ideas_byId(user_id, id):
+    conn, cursor = get_db_connection()
+    if check_user_by_id(user_id):
+        cursor.execute("DELETE FROM AllIdeas WHERE user_id = %s AND id = %s", (user_id, id))
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'

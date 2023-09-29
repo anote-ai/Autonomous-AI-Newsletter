@@ -22,20 +22,28 @@ export const GenerateQestion = {
             id: 3
         },
         {
+            title: 'Which idea you want for this NewsLetter',
+            require: true,
+            type: 'ideaSelect',
+            data: '',
+            id: 4
+        },
+        {
             title: 'Choose Your Character-Style Writer Personas',
             require: true,
             type: 'characterSelect',
             data: '',
-            id: 4
+            id: 5
         },
         {
             title: "Recent Content description?",
             require: false,
             type: 'text',
             data: '',
-            id: 5
+            id: 6
         }
     ],
+    ideas: [],
     data:[],
     allData: []
 }

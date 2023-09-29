@@ -17,7 +17,11 @@ import {
   useData,
   useTopic,
   setNewsletter,
+  useIdeas,
+  setIdeas,
   setData,
+  getAllIdeas,
+  generateIdeas
 } from "../../redux/newsLetterSlice";
 import { red } from "@mui/material/colors";
 // import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
@@ -28,18 +32,49 @@ function GenerateSession(props) {
   const [pageState, setPageState] = useState(1);
   const location = useLocation();
   let firstPageDataFRedux = useTopic();
+  let reduxIdeas = useIdeas();
   let reduxUseData = useData();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
+  const [aIdeas, setAIdeas] = useState(reduxUseData)
   const [letterData, setLettterData] = useState(reduxUseData);
   const [sections, setSections] = useState([]);
+  // const [loading, setLoding] = useState(false);
   let pageTotal = 3;
 
   // let ddddd = useTopic();
   // console.log(ddddd)
 
-  // useEffect(() => {
-  //     setStyleSheet(styleFromRedux);
-  // }, [styleFromRedux])
+  useEffect(() => {
+    let getIdeas = async () => {
+      try {
+        let allData = await dispatch(getAllIdeas());
+        console.log('aaaaaaaa', allData.payload)
+        dispatch(setIdeas(allData.payload))
+        setAIdeas(allData.payload)
+      }
+      catch (e) {
+        alert('error:' + e)
+      }
+    }
+    getIdeas();
+  }, [])
+
+  async function generateIdea() {
+    try {
+      let data = await dispatch(generateIdeas());
+      let tem = JSON.parse(JSON.stringify(aIdeas));
+      console.log("data", data)
+      if (data.payload && data.payload.length !== 0) {
+        tem = [...tem, ...data.payload];
+      }
+      console.log('tem', tem)
+      setAIdeas(tem);
+      dispatch(setIdeas(tem));
+    }
+    catch (e) {
+      alert('error:' + e)
+    }
+  }
   async function getPreviousStep() {
     if (pageState > 1) {
       let tem = pageState;
@@ -75,23 +110,21 @@ function GenerateSession(props) {
     // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
   }
   let routes = [];
-  routes = ["Select Theme","Format NewsLetter", "Generate NewsLetter"];
+  routes = ["Select Theme", "Format NewsLetter", "Generate NewsLetter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
-        className={`flex items-center ${
-          index <= currentIndex
-            ? " text-sky-500"
-            : "text-gray-500 dark:text-gray-400"
-        }`}
+        className={`flex items-center ${index <= currentIndex
+          ? " text-sky-500"
+          : "text-gray-500 dark:text-gray-400"
+          }`}
       >
         {index >= currentIndex ? (
           <span
-            className={`flex items-center justify-center w-6 h-6 mr-2 text-xs border rounded-full shrink-0 ${
-              index <= currentIndex
-                ? "border-sky-500"
-                : "border-gray-500 dark:border-gray-400"
-            }`}
+            className={`flex items-center justify-center w-6 h-6 mr-2 text-xs border rounded-full shrink-0 ${index <= currentIndex
+              ? "border-sky-500"
+              : "border-gray-500 dark:border-gray-400"
+              }`}
           >
             {number}
           </span>
@@ -107,19 +140,17 @@ function GenerateSession(props) {
           </svg>
         )}
         <span
-          className={`capitalize text-xl ${
-            index === currentIndex ? "font-semibold" : ""
-          } `}
+          className={`capitalize text-xl ${index === currentIndex ? "font-semibold" : ""
+            } `}
         >
           {text}
         </span>
         {index < total && (
           <div
-            className={`ml-2 h-px w-12 border ${
-              index >= currentIndex
-                ? "border-gray-500 bg-gray-500"
-                : "border-sky-500 bg-sky-500"
-            } `}
+            className={`ml-2 h-px w-12 border ${index >= currentIndex
+              ? "border-gray-500 bg-gray-500"
+              : "border-sky-500 bg-sky-500"
+              } `}
           ></div>
         )}
       </li>
@@ -129,7 +160,7 @@ function GenerateSession(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
 
-    <div className={pageState === 2? "flex flex-col h-[94%] mt-auto w-5/6 bg-gray-600" :"flex flex-col h-[94%] mt-auto w-screen bg-gray-600"}>
+    <div className={pageState === 2 ? "flex flex-col h-[94%] mt-auto w-5/6 bg-gray-600" : "flex flex-col h-[94%] mt-auto w-screen bg-gray-600"}>
       <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
         <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
           <div className="mb-10">
@@ -151,8 +182,10 @@ function GenerateSession(props) {
             <DetailPage
               qestionTitle={"Generate Question"}
               dataCurrent={firstPageData}
+              ideas={aIdeas}
               pageNumber={pageState === pageTotal}
               questionList={firstPageData}
+              GenerateIdea={() => { generateIdea() }}
               previousPage={() => {
                 getPreviousStep();
               }}
@@ -165,18 +198,18 @@ function GenerateSession(props) {
           )}
           {pageState == 2 && (
             <div className="">
-            <ContentLayout 
+              <ContentLayout
                 layoutType={firstPageData[2].data}
                 sections={sections}
                 setSections={setSections}
                 previousPage={() => {
-                    getPreviousStep();
+                  getPreviousStep();
                 }}
                 nextPage={() => {
-                    getNextStep();
+                  getNextStep();
                 }}
               />
-              </div>
+            </div>
           )
           }
           {pageState == 3 && (
