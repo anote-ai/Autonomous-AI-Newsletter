@@ -61,36 +61,10 @@ const PaymentsComponent = () => {
   let currentPlanIndexOverride = paidUserStatus - 1;
 
   return (
-    <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">
-      <div className="text-black bg-zinc-100 dark:text-white dark:bg-gray-900 h-full">
-        {/* <div className="items-center flex flex-col">
-        <p className="sm:text-4xl text-3xl font-medium title-font text-anoteblack-100">
-          Billing
-        </p>
-        <h3>Current Plan: {currentPlanStr}</h3>
-        <h3>Next Credit Refresh: {nextCreditRefreshStr}</h3>
-      </div> */}
-
+      <div className="text-white">
         <div className="relative flex justify-center py-20">
-          <div className="absolute  left-10 flex flex-col text-left">
-            {/* <span>
-              <span className="font-semibold">Current Plan : </span>
-              {currentPlanStr}
-            </span>
-            {(nextCreditRefreshStr != "" && nextCreditRefreshStr != null) && <span>
-              <span className="font-semibold">Next Credit Refresh: </span>
-              {nextCreditRefreshStr}
-            </span>}
-            {(endDate != "" && endDate != null) && <span>
-              <span className="font-semibold">Plan Expires: </span>
-              {endDate}
-            </span>}
-            {newPlanStartsStr != "" && <span>
-              {newPlanStartsStr}
-            </span>} */}
-          </div>
           <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
-            AutonomousNewsletter Pricing Plans
+            Newsletter Pricing Plans
           </h1>
           <div className="absolute right-10 mx-auto flex">
             <Button
@@ -120,7 +94,6 @@ const PaymentsComponent = () => {
           disableUpgrade={true}
         />
       </div>
-    </div>
   );
 };
 

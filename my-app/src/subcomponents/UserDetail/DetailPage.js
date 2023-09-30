@@ -39,7 +39,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;*</span>)}
                             {eachdata.require === false && (<span className="text-sm">&nbsp; (optional)</span>)}
                         </span>
@@ -63,7 +63,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                             {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                         </span>
@@ -98,11 +98,11 @@ function DetailPage(props) {
             });
             return (
                 <div className="flex flex-col mx-10 my-5">
-                    <span className="text-lg flex">{eachdata.title}
+                    <span className=" flex">{eachdata.title}
                         {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                         {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     </span>
-                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
+                    <div className="flex items-center my-1 justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
                         {TemCategoryArray.map((eachCategory) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
@@ -121,7 +121,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
@@ -141,7 +141,7 @@ function DetailPage(props) {
                                     <div
                                         style={{
                                             backgroundColor: color,
-                                            width: "80px",
+                                            width: "80%",
                                             height: "20px",
                                             margin: "auto",
                                         }}
@@ -157,7 +157,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
@@ -186,7 +186,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
@@ -214,7 +214,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
@@ -241,7 +241,7 @@ function DetailPage(props) {
             return (
                 <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
@@ -277,11 +277,12 @@ function DetailPage(props) {
                 }
             });
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
+                <div className="flex flex-col mx-10 my-5">
+                    <span className=" flex">{eachdata.title}
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    </span>
+                    <div className="flex items-center justify-center my-1 py-4 md:py-8 flex-wrap border-gray-700 border-2 rounded-xl">
                         {TemPeopleDemographics.map((Demographics) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${Demographics.isActive
@@ -308,11 +309,12 @@ function DetailPage(props) {
                 }
             });
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
+                <div className="flex flex-col mx-10 my-5">
+                <span className=" flex">{eachdata.title}
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    </span>
+                    <div className="flex items-center justify-center my-1 py-4 md:py-8 flex-wrap border-gray-700 border-2 rounded-xl">
                         {TemAgeRange.map((eachAgeRange) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachAgeRange.isActive
@@ -339,11 +341,12 @@ function DetailPage(props) {
                 }
             });
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
+                <div className="flex flex-col mx-10 my-5">
+                <span className=" flex">{eachdata.title}
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                </span>
+                    <div className="flex items-center justify-center my-1 py-4 md:py-8 flex-wrap border-gray-700 border-2 rounded-xl">
                         {TemIncomeLevel.map((eachIncomeLevel) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachIncomeLevel.isActive
@@ -370,11 +373,12 @@ function DetailPage(props) {
                 }
             });
             return (
-                <div className="flex flex-col items-center">
-                    <h1>{eachdata.title}</h1>
+                <div className="flex flex-col mx-10 my-5">
+                <span className=" flex">{eachdata.title}
                     {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                     {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
-                    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap border-blue-400 border-4">
+                    </span>
+                    <div className="flex items-center justify-center my-1 py-4 md:py-8 flex-wrap border-gray-700 border-2 rounded-xl">
                         {TemStylisticChoice.map((eachStylisticChoice) => {
                             return (
                                 <div type="button" className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachStylisticChoice.isActive
@@ -391,11 +395,14 @@ function DetailPage(props) {
         }
         else if (eachdata.type === "toggleSwitch") {
             return (
-                <div className="flex items-center ml-10 my-5">
-                    {/* <h1>{eachdata.title}</h1> */}
+                <div className="grid grid-cols-2 items-center mx-10 my-5">
+                    <span className=" flex">{eachdata.title}
+                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                    </span>
                     <ToggleSwitch
                         checked={eachdata.data}
-                        label={eachdata.title}
+                        
                         onChange={function (e) {
                             // console.log(e)
                             let tem = JSON.parse(JSON.stringify(data));
@@ -404,20 +411,19 @@ function DetailPage(props) {
                             // console.log(data);
                         }}
                     />
-                    {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                    {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                 </div>
             )
         }
         else if (eachdata.type === "text") {
             return (
-                <div className="grid grid-cols-2 mx-10 items-center">
-                    <span className="text-lg flex">{eachdata.title}
+                <div className="grid grid-cols-1 mx-10 items-center my-5">
+                    <span className="text-left">{eachdata.title}
                         {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
                         {eachdata.require === false && (<span className="text-xs">&nbsp;  (optional)</span>)}</span>
                     <Textarea
                         value={eachdata.data}
-                        className="w-full h-40 mx-auto"
+                        className="w-full mx-auto my-1"
+                        rows={3}
                         onChange={(e) => {
                             let tem = JSON.parse(JSON.stringify(data));
                             tem[eachdata.id - 1].data = e.target.value
@@ -430,7 +436,7 @@ function DetailPage(props) {
         else if (eachdata.type === "themeSelect") {
             return (
                 <div className="grid grid-cols-2 items-center mx-10 my-5">
-                    <span className="text-lg flex">{eachdata.title}
+                    <span className=" flex">{eachdata.title}
                         {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                         {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
@@ -456,7 +462,7 @@ function DetailPage(props) {
         else if (eachdata.type === "characterSelect") {
             return (
                 <div className="grid grid-cols-2 items-center mx-10 my-5">
-                    <span className="text-lg flex">{eachdata.title}
+                    <span className=" flex">{eachdata.title}
                         {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                         {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                     </span>
@@ -483,11 +489,13 @@ function DetailPage(props) {
             return (
                 <div>
                     <div className="grid grid-cols-2 items-center mx-10 my-5">
-                        <span className="text-lg flex">{eachdata.title}
+                        <span className=" flex">{eachdata.title}
                             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
                             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
                         </span>
+                        <div className="flex">
                         <Select1
+                            className="w-4/6"
                             value={eachdata.data}
                             onChange={(e) => {
                                 let tem = JSON.parse(JSON.stringify(data));
@@ -505,9 +513,8 @@ function DetailPage(props) {
                                 </option>
                             ))}
                         </Select1>
-                    </div>
-                    <div className="grid grid-cols-2 items-center mx-10 my-5">
                         <Button
+                            className="ml-auto"
                             onClick={() => {
                                 console.log("generateIdea in detail")
                                 props.GenerateIdea()
@@ -515,6 +522,7 @@ function DetailPage(props) {
                         >
                             Generate Ideas
                         </Button>
+                        </div>
                     </div>
                 </div>
             );
