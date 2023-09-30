@@ -29,7 +29,7 @@ function Content(props) {
     setError(false);
     setError('');
     try {
-      let topic = firstPageDataFRedux[5].data;
+      let topic = firstPageDataFRedux[3].data;
       let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
       // console.log("first", temUrlArr);
       let data = await dispatch(getGPTData({ topic, temUrlArr }));
