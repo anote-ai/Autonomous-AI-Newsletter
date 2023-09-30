@@ -111,7 +111,7 @@ const ContentLayout = ({ layoutType,
 
   return (
     <div>
-      <span className='text-lg font-semibold text-sky-500' >Drag and Drop Elements according to your preference</span>
+      
       <div className='h-[70vh] max-h-[70vh] overflow-y-scroll'>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
@@ -158,14 +158,12 @@ const ContentLayout = ({ layoutType,
           <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
         </Button>
       </div>
-      <div className="fixed right-0 top-[6%] w-1/6 h-[94%] bg-gray-900 " aria-label="Sidebar with logo branding example">
+      <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-gray-900 " aria-label="Sidebar with logo branding example">
         <RightControl
           updateData={(data) => { handleOnpageOneDataChange(data) }}
           firstPageData={firstPageData}
           select={select}
-        >
-
-        </RightControl>
+        />
       </div>
     </div>
   );

@@ -29,13 +29,16 @@ function RightControl(props) {
     }
 
     return (
-        <div className="w-full h-full flex flex-col overflow-y-scroll">
+        <div className="w-full h-full flex flex-col overflow-y-scroll py-5">
             <div className="flex justify-center items-center w-full h-14">
-                <h3> Custom Style</h3>
+                <h3>Custom Styles</h3>
             </div>
             <div className="w-full h-full">
                 {content}
             </div>
+            <span className=' text-gray-500' >Drag and Drop Elements on left according to your preference</span>
+            <br/>
+            <span className=' text-gray-500' >Click on the elements to edit</span>
         </div>
     )
 }
