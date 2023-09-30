@@ -86,7 +86,7 @@ function CheckLogin(props) {
     }
   }, [location]);
 
-  return <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">{mainView}</div>;
+  return <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-800">{mainView}</div>;
 }
 
 export default CheckLogin;

@@ -1,16 +1,5 @@
-# create schema newsLetter;
+-- create schema newsLetter;
 DROP TABLE IF EXISTS users;
-
-
--- CREATE TABLE users (
---     id INTEGER PRIMARY KEY AUTO_INCREMENT,
---     company_name VARCHAR(255),
---     news_letter_detail VARCHAR(255),
---     industry VARCHAR(255)
--- );
-
--- INSERT INTO users (company_name, news_letter_detail, industry)
--- VALUES (NULL, NULL, NULL);
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -118,6 +107,13 @@ CREATE TABLE userDetailPageFour (
     data TEXT
 );
 
+CREATE TABLE AllIdeas (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255),
+    used boolean DEFAULT false
+);
+
 CREATE TABLE AllNewsletterInfo (
     user_id INTEGER not null,
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -128,15 +124,10 @@ CREATE TABLE AllNewsletterInfo (
     data TEXT
 );
 
-CREATE TABLE AllIdeas (
-    user_id INTEGER not null,
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255),
-    used boolean DEFAULT false
-);
 
 
-INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (2, "natan", CURRENT_TIMESTAMP);
+
+INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (1, 1, CURRENT_TIMESTAMP);
 
 
-INSERT INTO Subscriptions (stripe_info_id, subscription_id, start_date, paid_user) VALUES (3, "natan", CURRENT_TIMESTAMP, 2);
+INSERT INTO Subscriptions (stripe_info_id, subscription_id, start_date, paid_user) VALUES (1, 1, CURRENT_TIMESTAMP, 2);

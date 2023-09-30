@@ -4,7 +4,7 @@ import noUserImg from '../assets/noUserImg.png';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { accountPath, loginPagePath, mainPagePath, DetailPagePath, allnewsletter } from "../constants/RouteConstants";
-import { Dropdown, Navbar, Avatar, DarkThemeToggle } from "flowbite-react";
+import { Dropdown, Navbar, Avatar, DarkThemeToggle, Button } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
@@ -44,10 +44,10 @@ function MainNav(props) {
             props.setDarkTheme(themeMode);
           }}
         /> */}
-        <div onClick={()=> navigate(mainPagePath)} className="cursor-pointer flex font-bold text-sm items-center bg-gray-900 text-white rounded-xl px-2 border border-gray-500 mr-5">
-          <FontAwesomeIcon icon={faPlus} className="mr-2" />
+        <Button outline onClick={()=> navigate(mainPagePath)} className="cursor-pointer flex font-bold text-sm items-center text-white mr-5">
+          <FontAwesomeIcon size="lg" icon={faPlus} className="mr-2" />
           <p>Create New NewsLetter</p>
-        </div>
+        </Button>
         <Dropdown
           theme={{
             arrowIcon: "text-[#374151] dark:text-[#9BA3AF] ml-2 h-4 w-4",
@@ -84,17 +84,14 @@ function MainNav(props) {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
+      {/* <Navbar.Collapse>
         <Navbar.Link href="/">
           <p>Profile</p>
         </Navbar.Link>
         <Navbar.Link href={allnewsletter}>
           <p>All Letters</p>
         </Navbar.Link>
-        {/* <Navbar.Link href={mainPagePath}>
-          <p>Create New</p>
-        </Navbar.Link> */}
-      </Navbar.Collapse>
+      </Navbar.Collapse> */}
     </Navbar>
   );
 }
