@@ -37,9 +37,10 @@ def generateIdeas(text):
     # print("title reply", reply)
     return prompt
 
-def generatePrompt_summary(text):
+def generatePrompt_summary(text, characterText):
     prompt = f'''
     your task is to generate a brief summary of the recent news of the recent website text, delimited with triple backticks.
+    {characterText}
     you should only response the summary when finished to get all the data related to the query without jumping to others articles.
 
     ```
@@ -137,11 +138,21 @@ def generate_title(summary):
 
 # sys.stdout.flush()
 
+personality = {
+    "The Sloane Ranger" : "Imagine you are a character who identifies as female, has a witty, intellectual, smart, and effortlessly classy voice personality, and primarily uses a friendly and informal tone. Using this personality and tone, could you please use that character voice to write this summary?",
+    "The Saucy Intellect" : "Imagine you are a character who identifies as Neutral, has a creative, unconventional, and clever satirical—even slightly irreverent at times voice personality, and primarily uses a Satirical and Humorous or Creative and Absurd or Intellectual and Literary tone. Using this personality and tone, could you please use that character voice to write this summary?",
+    "The Winsome Jester": "Imagine you are a character who identifies as Masculine, has voice brings joy to the inbox world through humor, fun, irreverence and often likes to make some mischief personality, could you please use that character voice to write this summary?",
+    "The On-Trend Everygirl": "Imagine you are a character who identifies as female, has voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, and primarily uses a Irreverent and Edgy or Humorous and Sarcastic or Informal and Conversational tone. Using this personality and tone, could you please use that character voice to write this summary?",
+    "The Energetic Expert": "Imagine you are a character who identifies as Masculine, has voice like Energetic Expert is upbeat, persuasive, and passionate, and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, could you please use that character voice to write this summary?"
+}
+
 def getGPTData(request):
     key_word = request.json.get('topic')
     searchUrlArr = request.json.get('urlList', [])
     newsId = request.json.get('newsId', 'article1')
-    print(searchUrlArr)
+    characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+    characterText = personality[characterStyle]
+    print(characterText)
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -179,7 +190,7 @@ def getGPTData(request):
             # print("url_obj", url_obj)
             bs = BeautifulSoup(url_obj.text, "html.parser")
             # print("bs", bs.text)
-            prompt_summary = generatePrompt_summary(bs.text)
+            prompt_summary = generatePrompt_summary(bs.text, characterText)
             prompt_date = generatePrompt_date(bs.text)
             this_news['id'] = newsId
             this_news['title'] = generate_title(bs.text)

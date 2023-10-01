@@ -174,6 +174,7 @@ const ContentLayout = ({ layoutType,
                         css={css}
                         key={id}
                         id={`${id}`}
+                        title=""
                         content={content}
                         moveSection={moveSection}
                         findSection={findSection}

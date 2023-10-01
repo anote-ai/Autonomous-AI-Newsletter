@@ -21,6 +21,7 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     console.log(payload.temUrlArr);
     let reqBody = {
         newsId: payload.newsId,
+        characterStyle: payload.characterStyle,
         topic:payload.topic,
         urlList:payload.temUrlArr
     }
@@ -262,11 +263,17 @@ export const newsLetterSlice = createSlice({
         setAllData: (state, action) => {
             state.allData = action.payload;
         },
-        clearData: (state, action) => {
+        clearAllData: (state, action) => {
             state.data = [];
             for(let i = 0; i < 6; i++){
                 state.pageOne[i].data = '';
             }
+        },
+        clearData: (state, action) => {
+            state.data = [];
+            // for(let i = 0; i < 6; i++){
+            //     state.pageOne[i].data = '';
+            // }
         },
     },
     // extraReducers: {
@@ -295,5 +302,6 @@ export const {
     setData,
     setUrlArr,
     setAllData,
+    clearAllData,
     clearData
 } = newsLetterSlice.actions;
