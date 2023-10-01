@@ -26,7 +26,8 @@ import {
   deleteIdeas
 } from "../../redux/newsLetterSlice";
 import { red } from "@mui/material/colors";
-// import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
+import { useDetailPageOne } from "../../redux/DetailSlice"
+
 
 function GenerateSession(props) {
   const navigate = useNavigate();
@@ -34,13 +35,17 @@ function GenerateSession(props) {
   const [pageState, setPageState] = useState(1);
   const location = useLocation();
   let firstPageDataFRedux = useTopic();
+  let firstPageDetailDataFRedux = useDetailPageOne();
   let reduxIdeas = useIdeas();
   let reduxUseData = useData();
+  const [majorityColor, setMajorityColor] = useState(firstPageDetailDataFRedux[6].data);
+  const [colorPalette, setColorPalette] = useState(firstPageDetailDataFRedux[7].data)
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
   const [aIdeas, setAIdeas] = useState(reduxUseData)
   const [letterData, setLettterData] = useState(reduxUseData);
   const [sections, setSections] = useState([]);
   // const [loading, setLoding] = useState(false);
+
   let pageTotal = 3;
 
   // let ddddd = useTopic();
@@ -219,8 +224,10 @@ function GenerateSession(props) {
             <div className="">
               <ContentLayout
                 layoutType={firstPageData[2].data}
-                sections={sections}
-                setSections={setSections}
+                majorityColor = {majorityColor}
+                setMajorityColor = {setMajorityColor}
+                colorPalette = {colorPalette}
+                setColorPalette = {setColorPalette}
                 previousPage={() => {
                   getPreviousStep();
                 }}

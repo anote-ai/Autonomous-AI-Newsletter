@@ -53,7 +53,11 @@ const sectionArrangements = {
   ],
 };
 
-const ContentLayout = ({ layoutType,
+const ContentLayout = ({
+  majorityColor,
+  setMajorityColor,
+  colorPalette,
+  setColorPalette,
   // sections,
   // setSections,
   previousPage,
@@ -116,7 +120,7 @@ const ContentLayout = ({ layoutType,
 
   return (
     <div>
-      <div className='h-[70vh] max-h-[70vh] overflow-y-scroll'>
+      <div className='h-[70vh] max-h-[70vh] overflow-y-scroll' style={{backgroundColor: majorityColor}}>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
             {sections.map(({ id, content, css }, index, array) => {
@@ -134,6 +138,7 @@ const ContentLayout = ({ layoutType,
                   >
                     <DraggableSection
                       css={css}
+                      colorPalette = {colorPalette}
                       key={id}
                       id={`${id}`}
                       content={content}
@@ -162,6 +167,7 @@ const ContentLayout = ({ layoutType,
                     {matchingData && matchingData.length !== 0 ? (
                       <DraggableSection
                         css={css}
+                        colorPalette = {colorPalette}
                         key={id}
                         id={`${id}`}
                         title={matchingData[0].title}
@@ -172,6 +178,7 @@ const ContentLayout = ({ layoutType,
                     ) : (
                       <DraggableSection
                         css={css}
+                        colorPalette = {colorPalette}
                         key={id}
                         id={`${id}`}
                         title=""
@@ -224,6 +231,10 @@ const ContentLayout = ({ layoutType,
         <RightControl
           updateData={(data) => { handleOnpageOneDataChange(data) }}
           firstPageData={firstPageData}
+          majorityColor = {majorityColor}
+          setMajorityColor = {setMajorityColor}
+          colorPalette = {colorPalette}
+          setColorPalette = {setColorPalette}
           select={select}
           sections={sections}
           setSections={setSections}
