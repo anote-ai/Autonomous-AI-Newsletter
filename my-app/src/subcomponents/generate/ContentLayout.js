@@ -14,41 +14,42 @@ import {
   useTopic,
   setNewsletter,
   setData,
+  clearData,
 } from "../../redux/newsLetterSlice";
 
 const sectionArrangements = {
   'Freshly Brewed': [
-    { id: 'logo', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
-    { id: 'intro', content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto' },
-    { id: 'article1', content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-20' },
-    { id: 'sponsor1', content: 'Advertorial style sponsored content', css: '' },
-    { id: 'article2', content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20' },
-    { id: 'article3', content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20' },
-    { id: 'footer', content: 'Footer', css: '' },
+    { id: 'logo', title: '', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
+    { id: 'intro', title: '', content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto' },
+    { id: 'content1', title: '', content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-20' },
+    { id: 'sponsor1', title: '', content: 'Advertorial style sponsored content', css: '' },
+    { id: 'content2', title: '', content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20' },
+    { id: 'content3', title: '', content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20' },
+    { id: 'footer', title: '', content: 'Footer', css: '' },
   ],
   'High Gloss': [
-    { id: 'logo', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
-    { id: 'image', content: 'Image + CTA to head to shop, 1-2 lines', css: '' },
-    { id: 'article1', content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20' },
-    { id: 'content1', content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20' },
-    { id: 'content2', content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20' },
-    { id: 'content3', content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20' },
-    { id: 'story1', content: 'Few stories of interest', css: 'h-20' },
-    { id: 'footer', content: 'Footer', css: '' },
+    { id: 'logo', title: '', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
+    { id: 'image', title: '', content: 'Image + CTA to head to shop, 1-2 lines', css: '' },
+    { id: 'longArticle1', title: '', content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20' },
+    { id: 'content1', title: '', content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20' },
+    { id: 'content2', title: '', content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20' },
+    { id: 'content3', title: '', content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20' },
+    { id: 'story1', title: '', content: 'Few stories of interest', css: 'h-20' },
+    { id: 'footer', title: '', content: 'Footer', css: '' },
   ],
   'The NewPort': [
-    { id: 'logo', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
-    { id: 'intro', content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto' },
-    { id: 'story1', content: 'Few stories of interest', css: 'h-20' },
+    { id: 'logo', title: '', content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto' },
+    { id: 'intro', title: '', content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto' },
+    { id: 'story1', title: '', content: 'Few stories of interest', css: 'h-20' },
     {
-      id: 'article1', content: ' \
+      id: 'content1', title: '', content: ' \
     #1 link of the day/related story of interest \
     #2 link of the day/related story of interest \
     #3 link of the day/related story of interest \
     ', css: 'h-20'
     },
-    { id: 'article1', content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32' },
-    { id: 'footer', content: 'Footer', css: '' },
+    { id: 'content2', title: '', content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32' },
+    { id: 'footer', title: '', content: 'Footer', css: '' },
   ],
 };
 
@@ -58,6 +59,7 @@ const ContentLayout = ({ layoutType,
   previousPage,
   nextPage }) => {
   let dispatch = useDispatch();
+  let nData = useData();
   let firstPageDataFRedux = useTopic();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
   const [select, setSelect] = useState("layOut");
@@ -107,31 +109,80 @@ const ContentLayout = ({ layoutType,
       setSelect("layOut");
     }
   }
+  async function clearRData() {
+    dispatch(clearData());
+  }
 
 
   return (
     <div>
-      
       <div className='h-[70vh] max-h-[70vh] overflow-y-scroll'>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
-            {sections.map(({ id, content, css }, index, array) => (
-              <div className={
-                `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
-                  ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
-                  : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5` 
+            {sections.map(({ id, content, css }, index, array) => {
+              if (id !== "content1" && id !== "content2" && id !== "content3" && id !== "article1" && id !== "article2" && id !== "article3") {
+                // console.log("in if id",id, "id === content1", id ==="content1")
+                // console.log("in if")
+                return (
+                  <div
+                    className={
+                      `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
+                        ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
+                        : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5`
+                    }
+                    onClick={() => { handleOnSelect(id) }}
+                  >
+                    <DraggableSection
+                      css={css}
+                      key={id}
+                      id={`${id}`}
+                      content={content}
+                      moveSection={moveSection}
+                      findSection={findSection}
+                    />
+                  </div>
+                );
+              } else {
+                // console.log("id",id)
+                console.log('ndata', nData)
+                const matchingData = nData.filter((data) => {
+                  console.log("each",data)
+                  return data.id === id
+                });
+                console.log("matchingData", matchingData)
+                return (
+                  <div
+                    className={
+                      `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
+                        ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
+                        : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5`
+                    }
+                    onClick={() => { handleOnSelect(id) }}
+                  >
+                    {matchingData && matchingData.length !== 0 ? (
+                      <DraggableSection
+                        css={css}
+                        key={id}
+                        id={`${id}`}
+                        title={matchingData[0].title}
+                        content={matchingData[0].summary}
+                        moveSection={moveSection}
+                        findSection={findSection}
+                      />
+                    ) : (
+                      <DraggableSection
+                        css={css}
+                        key={id}
+                        id={`${id}`}
+                        content={content}
+                        moveSection={moveSection}
+                        findSection={findSection}
+                      />
+                    )}
+                  </div>
+                );
               }
-              onClick={ ()=>{handleOnSelect(id)}}>
-                <DraggableSection
-                  css={css}
-                  key={id}
-                  id={`${id}`}
-                  content={content}
-                  moveSection={moveSection}
-                  findSection={findSection}
-                />
-              </div>
-            ))}
+            })}
           </div>
         </DndProvider>
       </div>
@@ -146,13 +197,23 @@ const ContentLayout = ({ layoutType,
           Previous
         </Button>
       </div>
+      <div className="absolute bottom-5 left-1/2">
+        <Button
+          outline
+          onClick={() => {
+            clearRData();
+          }}
+        >
+          Clear Data
+          <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
+        </Button>
+      </div>
       <div className="absolute bottom-5 right-10">
         <Button
           outline
           onClick={() => {
             nextPage();
           }}
-
         >
           Next
           <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
@@ -163,10 +224,13 @@ const ContentLayout = ({ layoutType,
           updateData={(data) => { handleOnpageOneDataChange(data) }}
           firstPageData={firstPageData}
           select={select}
+          sections={sections}
+          setSections={setSections}
         />
       </div>
     </div>
   );
+  
 };
 
 export default ContentLayout;
