@@ -140,6 +140,7 @@ def generate_title(summary):
 def getGPTData(request):
     key_word = request.json.get('topic')
     searchUrlArr = request.json.get('urlList', [])
+    newsId = request.json.get('newsId', 'article1')
     print(searchUrlArr)
     session = requests.Session()
     headers = {
@@ -161,7 +162,6 @@ def getGPTData(request):
     bs = BeautifulSoup(url_obj.text, 'html.parser')
 
     news = []
-    newsId = 1
     for i in bs.find_all('a', class_="VDXfz"):
         try:
             this_news = {}
@@ -187,7 +187,6 @@ def getGPTData(request):
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
             news.append(this_news)
-            newsId += 1
             break
         except:
             pass

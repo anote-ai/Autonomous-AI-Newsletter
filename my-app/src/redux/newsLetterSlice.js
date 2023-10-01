@@ -20,6 +20,7 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     // }
     console.log(payload.temUrlArr);
     let reqBody = {
+        newsId: payload.newsId,
         topic:payload.topic,
         urlList:payload.temUrlArr
     }
