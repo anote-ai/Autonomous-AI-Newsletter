@@ -15,12 +15,13 @@ function RightControl(props) {
     async function generateGPTData(newsId) {
         // console.log(firstPageDataFRedux[5].data);
         try {
-            let temSections = JSON.parse(JSON.stringify(props.sections));
+            // let temSections = JSON.parse(JSON.stringify(props.sections));
             let temNData = JSON.parse(JSON.stringify(nData));
             let topic = firstPageDataFRedux[3].data;
+            let characterStyle = firstPageDataFRedux[4].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
-            let data = await dispatch(getGPTData({ topic, temUrlArr, newsId: newsId }));
+            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle, newsId: newsId }));
             // console.log(data.payload);
             // console.log(data.payload)
             temUrlArr.push(data.payload[0]['url']);
