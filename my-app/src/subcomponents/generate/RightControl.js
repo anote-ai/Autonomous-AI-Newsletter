@@ -4,6 +4,9 @@ import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as S
 import { ThemeTopic } from "../../constants/ThemeTopic";
 import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
+import { Select as Select2 } from "@material-ui/core";
+import { colors } from "../../constants/ColorDropdown";
+import { FormControl, MenuItem } from "@material-ui/core";
 
 
 function RightControl(props) {
@@ -37,7 +40,7 @@ function RightControl(props) {
             console.log(temNData)
             await dispatch(setUrlArr(temUrlArr));
             await dispatch(setData(temNData));
-            
+
         }
         catch (e) {
             alert(e);
@@ -45,22 +48,81 @@ function RightControl(props) {
     }
     if (props.select === "layOut") {
         content = (
-            <Select1
-                value={props.firstPageData[2].data}
-                onChange={(e) => {
-                    let tem = JSON.parse(JSON.stringify(props.firstPageData));
-                    tem[2].data = e.target.value
-                    console.log("tem", tem);
-                    props.updateData(tem)
-                }}
-            >
-                <option disabled key="default" value=""></option>
-                {ThemeTopic.map((font, idx) => (
-                    <option key={idx} value={font} style={{ fontSize: font }}>
-                        {font}
-                    </option>
-                ))}
-            </Select1>
+            <div>
+                <Select1
+                    value={props.firstPageData[2].data}
+                    onChange={(e) => {
+                        let tem = JSON.parse(JSON.stringify(props.firstPageData));
+                        tem[2].data = e.target.value
+                        console.log("tem", tem);
+                        props.updateData(tem)
+                    }}
+                >
+                    <option disabled key="default" value=""></option>
+                    {ThemeTopic.map((font, idx) => (
+                        <option key={idx} value={font} style={{ fontSize: font }}>
+                            {font}
+                        </option>
+                    ))}
+                </Select1>
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                        <span className=" flex">
+                            Color for background
+                        </span>
+                        <Select2
+                            value={props.majorityColor}
+                            onChange={(e) => {
+                                props.setMajorityColor(e.target.value)
+                            }}
+                            className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                        >
+                            {colors.map((color, idx) => (
+                                <MenuItem key={idx} value={color}>
+                                    <div
+                                        style={{
+                                            backgroundColor: color,
+                                            width: "80%",
+                                            height: "20px",
+                                            margin: "auto",
+                                        }}
+                                    />
+                                </MenuItem>
+                            ))}
+                        </Select2>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center mx-10 my-5">
+                    <div className="grid grid-cols-2 w-full items-center">
+                        <span className=" flex">
+                            Color for all section
+                        </span>
+                        <Select2
+                            value={props.colorPalette}
+                            onChange={(e) => {
+                                props.setColorPalette(e.target.value)
+                            }}
+                            className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                        >
+                            {colors.map((color, idx) => (
+                                <MenuItem key={idx} value={color}>
+                                    <div
+                                        style={{
+                                            backgroundColor: color,
+                                            width: "80%",
+                                            height: "20px",
+                                            margin: "auto",
+                                        }}
+                                    />
+                                </MenuItem>
+                            ))}
+                        </Select2>
+                    </div>
+                </div>
+            </div>
+
         )
     }
     else if (props.select === "content1") {
