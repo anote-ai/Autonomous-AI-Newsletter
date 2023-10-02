@@ -20,7 +20,7 @@ function Content(props) {
         <div className="h-full w-full">
             <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
                 <div className="p-4">
-                    {getDataFromRedux.map(({ css, backgroundColor, id, title, content}, index, array) => (
+                    {getDataFromRedux.map(({ css, backgroundColor, id, title, content }, index, array) => (
                         <div className={
                             `${firstPageDataFRedux[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                                 ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
@@ -28,13 +28,20 @@ function Content(props) {
                         }>
                             {id === "logo" && (
                                 <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
-                                    {getUserDetailPageOne[3].data && getUserDetailPageOne[3].data !== "" && (
-                                        <img src={getUserDetailPageOne[3].data}></img>
+                                    {content && content !== "" && (
+                                        <img src={content}></img>
                                     )}
-                                    {getUserDetailPageOne[2].data}
+                                    {title}
                                 </div>
                             )}
-                            {id !== "logo" && (
+                            {id === "footer" && (
+                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                    {content.map((each) => {
+                                        return (<div> {each} </div>)
+                                    })}
+                                </div>
+                            )}
+                            {id !== "logo" && id !== "footer" && (
                                 <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                     {title && title !== '' && (
                                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

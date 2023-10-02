@@ -17,6 +17,7 @@ import {
   setBackgroundColor
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
+import { useDetailPageTwo } from "../../redux/DetailSlice"
 
 const sectionArrangements = {
   'Freshly Brewed': [
@@ -26,7 +27,7 @@ const sectionArrangements = {
     { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: ""  },
     { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: ""  },
     { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: ""  },
-    { id: 'footer', title: "", content: 'Footer', css: '', backgroundColor: ""  },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: ""  },
   ],
   'High Gloss': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: ""  },
@@ -36,7 +37,7 @@ const sectionArrangements = {
     { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20', backgroundColor: ""  },
     { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20', backgroundColor: ""  },
     { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: ""  },
-    { id: 'footer', title: "", content: 'Footer', css: '', backgroundColor: ""  },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: ""  },
   ],
   'The NewPort': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: ""  },
@@ -50,7 +51,7 @@ const sectionArrangements = {
     ', css: 'h-20', backgroundColor: "" 
     },
     { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: ""  },
-    { id: 'footer', title: "", content: 'Footer', css: '', backgroundColor: ""  },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: ""  },
   ],
 };
 
@@ -62,6 +63,7 @@ const ContentLayout = ({ layoutType,
   let dispatch = useDispatch();
   let firstPageDataFRedux = useTopic();
   let firstPageDetailDataFRedux = useDetailPageOne();
+  let secondPageDetailDataFRedux = useDetailPageTwo();
   let getDataFromRedux = useData();
   const [majorityColor, setMajorityColor] = useState(firstPageDetailDataFRedux[6].data);
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
@@ -73,11 +75,30 @@ const ContentLayout = ({ layoutType,
   useEffect(() => {
     // console.log("useEffect")
     if(getDataFromRedux && getDataFromRedux.length !== 0){
-      console.log(getDataFromRedux);
+      // console.log(getDataFromRedux);
       setSections(getDataFromRedux);
     }
     else{
-      setSections(sectionArrangements[firstPageData[2].data] || []);
+      if(firstPageData[2].data === ""){
+        setSections([])
+      }
+      else{
+        let selectedSection = sectionArrangements[firstPageData[2].data]
+        selectedSection.forEach((item) =>{
+          if(item.id === "logo"){
+            item.title = firstPageDetailDataFRedux[2].data
+            item.content = firstPageDetailDataFRedux[3].data
+          }
+          else if(item.id == "footer"){
+            item.content = [];
+            for(let i = 9; i < secondPageDetailDataFRedux.length; i++){
+              console.log("footerqweqweqwe",secondPageDetailDataFRedux[i].data)
+              item.content.push(secondPageDetailDataFRedux[i].data)
+            }
+          }
+        })
+        setSections(sectionArrangements[firstPageData[2].data] || []);
+      }
     }
   }, [firstPageData]);
 
@@ -129,7 +150,7 @@ const ContentLayout = ({ layoutType,
       <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
-            {sections.map(({ id, content, css, backgroundColor }, index, array) => (
+            {sections.map(({ id, content, title, css, backgroundColor }, index, array) => (
               <div className={
                 `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                   ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
@@ -142,6 +163,7 @@ const ContentLayout = ({ layoutType,
                   backgroundColor = {backgroundColor}
                   id={`${id}`}
                   content={content}
+                  title={title}
                   moveSection={moveSection}
                   findSection={findSection}
                 />

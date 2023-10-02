@@ -5,6 +5,7 @@ export const testPage = "/textpage"
 export const profile = "/home";
 export const allnewsletter = "/allnewsletter"
 export const pricingRedirectPath = "/pricingRedirect";
+export const eachNewsletterPath = "/eachNewsletter/:id"
 export const accountPath = "/account";
 export const listsPath = "/lists";
 export const sequencesPath = "/templates";

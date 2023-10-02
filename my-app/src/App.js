@@ -9,7 +9,8 @@ import {
   accountPath,
   pricingRedirectPath,
   testPage,
-  allnewsletter
+  allnewsletter,
+  eachNewsletterPath
 } from "./constants/RouteConstants";
 import Footer from "./components/Footer";
 import { Helmet } from "react-helmet";
@@ -28,6 +29,7 @@ import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 import { useAllData, setAllData, getAllNewsletter } from "./redux/newsLetterSlice"
 import MainNav from "./components/MainNav";
+import EachNewsletter from"./components/EachNewsletter"
 
 function App() {
   const pattern = /^\['.*'\]$/;
@@ -126,6 +128,9 @@ function App() {
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={allnewsletter} element={<AllnewsletterSession />} />
+    ) : null,
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
+      <Route path={eachNewsletterPath} element={<EachNewsletter />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
       <Route path={accountPath} element={<PaymentsComponent />} />
