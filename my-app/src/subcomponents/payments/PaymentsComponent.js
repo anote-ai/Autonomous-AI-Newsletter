@@ -77,7 +77,7 @@ const PaymentsComponent = () => {
             </Button>
             <Button
               onClick={() => {
-                window.open("https://docs.anote.ai/sababa/sababa.html", "_blank");
+                window.open("https://docs.anote.ai/newsletter/newsletter.html", "_blank");
               }}
               className="font-semibold"
             >

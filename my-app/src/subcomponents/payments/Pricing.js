@@ -185,9 +185,9 @@ const Pricing = (props) => {
   };
   const product4 = {
     id: 4,
-    title: "Sababa",
-    url: "https://docs.anote.ai/sababa/sababa.html",
-    signUpBaseUrl: "https://sababa.anote.ai",
+    title: "Newsletter",
+    url: "https://docs.anote.ai/Newsletter/Newsletter.html",
+    signUpBaseUrl: "https://Newsletter.anote.ai",
     extraBenefits: [
       "Additional credit packs available for purchase, starting at $50 for 500 credits.",
       "Unused credits roll over to the next month for active subscribers.",
@@ -199,7 +199,7 @@ const Pricing = (props) => {
         price: "$100",
         month: true,
         popular: true,
-        productHash: "sababa1",
+        productHash: "Newsletter1",
         features: [
           // "Searches: 750 credits",
           "Unlocks for Emails: 200 credits",
@@ -211,7 +211,7 @@ const Pricing = (props) => {
         name: "Standard",
         price: "$200",
         month: true,
-        productHash: "sababa2",
+        productHash: "Newsletter2",
         features: [
           // "Searches: 2,000 credits",
           "Unlocks for Emails: 500 credits",
@@ -223,7 +223,7 @@ const Pricing = (props) => {
         name: "Premium",
         price: "$500",
         month: true,
-        productHash: "sababa3",
+        productHash: "Newsletter3",
         features: [
           // "Searches: 5,000 credits",
           "Unlocks for Emails: 1,500 credits",
@@ -414,7 +414,7 @@ const Pricing = (props) => {
                     : "text-white border-r-2 border-turquoise-500"
                 } focus:outline-none`}
               >
-                Sababa
+                Newsletter
               </button>
             </div>
           )}

@@ -29,7 +29,7 @@ import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
 import { setIdeas, getAllIdeas } from "./redux/newsLetterSlice"
 import MainNav from "./components/MainNav";
-import EachNewsletter from"./components/EachNewsletter"
+import EachNewsletter from "./components/EachNewsletter"
 
 function App() {
   const pattern = /^\['.*'\]$/;
@@ -48,7 +48,7 @@ function App() {
     }
   }
 
-  var haveUserDetail = haveDeatil;
+  // var haveUserDetail = haveDeatil;
   var showRestrictedRouteRequiringUserSession = isLoggedIn;
 
   let dispatch = useDispatch();
@@ -57,14 +57,17 @@ function App() {
     if (isLoggedIn) {
       dispatch(viewUser());
       async function getDeatilData() {
-        let data = await dispatch(getDeatil())
-        // console.log(data);
-        if (data.payload !== false) {
+        try {
+          let allData = await dispatch(getAllIdeas());
+          // console.log('aaaaaaaa', allData.payload)
+          dispatch(setIdeas(allData.payload))
+          let data = await dispatch(getDeatil())
+          // console.log(data);
           let temData = JSON.parse(JSON.stringify(questionList));
           for (const pageName in data.payload) {
             const pageData = data.payload[pageName];
             const questions = temData[pageName];
-
+            
             if (pageData && questions) {
               questions.forEach((question) => {
                 const questionTitle = question.title;
@@ -84,25 +87,38 @@ function App() {
           dispatch(setPageTwoQuestion(temData['pageTwo']))
           dispatch(setPageThreeQuestion(temData['pageThree']))
           dispatch(setPageFourQuestion(temData['pageFour']))
-          setHaveDetail(true);
-        }
-        else {
-          setHaveDetail(false);
-        }
-      }
-      getDeatilData();
-      let getIdeas = async () => {
-        try {
-          let allData = await dispatch(getAllIdeas());
-          // console.log('aaaaaaaa', allData.payload)
-          dispatch(setIdeas(allData.payload))
+          let flage = true
+          temData['pageOne'].forEach((item) =>{
+            if (item.require === true && item.data == ""){
+              flage = false
+            }
+          })
+          temData['pageThree'].forEach((item) =>{
+            if (item.require === true && item.data == ""){
+              flage = false
+            }
+          })
+          // console.log("flage",flage)
+          setHaveDetail(flage);
         }
         catch (e) {
           alert('error:' + e)
         }
       }
-      getIdeas();
-      // dispatch(refreshCredits());
+      getDeatilData()
+      // getDeatilData();
+      // let getIdeas = async () => {
+      //   try {
+      //     let allData = await dispatch(getAllIdeas());
+      //     // console.log('aaaaaaaa', allData.payload)
+      //     dispatch(setIdeas(allData.payload))
+      //   }
+      //   catch (e) {
+      //     alert('error:' + e)
+      //   }
+      // }
+      // getIdeas();
+      // // dispatch(refreshCredits());
     }
   }, [isLoggedIn]);
 
@@ -123,24 +139,25 @@ function App() {
   //     showRestrictedRouteRequiringPayments = true;
   //   }
   // }
+  // console.log("haveDeatil",haveDeatil)
 
   var routes = [
     <Route
       index
       element={
-        <CheckLogin darkTheme={darkTheme} setIsLoggedInParent={setIsLoggedIn} showRestrictedRouteRequiringPayments={showRestrictedRouteRequiringPayments} haveUserDetail={haveUserDetail} />
+        <CheckLogin darkTheme={darkTheme} setIsLoggedInParent={setIsLoggedIn} showRestrictedRouteRequiringPayments={showRestrictedRouteRequiringPayments} haveUserDetail={haveDeatil} />
       }
     />,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={DetailPagePath} element={<DetailSession />} />
     ) : null,
-    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments && haveDeatil ? (
       <Route path={mainPagePath} element={<GenerateSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={allnewsletter} element={<AllnewsletterSession />} />
     ) : null,
-    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments && haveDeatil? (
       <Route path={eachNewsletterPath} element={<EachNewsletter />} />
     ) : null,
     showRestrictedRouteRequiringUserSession ? (
