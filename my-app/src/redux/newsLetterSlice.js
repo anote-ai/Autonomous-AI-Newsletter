@@ -55,6 +55,7 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
 
     let reqBody = {
         topic: payload.firstPageData[0].data,
+        backgroundColor: payload.BackgroundColor,
         data : payload.data,
         idea_id: payload.firstPageData[3].data,
         theme: payload.firstPageData[2].data,
@@ -176,6 +177,16 @@ export const deleteIdeas = createAsyncThunk("Ideas/delete", async (payload, thun
     return response_str;
     // return true
 });
+export function useBackgroundColor() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.backgroundColor;
+        } catch (e) {
+            return null;
+        }
+    });
+}
+
 
 export function useTopic() {
     return useSelector((state) => {
@@ -251,6 +262,9 @@ export const newsLetterSlice = createSlice({
         setTopic: (state, action) => {
             state.pageOne = action.payload;
         },
+        setBackgroundColor: (state, action) =>{
+            state.backgroundColor = action.payload;
+        },
         setIdeas: (state, action) => {
             state.ideas = action.payload;
         },
@@ -298,6 +312,7 @@ export const newsLetterSlice = createSlice({
 
 export const {
     setTopic,
+    setBackgroundColor,
     setIdeas,
     setData,
     setUrlArr,

@@ -43,6 +43,7 @@ export const GenerateQestion = {
             id: 6
         }
     ],
+    backgroundColor: "",
     ideas: [],
     data:[],
     urlArr: [],

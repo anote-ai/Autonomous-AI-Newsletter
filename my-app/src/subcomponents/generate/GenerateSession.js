@@ -23,10 +23,10 @@ import {
   getAllIdeas,
   generateIdeas,
   updateIdeas,
-  deleteIdeas
+  deleteIdeas,
+  useBackgroundColor
 } from "../../redux/newsLetterSlice";
 import { red } from "@mui/material/colors";
-import { useDetailPageOne } from "../../redux/DetailSlice"
 
 
 function GenerateSession(props) {
@@ -35,15 +35,12 @@ function GenerateSession(props) {
   const [pageState, setPageState] = useState(1);
   const location = useLocation();
   let firstPageDataFRedux = useTopic();
-  let firstPageDetailDataFRedux = useDetailPageOne();
   let reduxIdeas = useIdeas();
   let reduxUseData = useData();
-  const [majorityColor, setMajorityColor] = useState(firstPageDetailDataFRedux[6].data);
-  const [colorPalette, setColorPalette] = useState(firstPageDetailDataFRedux[7].data)
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
-  const [aIdeas, setAIdeas] = useState(reduxUseData)
-  const [letterData, setLettterData] = useState(reduxUseData);
-  const [sections, setSections] = useState([]);
+  const [aIdeas, setAIdeas] = useState(reduxIdeas)
+  let majorityColor = useBackgroundColor()
+  // const [sections, setSections] = useState([]);
   // const [loading, setLoding] = useState(false);
 
   let pageTotal = 3;
@@ -96,9 +93,9 @@ function GenerateSession(props) {
   async function getNextStep() {
     if (pageState == pageTotal) {
       try {
-        console.log(letterData);
+        console.log(reduxUseData);
         let returnBack = await dispatch(
-          setNewsletter({ firstPageData: firstPageData, data: letterData })
+          setNewsletter({ firstPageData: firstPageData, BackgroundColor: majorityColor, data: reduxUseData })
         );
         // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
         let data = aIdeas.filter((each)=>{
@@ -121,10 +118,6 @@ function GenerateSession(props) {
       let tem = pageState;
       setPageState((tem += 1));
     }
-  }
-  function MsetLetterData(data) {
-    setLettterData(data);
-    // getNextStep()
   }
   function MfirstPageData(info) {
     // console.log(info)
@@ -224,10 +217,6 @@ function GenerateSession(props) {
             <div className="">
               <ContentLayout
                 layoutType={firstPageData[2].data}
-                majorityColor = {majorityColor}
-                setMajorityColor = {setMajorityColor}
-                colorPalette = {colorPalette}
-                setColorPalette = {setColorPalette}
                 previousPage={() => {
                   getPreviousStep();
                 }}
@@ -244,9 +233,6 @@ function GenerateSession(props) {
               pageNumber={pageState === pageTotal}
               previousPage={() => {
                 getPreviousStep();
-              }}
-              changeData={(data) => {
-                MsetLetterData(data);
               }}
               nextPage={() => {
                 getNextStep();
