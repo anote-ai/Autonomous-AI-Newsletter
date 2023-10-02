@@ -4,11 +4,12 @@ import { Button, Card } from 'flowbite-react';
 // import Image from 'next/image'
 import { useAllData, setAllData, getAllNewsletter, clearData } from "../../redux/newsLetterSlice"
 import defaultCardImg from '../../Images/defaultCardImg.png'
-
+import { useNavigate } from "react-router-dom";
 
 function Allnewsletter() {
     const pattern = /^\['.*'\]$/;
     let dispatch = useDispatch();
+    let navigate = useNavigate();
     let getDataFromRedux = useAllData();
     const [nData, setNData] = useState(getDataFromRedux);
     const [loading, setLoading] = useState(true);
@@ -87,6 +88,7 @@ function Allnewsletter() {
                     <div className='w-5/6 h-full flex justify-start flex-wrap mx-auto overflow-scroll'>
                         {nData.map((each) => (
                             <Card
+                                onClick={()=>{navigate("/eachNewsletter/" + each.id)}}
                                 className='max-w-[400px] min-h-fit'
                                 imgSrc={defaultCardImg}>
                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

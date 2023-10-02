@@ -30,26 +30,37 @@ const DraggableSection = ({ css, backgroundColor, id, title, content, moveSectio
 
   const opacity = isOver ? 0.5 : 1;
   let allContent
-  if(id === "logo"){
+  if (id === "logo") {
     allContent = (
       <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
-        {getUserDetailPageOne[3].data && getUserDetailPageOne[3].data !== "" &&(
-          <img src={getUserDetailPageOne[3].data}></img>
+        {content && content !== "" && (
+          <img src={content}></img>
         )}
-        {getUserDetailPageOne[2].data}
-    </div>
+        {title}
+      </div>
     )
   }
-  else{
+  else if (id === "footer") {
+    // console.log("footer")
+    // console.log(content)
     allContent = (
       <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
-      {title && title !== '' && (
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {title}
-        </h5>
-      )}
-      {content}
-    </div>
+        {content.map((each) => {
+          return (<div> {each} </div>)
+        })}
+      </div>
+    )
+  }
+  else {
+    allContent = (
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+        {title && title !== '' && (
+          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {title}
+          </h5>
+        )}
+        {content}
+      </div>
     )
   }
 
