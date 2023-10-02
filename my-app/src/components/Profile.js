@@ -17,12 +17,14 @@ import {
 } from "../redux/newsLetterSlice";
 import { useLocation } from "react-router-dom";
 import { useDetailPageOne } from "../redux/DetailSlice";
+import { useIdeas } from "../redux/newsLetterSlice";
 import Allnewsletter from "../subcomponents/allNewsletter/Allnewsletter"
 
 function Profile(props) {
   const dispatch = useDispatch();
   let user = useUser();
   let getAlluser = useAllData();
+  let reduxIdeas = useIdeas();
   let navigate = useNavigate();
   let getUserDetailPageOne = useDetailPageOne();
   const [ndata, setNdata] = useState(getAlluser);
@@ -81,7 +83,6 @@ function Profile(props) {
       number: 120,
     },
   ]);
-
   return (
     // <div className=" bg-gray-800 min-h-screen">
 
@@ -116,11 +117,11 @@ function Profile(props) {
             <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
               <div class="md:w-2/5">
                 <div class="LP-Home-Insights-Item-Content text-white">
-                  Total Newsletters Sent
+                  Total idea used/generated
                 </div>
 
                 <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
-                  900000
+                  {reduxIdeas && reduxIdeas.length ? reduxIdeas.length : 0}
                 </div>
               </div>
               <div class="md:w-2/5">
