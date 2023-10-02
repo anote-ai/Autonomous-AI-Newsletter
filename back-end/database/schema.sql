@@ -120,6 +120,7 @@ CREATE TABLE AllNewsletterInfo (
     title VARCHAR(255),
     theme VARCHAR(255),
     idea_id BIGINT,
+    backgroundColor VARCHAR(255),
     character_name VARCHAR(255),
     data TEXT
 );
