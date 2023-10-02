@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDetailPageOne } from "../../redux/DetailSlice";
 
-const DraggableSection = ({ css, backgroundColor, id, title, content, moveSection, findSection }) => {
+const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, id, title, content, moveSection, findSection }) => {
   let getUserDetailPageOne = useDetailPageOne();
   const originalIndex = findSection(id).index;
   const [{ isDragging }, drag] = useDrag({
@@ -32,7 +32,7 @@ const DraggableSection = ({ css, backgroundColor, id, title, content, moveSectio
   let allContent
   if (id === "logo") {
     allContent = (
-      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
         {content && content !== "" && (
           <img className='w-10 h-10' src={content}></img>
         )}
@@ -44,7 +44,7 @@ const DraggableSection = ({ css, backgroundColor, id, title, content, moveSectio
     // console.log("footer")
     // console.log(content)
     allContent = (
-      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
         {content.map((each) => {
           return (<div> {each} </div>)
         })}
@@ -53,7 +53,7 @@ const DraggableSection = ({ css, backgroundColor, id, title, content, moveSectio
   }
   else {
     allContent = (
-      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
         {title && title !== '' && (
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {title}

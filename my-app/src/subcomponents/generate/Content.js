@@ -20,29 +20,29 @@ function Content(props) {
         <div className="h-full w-full">
             <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
                 <div className="p-4">
-                    {getDataFromRedux.map(({ css, backgroundColor, id, title, content }, index, array) => (
+                    {getDataFromRedux.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle }, index, array) => (
                         <div className={
                             `${firstPageDataFRedux[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                                 ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
                                 : ''} ${''} mb-5`
                         }>
                             {id === "logo" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
                                     {content && content !== "" && (
-                                        <img src={content}></img>
+                                        <img className='w-10 h-10' src={content}></img>
                                     )}
                                     {title}
                                 </div>
                             )}
                             {id === "footer" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                     {content.map((each) => {
                                         return (<div> {each} </div>)
                                     })}
                                 </div>
                             )}
                             {id !== "logo" && id !== "footer" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                     {title && title !== '' && (
                                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                             {title}

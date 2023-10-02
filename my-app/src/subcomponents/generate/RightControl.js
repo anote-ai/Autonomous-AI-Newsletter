@@ -45,8 +45,8 @@ function RightControl(props) {
         }
     }
     let backgroundColorChange = (
-        <div className="flex flex-col items-center mx-10 my-5">
-            <div className="grid grid-cols-2 w-full items-center">
+        <div className="flex flex-col items-center my-5">
+            <div className="flex flex-col w-full items-center">
                 <span>
                     Change background Color
                 </span>
@@ -66,6 +66,42 @@ function RightControl(props) {
                         temSections.forEach((item) => {
                             if (item.id === props.select) {
                                 item.backgroundColor = e.target.value
+                            }
+                        })
+                        console.log(temSections)
+                        props.setSections(temSections)
+                    }}
+                    className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                >
+                    {colors.map((color, idx) => (
+                        <MenuItem key={idx} value={color}>
+                            <div
+                                style={{
+                                    backgroundColor: color,
+                                    width: "80%",
+                                    height: "20px",
+                                    margin: "auto",
+                                }}
+                            />
+                        </MenuItem>
+                    ))}
+                </Select2>
+            </div>
+        </div>
+    )
+    let fontColorChange = (
+        <div className="flex flex-col items-center my-5">
+            <div className="flex flex-col w-full items-center">
+                <span>
+                    Change Font Color
+                </span>
+                <Select2
+                    onChange={(e) => {
+                        let temSections = JSON.parse(JSON.stringify(props.sections));
+                        temSections.forEach((item) => {
+                            if (item.id === props.select) {
+                                item.fontColor = e.target.value
                             }
                         })
                         console.log(temSections)
@@ -152,6 +188,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
                         <span>
@@ -211,6 +248,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -226,6 +264,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -241,6 +280,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -256,6 +296,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -271,6 +312,7 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -278,6 +320,7 @@ function RightControl(props) {
         content = (
             <div>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -285,6 +328,7 @@ function RightControl(props) {
         content = (
             <div>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
@@ -292,6 +336,7 @@ function RightControl(props) {
         content = (
             <div>
                 {backgroundColorChange}
+                {fontColorChange}
             </div>
         )
     }
