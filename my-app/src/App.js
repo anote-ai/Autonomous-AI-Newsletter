@@ -27,7 +27,7 @@ import Allnewsletter from "./subcomponents/allNewsletter/Allnewsletter"
 import AllnewsletterSession from "./subcomponents/allNewsletter/AllnewsletterSession"
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
-import { useAllData, setAllData, getAllNewsletter } from "./redux/newsLetterSlice"
+import { setIdeas, getAllIdeas } from "./redux/newsLetterSlice"
 import MainNav from "./components/MainNav";
 import EachNewsletter from"./components/EachNewsletter"
 
@@ -91,6 +91,17 @@ function App() {
         }
       }
       getDeatilData();
+      let getIdeas = async () => {
+        try {
+          let allData = await dispatch(getAllIdeas());
+          // console.log('aaaaaaaa', allData.payload)
+          dispatch(setIdeas(allData.payload))
+        }
+        catch (e) {
+          alert('error:' + e)
+        }
+      }
+      getIdeas();
       // dispatch(refreshCredits());
     }
   }, [isLoggedIn]);
