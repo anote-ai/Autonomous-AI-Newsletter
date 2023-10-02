@@ -49,8 +49,8 @@ def detail_get_Handler(request, userEmail):
                 'Newsletter Header Image or Company Logo': resultPageOne.get('Newsletter Header Image or Company Logo'),
                 'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
                 'Business Category': resultPageOne.get('Business Category'),
-                'colors used on the majority of your branding': resultPageOne.get('colors used on the majority of your branding'),
-                'List your color palette': resultPageOne.get('List your color palette'),
+                'What color you want for the background': resultPageOne.get('colors used on the majority of your branding'),
+                'What color you want for the Text': resultPageOne.get('List your color palette'),
                 'Select your font styles': resultPageOne.get('Select your font styles'),
             },
             'pageTwo':{
@@ -95,8 +95,8 @@ def detail_update_Handler(request, userEmail):
         header_image = request.json.get('Newsletter Header Image or Company Logo', 'null')
         description = request.json.get('Description of Newsletter', 'null')
         business_category = str(request.json.get('Business Category', '[]'))
-        branding_colors = request.json.get('colors used on the majority of your branding', 'null')
-        color_palette = request.json.get('List your color palette', 'null')
+        branding_colors = request.json.get('What color you want for the background', 'null')
+        color_palette = request.json.get('What color you want for the Text', 'null')
         font_styles = request.json.get('Select your font styles', 'null')
         try:
             # print(business_category)
