@@ -61,7 +61,7 @@ CREATE TABLE userDetailPageOne (
     `URL` VARCHAR(255),
     `Name of Publication or Newsletter` VARCHAR(255),
     `Newsletter Header Image or Company Logo` VARCHAR(255),
-    `Description of Newsletter` VARCHAR(255),
+    `Description of Newsletter` TEXT,
     `Business Category` TEXT,
     `colors used on the majority of your branding` VARCHAR(500),
     `List your color palette` VARCHAR(500),

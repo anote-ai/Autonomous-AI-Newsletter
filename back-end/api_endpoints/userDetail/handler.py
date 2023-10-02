@@ -98,12 +98,14 @@ def detail_update_Handler(request, userEmail):
         branding_colors = request.json.get('What color you want for the background', 'null')
         color_palette = request.json.get('What color you want for the Text', 'null')
         font_styles = request.json.get('Select your font styles', 'null')
+        print("step 1")
         try:
             # print(business_category)
             result = add_user_detail_by_id_page_one(user_id, companyName, url, newsletter_name, header_image, description, business_category, branding_colors, color_palette, font_styles)
             return result
-        except:
-            return 'error'
+        except Exception as e:
+            print("Error inserting newsletter:", str(e))
+            return "error"
 
     elif(table == "userDetailPageTwo"):
         # print("pagetwo", request.json)
@@ -129,8 +131,9 @@ def detail_update_Handler(request, userEmail):
         try:
             result = add_user_detail_by_id_page_two(user_id, email_platform, send_frequency, language, newsletter_size, audience_demographics, age_range, income_level, stylistic_choice, emojis, youtube_url, facebook_url, instagram_url, twitter_url, linkedin_url, pinterest_url, shop_url, portfolio_url, threads_url)
             return result
-        except:
-            return 'error'
+        except Exception as e:
+            print("Error inserting newsletter:", str(e))
+            return "error"
 
     elif(table == "userDetailPageThree" or table == "userDetailPageFour"):
         # print("pagethree and pagefour ", request.json)
@@ -140,8 +143,9 @@ def detail_update_Handler(request, userEmail):
                 # print(each.get('id'))
                 add_user_detail_by_id_page_three_four(user_id, table, each.get('id'), each.get('title'), each.get('data'))
             return True
-        except:
-            return 'error'
+        except Exception as e:
+            print("Error inserting newsletter:", str(e))
+            return "error"
 
 
     # print(companyName, newsLetterDetail, industry)
