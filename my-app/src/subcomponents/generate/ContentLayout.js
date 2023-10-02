@@ -14,7 +14,8 @@ import {
   useTopic,
   setNewsletter,
   setData,
-  setBackgroundColor
+  setBackgroundColor,
+  useBackgroundColor
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
@@ -64,6 +65,7 @@ const ContentLayout = ({ layoutType,
   let firstPageDataFRedux = useTopic();
   let firstPageDetailDataFRedux = useDetailPageOne();
   let secondPageDetailDataFRedux = useDetailPageTwo();
+  let getBackgroundColorFromRedux = useBackgroundColor();
   let getDataFromRedux = useData();
   const [majorityColor, setMajorityColor] = useState(firstPageDetailDataFRedux[6].data);
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
@@ -77,6 +79,7 @@ const ContentLayout = ({ layoutType,
     if (getDataFromRedux && getDataFromRedux.length !== 0) {
       // console.log(getDataFromRedux);
       setSections(getDataFromRedux);
+      setMajorityColor(getBackgroundColorFromRedux)
     }
     else {
       if (firstPageData[2].data === "") {

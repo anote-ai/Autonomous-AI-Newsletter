@@ -61,88 +61,109 @@ function RightControl(props) {
             }
         </div>
     )
-    let backgroundColorChange = (
-        <div className="flex flex-col items-center my-5">
-            <div className="flex flex-col w-full items-center">
-                <span>
-                    Change background Color
-                </span>
-                <Select2
-                    onChange={(e) => {
-                        let temSections = JSON.parse(JSON.stringify(props.sections));
-                        // const pattern = /bg-\[[#A-Fa-f0-9]+\]/;
-                        // temSections.forEach((item) => {
-                        //     if (item.id === props.select) {
-                        //         if (pattern.test(item.css)) {
-                        //             item.css =  item.css.replace(pattern, `bg-[${e.target.value}]`);
-                        //         } else {
-                        //             item.css = `${item.css} bg-[${e.target.value}]`;
-                        //         }
-                        //     }
-                        // })
-                        temSections.forEach((item) => {
-                            if (item.id === props.select) {
-                                item.backgroundColor = e.target.value
-                            }
-                        })
-                        console.log(temSections)
-                        props.setSections(temSections)
-                    }}
-                    className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+    let backgroundColorChange = () => {
+        let temSections = JSON.parse(JSON.stringify(props.sections));
+        let initialBackgroundColor = temSections.filter((item) => {
+            if (item.id === props.select) {
+                return item.backgroundColor
+            }
+        })
+        // console.log(data)
+        console.log(initialBackgroundColor)
+        return (
+            <div className="flex flex-col items-center my-5">
+                <div className="flex flex-col w-full items-center">
+                    <span>
+                        Change background Color
+                    </span>
+                    <Select2
+                        value={initialBackgroundColor.length === 0 ? "" : initialBackgroundColor[0].backgroundColor}
+                        onChange={(e) => {
+                            // let temSections = JSON.parse(JSON.stringify(props.sections));
+                            // const pattern = /bg-\[[#A-Fa-f0-9]+\]/;
+                            // temSections.forEach((item) => {
+                            //     if (item.id === props.select) {
+                            //         if (pattern.test(item.css)) {
+                            //             item.css =  item.css.replace(pattern, `bg-[${e.target.value}]`);
+                            //         } else {
+                            //             item.css = `${item.css} bg-[${e.target.value}]`;
+                            //         }
+                            //     }
+                            // })
+                            temSections.forEach((item) => {
+                                if (item.id === props.select) {
+                                    item.backgroundColor = e.target.value
+                                }
+                            })
+                            console.log(temSections)
+                            props.setSections(temSections)
+                        }}
+                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
 
-                >
-                    {colors.map((color, idx) => (
-                        <MenuItem key={idx} value={color}>
-                            <div
-                                style={{
-                                    backgroundColor: color,
-                                    width: "80%",
-                                    height: "20px",
-                                    margin: "auto",
-                                }}
-                            />
-                        </MenuItem>
-                    ))}
-                </Select2>
+                    >
+                        {colors.map((color, idx) => (
+                            <MenuItem key={idx} value={color}>
+                                <div
+                                    style={{
+                                        backgroundColor: color,
+                                        width: "80%",
+                                        height: "20px",
+                                        margin: "auto",
+                                    }}
+                                />
+                            </MenuItem>
+                        ))}
+                    </Select2>
+                </div>
             </div>
-        </div>
-    )
-    let fontColorChange = (
-        <div className="flex flex-col items-center my-5">
-            <div className="flex flex-col w-full items-center">
-                <span>
-                    Change Font Color
-                </span>
-                <Select2
-                    onChange={(e) => {
-                        let temSections = JSON.parse(JSON.stringify(props.sections));
-                        temSections.forEach((item) => {
-                            if (item.id === props.select) {
-                                item.fontColor = e.target.value
-                            }
-                        })
-                        console.log(temSections)
-                        props.setSections(temSections)
-                    }}
-                    className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+        )
+    }
+    let fontColorChange = () => {
+        let temSections = JSON.parse(JSON.stringify(props.sections));
+        let initialFontColor = temSections.filter((item) => {
+            if (item.id === props.select) {
+                return item.fontColor
+            }
+        })
+        // console.log(data)
+        // console.log(initialFontColor)
+        return (
+            <div className="flex flex-col items-center my-5">
+                <div className="flex flex-col w-full items-center">
+                    <span>
+                        Change Font Color
+                    </span>
+                    <Select2
+                        value = {initialFontColor.length === 0 ? "" : initialFontColor[0].fontColor}
+                        onChange={(e) => {
+                            temSections.forEach((item) => {
+                                if (item.id === props.select) {
+                                    item.fontColor = e.target.value
+                                }
+                            })
+                            console.log(temSections)
+                            props.setSections(temSections)
+                        }}
+                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
 
-                >
-                    {colors.map((color, idx) => (
-                        <MenuItem key={idx} value={color}>
-                            <div
-                                style={{
-                                    backgroundColor: color,
-                                    width: "80%",
-                                    height: "20px",
-                                    margin: "auto",
-                                }}
-                            />
-                        </MenuItem>
-                    ))}
-                </Select2>
+                    >
+                        {colors.map((color, idx) => (
+                            <MenuItem key={idx} value={color}>
+                                <div
+                                    style={{
+                                        backgroundColor: color,
+                                        width: "80%",
+                                        height: "20px",
+                                        margin: "auto",
+                                    }}
+                                />
+                            </MenuItem>
+                        ))}
+                    </Select2>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
     if (props.select === "layOut") {
         content = (
             <div>
@@ -205,8 +226,8 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
                         <span>
@@ -265,8 +286,8 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
@@ -281,8 +302,8 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
@@ -297,8 +318,8 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
@@ -313,8 +334,8 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
@@ -329,32 +350,32 @@ function RightControl(props) {
                 >
                     Generate News
                 </Button>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
     else if (props.select === "intro") {
         content = (
             <div>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
     else if (props.select === "story1") {
         content = (
             <div>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
     else if (props.select === "footer") {
         content = (
             <div>
-                {backgroundColorChange}
-                {fontColorChange}
+                {backgroundColorChange()}
+                {fontColorChange()}
             </div>
         )
     }
