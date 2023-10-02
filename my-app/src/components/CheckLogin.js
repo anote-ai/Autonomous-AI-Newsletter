@@ -8,9 +8,10 @@ import { useLocation } from "react-router-dom";
 import "../styles/Login.css";
 import "../styles/MainLayout.css";
 import { Checkbox } from "@mui/material";
-import { pricingRedirectPath } from "../constants/RouteConstants";
+import { pricingRedirectPath, DetailPagePath } from "../constants/RouteConstants";
 import DetailSession from "../subcomponents/UserDetail/DetailSession";
 import Profile from "./Profile";
+import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../redux/DetailSlice"
 
 function CheckLogin(props) {
   const navigate = useNavigate();
@@ -18,6 +19,10 @@ function CheckLogin(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [productHash, setProductHash] = useState("");
   const [freeTrialCode, setFreeTrialCode] = useState("");
+  let firstPageDataFRedux = useDetailPageOne();
+  let secondPageDataFRedux = useDetailPageTwo();
+  let thirdPageDataFRedux = useDetailPageThree();
+  let fourthPageDataFRedux = useDetailPageFour();
 
   const accessToken = localStorage.getItem("accessToken");
   const sessionToken = localStorage.getItem("sessionToken");
@@ -48,7 +53,12 @@ function CheckLogin(props) {
     );
   } else if (!props.showRestrictedRouteRequiringPayments) {
     mainView = <PaymentsComponent />;
-  } else {
+  } 
+  else if(!props.haveUserDetail){
+    // console.log("asdfasdfasdfasfasdf",props.haveUserDetail)
+    navigate(DetailPagePath)
+  }
+  else {
     mainView = <Profile />;
   }
   // else if (!props.haveUserDetail) {
