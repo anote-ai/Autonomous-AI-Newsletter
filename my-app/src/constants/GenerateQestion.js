@@ -9,7 +9,7 @@ export const GenerateQestion = {
         },
         {
             title: '30-Day Content Ideas',
-            require: true,
+            require: false,
             type: 'input',
             data: '',
             id: 2
