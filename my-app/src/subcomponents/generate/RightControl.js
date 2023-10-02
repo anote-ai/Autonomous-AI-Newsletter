@@ -109,10 +109,10 @@ function RightControl(props) {
                         </option>
                     ))}
                 </Select1>
-                <div className="flex flex-col items-center mx-10 my-5">
-                    <div className="grid grid-cols-2 w-full items-center">
-                        <span>
-                            Change major Background Color
+                <div className="flex flex-col items-center my-5">
+                    <div className="flex flex-col w-full items-center">
+                        <span className="">
+                            Background Color
                         </span>
                         <Select2
                             value={props.majorityColor}

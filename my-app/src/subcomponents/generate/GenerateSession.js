@@ -30,6 +30,7 @@ import { red } from "@mui/material/colors";
 
 
 function GenerateSession(props) {
+  const [loadingIdeas, setLoadingIdeas] = useState(false);
   const navigate = useNavigate();
   let dispatch = useDispatch();
   const [pageState, setPageState] = useState(1);
@@ -79,6 +80,7 @@ function GenerateSession(props) {
       console.log('tem', tem)
       setAIdeas(tem);
       dispatch(setIdeas(tem));
+      setLoadingIdeas(false);
     }
     catch (e) {
       alert('error:' + e)
@@ -203,6 +205,8 @@ function GenerateSession(props) {
               pageNumber={pageState === pageTotal}
               questionList={firstPageData}
               GenerateIdea={() => { generateIdea() }}
+              loadingIdeas={loadingIdeas}
+              setLoadingIdeas={setLoadingIdeas}
               previousPage={() => {
                 getPreviousStep();
               }}
