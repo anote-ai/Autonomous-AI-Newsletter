@@ -17,7 +17,7 @@ export const questionList = {
         },
         {
             title: 'Newsletter Header Image or Company Logo',
-            require: true,
+            require: false,
             type: 'url',
             data: '',
             id: 4
@@ -230,32 +230,11 @@ export const questionList = {
             id: 6
         },
         {
-            title: 'What accent colors used sparingly to highlight info?',
-            require: false,
-            type: 'colorSelect',
-            data: '',
-            id: 7
-        },
-        {
-            title: 'Do you have a preferred color for hyperlinks & buttons?',
-            require: false,
-            type: 'colorSelect',
-            data: '',
-            id: 8
-        },
-        {
-            title: 'Do you have a preferred color for hyperlinks & buttons?',
-            require: false,
-            type: 'colorSelect',
-            data: '',
-            id: 9
-        },
-        {
             title: 'Trusted News Sources',
             require: false,
             type: 'text',
             data: '',
-            id: 10
+            id: 7
         }
     ],
     pageFour: [

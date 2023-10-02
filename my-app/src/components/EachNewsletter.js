@@ -62,7 +62,7 @@ function EachNewsletter(props) {
                                             {id !== "logo" && id !== "footer" && (
                                                 <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                                     {title && title !== '' && (
-                                                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{color: fontColor}}>
                                                             {title}
                                                         </h5>
                                                     )}

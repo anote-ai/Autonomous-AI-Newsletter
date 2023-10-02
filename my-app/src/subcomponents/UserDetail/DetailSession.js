@@ -93,7 +93,7 @@ function DetailSession(props) {
                 await dispatch(updateDetail({ payload: fourthPageData, tableName: 'userDetailPageFour' }))
                 // let returnBack = await dispatch(updateDetail({ companyName: companyName, newsLetterDetail: newsLetterDetail, industry: industry }));
                 alert("update success")
-                navigate("/")
+                window.location.href = '/';
             }
             catch (e) {
                 alert(e);
