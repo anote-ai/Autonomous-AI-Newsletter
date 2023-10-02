@@ -29,12 +29,14 @@ function Content1(props) {
     setError(false);
     setError('');
     try {
+      // console.log("step1111")
       let topic = firstPageDataFRedux[3].data;
+      console.log(firstPageDataFRedux)
       let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
       // console.log("first", temUrlArr);
       let data = await dispatch(getGPTData({ topic, temUrlArr }));
       // console.log(data.payload);
-      // console.log(data.payload)
+      // console.log("adfasdfasdf",data.payload)
       temUrlArr.push(data.payload[0]['url']);
       // console.log("tem", temUrlArr)
       await dispatch(setUrlArr(temUrlArr));
