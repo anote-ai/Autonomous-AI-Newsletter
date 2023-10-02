@@ -50,7 +50,7 @@ const sectionArrangements = {
     #3 link of the day/related story of interest \
     ', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: ""
     },
-    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: "", fontColor: "", fontStyle: "" },
+    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: "", fontColor: "", fontStyle: "" },
     { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
   ],
 };
