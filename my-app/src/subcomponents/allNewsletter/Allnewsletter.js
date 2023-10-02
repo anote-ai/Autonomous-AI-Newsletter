@@ -5,6 +5,8 @@ import { Button, Card } from 'flowbite-react';
 import { useAllData, setAllData, getAllNewsletter, clearData } from "../../redux/newsLetterSlice"
 import defaultCardImg from '../../Images/defaultCardImg.png'
 import { useNavigate } from "react-router-dom";
+import { HiOutlineX } from 'react-icons/hi'
+import { deleteNewsletterById } from "../../redux/newsLetterSlice"
 
 function Allnewsletter() {
     const pattern = /^\['.*'\]$/;
@@ -44,6 +46,22 @@ function Allnewsletter() {
         }
         getData();
     }, [])
+    const handleDelete = (e, id) =>{
+        e.stopPropagation();
+        try {
+            // console.log("asfsfasfasdf");
+            dispatch(deleteNewsletterById(id));
+            let tem = JSON.parse(JSON.stringify(nData));
+            let newData = tem.filter((each) =>{
+                return each.id != id;
+            })
+            console.log(newData)
+            setNData(newData)
+            dispatch(setAllData(newData));
+        } catch (e) {
+            alert(e);
+        }
+    }
     return (
         <div className="flex flex-col h-screen w-5/6 mx-auto my-5 border-gray-700 rounded-xl border-2 overflow-y-scroll">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
@@ -83,14 +101,17 @@ function Allnewsletter() {
                         </div>
                     </div>
                 )}
-                {console.log("nData",nData)}
+                {console.log("nData", nData)}
                 {loading === false && nData && nData.length !== 0 && (
                     <div className='w-5/6 h-full flex justify-start flex-wrap mx-auto overflow-scroll'>
                         {nData.map((each) => (
                             <Card
-                                onClick={()=>{navigate("/eachNewsletter/" + each.id)}}
-                                className='max-w-[400px] min-h-fit'
+                                onClick={() => { navigate("/eachNewsletter/" + each.id) }}
+                                className='max-w-[400px] min-h-fit relative'
                                 imgSrc={defaultCardImg}>
+                                <div className="absolute top-2 right-2 text-white cursor-pointer h-8 w-8" style={{ zIndex: 999 }} onClick={(e) => { handleDelete(e, each.id) }}>
+                                    <HiOutlineX className="h-full w-full" />
+                                </div>
                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     <p>
                                         {each.title}
