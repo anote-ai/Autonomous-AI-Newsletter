@@ -152,7 +152,7 @@ def getGPTData(request):
     newsId = request.json.get('newsId', 'article1')
     characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
     characterText = personality[characterStyle]
-    print(characterText)
+    # print(characterText)
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -161,12 +161,13 @@ def getGPTData(request):
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
     }
 
-    # print(key_word)
-    processed_data = ['%20'.join(item.split('&')).replace(
-        ' ', '%20') for item in key_word]
-    searchWord = '%20'.join(processed_data)
+    # print("key_word:",key_word)
+    # processed_data = ['%20'.join(item.split('&')).replace(
+    #     ' ', '%20') for item in key_word]
+    # searchWord = '%20'.join(processed_data)
+    # print("searchWord:",searchWord)
     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
-    url = f"https://news.google.com/search?q={searchWord}&hl=en-US&gl=US&ceid=US%3Aen"
+    url = f"https://news.google.com/search?q={key_word}&hl=en-US&gl=US&ceid=US%3Aen"
     # print(url)
 
     url_obj = session.get(url, headers=headers)
@@ -177,7 +178,7 @@ def getGPTData(request):
         try:
             this_news = {}
             url = "https://news.google.com/" + i['href']  # url at google
-            print("first", url)
+            # print("first", url)
             url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
             url = bs.find('a', href=True, rel="nofollow")[
@@ -192,6 +193,8 @@ def getGPTData(request):
             # print("bs", bs.text)
             prompt_summary = generatePrompt_summary(bs.text, characterText)
             prompt_date = generatePrompt_date(bs.text)
+            # print("prompt_summary", prompt_summary)
+            # print("prompt_date", prompt_date)
             this_news['id'] = newsId
             this_news['title'] = generate_title(bs.text)
             this_news['url'] = url

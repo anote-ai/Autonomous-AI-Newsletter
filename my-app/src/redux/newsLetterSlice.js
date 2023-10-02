@@ -18,7 +18,7 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     // else if(payload.topic.length > 1){
         
     // }
-    console.log(payload.temUrlArr);
+    console.log(payload.topic);
     let reqBody = {
         newsId: payload.newsId,
         characterStyle: payload.characterStyle,
@@ -34,8 +34,9 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
         },
         body: JSON.stringify(reqBody)
     });
+    // console.log("step1111")
     const response_str = await response.json();
-    // console.log(response_str)
+    console.log(response_str)
     return response_str;
 });
 

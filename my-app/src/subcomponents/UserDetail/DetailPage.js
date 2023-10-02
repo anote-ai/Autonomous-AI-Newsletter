@@ -519,7 +519,7 @@ function DetailPage(props) {
                                 <option disabled key="default" value=""></option>
                                 {/* {console.log("props.ideas",props.ideas)} */}
                                 {props.ideas.map((font, idx) => (
-                                    <option key={idx} value={font.id} style={{ fontSize: font }}>
+                                    <option key={idx} value={font.title} style={{ fontSize: font }}>
                                         {font.title}
                                     </option>
                                 ))}
