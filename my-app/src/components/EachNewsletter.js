@@ -27,7 +27,7 @@ function EachNewsletter(props) {
             }
         })
     }, [])
-    
+
     const opacity = 1;
     return (
         <div className="bg-gray-800 w-screen h-[94%]">
@@ -35,32 +35,32 @@ function EachNewsletter(props) {
                 <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
                     <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
                         <div className="h-full w-full">
-                            <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
+                            <div className={`h-[85vh] max-h-[85vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
                                 <h2>{title}</h2>
                                 <div className="p-4">
-                                    {data.map(({ css, backgroundColor, id, title, content }, index, array) => (
+                                    {data.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle }, index, array) => (
                                         <div className={
                                             `${theme === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                                                 ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
                                                 : ''} ${''} mb-5`
                                         }>
                                             {id === "logo" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
                                                     {content && content !== "" && (
-                                                        <img src={content}></img>
+                                                        <img className='w-10 h-10' src={content}></img>
                                                     )}
                                                     {title}
                                                 </div>
                                             )}
                                             {id === "footer" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                                     {content.map((each) => {
                                                         return (<div> {each} </div>)
                                                     })}
                                                 </div>
                                             )}
                                             {id !== "logo" && id !== "footer" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
                                                     {title && title !== '' && (
                                                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                                             {title}

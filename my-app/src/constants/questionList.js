@@ -37,14 +37,14 @@ export const questionList = {
             id: 6
         },
         {
-            title: 'colors used on the majority of your branding',
+            title: 'What color you want for the background',
             require: true,
             type: 'colorSelect',
             data: '',
             id: 7
         },
         {
-            title: 'List your color palette',
+            title: 'What color you want for the Text',
             require: true,
             type: 'colorSelect',
             data: '',
