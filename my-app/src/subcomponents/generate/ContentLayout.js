@@ -22,37 +22,37 @@ import { useDetailPageTwo } from "../../redux/DetailSlice"
 
 const sectionArrangements = {
   'Freshly Brewed': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
+    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'High Gloss': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'image', title: "", content: 'Image + CTA to head to shop, 1-2 lines', css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
+    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'image', title: "", content: 'Image + CTA to head to shop, 1-2 lines', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'The NewPort': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "" },
+    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     {
       id: 'article1', title: "", content: ' \
     #1 link of the day/related story of interest \
     #2 link of the day/related story of interest \
     #3 link of the day/related story of interest \
-    ', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: ""
+    ', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
     },
-    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: "", fontColor: "", fontStyle: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "" },
+    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
 };
 
@@ -90,6 +90,7 @@ const ContentLayout = ({ layoutType,
         selectedSection.forEach((item) => {
           item.fontColor = firstPageDetailDataFRedux[7].data
           item.fontStyle = firstPageDetailDataFRedux[8].data
+          item.fontSize = secondPageDetailDataFRedux[3].data
           if (item.id === "logo") {
             item.title = firstPageDetailDataFRedux[2].data
             item.content = firstPageDetailDataFRedux[3].data
@@ -97,7 +98,7 @@ const ContentLayout = ({ layoutType,
           else if (item.id == "footer") {
             item.content = [];
             for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
-              console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
+              // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
               item.content.push(secondPageDetailDataFRedux[i].data)
             }
           }
@@ -155,7 +156,7 @@ const ContentLayout = ({ layoutType,
       <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
-            {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle }, index, array) => (
+            {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => (
               <div className={
                 `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                   ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
@@ -168,6 +169,7 @@ const ContentLayout = ({ layoutType,
                   backgroundColor={backgroundColor}
                   fontColor={fontColor}
                   fontStyle={fontStyle}
+                  fontSize={fontSize}
                   id={`${id}`}
                   content={content}
                   title={title}

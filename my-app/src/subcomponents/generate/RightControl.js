@@ -2,11 +2,12 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
 import { FormControl, MenuItem } from "@material-ui/core";
+import { fontSizes } from "../../constants/FontSize";
 
 
 function RightControl(props) {
@@ -28,14 +29,40 @@ function RightControl(props) {
             // console.log("first", temUrlArr);
             let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle, newsId: newsId }));
             // console.log(data.payload);
-            // console.log(data.payload)
-            temUrlArr.push(data.payload[0]['url']);
+            console.log(data.payload)
+            if(data.payload && data.payload.length !== 0){
+                temUrlArr.push(data.payload[0]['url']);
+            }
+            else{
+                alert("please use another idea, didn't find related news")
+            }
             // console.log("tem", temUrlArr)
             await dispatch(setUrlArr(temUrlArr));
             temSections.forEach((item) => {
                 if (item.id === data.payload[0].id) {
                     item.content = data.payload[0]['summary']
                     item.title = data.payload[0]['title']
+                }
+            })
+            console.log(temSections)
+            props.setSections(temSections)
+            setLoadingNews(false)
+
+        }
+        catch (e) {
+            setLoadingNews(false)
+            alert(e);
+        }
+    }
+    async function generateIntroData(newsId) {
+        // console.log(firstPageDataFRedux[5].data);
+        setLoadingNews(true)
+        try {
+            let temSections = JSON.parse(JSON.stringify(props.sections));
+            let data = await dispatch(getIntroData());
+            temSections.forEach((item) => {
+                if (item.id === newsId) {
+                    item.content = data.payload["data"]
                 }
             })
             console.log(temSections)
@@ -164,6 +191,53 @@ function RightControl(props) {
             </div>
         )
     }
+    let fontSizeChange = () => {
+        let temSections = JSON.parse(JSON.stringify(props.sections));
+        let initialFontSize = temSections.filter((item) => {
+            if (item.id === props.select) {
+                return item.fontSize
+            }
+        })
+        // console.log(data)
+        // console.log(initialFontColor)
+        return (
+            <div className="flex flex-col items-center my-5">
+                <div className="flex flex-col w-full items-center">
+                    <span>
+                        Change Font Size
+                    </span>
+                    <Select2
+                        value = {initialFontSize.length === 0 ? "" : initialFontSize[0].fontSize}
+                        onChange={(e) => {
+                            temSections.forEach((item) => {
+                                if (item.id === props.select) {
+                                    item.fontSize = e.target.value
+                                }
+                            })
+                            console.log(temSections)
+                            props.setSections(temSections)
+                        }}
+                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                    >
+                        {fontSizes.map((font, idx) => (
+                            <MenuItem key={idx} value={font}>
+                                <div
+                                    style={{
+                                        fontSize: "10px",
+                                        width: "80%",
+                                        height: "20px",
+                                        margin: "auto",
+                                    }}
+                                />
+                                {font}
+                            </MenuItem>
+                        ))}
+                    </Select2>
+                </div>
+            </div>
+        )
+    }
     if (props.select === "layOut") {
         content = (
             <div>
@@ -228,6 +302,7 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
                         <span>
@@ -288,6 +363,7 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -304,6 +380,7 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -320,6 +397,7 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -336,6 +414,7 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -352,14 +431,24 @@ function RightControl(props) {
                 </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
     else if (props.select === "intro") {
         content = (
             <div>
+                {loadingNewsData}
+                <Button
+                    onClick={(e) => {
+                        generateIntroData("intro")
+                    }}
+                >
+                    Generate Intro
+                </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -368,6 +457,7 @@ function RightControl(props) {
             <div>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }
@@ -376,6 +466,7 @@ function RightControl(props) {
             <div>
                 {backgroundColorChange()}
                 {fontColorChange()}
+                {fontSizeChange()}
             </div>
         )
     }

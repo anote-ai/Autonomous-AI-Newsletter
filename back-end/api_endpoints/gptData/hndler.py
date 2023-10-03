@@ -37,6 +37,20 @@ def generateIdeas(text):
     # print("title reply", reply)
     return prompt
 
+def generateIntro(text):
+    prompt = f'''
+    Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
+    you should only response the intro data without any other text or description.
+    information:
+
+    ```
+    {text}
+    ```
+    '''
+    # print(prompt)
+    # print("title reply", reply)
+    return prompt
+
 def generatePrompt_summary(text, characterText):
     prompt = f'''
     your task is to generate a brief summary of the recent news of the recent website text, delimited with triple backticks.
@@ -389,6 +403,86 @@ def deleteIdeas(request, userEmail):
         for eachData in id:
             delete_Ideas_byId (user_id, eachData.get("id"))
         return {'message': 'Idea deleted successfully'}
+    except Exception as e:
+        print("Error delete Ideas:", str(e))
+        return "error"
+
+def getIntro(request, user_email):
+    user_id = user_id_for_email(user_email)
+    try:
+        resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
+        # print('pageOne')
+        # resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
+        # print('pageTwo')
+        resultPageThree = get_detail_by_userID_three_four(
+            user_id, "userDetailPageThree")
+        # print('pageThree')
+        # resultPageFour = get_detail_by_userID_three_four(
+        #     user_id, "userDetailPageFour")
+        # print('pageFour')
+        if (resultPageOne == False):
+            return 'false'
+        # print("step 1")
+        page_three_data = {}
+        # page_four_data = {}
+        # print("resultPageThree", resultPageThree)
+        if (resultPageThree != False):
+            for row in resultPageThree:
+                # print(row)
+                page_three_data[row.get('question_name')] = row.get('data')
+        # print(resultPageFour)
+        # if (resultPageFour != False):
+        #     for row in resultPageFour:
+        #         page_four_data[row.get('question_name')] = row.get('data')
+        # print("step 2")
+        # print("resultPageTwo", resultPageTwo.get('Does your brand writing style use emojis?'))
+        # emoji = False
+        # if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+        #     emoji = True
+        # print(emoji)
+        data = {
+            'Brand or Company Name': resultPageOne.get('Brand or Company Name'),
+            'Name of Publication or Newsletter': resultPageOne.get('Name of Publication or Newsletter'),
+            'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
+            'Business Category': resultPageOne.get('Business Category'),
+            'Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice': page_three_data['Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice'],
+        }
+        print(data)
+        for key, value in data.items():
+            try:
+                parsed_value = ast.literal_eval(value)
+                if isinstance(parsed_value, list):
+                    data[key] = parsed_value
+            except (SyntaxError, ValueError):
+                pass
+        formatted_text = ""
+
+        for key, value in data.items():
+            if isinstance(value, list):
+                value_str = ", ".join(value)
+            else:
+                value_str = value
+
+            formatted_text += f"{key}: {value_str}\n"
+        # print("formatted_text", formatted_text)
+        prompt = generateIntro(formatted_text)
+        intros = gpt(prompt)
+        # print(intros)
+        # cleaned_data = [re.sub(r'^\d+\.\s*', '', item.strip()) for item in ideas.split('\n') if item.strip()]
+        # print(cleaned_data)
+        # res = []
+        # for each in cleaned_data:
+        #     id = add_ideas_withId(user_id, each)
+        #     obj = {'id':id,
+        #            'title': each,
+        #            'used': False}
+        #     print(obj)
+        #     res.append(obj)
+        # cleaned_data = [re.sub(r'^\d+\.\s*\"(.*?)\"$', r'\1', item.strip()) for item in ideas.split('\n') if item.strip()]
+        # print(cleaned_data)
+        res = {"data": intros}
+        return res
+
     except Exception as e:
         print("Error delete Ideas:", str(e))
         return "error"

@@ -510,7 +510,9 @@ function DetailPage(props) {
                                 value={eachdata.data}
                                 onChange={(e) => {
                                     let tem = JSON.parse(JSON.stringify(data));
-                                    // console.log(e.target.value)
+                                    const selectedOptionId = e.target.options[e.target.selectedIndex].id;
+                                    // console.log(selectedOptionId)
+                                    tem[eachdata.id - 1].ideaId = Number(selectedOptionId)
                                     tem[eachdata.id - 1].data = e.target.value
                                     console.log("tem", tem);
                                     setData(tem);
@@ -519,7 +521,7 @@ function DetailPage(props) {
                                 <option disabled key="default" value=""></option>
                                 {/* {console.log("props.ideas",props.ideas)} */}
                                 {props.ideas.map((font, idx) => (
-                                    <option key={idx} value={font.title} style={{ fontSize: font }}>
+                                    <option key={idx} value={font.title} id={font.id} style={{ fontSize: font }}>
                                         {font.title}
                                     </option>
                                 ))}
