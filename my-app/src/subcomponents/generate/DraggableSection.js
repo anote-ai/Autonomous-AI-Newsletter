@@ -35,7 +35,7 @@ const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, fontSize
   let allContent
   if (id === "logo") {
     allContent = (
-      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center mx-auto cursor-pointer px-5 py-2 rounded-md shadow-md`}>
         {content && content !== "" && (
           <img className='w-10 h-10' src={content}></img>
         )}

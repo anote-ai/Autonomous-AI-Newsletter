@@ -24,34 +24,34 @@ const sectionArrangements = {
   'Freshly Brewed': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'High Gloss': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'The NewPort': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     {
       id: 'article1', title: "", content: ' \
     #1 link of the day/related story of interest \
     #2 link of the day/related story of interest \
     #3 link of the day/related story of interest \
-    ', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
+    ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
     },
-    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-32', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
 };

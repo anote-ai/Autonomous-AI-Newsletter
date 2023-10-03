@@ -112,6 +112,19 @@ function RightControl(props) {
             }
         </div>
     )
+    let generateNews = () => {
+        return (
+        <div className="flex items-center">
+                <Button
+                    onClick={(e) => {
+                        generateGPTData("content1");
+                    }}>
+                    Generate News
+                </Button>
+                <span className="ml-2">{loadingNewsData}</span>
+         </div>
+        )
+    }
     let backgroundColorChange = () => {
         let temSections = JSON.parse(JSON.stringify(props.sections));
         let initialBackgroundColor = temSections.filter((item) => {
@@ -387,14 +400,7 @@ function RightControl(props) {
     else if (props.select === "content1") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("content1");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -455,14 +461,7 @@ function RightControl(props) {
     else if (props.select === "content2") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("content2");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -479,14 +478,7 @@ function RightControl(props) {
     else if (props.select === "content3") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("content3");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -503,14 +495,7 @@ function RightControl(props) {
     else if (props.select === "article1") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("article1");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -527,14 +512,7 @@ function RightControl(props) {
     else if (props.select === "article2") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("article2");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -551,14 +529,7 @@ function RightControl(props) {
     else if (props.select === "article3") {
         content = (
             <div>
-                {loadingNewsData}
-                <Button
-                    onClick={(e) => {
-                        generateGPTData("article3");
-                    }}
-                >
-                    Generate News
-                </Button>
+                {generateNews()}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
