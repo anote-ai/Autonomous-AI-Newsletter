@@ -40,6 +40,20 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     return response_str;
 });
 
+export const getIntroData = createAsyncThunk("IntroData/get", async (payload, thunk) => {
+    const response = await fetcher('getIntroData', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    // console.log("step1111")
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+});
+
 export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, thunk) => {
     // console.log(payload);
     // console.log(`run-script?key_word=${payload}`);
@@ -52,13 +66,13 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     // else if(payload.topic.length > 1){
         
     // }
-    // console.log(payload.firstPageData[0].data);
+    console.log(payload.firstPageData[3]);
 
     let reqBody = {
         topic: payload.firstPageData[0].data,
         backgroundColor: payload.BackgroundColor,
         data : payload.data,
-        idea_id: payload.firstPageData[3].data,
+        idea_id: payload.firstPageData[3].ideaId,
         theme: payload.firstPageData[2].data,
         character: payload.firstPageData[4].data
     }

@@ -100,10 +100,12 @@ function GenerateSession(props) {
           setNewsletter({ firstPageData: firstPageData, BackgroundColor: majorityColor, data: reduxUseData })
         );
         // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
+        // console.log("firstPageData[3]", firstPageData[3])
         let data = aIdeas.filter((each)=>{
-          return each.id == firstPageData[3].data
+          // console.log(each)
+          return each.id == firstPageData[3].ideaId
         })
-
+        // console.log(data);
         let reqBody = {
           id:data[0].id,
           title:data[0].title,

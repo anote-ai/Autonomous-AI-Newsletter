@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -36,6 +36,27 @@ function RightControl(props) {
                 if (item.id === data.payload[0].id) {
                     item.content = data.payload[0]['summary']
                     item.title = data.payload[0]['title']
+                }
+            })
+            console.log(temSections)
+            props.setSections(temSections)
+            setLoadingNews(false)
+
+        }
+        catch (e) {
+            setLoadingNews(false)
+            alert(e);
+        }
+    }
+    async function generateIntroData(newsId) {
+        // console.log(firstPageDataFRedux[5].data);
+        setLoadingNews(true)
+        try {
+            let temSections = JSON.parse(JSON.stringify(props.sections));
+            let data = await dispatch(getIntroData());
+            temSections.forEach((item) => {
+                if (item.id === newsId) {
+                    item.content = data.payload["data"]
                 }
             })
             console.log(temSections)
@@ -358,6 +379,14 @@ function RightControl(props) {
     else if (props.select === "intro") {
         content = (
             <div>
+                {loadingNewsData}
+                <Button
+                    onClick={(e) => {
+                        generateIntroData("intro")
+                    }}
+                >
+                    Generate Intro
+                </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
             </div>

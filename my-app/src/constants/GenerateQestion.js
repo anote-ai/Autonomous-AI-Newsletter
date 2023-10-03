@@ -25,6 +25,7 @@ export const GenerateQestion = {
             title: 'Which idea you want for this NewsLetter',
             require: true,
             type: 'ideaSelect',
+            ideaId: 0,
             data: '',
             id: 4
         },
