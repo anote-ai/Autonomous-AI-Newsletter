@@ -30,7 +30,7 @@ function RightControl(props) {
             let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle, newsId: newsId }));
             // console.log(data.payload);
             console.log(data.payload)
-            if(data.payload && data.payload.length !== 0){
+            if (data.payload && data.payload.length !== 0) {
                 temUrlArr.push(data.payload[0]['url']);
                 // console.log("tem", temUrlArr)
                 await dispatch(setUrlArr(temUrlArr));
@@ -44,7 +44,7 @@ function RightControl(props) {
                 props.setSections(temSections)
                 setLoadingNews(false)
             }
-            else{
+            else {
                 alert("please use another idea, didn't find related news")
                 setLoadingNews(false)
             }
@@ -82,7 +82,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getStoryData({idea: firstPageDataFRedux[3].data, content:firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
+            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[3].data, content: firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -120,7 +120,7 @@ function RightControl(props) {
             }
         })
         // console.log(data)
-        console.log(initialBackgroundColor)
+        // console.log(initialBackgroundColor)
         return (
             <div className="flex flex-col items-center my-5">
                 <div className="flex flex-col w-full items-center">
@@ -185,7 +185,7 @@ function RightControl(props) {
                         Change Font Color
                     </span>
                     <Select2
-                        value = {initialFontColor.length === 0 ? "" : initialFontColor[0].fontColor}
+                        value={initialFontColor.length === 0 ? "" : initialFontColor[0].fontColor}
                         onChange={(e) => {
                             temSections.forEach((item) => {
                                 if (item.id === props.select) {
@@ -231,7 +231,7 @@ function RightControl(props) {
                         Change Font Size
                     </span>
                     <Select2
-                        value = {initialFontSize.length === 0 ? "" : initialFontSize[0].fontSize}
+                        value={initialFontSize.length === 0 ? "" : initialFontSize[0].fontSize}
                         onChange={(e) => {
                             temSections.forEach((item) => {
                                 if (item.id === props.select) {
@@ -261,6 +261,13 @@ function RightControl(props) {
                 </div>
             </div>
         )
+    }
+    let deleteElement = () => {
+        let temSections = JSON.parse(JSON.stringify(props.sections));
+        let newSections = temSections.filter((item) => {
+            return item.id !== props.select
+        })
+        props.setSections(newSections)
     }
     if (props.select === "layOut") {
         content = (
@@ -327,6 +334,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
                         <span>
@@ -388,6 +402,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -405,6 +426,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -422,6 +450,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -439,6 +474,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -456,6 +498,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -473,6 +522,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -490,6 +546,52 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
+            </div>
+        )
+    }
+    else if (props.select === "image") {
+        let tem = JSON.parse(JSON.stringify(props.sections));
+        let data
+        tem.forEach((item)=>{
+            if(item.id === props.select){
+                data = item.content
+            }
+        })
+        content = (
+            <div>
+                <TextInput
+                    addon="url"
+                    required
+                    type="text"
+                    placeholder="http://"
+                    onChange={(e) => {
+                        tem.forEach((item)=>{
+                            if(item.id === props.select){
+                                item.content = e.target.value
+                            }
+                        })
+                        props.setSections(tem);
+                    }}
+                    className="my-2 w-full mx-auto"
+                    value={data}
+                ></TextInput>
+                {backgroundColorChange()}
+                {fontColorChange()}
+                {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
@@ -499,6 +601,13 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
             </div>
         )
     }
