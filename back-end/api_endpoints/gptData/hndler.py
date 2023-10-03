@@ -25,7 +25,7 @@ def gpt(text):
 
 def generateIdeas(text, format):
     prompt = f'''
-    Your task is to come up with 5 day plan for email newsletter ideas. it should be based on the questions and answers we asked our users below to generate.
+    Your task is to come up with 10 day plan for email newsletter ideas. it should be based on the questions and answers we asked our users below to generate.
     Try to keep the word count of each idea within 15 words.
     The response should be the JSON format where we get ideas for all days as well as sub ideas for articles.
     The json should look like this:
