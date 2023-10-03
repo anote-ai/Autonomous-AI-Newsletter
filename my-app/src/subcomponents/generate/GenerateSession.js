@@ -24,7 +24,8 @@ import {
   generateIdeas,
   updateIdeas,
   deleteIdeas,
-  useBackgroundColor
+  useBackgroundColor,
+  clearData
 } from "../../redux/newsLetterSlice";
 import { red } from "@mui/material/colors";
 
@@ -117,6 +118,7 @@ function GenerateSession(props) {
         
         let updateIdea = await dispatch(updateIdeas(reqBody))
         alert("update success");
+        dispatch(clearData());
         navigate("/");
       } catch (e) {
         alert(e);

@@ -31,6 +31,29 @@ function EachNewsletter(props) {
         const urlPattern = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?$/;
         return urlPattern.test(str);
     }
+    const copyHTMLContent = () => {
+        const newsletterElement = document.querySelector('.bg-gray-900');
+        const tempElement = document.createElement('div');
+        tempElement.appendChild(newsletterElement.cloneNode(true));
+        const htmlContent = tempElement.innerHTML;
+        copyToClipboard(htmlContent);
+    };
+
+    const copyContentWithTitleAndFontColor = () => {
+        const contentElements = document.querySelectorAll('.bg-gray-600, .text-gray-900');
+        const copiedContent = Array.from(contentElements).map((element) => element.textContent).join('\n');
+        copyToClipboard(copiedContent);
+    };
+
+    const copyToClipboard = (text) => {
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = text;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+        alert("Copied to clipboard!");
+    };
     const opacity = 1;
     return (
         <div className="bg-gray-800 w-screen h-[94%]">
@@ -87,6 +110,12 @@ function EachNewsletter(props) {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className="fixed bottom-5 left-5">
+                <div className='flex flex-col h-24, w-32'>
+                    <Button onClick={copyHTMLContent}>Copy HTML Content</Button>
+                    <Button onClick={copyContentWithTitleAndFontColor}>Copy Content, Title, and Font Color</Button>
                 </div>
             </div>
         </div>
