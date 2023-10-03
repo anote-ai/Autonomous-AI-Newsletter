@@ -71,7 +71,7 @@ function EachNewsletter(props) {
                                                 : ''} ${''} mb-5`
                                         }>
                                             {id === "logo" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center border-gray-600 border cursor-pointer px-5 py-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center px-5 py-2 rounded-md shadow-md`}>
                                                     {content && content !== "" && (
                                                         <img className='w-10 h-10' src={content}></img>
                                                     )}
@@ -79,14 +79,14 @@ function EachNewsletter(props) {
                                                 </div>
                                             )}
                                             {id === "footer" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
                                                     {content.map((each) => {
                                                         return (<div> {each} </div>)
                                                     })}
                                                 </div>
                                             )}
                                             {id === "image" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
                                                     {content && content !== "" && isURL(content) ? (
                                                         <img className='w-10 h-10' src={content}></img>
                                                     ) : (<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
@@ -95,7 +95,7 @@ function EachNewsletter(props) {
                                                 </div>
                                             )}
                                             {id !== "logo" && id !== "footer" && id !== "image" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 cursor-pointer p-2 rounded-md shadow-md`}>
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
                                                     {title && title !== '' && (
                                                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
                                                             {title}
