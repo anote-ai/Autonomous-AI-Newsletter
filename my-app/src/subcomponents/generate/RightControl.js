@@ -316,6 +316,38 @@ function RightControl(props) {
                         </Select2>
                     </div>
                 </div>
+                <div className="flex flex-col items-center my-5">
+                    <div className="flex flex-col w-full items-center">
+                        <span>
+                            Change Font Color for All
+                        </span>
+                        <Select2
+                            onChange={(e) => {
+                                let temSections = JSON.parse(JSON.stringify(props.sections));
+                                temSections.forEach((item) => {
+                                    item.fontColor = e.target.value
+                                })
+                                console.log(temSections)
+                                props.setSections(temSections)
+                            }}
+                            className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                        >
+                            {colors.map((color, idx) => (
+                                <MenuItem key={idx} value={color}>
+                                    <div
+                                        style={{
+                                            backgroundColor: color,
+                                            width: "80%",
+                                            height: "20px",
+                                            margin: "auto",
+                                        }}
+                                    />
+                                </MenuItem>
+                            ))}
+                        </Select2>
+                    </div>
+                </div>
             </div>
 
         )
@@ -559,8 +591,8 @@ function RightControl(props) {
     else if (props.select === "image") {
         let tem = JSON.parse(JSON.stringify(props.sections));
         let data
-        tem.forEach((item)=>{
-            if(item.id === props.select){
+        tem.forEach((item) => {
+            if (item.id === props.select) {
                 data = item.content
             }
         })
@@ -572,8 +604,8 @@ function RightControl(props) {
                     type="text"
                     placeholder="http://"
                     onChange={(e) => {
-                        tem.forEach((item)=>{
-                            if(item.id === props.select){
+                        tem.forEach((item) => {
+                            if (item.id === props.select) {
                                 item.content = e.target.value
                             }
                         })
