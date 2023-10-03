@@ -278,9 +278,10 @@ function RightControl(props) {
     let deleteElement = () => {
         let temSections = JSON.parse(JSON.stringify(props.sections));
         let newSections = temSections.filter((item) => {
-            return item.id !== props.select
+            return item.id !== props.select;
         })
-        props.setSections(newSections)
+        props.handleOnSelect(props.select);
+        props.setSections(newSections);
     }
     if (props.select === "layOut") {
         content = (
