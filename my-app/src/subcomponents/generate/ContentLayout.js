@@ -32,7 +32,7 @@ const sectionArrangements = {
   ],
   'High Gloss': [
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'image', title: "", content: 'Image + CTA to head to shop, 1-2 lines', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-20', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
