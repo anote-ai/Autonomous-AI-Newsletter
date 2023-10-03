@@ -91,6 +91,9 @@ function GenerateSession(props) {
       let tem = pageState;
       setPageState((tem -= 1));
     }
+    else if(pageState === 1){
+      navigate('/')
+    }
   }
   async function getNextStep() {
     if (pageState == pageTotal) {
