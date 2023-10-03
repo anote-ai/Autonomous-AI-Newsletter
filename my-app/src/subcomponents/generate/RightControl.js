@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -32,21 +32,22 @@ function RightControl(props) {
             console.log(data.payload)
             if(data.payload && data.payload.length !== 0){
                 temUrlArr.push(data.payload[0]['url']);
+                // console.log("tem", temUrlArr)
+                await dispatch(setUrlArr(temUrlArr));
+                temSections.forEach((item) => {
+                    if (item.id === data.payload[0].id) {
+                        item.content = data.payload[0]['summary']
+                        item.title = data.payload[0]['title']
+                    }
+                })
+                console.log(temSections)
+                props.setSections(temSections)
+                setLoadingNews(false)
             }
             else{
                 alert("please use another idea, didn't find related news")
+                setLoadingNews(false)
             }
-            // console.log("tem", temUrlArr)
-            await dispatch(setUrlArr(temUrlArr));
-            temSections.forEach((item) => {
-                if (item.id === data.payload[0].id) {
-                    item.content = data.payload[0]['summary']
-                    item.title = data.payload[0]['title']
-                }
-            })
-            console.log(temSections)
-            props.setSections(temSections)
-            setLoadingNews(false)
 
         }
         catch (e) {
@@ -60,6 +61,29 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             let data = await dispatch(getIntroData());
+            temSections.forEach((item) => {
+                if (item.id === newsId) {
+                    item.content = data.payload["data"]
+                }
+            })
+            console.log(temSections)
+            props.setSections(temSections)
+            setLoadingNews(false)
+
+        }
+        catch (e) {
+            setLoadingNews(false)
+            alert(e);
+        }
+    }
+    async function generateStoryData(newsId) {
+        // console.log(firstPageDataFRedux[5].data);
+        setLoadingNews(true)
+        try {
+            let temSections = JSON.parse(JSON.stringify(props.sections));
+            // console.log("sddssssssssss")
+            let data = await dispatch(getStoryData({idea: firstPageDataFRedux[3].data, content:firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
+            // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
                     item.content = data.payload["data"]
@@ -455,6 +479,14 @@ function RightControl(props) {
     else if (props.select === "story1") {
         content = (
             <div>
+                {loadingNewsData}
+                <Button
+                    onClick={(e) => {
+                        generateStoryData("story1")
+                    }}
+                >
+                    Generate Story
+                </Button>
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}

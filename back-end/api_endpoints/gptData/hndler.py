@@ -26,6 +26,7 @@ def gpt(text):
 def generateIdeas(text):
     prompt = f'''
     Your task is to come up with 5 innovative and engaging ideas for an email newsletter based on the questions and answers we asked our users below to generate.
+    Try to keep the word count of each idea within 15 words.
     you should only response the ideas data without any other text or description.
     information:
 
@@ -41,6 +42,21 @@ def generateIntro(text):
     prompt = f'''
     Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
     you should only response the intro data without any other text or description.
+    information:
+
+    ```
+    {text}
+    ```
+    '''
+    # print(prompt)
+    # print("title reply", reply)
+    return prompt
+
+def generateStory(text, characterText):
+    prompt = f'''
+    Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
+    {characterText}
+    you should only response the story data without any other text or description.
     information:
 
     ```
@@ -182,8 +198,8 @@ def getGPTData(request):
     # print("searchWord:",searchWord)
     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
     url = f"https://news.google.com/search?q={key_word}&hl=en-US&gl=US&ceid=US%3Aen"
-    # print(url)
-
+    print(url)
+    print(searchUrlArr)
     url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')
 
@@ -192,28 +208,30 @@ def getGPTData(request):
         try:
             this_news = {}
             url = "https://news.google.com/" + i['href']  # url at google
-            # print("first", url)
             url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
-            url = bs.find('a', href=True, rel="nofollow")[
-                "href"]  # real news url
+            url = bs.find('a', href=True, rel="nofollow")["href"]  # real news url
+            # print("first", url)
             if(url in searchUrlArr):
                 continue
             # print("seconed", url)
             # print("real url", url)
+            # print("step111")
             url_obj = session.get(url, headers=headers)
             # print("url_obj", url_obj)
             bs = BeautifulSoup(url_obj.text, "html.parser")
             # print("bs", bs.text)
+            # print("step2222")
             prompt_summary = generatePrompt_summary(bs.text, characterText)
             prompt_date = generatePrompt_date(bs.text)
-            # print("prompt_summary", prompt_summary)
+            # print("prompt_summary")
             # print("prompt_date", prompt_date)
             this_news['id'] = newsId
             this_news['title'] = generate_title(bs.text)
             this_news['url'] = url
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
+            # print(this_news)
             news.append(this_news)
             break
         except:
@@ -484,5 +502,56 @@ def getIntro(request, user_email):
         return res
 
     except Exception as e:
-        print("Error delete Ideas:", str(e))
+        print("Error generate Intro:", str(e))
+        return "error"
+    
+def getStory(request, user_email):
+    user_id = user_id_for_email(user_email)
+    try:
+        idea = request.json.get("idea", '')
+        content = request.json.get("content", "")
+        characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+        characterText = personality[characterStyle]
+        print("dataadsfafafa")
+        resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
+        resultPageThree = get_detail_by_userID_three_four(
+            user_id, "userDetailPageThree")
+        if (resultPageOne == False):
+            return 'false'
+        page_three_data = {}
+        if (resultPageThree != False):
+            for row in resultPageThree:
+                page_three_data[row.get('question_name')] = row.get('data')
+        data = {
+            "idea for the newsletter": idea,
+            "Recent Content description": content,
+            'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
+            'Business Category': resultPageOne.get('Business Category'),
+            'Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice': page_three_data['Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice'],
+        }
+        print(data)
+        for key, value in data.items():
+            try:
+                parsed_value = ast.literal_eval(value)
+                if isinstance(parsed_value, list):
+                    data[key] = parsed_value
+            except (SyntaxError, ValueError):
+                pass
+        formatted_text = ""
+
+        for key, value in data.items():
+            if isinstance(value, list):
+                value_str = ", ".join(value)
+            else:
+                value_str = value
+
+            formatted_text += f"{key}: {value_str}\n"
+        prompt = generateStory(formatted_text, characterText)
+        intros = gpt(prompt)
+        res = {"data": intros}
+        print("asdfasdf")
+        return res
+
+    except Exception as e:
+        print("Error generate Story:", str(e))
         return "error"
