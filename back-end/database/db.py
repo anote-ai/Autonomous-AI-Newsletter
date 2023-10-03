@@ -900,10 +900,10 @@ def delete_newsletter_byId(user_id, id):
     else:
         return 'user not exist'
     
-def add_ideas_withId(user_id, data):
+def add_ideas_withId(user_id, data, subIdea):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):
-        cursor.execute("INSERT INTO AllIdeas (user_id, title) VALUES (%s, %s)", (user_id, data))
+        cursor.execute("INSERT INTO AllIdeas (user_id, title, subIdea) VALUES (%s, %s, %s)", (user_id, data, subIdea))
         # print("step3")
         conn.commit()
         inserted_id = cursor.lastrowid
@@ -919,7 +919,7 @@ def get_all_Ideas(user_id):
         # print('step2')
             # Update the existing record
             # Insert a new record
-        query = "SELECT id, title, used FROM AllIdeas WHERE user_id = %s"
+        query = "SELECT id, title, used, subIdea FROM AllIdeas WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         newsletters = cursor.fetchall()
         # print("step3")

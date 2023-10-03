@@ -27,6 +27,7 @@ export const GenerateQestion = {
             type: 'ideaSelect',
             ideaId: 0,
             data: '',
+            subIdea: [],
             id: 4
         },
         {

@@ -68,7 +68,7 @@ function GenerateSession(props) {
     try {
       let data = await dispatch(generateIdeas());
       let tem = JSON.parse(JSON.stringify(aIdeas));
-      // console.log("data", tem)
+      console.log("data", data)
 
       if (data.payload && data.payload.length !== 0) {
         let deleteList = tem.filter((each) =>{return each.used !== true})
@@ -77,7 +77,7 @@ function GenerateSession(props) {
         tem = [...usedTrueList, ...data.payload];
         let deleteIdeasR = await dispatch(deleteIdeas(reqBode))
       }
-      console.log('tem', tem)
+      // console.log('tem', tem)
       setAIdeas(tem);
       dispatch(setIdeas(tem));
       setLoadingIdeas(false);

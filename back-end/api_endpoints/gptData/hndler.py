@@ -23,12 +23,13 @@ def gpt(text):
     # print('reply', reply)
     return reply["choices"][0]["message"]["content"]
 
-def generateIdeas(text):
+def generateIdeas(text, format):
     prompt = f'''
-    Your task is to come up with 5 innovative and engaging ideas for an email newsletter based on the questions and answers we asked our users below to generate.
+    Your task is to come up with 5 day plan for email newsletter ideas. it should be based on the questions and answers we asked our users below to generate.
     Try to keep the word count of each idea within 15 words.
-    you should only response the ideas data without any other text or description.
-    information:
+    The response should be the JSON format where we get ideas for all days as well as sub ideas for articles.
+    The json should look like this:
+    {format}
 
     ```
     {text}
@@ -36,6 +37,7 @@ def generateIdeas(text):
     '''
     # print(prompt)
     # print("title reply", reply)
+    # print(prompt)
     return prompt
 
 def generateIntro(text):
@@ -56,7 +58,22 @@ def generateStory(text, characterText):
     prompt = f'''
     Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
     {characterText}
-    you should only response the story data without any other text or description.
+    you should only response the story datanonly without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
+    information:
+
+    ```
+    {text}
+    ```
+    '''
+    # print(prompt)
+    # print("title reply", reply)
+    return prompt
+
+def generateArticle(text, characterText):
+    prompt = f'''
+    Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
+    {characterText}
+    you should only response the article data only without any other text or description or name or newsletter end or title of the article or Your Character Name something like this.
     information:
 
     ```
@@ -198,7 +215,7 @@ def getGPTData(request):
     # print("searchWord:",searchWord)
     # https://news.google.com/search?q=trend%20style&hl=en-US&gl=US&ceid=US%3Aen
     url = f"https://news.google.com/search?q={key_word}&hl=en-US&gl=US&ceid=US%3Aen"
-    print(url)
+    print(key_word)
     print(searchUrlArr)
     url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')
@@ -353,26 +370,31 @@ def getIdeasFromGPT(request, userEmail):
                 value_str = value
 
             formatted_text += f"{key}: {value_str}\n"
-        # print(formatted_text)
-        prompt = generateIdeas(formatted_text)
+        # print("formatted", formatted_text)
+        formatData = {"newsletter_plan": [{"day":  "value", "idea": "value","sub_ideas": ["value", "value", "value"]}]}
+        prompt = generateIdeas(formatted_text, formatData)
+        # print("")
         ideas = gpt(prompt)
         # print(ideas)
-        cleaned_data = [re.sub(r'^\d+\.\s*', '', item.strip()) for item in ideas.split('\n') if item.strip()]
+        # print(json.loads(ideas))
+        ideas = json.loads(ideas)
+        # cleaned_data = [re.sub(r'^\d+\.\s*', '', item.strip()) for item in ideas.split('\n') if item.strip()]
         # print(cleaned_data)
         res = []
-        for each in cleaned_data:
-            id = add_ideas_withId(user_id, each)
+        for each in ideas["newsletter_plan"]:
+            # print(each)
+            id = add_ideas_withId(user_id, each["idea"], str(each["sub_ideas"]))
             obj = {'id':id,
-                   'title': each,
+                   'title': each["idea"],
+                   "subIdea": each["sub_ideas"],
                    'used': False}
-            print(obj)
+            # print(obj)
             res.append(obj)
-        # cleaned_data = [re.sub(r'^\d+\.\s*\"(.*?)\"$', r'\1', item.strip()) for item in ideas.split('\n') if item.strip()]
-        # print(cleaned_data)
         return res
 
-    except:
-        return 'error'
+    except Exception as e:
+        print("Error generate Idea", str(e))
+        return "error"
     
 def getAllIdeas(userEmail):
     user_id = user_id_for_email(userEmail)
@@ -386,8 +408,9 @@ def getAllIdeas(userEmail):
             if obj.get('used') == 1:
                 flag = True
             obj['used'] = flag
+            obj["subIdea"] = ast.literal_eval(obj["subIdea"])
         # print(result)
-        return result
+        return jsonify(result)
     except Exception as e:
         print("Error get Idea", str(e))
         return "error"
@@ -550,6 +573,47 @@ def getStory(request, user_email):
         intros = gpt(prompt)
         res = {"data": intros}
         print("asdfasdf")
+        return res
+
+    except Exception as e:
+        print("Error generate Story:", str(e))
+        return "error"
+    
+def getArticle(request, user_email):
+    user_id = user_id_for_email(user_email)
+    try:
+        idea = request.json.get("idea", '')
+        content = request.json.get("content", "")
+        characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+        characterText = personality[characterStyle]
+        # print("dataadsfafafa")
+        data = {
+            "idea for the Article": idea,
+            "Recent Content description": content,
+        }
+        print(data)
+        for key, value in data.items():
+            try:
+                parsed_value = ast.literal_eval(value)
+                if isinstance(parsed_value, list):
+                    data[key] = parsed_value
+            except (SyntaxError, ValueError):
+                pass
+        formatted_text = ""
+
+        for key, value in data.items():
+            if isinstance(value, list):
+                value_str = ", ".join(value)
+            else:
+                value_str = value
+
+            formatted_text += f"{key}: {value_str}\n"
+        # print("formatted Text",formatted_text)
+        prompt = generateArticle(formatted_text, characterText)
+        # print(prompt)
+        intros = gpt(prompt)
+        res = {"data": intros}
+        # print("asdfasdf")
         return res
 
     except Exception as e:

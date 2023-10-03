@@ -111,6 +111,7 @@ CREATE TABLE AllIdeas (
     user_id INTEGER not null,
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255),
+    subIdea TEXT,
     used boolean DEFAULT false
 );
 
