@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -99,6 +99,29 @@ function RightControl(props) {
             alert(e);
         }
     }
+    async function generateArticleData(newsId, idea) {
+        // console.log(firstPageDataFRedux[5].data);
+        setLoadingNews(true)
+        try {
+            let temSections = JSON.parse(JSON.stringify(props.sections));
+            // console.log("sddssssssssss")
+            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
+            // console.log(data.payload)
+            temSections.forEach((item) => {
+                if (item.id === newsId) {
+                    item.content = data.payload["data"]
+                }
+            })
+            console.log(temSections)
+            props.setSections(temSections)
+            setLoadingNews(false)
+
+        }
+        catch (e) {
+            setLoadingNews(false)
+            alert(e);
+        }
+    }
     let loadingNewsData = (
         <div>
             {loadingNews &&
@@ -122,6 +145,18 @@ function RightControl(props) {
                     Generate News
                 </Button>
                 <span className="ml-2">{loadingNewsData}</span>
+         </div>
+        )
+    }
+    let generateArticle = (idea) => {
+        return (
+        <div className="flex items-center">
+                <Button
+                    onClick={(e) => {
+                        generateArticleData(props.select, idea);
+                    }}>
+                    Generate Article
+                </Button>
          </div>
         )
     }
@@ -399,9 +434,11 @@ function RightControl(props) {
         )
     }
     else if (props.select === "content1") {
+        console.log(firstPageDataFRedux[3])
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -463,6 +500,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -480,6 +518,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[3])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -497,6 +536,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -514,6 +554,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -531,6 +572,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
+                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}

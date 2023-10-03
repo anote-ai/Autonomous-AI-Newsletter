@@ -75,6 +75,27 @@ export const getStoryData = createAsyncThunk("StoryData/get", async (payload, th
     return response_str;
 });
 
+export const getArticleData = createAsyncThunk("ArticleData/get", async (payload, thunk) => {
+    let reqBody = {
+        idea: payload.idea,
+        content: payload.content,
+        characterStyle: payload.characterStyle
+    }
+    console.log("reererere",reqBody);
+    const response = await fetcher('getArticleData', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(reqBody)
+    });
+    // console.log("step1111")
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+});
+
 export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, thunk) => {
     // console.log(payload);
     // console.log(`run-script?key_word=${payload}`);
