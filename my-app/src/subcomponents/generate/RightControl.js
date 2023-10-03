@@ -117,7 +117,7 @@ function RightControl(props) {
         <div className="flex items-center">
                 <Button
                     onClick={(e) => {
-                        generateGPTData("content1");
+                        generateGPTData(props.select);
                     }}>
                     Generate News
                 </Button>
