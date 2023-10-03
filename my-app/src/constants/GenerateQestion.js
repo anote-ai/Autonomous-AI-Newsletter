@@ -37,11 +37,18 @@ export const GenerateQestion = {
             id: 5
         },
         {
-            title: "Recent Content description?",
+            title: 'Type in your Sponsor company',
+            require: true,
+            type: 'input',
+            data: '',
+            id: 6
+        },
+        {
+            title: "Recent Content description? (Use for generate the story)",
             require: false,
             type: 'text',
             data: '',
-            id: 6
+            id: 7
         }
     ],
     backgroundColor: "",

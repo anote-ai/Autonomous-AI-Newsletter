@@ -95,6 +95,9 @@ const ContentLayout = ({ layoutType,
             item.title = firstPageDetailDataFRedux[2].data
             item.content = firstPageDetailDataFRedux[3].data
           }
+          else if (item.id == "sponsor1"){
+            item.content = "Sponsor By " + firstPageData[5].data;
+          }
           else if (item.id == "footer") {
             item.content = [];
             for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
