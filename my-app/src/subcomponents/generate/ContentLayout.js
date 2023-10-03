@@ -215,6 +215,7 @@ const ContentLayout = ({ layoutType,
           firstPageData={firstPageData}
           select={select}
           sections={sections}
+          handleOnSelect = {handleOnSelect}
           setSections={setSections}
           majorityColor={majorityColor}
           setMajorityColor={setMajorityColor}
