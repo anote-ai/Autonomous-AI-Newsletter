@@ -38,7 +38,7 @@ export const GenerateQestion = {
         },
         {
             title: 'Type in your Sponsor company',
-            require: true,
+            require: false,
             type: 'input',
             data: '',
             id: 6
