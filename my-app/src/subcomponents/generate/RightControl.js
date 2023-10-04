@@ -408,8 +408,8 @@ function RightControl(props) {
                 >
                     <option disabled key="default" value=""></option>
                     {ThemeTopic.map((font, idx) => (
-                        <option key={idx} value={font} style={{ fontSize: font }}>
-                            {font}
+                        <option key={idx} value={font.name} style={{ fontSize: font }}>
+                            {font.name}
                         </option>
                     ))}
                 </Select1>
