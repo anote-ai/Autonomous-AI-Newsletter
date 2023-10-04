@@ -36,9 +36,11 @@ const sectionArrangements = {
     { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'content',title: "", content: [
+      { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+      { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+      { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    ], css: "flex items-start justify-around w-full", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
@@ -118,6 +120,13 @@ const ContentLayout = ({
           item.fontColor = firstPageDetailDataFRedux[7].data
           item.fontStyle = firstPageDetailDataFRedux[8].data
           item.fontSize = secondPageDetailDataFRedux[3].data
+          if (item.id == "content") {
+            item.content.forEach((each) => {
+              each.fontColor = firstPageDetailDataFRedux[7].data
+              each.fontStyle = firstPageDetailDataFRedux[8].data
+              each.fontSize = secondPageDetailDataFRedux[3].data
+            })
+          }
           if (item.id === "logo") {
             item.title = firstPageDetailDataFRedux[2].data
             item.content = firstPageDetailDataFRedux[3].data
@@ -174,6 +183,13 @@ const ContentLayout = ({
           item.fontColor = firstPageDetailDataFRedux[7].data
           item.fontStyle = firstPageDetailDataFRedux[8].data
           item.fontSize = secondPageDetailDataFRedux[3].data
+          if (item.id == "content") {
+            item.content.forEach((each) => {
+              each.fontColor = firstPageDetailDataFRedux[7].data
+              each.fontStyle = firstPageDetailDataFRedux[8].data
+              each.fontSize = secondPageDetailDataFRedux[3].data
+            })
+          }
           if (item.id === "logo") {
             item.title = firstPageDetailDataFRedux[2].data
             item.content = firstPageDetailDataFRedux[3].data
@@ -198,7 +214,7 @@ const ContentLayout = ({
   }
 
   const handleOnSelect = (data) => {
-    console.log("select")
+    console.log("select",data)
     if (data !== select) {
       setSelect(data);
     }
@@ -214,30 +230,54 @@ const ContentLayout = ({
 
       <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
         <DndProvider backend={HTML5Backend}>
-          <div className="p-4">
-            {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => (
-              <div key={id} className={
-                `${secondPageData[0].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
-                  ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
-                  : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5`
-              }
-                onClick={() => { handleOnSelect(id) }}>
-                <DraggableSection
-                  css={css}
-                  key={id}
-                  backgroundColor={backgroundColor}
-                  fontColor={fontColor}
-                  fontStyle={fontStyle}
-                  fontSize={fontSize}
-                  id={`${id}`}
-                  content={content}
-                  title={title}
-                  moveSection={moveSection}
-                  findSection={findSection}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="p-4">
+  {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => {
+    const arrangement = sectionArrangements[secondPageData[0].data];
+    
+    if (arrangement && id == "content" && Array.isArray(content)) {
+      return (
+        <div key={id} className={css}>
+          {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
+            <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-5 w-2/5`} onClick={() => { handleOnSelect(id) }}>
+            <DraggableSection
+              css={css}
+              key={id}
+              backgroundColor={backgroundColor}
+              fontColor={fontColor}
+              fontStyle={fontStyle}
+              fontSize={fontSize}
+              id={id}
+              content={content}
+              title={title}
+              moveSection={moveSection}
+              findSection={findSection}
+            />
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-5`} onClick={() => { handleOnSelect(id) }}>
+          <DraggableSection
+            css={css}
+            key={id}
+            backgroundColor={backgroundColor}
+            fontColor={fontColor}
+            fontStyle={fontStyle}
+            fontSize={fontSize}
+            id={id}
+            content={content}
+            title={title}
+            moveSection={moveSection}
+            findSection={findSection}
+          />
+        </div>
+      );
+    }
+  })}
+</div>
+
         </DndProvider>
       </div>
       <div className="absolute bottom-5 left-10">

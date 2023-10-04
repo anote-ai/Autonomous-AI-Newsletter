@@ -11,41 +11,44 @@ import { fontSizes } from "../../constants/FontSize";
 
 
 function RightControl(props) {
+
     const sectionArrangements = {
         'Freshly Brewed': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'High Gloss': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'content',title: "", content: [
             { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
             { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
             { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          ], css: "flex items-center justify-center", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'The NewPort': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            {
-                id: 'article1', title: "", content: ' \
+          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          {
+            id: 'article1', title: "", content: ' \
           #1 link of the day/related story of interest \
           #2 link of the day/related story of interest \
           #3 link of the day/related story of interest \
           ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
-            },
-            { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          },
+          { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
-    };
+      };
     let dispatch = useDispatch();
     const [loadingNews, setLoadingNews] = useState(false);
     let content
@@ -74,6 +77,15 @@ function RightControl(props) {
                     if (item.id === data.payload[0].id) {
                         item.content = data.payload[0]['summary']
                         item.title = data.payload[0]['title']
+                    }
+                    else if(item.id === "content"){
+                        item.content.forEach((subItem) => {
+                            console.log("subItem",subItem)
+                            if(subItem.id === data.payload[0].id){
+                                subItem.content = data.payload[0]['summary']
+                                subItem.title = data.payload[0]['title']
+                            }
+                        })
                     }
                 })
                 console.log(temSections)
@@ -147,6 +159,14 @@ function RightControl(props) {
                 if (item.id === newsId) {
                     item.title = ""
                     item.content = data.payload["data"]
+                }
+                else if(item.id === "content"){
+                    item.content.forEach((subItem) => {
+                        if(subItem.id === newsId){
+                            subItem.title = ""
+                            subItem.content = data.payload["data"]
+                        }
+                    })
                 }
             })
             // console.log(temSections)
@@ -271,8 +291,17 @@ function RightControl(props) {
                             //     }
                             // })
                             temSections.forEach((item) => {
+                                console.log("props.select",props.select)
                                 if (item.id === props.select) {
                                     item.backgroundColor = e.target.value
+                                }
+                                else if(item.id === "content"){
+                                    item.content.forEach((subItem) => {
+                                        console.log("subItem",subItem)
+                                        if(subItem.id === props.select){
+                                            subItem.backgroundColor = e.target.value
+                                        }
+                                    })
                                 }
                             })
                             console.log(temSections)
@@ -319,6 +348,14 @@ function RightControl(props) {
                             temSections.forEach((item) => {
                                 if (item.id === props.select) {
                                     item.fontColor = e.target.value
+                                }   
+                                else if(item.id === "content"){
+                                    item.content.forEach((subItem) => {
+                                        console.log("subItem",subItem)
+                                        if(subItem.id === props.select){
+                                            subItem.fontColor = e.target.value
+                                        }
+                                    })
                                 }
                             })
                             console.log(temSections)
@@ -366,6 +403,14 @@ function RightControl(props) {
                                 if (item.id === props.select) {
                                     item.fontSize = e.target.value
                                 }
+                                else if(item.id === "content"){
+                                    item.content.forEach((subItem) => {
+                                        console.log("subItem",subItem)
+                                        if(subItem.id === props.select){
+                                            subItem.fontSize = e.target.value
+                                        }
+                                    })
+                                }
                             })
                             console.log(temSections)
                             props.setSections(temSections)
@@ -395,6 +440,14 @@ function RightControl(props) {
     let deleteElement = () => {
         let temSections = JSON.parse(JSON.stringify(props.sections));
         let newSections = temSections.filter((item) => {
+            console.log("item",item, "props.select",props.select)
+            if (item.id === "content" && item.content.length !== 0) {
+                let newContent = item.content.filter((subItem) => {
+                    return subItem.id !== props.select;
+                })
+                item.content = newContent;
+                return item;
+            }            
             return item.id !== props.select;
         })
         props.handleOnSelect(props.select);
@@ -458,7 +511,14 @@ function RightControl(props) {
                             onChange={(e) => {
                                 let temSections = JSON.parse(JSON.stringify(props.sections));
                                 temSections.forEach((item) => {
-                                    item.backgroundColor = e.target.value
+                                    if(item.id === 'content'){
+                                        item.content.forEach((elem) => {
+                                            elem.backgroundColor = e.target.value
+                                        })
+                                    }
+                                    else{
+                                        item.backgroundColor = e.target.value
+                                    }
                                 })
                                 console.log(temSections)
                                 props.setSections(temSections)
@@ -491,7 +551,14 @@ function RightControl(props) {
                             onChange={(e) => {
                                 let temSections = JSON.parse(JSON.stringify(props.sections));
                                 temSections.forEach((item) => {
+                                    if(item.id === 'content'){
+                                        item.content.forEach((elem) => {
+                                            elem.fontColor = e.target.value
+                                        })
+                                    }else{
                                     item.fontColor = e.target.value
+                                    }
+
                                 })
                                 console.log(temSections)
                                 props.setSections(temSections)
@@ -705,9 +772,7 @@ function RightControl(props) {
         content = (
             <div>
                 {loadingNewsData}
-                <Button className="w-full"
-                    outline
-                    color="success"
+                <Button
                     onClick={(e) => {
                         generateIntroData("intro")
                     }}
@@ -735,7 +800,7 @@ function RightControl(props) {
     else if (props.select === "story1") {
         content = (
             <div>
-                {loadingNewsData}
+                {/* {loadingNewsData} */}
                 <Button className="w-full"
                     outline
                     color="success"
