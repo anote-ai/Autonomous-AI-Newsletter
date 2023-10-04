@@ -197,22 +197,27 @@ function RightControl(props) {
 
     let generateNews = () => {
         return (
-            <div className="flex items-center">
+            <div className="my-2">
                 <Button
+                    color="success"
+                    outline
+                    className="w-full"
                     onClick={(e) => {
                         generateGPTData(props.select);
                     }}>
                     Generate News
                 </Button>
-                <span className="ml-2">{loadingNewsData}</span>
             </div>
         )
     }
 
     let generateArticle = (idea) => {
         return (
-            <div className="flex items-center">
+            <div className="my-2">
                 <Button
+                    color="success"
+                    outline
+                    className="w-full"
                     onClick={(e) => {
                         generateArticleData(props.select, idea);
                     }}>
@@ -226,6 +231,8 @@ function RightControl(props) {
         return (
             <div className="flex items-center">
                 <Button
+                    color="warning"
+                    outline
                     onClick={(e) => {
                         clearDataToDefault();
                     }}>
@@ -520,14 +527,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
                         <span>
@@ -781,6 +792,7 @@ function RightControl(props) {
         <div className="w-full h-full flex flex-col overflow-y-scroll py-5">
             <div className="flex justify-center items-center w-full h-14">
                 <h3>Custom Styles</h3>
+                <span className="ml-2">{loadingNewsData}</span>
             </div>
             <div className="w-full h-full">
                 {content}
