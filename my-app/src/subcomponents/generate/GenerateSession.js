@@ -22,6 +22,8 @@ import {
   setData,
   getAllIdeas,
   generateIdeas,
+  useGenPageTwo,
+  setGenPageTwo,
   updateIdeas,
   deleteIdeas,
   useBackgroundColor,
@@ -37,15 +39,17 @@ function GenerateSession(props) {
   const [pageState, setPageState] = useState(1);
   const location = useLocation();
   let firstPageDataFRedux = useTopic();
+  let secondPageDataFRedux = useGenPageTwo();
   let reduxIdeas = useIdeas();
   let reduxUseData = useData();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
+  const [secondPageData, setSecondPageData] = useState(secondPageDataFRedux);
   const [aIdeas, setAIdeas] = useState(reduxIdeas)
   let majorityColor = useBackgroundColor()
   // const [sections, setSections] = useState([]);
   // const [loading, setLoding] = useState(false);
 
-  let pageTotal = 3;
+  let pageTotal = 4;
 
   // let ddddd = useTopic();
   // console.log(ddddd)
@@ -72,8 +76,8 @@ function GenerateSession(props) {
       console.log("data", data)
 
       if (data.payload && data.payload.length !== 0) {
-        let deleteList = tem.filter((each) =>{return each.used !== true})
-        let reqBode = {data: deleteList}
+        let deleteList = tem.filter((each) => { return each.used !== true })
+        let reqBode = { data: deleteList }
         let usedTrueList = tem.filter(item => item.used === true);
         tem = [...usedTrueList, ...data.payload];
         let deleteIdeasR = await dispatch(deleteIdeas(reqBode))
@@ -92,7 +96,7 @@ function GenerateSession(props) {
       let tem = pageState;
       setPageState((tem -= 1));
     }
-    else if(pageState === 1){
+    else if (pageState === 1) {
       navigate('/')
     }
   }
@@ -101,21 +105,21 @@ function GenerateSession(props) {
       try {
         console.log(reduxUseData);
         let returnBack = await dispatch(
-          setNewsletter({ firstPageData: firstPageData, BackgroundColor: majorityColor, data: reduxUseData })
+          setNewsletter({ firstPageData: firstPageData, secondPageData: secondPageData, BackgroundColor: majorityColor, data: reduxUseData })
         );
         // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
         // console.log("firstPageData[3]", firstPageData[3])
-        let data = aIdeas.filter((each)=>{
+        let data = aIdeas.filter((each) => {
           // console.log(each)
-          return each.id == firstPageData[3].ideaId
+          return each.id == firstPageData[1].ideaId
         })
         // console.log(data);
         let reqBody = {
-          id:data[0].id,
-          title:data[0].title,
-          used:true
+          id: data[0].id,
+          title: data[0].title,
+          used: true
         }
-        
+
         let updateIdea = await dispatch(updateIdeas(reqBody))
         alert("update success");
         dispatch(clearData());
@@ -135,8 +139,15 @@ function GenerateSession(props) {
     dispatch(setTopic(info));
     // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
   }
+  function MSecondPageData(info) {
+    // console.log(info)
+    setSecondPageData(info);
+    // console.log(firstPageData)
+    dispatch(setGenPageTwo(info));
+    // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
+  }
   let routes = [];
-  routes = ["Select Theme", "Format NewsLetter", "Generate NewsLetter"];
+  routes = ["Newsletter Setup", "Persona & Theme Selection", "Format NewsLetter", "Generate NewsLetter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
@@ -186,48 +197,80 @@ function GenerateSession(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
     <div className="bg-gray-800 w-screen h-[94%]">
-    <div className={`${pageState === 2 ? "w-5/6 " : "w-screen"} flex flex-col `}>
-      <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
-        <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
-          <div className="mb-10">
-            <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
-              {routes.map((route, index) => (
-                <Step
-                  number={index + 1}
-                  text={route}
-                  isActive={pageState === index}
-                  index={index}
-                  currentIndex={pageState - 1}
-                  total={routes.length - 1}
-                />
-              ))}
-            </ol>
-          </div>
+      <div className={`${pageState === 3 ? "w-5/6 " : "w-screen"} flex flex-col `}>
+        <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
+          <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
+            <div className="mb-10">
+              <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
+                {routes.map((route, index) => (
+                  <Step
+                    number={index + 1}
+                    text={route}
+                    isActive={pageState === index}
+                    index={index}
+                    currentIndex={pageState - 1}
+                    total={routes.length - 1}
+                  />
+                ))}
+              </ol>
+            </div>
 
-          {pageState == 1 && (
-            <DetailPage
-              qestionTitle={"Generate Question"}
-              dataCurrent={firstPageData}
-              ideas={aIdeas}
-              pageNumber={pageState === pageTotal}
-              questionList={firstPageData}
-              GenerateIdea={() => { generateIdea() }}
-              loadingIdeas={loadingIdeas}
-              setLoadingIdeas={setLoadingIdeas}
-              previousPage={() => {
-                getPreviousStep();
-              }}
-              nextPage={(data) => {
-                // console.log(data);
-                MfirstPageData(data);
-                getNextStep();
-              }}
-            />
-          )}
-          {pageState == 2 && (
-            <div className="">
-              <ContentLayout
-                layoutType={firstPageData[2].data}
+            {pageState == 1 && (
+              <DetailPage
+                qestionTitle={"Generate Question"}
+                dataCurrent={firstPageData}
+                ideas={aIdeas}
+                pageNumber={pageState === pageTotal}
+                questionList={firstPageData}
+                GenerateIdea={() => { generateIdea() }}
+                loadingIdeas={loadingIdeas}
+                setLoadingIdeas={setLoadingIdeas}
+                previousPage={() => {
+                  getPreviousStep();
+                }}
+                nextPage={(data) => {
+                  // console.log(data);
+                  MfirstPageData(data);
+                  getNextStep();
+                }}
+              />
+            )}
+            {pageState == 2 && (
+              <DetailPage
+                qestionTitle={"Generate Question"}
+                dataCurrent={secondPageData}
+                pageNumber={pageState === pageTotal}
+                questionList={secondPageData}
+                loadingIdeas={loadingIdeas}
+                previousPage={() => {
+                  getPreviousStep();
+                }}
+                nextPage={(data) => {
+                  // console.log(data);
+                  MSecondPageData(data);
+                  getNextStep();
+                }}
+              />
+            )
+            }
+            {pageState == 3 && (
+              <div className="">
+                <ContentLayout
+                  layoutType={secondPageData[0].data}
+                  previousPage={() => {
+                    getPreviousStep();
+                  }}
+                  nextPage={() => {
+                    getNextStep();
+                  }}
+                />
+              </div>
+            )
+            }
+            {pageState == 4 && (
+              <Content
+                qestionTitle={"Here is your newsletter content"}
+                pageNumber={pageState === pageTotal}
                 previousPage={() => {
                   getPreviousStep();
                 }}
@@ -235,22 +278,8 @@ function GenerateSession(props) {
                   getNextStep();
                 }}
               />
-            </div>
-          )
-          }
-          {pageState == 3 && (
-            <Content
-              qestionTitle={"Here is your newsletter content"}
-              pageNumber={pageState === pageTotal}
-              previousPage={() => {
-                getPreviousStep();
-              }}
-              nextPage={() => {
-                getNextStep();
-              }}
-            />
-          )}
-          {/* {pageState == 6 && (
+            )}
+            {/* {pageState == 6 && (
                     <StylePage
                         qestionTitle={"Custom Your Style"}
                         pageNumber={pageState === 6}
@@ -259,9 +288,9 @@ function GenerateSession(props) {
 
                     />
                 )} */}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

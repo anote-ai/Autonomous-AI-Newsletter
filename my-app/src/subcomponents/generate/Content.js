@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DraggableSection from './DraggableSection';
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, useBackgroundColor } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, useBackgroundColor, useGenPageTwo } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,6 +14,7 @@ function Content(props) {
     let dispatch = useDispatch();
     let getDataFromRedux = useData();
     let firstPageDataFRedux = useTopic();
+    let secondPageDataFRedux = useGenPageTwo();
     let majorityColor = useBackgroundColor()
     const opacity = 1;
     function isURL(str) {
@@ -26,7 +27,7 @@ function Content(props) {
                 <div className="p-4">
                     {getDataFromRedux.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => (
                         <div className={
-                            `${firstPageDataFRedux[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
+                            `${secondPageDataFRedux[0].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                                 ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
                                 : ''} ${''} mb-5`
                         }>

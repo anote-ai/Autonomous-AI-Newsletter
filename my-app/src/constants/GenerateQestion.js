@@ -8,49 +8,44 @@ export const GenerateQestion = {
             id: 1
         },
         {
-            title: '30-Day Content Ideas',
-            require: false,
-            type: 'input',
-            data: '',
-            id: 2
-        },
-        {
-            title: 'Which Theme you want for this NewsLetter',
-            require: true,
-            type: 'themeSelect',
-            data: '',
-            id: 3
-        },
-        {
             title: 'Which idea you want for this NewsLetter',
             require: true,
             type: 'ideaSelect',
             ideaId: 0,
             data: '',
             subIdea: [],
-            id: 4
-        },
-        {
-            title: 'Choose Your Character-Style Writer Personas',
-            require: true,
-            type: 'characterSelect',
-            data: '',
-            id: 5
+            id: 2
         },
         {
             title: 'Type in your Sponsor company',
             require: false,
             type: 'input',
             data: '',
-            id: 6
+            id: 3
         },
         {
             title: "Recent Content description? (Use for generate the story)",
             require: false,
             type: 'text',
             data: '',
-            id: 7
+            id: 4
         }
+    ],
+    pageTwo: [
+        {
+            title: 'Which Theme you want for this NewsLetter',
+            require: true,
+            type: 'themeSelect',
+            data: '',
+            id: 1
+        },
+        {
+            title: 'Choose Your Character-Style Writer Personas',
+            require: true,
+            type: 'characterSelect',
+            data: '',
+            id: 2
+        },
     ],
     backgroundColor: "",
     ideas: [],
