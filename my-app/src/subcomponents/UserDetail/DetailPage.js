@@ -449,6 +449,7 @@ function DetailPage(props) {
                             tem[eachdata.id - 1].data = e.target.value
                             console.log("tem", tem);
                             setData(tem);
+                            props.MSecondPageData(tem)
                         }}
                     >
                         <option disabled key="default" value=""></option>

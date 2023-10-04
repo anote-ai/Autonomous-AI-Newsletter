@@ -29,6 +29,9 @@ import {
   useBackgroundColor,
   clearData
 } from "../../redux/newsLetterSlice";
+import FreshlyBrewed from '../../Images/FreshlyBrewed.png'
+import HighGloss from '../../Images/HighGloss.png'
+import theNewPort from '../../Images/theNewPort.png'
 import { red } from "@mui/material/colors";
 
 
@@ -69,6 +72,11 @@ function GenerateSession(props) {
     getIdeas();
   }, [])
 
+  // useEffect(() => {
+  //   // Check if secondPageDataFRedux[0].data has changed
+  //   console.log("reflash")
+  // }, [secondPageData]);
+
   async function generateIdea() {
     try {
       let data = await dispatch(generateIdeas());
@@ -92,7 +100,12 @@ function GenerateSession(props) {
     }
   }
   async function getPreviousStep() {
-    if (pageState > 1) {
+    if (pageState > 1 && pageState !== 3) {
+      let tem = pageState;
+      setPageState((tem -= 1));
+    }
+    else if (pageState === 3) {
+      dispatch(clearData())
       let tem = pageState;
       setPageState((tem -= 1));
     }
@@ -105,7 +118,7 @@ function GenerateSession(props) {
       try {
         console.log(reduxUseData);
         let returnBack = await dispatch(
-          setNewsletter({ firstPageData: firstPageData, secondPageData: secondPageData, BackgroundColor: majorityColor, data: reduxUseData })
+          setNewsletter({ firstPageData: firstPageData, secondPageData: secondPageDataFRedux, BackgroundColor: majorityColor, data: reduxUseData })
         );
         // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
         // console.log("firstPageData[3]", firstPageData[3])
@@ -194,6 +207,8 @@ function GenerateSession(props) {
     );
   }
 
+  // let Description
+
   return (
     // <div className=" bg-gray-800 min-h-screen">
     <div className="bg-gray-800 w-screen h-[94%]">
@@ -236,27 +251,51 @@ function GenerateSession(props) {
               />
             )}
             {pageState == 2 && (
-              <DetailPage
-                qestionTitle={"Generate Question"}
-                dataCurrent={secondPageData}
-                pageNumber={pageState === pageTotal}
-                questionList={secondPageData}
-                loadingIdeas={loadingIdeas}
-                previousPage={() => {
-                  getPreviousStep();
-                }}
-                nextPage={(data) => {
-                  // console.log(data);
-                  MSecondPageData(data);
-                  getNextStep();
-                }}
-              />
+              <div>
+                <DetailPage
+                  qestionTitle={"Generate Question"}
+                  dataCurrent={secondPageDataFRedux}
+                  pageNumber={pageState === pageTotal}
+                  questionList={secondPageDataFRedux}
+                  loadingIdeas={loadingIdeas}
+                  previousPage={() => {
+                    getPreviousStep();
+                  }}
+                  MSecondPageData = {(data) =>{MSecondPageData(data)}}
+                  nextPage={(data) => {
+                    // console.log(data);
+                    // MSecondPageData(data);
+                    getNextStep();
+                  }}
+                />
+                {secondPageDataFRedux && secondPageDataFRedux[0].data !== "" && (
+                  <div>
+                    {secondPageDataFRedux[0].data === "Freshly Brewed" && (
+                      <div className="mx-auto my-auto h-1/2 w-2/3">
+                        <img src={FreshlyBrewed}></img>
+                        <p>Good for The Expert-style brand & sharing content, The Infopreneur, brands that function as essentially media companies because they're constantly pushing content out. Think "I have a lot to say"</p>
+                      </div>
+                    )}
+                    {secondPageDataFRedux[0].data === "High Gloss" && (
+                      <div className="mx-auto my-auto h-1/2 w-2/3">
+                        <img src={HighGloss}></img>
+                        <p>Good for the Influencer or Ecommerce, aspirational brands, personal brands, lifestyle brands or brands that just put out less content or bigger, meatier pieces of content</p>
+                      </div>
+                    )}
+                    {secondPageDataFRedux[0].data === "The NewPort" && (
+                      <div className="mx-auto my-auto h-1/2 w-2/3">
+                        <img src={theNewPort}></img>
+                        <p>Good for The Teacher, The Nerd, think more deep dive, the newsletter IS the article</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             )
             }
             {pageState == 3 && (
               <div className="">
                 <ContentLayout
-                  layoutType={secondPageData[0].data}
                   previousPage={() => {
                     getPreviousStep();
                   }}

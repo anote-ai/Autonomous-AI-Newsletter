@@ -16,7 +16,8 @@ import {
   setData,
   setBackgroundColor,
   useBackgroundColor,
-  useGenPageTwo
+  useGenPageTwo,
+  setGenPageTwo
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
@@ -57,7 +58,7 @@ const sectionArrangements = {
   ],
 };
 
-const ContentLayout = ({ layoutType,
+const ContentLayout = ({
   // sections,
   // setSections,
   previousPage,
@@ -80,17 +81,39 @@ const ContentLayout = ({ layoutType,
   useEffect(() => {
     // console.log("useEffect")
     if (getDataFromRedux && getDataFromRedux.length !== 0) {
-      // console.log(getDataFromRedux);
+      // let newSections = JSON.parse(JSON.stringify(sectionArrangements[secondPageData[0].data]));
+      // let temGetDataFromRedux = JSON.parse(JSON.stringify(getDataFromRedux));
+      // newSections.forEach((item) =>{
+      //   if (item.id == "logo") {
+      //     item.title = firstPageDetailDataFRedux[2].data
+      //     item.content = firstPageDetailDataFRedux[3].data
+      //   }
+      //   if (item.id == "footer") {
+      //     item.content = [];
+      //     for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
+      //       // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
+      //       if(secondPageDetailDataFRedux[i].data !== ''){
+      //         item.content.push(secondPageDetailDataFRedux[i].data)
+      //       }
+      //     }
+      //   }
+      // })
+      // console.log("get in to the if first", getBackgroundColorFromRedux)
+      // console.log("get in to the if first", majorityColor)
       setSections(getDataFromRedux);
-      setMajorityColor(getBackgroundColorFromRedux)
+      if(getBackgroundColorFromRedux !== ""){
+        setMajorityColor(getBackgroundColorFromRedux)
+      }
+      // console.log("get in to the if first")
     }
     else {
       if (secondPageData[0].data === "") {
         setSections([])
+        // console.log("get in to the if then else")
       }
       else {
         // console.log("get in to the else")
-        let selectedSection = sectionArrangements[secondPageData[0].data]
+        let selectedSection = JSON.parse(JSON.stringify(sectionArrangements[secondPageData[0].data]));
         selectedSection.forEach((item) => {
           item.fontColor = firstPageDetailDataFRedux[7].data
           item.fontStyle = firstPageDetailDataFRedux[8].data
@@ -100,16 +123,19 @@ const ContentLayout = ({ layoutType,
             item.content = firstPageDetailDataFRedux[3].data
           }
           else if (item.id == "sponsor1") {
-            item.content = "Sponsor By " + firstPageData[2].data;
+            item.content = "Sponsor By " + firstPageDataFRedux[2].data;
           }
           else if (item.id == "footer") {
             item.content = [];
             for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
               // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
-              item.content.push(secondPageDetailDataFRedux[i].data)
+              if(secondPageDetailDataFRedux[i].data !== ''){
+                item.content.push(secondPageDetailDataFRedux[i].data)
+              }
             }
           }
         })
+        console.log(selectedSection)
         setSections(selectedSection || []);
       }
     }
@@ -140,8 +166,34 @@ const ContentLayout = ({ layoutType,
 
   const handleOnpageOneDataChange = (data) => {
     if (select === "layOut") {
+      console.log(firstPageDetailDataFRedux[6].data)
+      setMajorityColor(firstPageDetailDataFRedux[6].data)
+      dispatch(setGenPageTwo(data));
+      let selectedSection = JSON.parse(JSON.stringify(sectionArrangements[data[0].data]));
+        selectedSection.forEach((item) => {
+          item.fontColor = firstPageDetailDataFRedux[7].data
+          item.fontStyle = firstPageDetailDataFRedux[8].data
+          item.fontSize = secondPageDetailDataFRedux[3].data
+          if (item.id === "logo") {
+            item.title = firstPageDetailDataFRedux[2].data
+            item.content = firstPageDetailDataFRedux[3].data
+          }
+          else if (item.id == "sponsor1") {
+            item.content = "Sponsor By " + firstPageDataFRedux[2].data;
+          }
+          else if (item.id == "footer") {
+            item.content = [];
+            for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
+              // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
+              if(secondPageDetailDataFRedux[i].data !== ''){
+                item.content.push(secondPageDetailDataFRedux[i].data)
+              }
+            }
+          }
+        })
+      dispatch(setData(selectedSection))
+      console.log("change layOut",data)
       setSecondPageData(data);
-      dispatch(setTopic(data));
     }
   }
 

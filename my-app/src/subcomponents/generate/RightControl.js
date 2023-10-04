@@ -162,19 +162,22 @@ function RightControl(props) {
 
     function clearDataToDefault() {
         let temSections = JSON.parse(JSON.stringify(props.sections));
+        // console.log("temSectons",temSections)
         let sectionSelect = sectionArrangements[secondPageDataFRedux[0].data];
-        // console.log(sectionSelect)
+        // console.log("sectionSelect",sectionSelect)
         let defaultData = "";
         sectionSelect.forEach((item) => {
             if (item.id === props.select) {
-                defaultData = item.content
+                defaultData = item.content;
             }
         })
         temSections.forEach((item) => {
             if (item.id === props.select) {
-                item.content = defaultData
+                item.title = "";
+                item.content = defaultData;
             }
         })
+        // console.log("temSections", temSections)
         props.setSections(temSections);
     }
 
@@ -239,7 +242,7 @@ function RightControl(props) {
             }
         })
         // console.log(data)
-        // console.log(initialBackgroundColor[0]["backgroundColor"])
+        // console.log(initialBackgroundColor.length)
         return (
             <div className="flex flex-col items-center my-5">
                 <div className="flex flex-col w-full items-center">
