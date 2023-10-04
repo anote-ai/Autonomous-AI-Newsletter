@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -17,14 +17,15 @@ function RightControl(props) {
     // let nData = useData();
     let temUrlList = useUrlArr();
     let firstPageDataFRedux = useTopic();
+    let secondPageDataFRedux = useGenPageTwo();
     async function generateGPTData(newsId) {
         // console.log(firstPageDataFRedux[5].data);
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // let temNData = JSON.parse(JSON.stringify(nData));
-            let topic = firstPageDataFRedux[3].data;
-            let characterStyle = firstPageDataFRedux[4].data;
+            let topic = firstPageDataFRedux[1].data;
+            let characterStyle = secondPageDataFRedux[1].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
             let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle, newsId: newsId }));
@@ -82,7 +83,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[3].data, content: firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
+            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[1].data, content: firstPageDataFRedux[3].data, characterStyle: secondPageDataFRedux[1].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -104,11 +105,12 @@ function RightControl(props) {
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
-            // console.log("sddssssssssss")
-            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[6].data, characterStyle: firstPageDataFRedux[4].data }));
-            // console.log(data.payload)
+            console.log("sddssssssssss")
+            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[3].data, characterStyle: secondPageDataFRedux[1].data }));
+            console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
+                    item.title = ""
                     item.content = data.payload["data"]
                 }
             })
@@ -168,7 +170,7 @@ function RightControl(props) {
             }
         })
         // console.log(data)
-        // console.log(initialBackgroundColor)
+        console.log(initialBackgroundColor[0]["backgroundColor"])
         return (
             <div className="flex flex-col items-center my-5">
                 <div className="flex flex-col w-full items-center">
@@ -176,7 +178,7 @@ function RightControl(props) {
                         Change background Color
                     </span>
                     <Select2
-                        value={initialBackgroundColor.length === 0 ? "" : initialBackgroundColor[0].backgroundColor}
+                        value={initialBackgroundColor.length === 0 ? "" : initialBackgroundColor[0]["backgroundColor"]}
                         onChange={(e) => {
                             // let temSections = JSON.parse(JSON.stringify(props.sections));
                             // const pattern = /bg-\[[#A-Fa-f0-9]+\]/;
@@ -310,6 +312,7 @@ function RightControl(props) {
             </div>
         )
     }
+    
     let deleteElement = () => {
         let temSections = JSON.parse(JSON.stringify(props.sections));
         let newSections = temSections.filter((item) => {
@@ -318,14 +321,15 @@ function RightControl(props) {
         props.handleOnSelect(props.select);
         props.setSections(newSections);
     }
+
     if (props.select === "layOut") {
         content = (
             <div>
                 <Select1
-                    value={props.firstPageData[2].data}
+                    value={props.secondPageData[0].data}
                     onChange={(e) => {
-                        let tem = JSON.parse(JSON.stringify(props.firstPageData));
-                        tem[2].data = e.target.value
+                        let tem = JSON.parse(JSON.stringify(props.secondPageData));
+                        tem[0].data = e.target.value
                         console.log("tem", tem);
                         props.updateData(tem)
                     }}
@@ -434,11 +438,11 @@ function RightControl(props) {
         )
     }
     else if (props.select === "content1") {
-        console.log(firstPageDataFRedux[3])
+        // console.log(firstPageDataFRedux[1].subIdea[0])
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[0])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -500,7 +504,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[1])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -518,7 +522,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[3])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -536,7 +540,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[0])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -554,7 +558,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[1])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -572,7 +576,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[3].subIdea[2])}
+                {generateArticle(firstPageDataFRedux[1].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}

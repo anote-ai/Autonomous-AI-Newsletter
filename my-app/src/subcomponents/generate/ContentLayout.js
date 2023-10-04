@@ -15,7 +15,8 @@ import {
   setNewsletter,
   setData,
   setBackgroundColor,
-  useBackgroundColor
+  useBackgroundColor,
+  useGenPageTwo
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
@@ -63,12 +64,14 @@ const ContentLayout = ({ layoutType,
   nextPage }) => {
   let dispatch = useDispatch();
   let firstPageDataFRedux = useTopic();
+  let secondPageDataFRedux = useGenPageTwo();
   let firstPageDetailDataFRedux = useDetailPageOne();
   let secondPageDetailDataFRedux = useDetailPageTwo();
   let getBackgroundColorFromRedux = useBackgroundColor();
   let getDataFromRedux = useData();
   const [majorityColor, setMajorityColor] = useState(firstPageDetailDataFRedux[6].data);
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
+  const [secondPageData, setSecondPageData] = useState(secondPageDataFRedux);
   const [select, setSelect] = useState("layOut");
   const [sections, setSections] = useState([]);
 
@@ -82,11 +85,12 @@ const ContentLayout = ({ layoutType,
       setMajorityColor(getBackgroundColorFromRedux)
     }
     else {
-      if (firstPageData[2].data === "") {
+      if (secondPageData[0].data === "") {
         setSections([])
       }
       else {
-        let selectedSection = sectionArrangements[firstPageData[2].data]
+        // console.log("get in to the else")
+        let selectedSection = sectionArrangements[secondPageData[0].data]
         selectedSection.forEach((item) => {
           item.fontColor = firstPageDetailDataFRedux[7].data
           item.fontStyle = firstPageDetailDataFRedux[8].data
@@ -95,8 +99,8 @@ const ContentLayout = ({ layoutType,
             item.title = firstPageDetailDataFRedux[2].data
             item.content = firstPageDetailDataFRedux[3].data
           }
-          else if (item.id == "sponsor1"){
-            item.content = "Sponsor By " + firstPageData[5].data;
+          else if (item.id == "sponsor1") {
+            item.content = "Sponsor By " + firstPageData[2].data;
           }
           else if (item.id == "footer") {
             item.content = [];
@@ -106,10 +110,10 @@ const ContentLayout = ({ layoutType,
             }
           }
         })
-        setSections(sectionArrangements[firstPageData[2].data] || []);
+        setSections(selectedSection || []);
       }
     }
-  }, [firstPageData]);
+  }, [secondPageData]);
 
   const findSection = useCallback((id) => {
     // console.log("callback")
@@ -136,7 +140,7 @@ const ContentLayout = ({ layoutType,
 
   const handleOnpageOneDataChange = (data) => {
     if (select === "layOut") {
-      setFirstPageData(data);
+      setSecondPageData(data);
       dispatch(setTopic(data));
     }
   }
@@ -161,7 +165,7 @@ const ContentLayout = ({ layoutType,
           <div className="p-4">
             {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => (
               <div className={
-                `${firstPageData[2].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
+                `${secondPageData[0].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                   ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
                   : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5`
               }
@@ -213,9 +217,10 @@ const ContentLayout = ({ layoutType,
         <RightControl
           updateData={(data) => { handleOnpageOneDataChange(data) }}
           firstPageData={firstPageData}
+          secondPageData={secondPageData}
           select={select}
           sections={sections}
-          handleOnSelect = {handleOnSelect}
+          handleOnSelect={handleOnSelect}
           setSections={setSections}
           majorityColor={majorityColor}
           setMajorityColor={setMajorityColor}
