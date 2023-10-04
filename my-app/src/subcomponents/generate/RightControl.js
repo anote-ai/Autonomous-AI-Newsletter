@@ -705,7 +705,9 @@ function RightControl(props) {
         content = (
             <div>
                 {loadingNewsData}
-                <Button
+                <Button className="w-full"
+                    outline
+                    color="success"
                     onClick={(e) => {
                         generateIntroData("intro")
                     }}
