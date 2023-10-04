@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { questionList } from "../../constants/questionList"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour, setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "../../redux/DetailSlice"
+import { clearData, setBackgroundColor } from "../../redux/newsLetterSlice";
 
 function DetailSession(props) {
 
@@ -56,6 +57,7 @@ function DetailSession(props) {
 
     function MfirstPageData(info) {
         // console.log(info)
+        // dispatch(setBackgroundColor(info[6].data))
         setFirstPageData(info);
         // console.log(firstPageData)
         dispatch(setPageOneQuestion(info));
@@ -93,6 +95,7 @@ function DetailSession(props) {
                 await dispatch(updateDetail({ payload: thirdPageData, tableName: 'userDetailPageThree' }))
                 await dispatch(updateDetail({ payload: fourthPageData, tableName: 'userDetailPageFour' }))
                 // let returnBack = await dispatch(updateDetail({ companyName: companyName, newsLetterDetail: newsLetterDetail, industry: industry }));
+                dispatch(clearData())
                 alert("update success")
                 window.location.href = '/';
             }
