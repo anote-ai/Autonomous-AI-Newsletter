@@ -164,7 +164,7 @@ const ContentLayout = ({ layoutType,
         <DndProvider backend={HTML5Backend}>
           <div className="p-4">
             {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => (
-              <div className={
+              <div key={id} className={
                 `${secondPageData[0].data === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
                   ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
                   : ''} ${''} ${select === id ? `border-2 border-white` : ``} mb-5`
