@@ -66,10 +66,10 @@ function Allnewsletter() {
         <div className="flex flex-col h-screen w-5/6 mx-auto my-5 border-gray-700 rounded-xl border-2 overflow-y-scroll">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
                 <div className='w-5/6 h-full flex items-center justify-center border-b-2 border-b-slate-100'>
-                    <h2 className='text-slate-200 font-bold from-neutral-50'>All Newsletters</h2>
+                    <div className='text-xl text-sky-400 font-bold from-neutral-50'>All Newsletters</div>
                 </div>
             </div>
-            <div className="w-full h-[90%] text-white overflow-scroll">
+            <div className="w-full  text-white overflow-scroll">
                 {loading === true && (
                     <div className='w-full h-full flex items-center justify-center'>
                         <div className='w-full flex justify-items-center flex-col'>

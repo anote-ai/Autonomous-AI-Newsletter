@@ -190,11 +190,26 @@ function RightControl(props) {
             if (item.id === props.select) {
                 defaultData = item.content;
             }
+            else if( item.id === "content"){
+                item.content.forEach((subItem) => {
+                    if(subItem.id === props.select){
+                        defaultData = subItem.content;
+                    }
+                })
+            }
         })
         temSections.forEach((item) => {
             if (item.id === props.select) {
                 item.title = "";
                 item.content = defaultData;
+            }
+            else if(item.id === "content"){
+                item.content.forEach((subItem) => {
+                    if(subItem.id === props.select){
+                        subItem.title = "";
+                        subItem.content = defaultData;
+                    }
+                })
             }
         })
         // console.log("temSections", temSections)
