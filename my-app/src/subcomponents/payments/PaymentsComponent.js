@@ -61,7 +61,7 @@ const PaymentsComponent = () => {
   let currentPlanIndexOverride = paidUserStatus - 1;
 
   return (
-      <div className="text-white">
+      <div className="text-white bg-gray-900 min-h-screen">
         <div className="relative flex justify-center py-20">
           <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
             Newsletter Pricing Plans
