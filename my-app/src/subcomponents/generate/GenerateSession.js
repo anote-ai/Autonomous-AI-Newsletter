@@ -261,14 +261,14 @@ function GenerateSession(props) {
                   previousPage={() => {
                     getPreviousStep();
                   }}
-                  MSecondPageData = {(data) =>{MSecondPageData(data)}}
+                  // MSecondPageData = {(data) =>{MSecondPageData(data)}}
                   nextPage={(data) => {
                     // console.log(data);
-                    // MSecondPageData(data);
+                    MSecondPageData(data);
                     getNextStep();
                   }}
                 />
-                {secondPageDataFRedux && secondPageDataFRedux[0].data !== "" && (
+                {/* {secondPageDataFRedux && secondPageDataFRedux[0].data !== "" && (
                   <div>
                     {secondPageDataFRedux[0].data === "Freshly Brewed" && (
                       <div className="mx-auto my-auto h-1/2 w-2/3">
@@ -289,7 +289,7 @@ function GenerateSession(props) {
                       </div>
                     )}
                   </div>
-                )}
+                )} */}
               </div>
             )
             }

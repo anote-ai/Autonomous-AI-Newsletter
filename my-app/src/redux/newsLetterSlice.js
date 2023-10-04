@@ -354,6 +354,7 @@ export const newsLetterSlice = createSlice({
         },
         clearData: (state, action) => {
             state.data = [];
+            state.urlArr = [];
             // for(let i = 0; i < 6; i++){
             //     state.pageOne[i].data = '';
             // }

@@ -23,6 +23,9 @@ import {
     setIdeas,
     generateIdeas
 } from "../../redux/newsLetterSlice";
+import FreshlyBrewed from '../../Images/FreshlyBrewed.png'
+import HighGloss from '../../Images/HighGloss.png'
+import theNewPort from '../../Images/theNewPort.png'
 
 function DetailPage(props) {
 
@@ -32,6 +35,7 @@ function DetailPage(props) {
     const [ageRange, setAgeRange] = useState(AgeRange);
     const [incomeLevel, setIncomLevel] = useState(IncomeLevel);
     const [stylisticChoice, setStylisticChoice] = useState(StylisticChoice);
+    const [themeArray, setThemeArray] = useState(ThemeTopic);
     const [aIdeas, setAIdeas] = useState(props.ideas)
     const [validationErrors, setValidationErrors] = useState(false);
     let viewCard = null
@@ -436,31 +440,85 @@ function DetailPage(props) {
             );
         }
         else if (eachdata.type === "themeSelect") {
+            console.log(eachdata)
+            let TemThemeTopicArray = themeArray.map((each) => {
+                if (eachdata.data == each.name) {
+                    each.isActive = true;
+                    return each
+                }
+                else {
+                    each.isActive = false
+                    return each
+                }
+            });
             return (
-                <div className="grid grid-cols-2 items-center mx-10 my-5">
+                <div className="flex flex-col mx-10 my-5">
                     <span className=" flex">{eachdata.title}
-                        {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
-                        {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+                        {eachdata.require === true && (<span className="text-red-500 text-sm">&nbsp;  *</span>)}
+                        {eachdata.require === false && (<span className="text-sm">&nbsp;  (optional)</span>)}
                     </span>
-                    <Select1
-                        value={eachdata.data}
-                        onChange={(e) => {
-                            let tem = JSON.parse(JSON.stringify(data));
-                            tem[eachdata.id - 1].data = e.target.value
-                            console.log("tem", tem);
-                            setData(tem);
-                            props.MSecondPageData(tem)
-                        }}
-                    >
-                        <option disabled key="default" value=""></option>
-                        {ThemeTopic.map((font, idx) => (
-                            <option key={idx} value={font} style={{ fontSize: font }}>
-                                {font}
-                            </option>
-                        ))}
-                    </Select1>
+                    <div className="flex items-start my-1 justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
+                        {TemThemeTopicArray.map((eachTheme) => {
+                            return (
+                                <div type="button" className={`w-1/4 text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white text-base font-medium px-5 py-2.5 text-center mr-2 mb-3 dark:text-white ${eachTheme.isActive
+                                    ? "ring-4 outline-none ring-gray-300"
+                                    : ""
+                                    }`}
+
+                                    onClick={() => {
+                                        themeChangeActive(TemThemeTopicArray, setThemeArray, eachTheme, 0);
+                                    }}>{eachTheme.name}
+                                    <div>
+                                        {eachTheme.name === "Freshly Brewed" && (
+                                            <div className="mx-auto h-full">
+                                                <img src={FreshlyBrewed}></img>
+                                                <p>Good for The Expert-style brand & sharing content, The Infopreneur, brands that function as essentially media companies because they're constantly pushing content out. Think "I have a lot to say"</p>
+                                            </div>
+                                        )}
+                                        {eachTheme.name === "High Gloss" && (
+                                            <div className="mx-auto h-full">
+                                                <img src={HighGloss}></img>
+                                                <p>Good for the Influencer or Ecommerce, aspirational brands, personal brands, lifestyle brands or brands that just put out less content or bigger, meatier pieces of content</p>
+                                            </div>
+                                        )}
+                                        {eachTheme.name === "The NewPort" && (
+                                            <div className="mx-auto h-full">
+                                                <img src={theNewPort}></img>
+                                                <p>Good for The Teacher, The Nerd, think more deep dive, the newsletter IS the article</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
-            );
+            )
+            // return (
+            //     <div className="grid grid-cols-2 items-center mx-10 my-5">
+            //         <span className=" flex">{eachdata.title}
+            //             {eachdata.require === true && (<span className="text-red-500 text-sm"> &nbsp; *</span>)}
+            //             {eachdata.require === false && (<span className="text-sm"> &nbsp;  (optional) &nbsp;&nbsp;</span>)}
+            //         </span>
+            //         <Select1
+            //             value={eachdata.data}
+            //             onChange={(e) => {
+            //                 let tem = JSON.parse(JSON.stringify(data));
+            //                 tem[eachdata.id - 1].data = e.target.value
+            //                 console.log("tem", tem);
+            //                 setData(tem);
+            //                 props.MSecondPageData(tem)
+            //             }}
+            //         >
+            //             <option disabled key="default" value=""></option>
+            //             {ThemeTopic.map((font, idx) => (
+            //                 <option key={idx} value={font} style={{ fontSize: font }}>
+            //                     {font}
+            //                 </option>
+            //             ))}
+            //         </Select1>
+            //     </div>
+            // );
         }
         else if (eachdata.type === "characterSelect") {
             return (
@@ -544,6 +602,25 @@ function DetailPage(props) {
                 </div>
             );
         }
+    }
+
+    let themeChangeActive = (sourceData, setSourceData, sourceElement, idx) => {
+        let newArray = sourceData.map(element => {
+            if (element.name === sourceElement.name) {
+                // let tem = JSON.parse(JSON.stringify(element));
+                element.isActive = true
+                let tem = JSON.parse(JSON.stringify(data));
+                tem[idx].data = element.name;
+                setData(tem);
+                return element;
+            }
+            else {
+                element.isActive = false;
+                return element;
+            }
+        });
+        setSourceData(newArray);
+        console.log(data)
     }
 
     let changeActive = (sourceData, setSourceData, sourceElement, idx, singleFlag) => {
@@ -727,7 +804,7 @@ function DetailPage(props) {
         //     }
         // });
         setValidationErrors(false)
-        for(let i = 0; i < data.length; i++){
+        for (let i = 0; i < data.length; i++) {
             if (data[i].require && !data[i].data) {
                 setValidationErrors(true)
                 alert("Please Fill all require data")

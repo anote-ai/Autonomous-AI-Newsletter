@@ -113,7 +113,7 @@ def generatePrompt_date(text):
 
 def generate_title(summary):
     prompt = f'''
-    your task is to generate a title for the following article summary,
+    your task is to generate a short title for the following article summary,
     delimited with triple backticks.
 
     ```
