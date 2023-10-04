@@ -594,14 +594,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -613,14 +617,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -632,14 +640,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -651,14 +663,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -670,14 +686,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -695,14 +715,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -720,14 +744,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
@@ -760,14 +788,18 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <span className="flex space-x-2">
                 {clearData()}
                 <Button
+                    color="failure"
+                    outline
                     onClick={(e) => {
                         deleteElement();
                     }}
                 >
                     Delete Element
                 </Button>
+                </span>
             </div>
         )
     }
