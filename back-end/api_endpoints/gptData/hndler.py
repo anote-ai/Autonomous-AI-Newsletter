@@ -199,7 +199,7 @@ def getGPTData(request):
     newsId = request.json.get('newsId', 'article1')
     characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
     characterText = personality[characterStyle]
-    # print(characterText)
+    print("characterStyle", characterStyle)
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -535,7 +535,7 @@ def getStory(request, user_email):
         content = request.json.get("content", "")
         characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
-        print("dataadsfafafa")
+        print("characterStyle", characterStyle)
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
         resultPageThree = get_detail_by_userID_three_four(
             user_id, "userDetailPageThree")
@@ -572,7 +572,7 @@ def getStory(request, user_email):
         prompt = generateStory(formatted_text, characterText)
         intros = gpt(prompt)
         res = {"data": intros}
-        print("asdfasdf")
+        # print("asdfasdf")
         return res
 
     except Exception as e:
@@ -586,7 +586,7 @@ def getArticle(request, user_email):
         content = request.json.get("content", "")
         characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
-        # print("dataadsfafafa")
+        print("characterStyle", characterStyle)
         data = {
             "idea for the Article": idea,
             "Recent Content description": content,
