@@ -40,14 +40,14 @@ function Content(props) {
                                 </div>
                             )}
                             {id === "footer" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                     {content.map((each) => {
                                         return (<div> {each} </div>)
                                     })}
                                 </div>
                             )}
                             {id === "image" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                     {content && content !== "" && isURL(content) ? (
                                         <img className='w-10 h-10' src={content}></img>
                                     ) : (<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
@@ -56,7 +56,7 @@ function Content(props) {
                                 </div>
                             )}
                             {id !== "logo" && id !== "footer" && id !== "image" && (
-                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} bg-gray-600 p-2 rounded-md shadow-md`}>
+                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                     {title && title !== '' && (
                                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
                                             {title}
@@ -78,17 +78,6 @@ function Content(props) {
                 >
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-0.5" />
                     Previous
-                </Button>
-            </div>
-            <div className="absolute bottom-5 right-[50%]">
-                <Button
-                    outline
-                    onClick={() => {
-                        dispatch(clearData());
-                    }}
-                >
-                    Clear Data
-                    <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
                 </Button>
             </div>
             <div className="absolute bottom-5 right-10">

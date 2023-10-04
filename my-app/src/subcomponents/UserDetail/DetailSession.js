@@ -64,6 +64,7 @@ function DetailSession(props) {
     }
     function MsecondPageData(info) {
         setSecondPageData(info);
+        console.log(info);
         dispatch(setPageTwoQuestion(info));
         // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageTwo' }))
     }
