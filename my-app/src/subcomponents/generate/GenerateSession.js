@@ -27,7 +27,9 @@ import {
   updateIdeas,
   deleteIdeas,
   useBackgroundColor,
-  clearData
+  clearData,
+  useGenPageThree,
+  setGenPageThree
 } from "../../redux/newsLetterSlice";
 import FreshlyBrewed from '../../Images/FreshlyBrewed.png'
 import HighGloss from '../../Images/HighGloss.png'
@@ -43,6 +45,7 @@ function GenerateSession(props) {
   const location = useLocation();
   let firstPageDataFRedux = useTopic();
   let secondPageDataFRedux = useGenPageTwo();
+  let thirdPageDataFRedux = useGenPageThree();
   let reduxIdeas = useIdeas();
   let reduxUseData = useData();
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
@@ -52,7 +55,7 @@ function GenerateSession(props) {
   // const [sections, setSections] = useState([]);
   // const [loading, setLoding] = useState(false);
 
-  let pageTotal = 4;
+  let pageTotal = 5;
 
   // let ddddd = useTopic();
   // console.log(ddddd)
@@ -118,7 +121,7 @@ function GenerateSession(props) {
       try {
         console.log(reduxUseData);
         let returnBack = await dispatch(
-          setNewsletter({ firstPageData: firstPageData, secondPageData: secondPageDataFRedux, BackgroundColor: majorityColor, data: reduxUseData })
+          setNewsletter({ firstPageData: firstPageData, secondPageData: secondPageDataFRedux, thirdPageData: thirdPageDataFRedux, BackgroundColor: majorityColor, data: reduxUseData })
         );
         // let updateIdea = JSON.parse(JSON.stringify(firstPageData));
         // console.log("firstPageData[3]", firstPageData[3])
@@ -159,8 +162,13 @@ function GenerateSession(props) {
     dispatch(setGenPageTwo(info));
     // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
   }
+  
+  function MThirdPageData(info) {
+    dispatch(setGenPageThree(info));
+  }
+
   let routes = [];
-  routes = ["Newsletter Setup", "Persona & Theme Selection", "Format NewsLetter", "Save NewsLetter"];
+  routes = ["Newsletter Setup", "Theme Selection", "Persona Selection", "Format NewsLetter", "Save NewsLetter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
@@ -212,7 +220,7 @@ function GenerateSession(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
     <div className="bg-gray-800 w-screen h-[94%]">
-      <div className={`${pageState === 3 ? "w-5/6 " : "w-screen"} flex flex-col `}>
+      <div className={`${pageState === 4 ? "w-5/6 " : "w-screen"} flex flex-col `}>
         <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
           <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
             <div className="mb-10">
@@ -257,7 +265,6 @@ function GenerateSession(props) {
                   dataCurrent={secondPageDataFRedux}
                   pageNumber={pageState === pageTotal}
                   questionList={secondPageDataFRedux}
-                  loadingIdeas={loadingIdeas}
                   previousPage={() => {
                     getPreviousStep();
                   }}
@@ -294,6 +301,26 @@ function GenerateSession(props) {
             )
             }
             {pageState == 3 && (
+              <div>
+                <DetailPage
+                  qestionTitle={"Generate Question"}
+                  dataCurrent={thirdPageDataFRedux}
+                  pageNumber={pageState === pageTotal}
+                  questionList={thirdPageDataFRedux}
+                  previousPage={() => {
+                    getPreviousStep();
+                  }}
+                  // MSecondPageData = {(data) =>{MSecondPageData(data)}}
+                  nextPage={(data) => {
+                    // console.log(data);
+                    MThirdPageData(data);
+                    getNextStep();
+                  }}
+                />
+              </div>
+            )
+            }
+            {pageState == 4 && (
               <div className="">
                 <ContentLayout
                   previousPage={() => {
@@ -306,7 +333,7 @@ function GenerateSession(props) {
               </div>
             )
             }
-            {pageState == 4 && (
+            {pageState == 5 && (
               <Content
                 qestionTitle={"Here is your newsletter content"}
                 pageNumber={pageState === pageTotal}

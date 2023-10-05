@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Checkbox, Label, TextInput, ToggleSwitch, Textarea, Select as Select1 } from "flowbite-react";
+import { Button, TextInput, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo, useGenPageThree } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -59,6 +59,7 @@ function RightControl(props) {
     let temUrlList = useUrlArr();
     let firstPageDataFRedux = useTopic();
     let secondPageDataFRedux = useGenPageTwo();
+    let thirdPageDataFRedux = useGenPageThree();
     async function generateGPTData(newsId) {
         // console.log(firstPageDataFRedux[5].data);
         setLoadingNews(true)
@@ -68,7 +69,7 @@ function RightControl(props) {
             let topic = firstPageDataFRedux[1].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
-            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: secondPageDataFRedux[1].data, newsId: newsId }));
+            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: thirdPageDataFRedux[0].data, newsId: newsId }));
             // console.log(data.payload);
             console.log(data.payload)
             if (data.payload && data.payload.length !== 0) {
@@ -132,7 +133,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[1].data, content: firstPageDataFRedux[3].data, characterStyle: secondPageDataFRedux[1].data }));
+            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[1].data, content: firstPageDataFRedux[3].data, characterStyle: thirdPageDataFRedux[0].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -155,7 +156,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[3].data, characterStyle: secondPageDataFRedux[1].data }));
+            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[3].data, characterStyle: thirdPageDataFRedux[0].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -491,10 +492,10 @@ function RightControl(props) {
                     ))}
                 </Select1>
                 <Select1
-                    value={props.secondPageData[1].data}
+                    value={props.thirdPageData[0].data}
                     onChange={(e) => {
-                        let tem = JSON.parse(JSON.stringify(props.secondPageData));
-                        tem[1].data = e.target.value
+                        let tem = JSON.parse(JSON.stringify(props.thirdPageData));
+                        tem[0].data = e.target.value
                         console.log("tem", tem);
                         props.updatePersona(tem)
                     }}

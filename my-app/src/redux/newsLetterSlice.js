@@ -16,14 +16,14 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     //     searchTopic = payload.topic[0];
     // }
     // else if(payload.topic.length > 1){
-        
+
     // }
     console.log(payload.topic);
     let reqBody = {
         newsId: payload.newsId,
         characterStyle: payload.characterStyle,
-        topic:payload.topic,
-        urlList:payload.temUrlArr
+        topic: payload.topic,
+        urlList: payload.temUrlArr
     }
     console.log(JSON.stringify(reqBody))
     const response = await fetcher('run-script', {
@@ -60,7 +60,7 @@ export const getStoryData = createAsyncThunk("StoryData/get", async (payload, th
         content: payload.content,
         characterStyle: payload.characterStyle
     }
-    console.log("reererere",reqBody);
+    console.log("reererere", reqBody);
     const response = await fetcher('getStoryData', {
         method: "POST",
         headers: {
@@ -81,7 +81,7 @@ export const getArticleData = createAsyncThunk("ArticleData/get", async (payload
         content: payload.content,
         characterStyle: payload.characterStyle
     }
-    console.log("reererere",reqBody);
+    console.log("reererere", reqBody);
     const response = await fetcher('getArticleData', {
         method: "POST",
         headers: {
@@ -106,17 +106,17 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
     //     searchTopic = payload.topic[0];
     // }
     // else if(payload.topic.length > 1){
-        
+
     // }
-    console.log(payload.firstPageData[3]);
+    // console.log(payload.firstPageData[3]);
 
     let reqBody = {
         topic: payload.firstPageData[0].data,
         backgroundColor: payload.BackgroundColor,
-        data : payload.data,
+        data: payload.data,
         idea_id: payload.firstPageData[1].ideaId,
         theme: payload.secondPageData[0].data,
-        character: payload.secondPageData[1].data
+        character: payload.thirdPageData[0].data
     }
     console.log(reqBody)
     console.log(JSON.stringify(reqBody))
@@ -144,7 +144,7 @@ export const deleteNewsletterById = createAsyncThunk("newsletter/delete", async 
     //     searchTopic = payload.topic[0];
     // }
     // else if(payload.topic.length > 1){
-        
+
     // }
     console.log(payload);
     const response = await fetcher(`deleteNewsletterData?id=${payload}`, {
@@ -263,6 +263,15 @@ export function useGenPageTwo() {
         }
     });
 }
+export function useGenPageThree() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.pageThree;
+        } catch (e) {
+            return null;
+        }
+    });
+}
 export function useIdeas() {
     return useSelector((state) => {
         try {
@@ -331,7 +340,10 @@ export const newsLetterSlice = createSlice({
         setGenPageTwo: (state, action) => {
             state.pageTwo = action.payload;
         },
-        setBackgroundColor: (state, action) =>{
+        setGenPageThree: (state, action) => {
+            state.pageThree = action.payload;
+        },
+        setBackgroundColor: (state, action) => {
             state.backgroundColor = action.payload;
         },
         setIdeas: (state, action) => {
@@ -348,7 +360,7 @@ export const newsLetterSlice = createSlice({
         },
         clearAllData: (state, action) => {
             state.data = [];
-            for(let i = 0; i < 6; i++){
+            for (let i = 0; i < 6; i++) {
                 state.pageOne[i].data = '';
             }
         },
@@ -383,6 +395,7 @@ export const newsLetterSlice = createSlice({
 export const {
     setTopic,
     setGenPageTwo,
+    setGenPageThree,
     setBackgroundColor,
     setIdeas,
     setData,
