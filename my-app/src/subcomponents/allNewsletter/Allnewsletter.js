@@ -66,10 +66,10 @@ function Allnewsletter() {
         <div className="flex flex-col h-screen w-5/6 mx-auto my-5 border-gray-700 rounded-xl border-2 overflow-y-scroll">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
                 <div className='w-5/6 h-full flex items-center justify-center border-b-2 border-b-slate-100'>
-                    <h2 className='text-slate-200 font-bold from-neutral-50'>All Newsletters</h2>
+                    <div className='text-xl py-5 text-sky-400 font-bold from-neutral-50'>All Newsletters</div>
                 </div>
             </div>
-            <div className="w-full h-[90%] text-white overflow-scroll">
+            <div className="w-full text-white overflow-scroll">
                 {loading === true && (
                     <div className='w-full h-full flex items-center justify-center'>
                         <div className='w-full flex justify-items-center flex-col'>
@@ -103,14 +103,14 @@ function Allnewsletter() {
                 )}
                 {console.log("nData", nData)}
                 {loading === false && nData && nData.length !== 0 && (
-                    <div className='w-5/6 h-full flex justify-start flex-wrap mx-auto overflow-scroll'>
+                    <div className='w-5/6 flex justify-around flex-wrap mx-auto overflow-scroll'>
                         {nData.map((each) => (
                             <Card
                                 onClick={() => { navigate("/eachNewsletter/" + each.id) }}
-                                className='max-w-[400px] min-h-fit relative'
+                                className='max-w-[300px] min-h-fit relative my-5'
                                 imgSrc={defaultCardImg}>
                                 <div className="absolute top-2 right-2 text-white cursor-pointer h-8 w-8" style={{ zIndex: 999 }} onClick={(e) => { handleDelete(e, each.id) }}>
-                                    <HiOutlineX className="h-full w-full" />
+                                    <HiOutlineX className="h-full w-full text-gray-900" />
                                 </div>
                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     <p>

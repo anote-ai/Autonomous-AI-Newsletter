@@ -65,12 +65,28 @@ function EachNewsletter(props) {
                             <div className={`h-[80vh] max-h-[80vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
                                 <h2>{title}</h2>
                                 <div className="p-4">
-                                    {data.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => (
-                                        <div className={
-                                            `${theme === 'High Gloss' && (id === 'content1' || id === 'content2' || id === 'content3')
-                                                ? `inline-block w-1/4 ${index !== array.length - 1 ? 'mx-5' : ''}`
-                                                : ''} ${''} mb-5`
-                                        }>
+                                    {data.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => {
+                                        if(id == "content" && Array.isArray(content)) {
+                                            return (
+                                                    <div key={id} className={css}>
+                                                      {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
+                                                        <div className={`mb-5 w-2/5`} >
+                                                            <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
+                                                                    {title && title !== '' && (
+                                                                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                            {title}
+                                                                        </h5>
+                                                                    )}
+                                                                    {content}
+                                                                </div>
+                                                        </div>
+                                                      ))}
+                                                    </div>
+                                                  );
+                                        }
+                                        else{
+                                        return (
+                                        <div className={`mb-5`}>
                                             {id === "logo" && (
                                                 <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center px-5 py-2 rounded-md shadow-md`}>
                                                     {content && content !== "" && (
@@ -106,7 +122,9 @@ function EachNewsletter(props) {
                                                 </div>
                                             )}
                                         </div>
-                                    ))}
+                                        )
+                                        }
+                        })}
                                 </div>
                             </div>
                         </div>
