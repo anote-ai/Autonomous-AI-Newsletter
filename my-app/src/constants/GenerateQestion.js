@@ -39,12 +39,14 @@ export const GenerateQestion = {
             data: '',
             id: 1
         },
+    ],
+    pageThree: [
         {
             title: 'Choose Your Character-Style Writer Personas',
             require: true,
             type: 'characterSelect',
             data: '',
-            id: 2
+            id: 1
         },
     ],
     backgroundColor: "",

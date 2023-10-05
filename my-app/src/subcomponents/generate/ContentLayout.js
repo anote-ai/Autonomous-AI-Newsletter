@@ -17,7 +17,9 @@ import {
   setBackgroundColor,
   useBackgroundColor,
   useGenPageTwo,
-  setGenPageTwo
+  setGenPageTwo,
+  useGenPageThree,
+  setGenPageThree
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
@@ -68,6 +70,7 @@ const ContentLayout = ({
   let dispatch = useDispatch();
   let firstPageDataFRedux = useTopic();
   let secondPageDataFRedux = useGenPageTwo();
+  let thirdPageDataFRedux = useGenPageThree();
   let firstPageDetailDataFRedux = useDetailPageOne();
   let secondPageDetailDataFRedux = useDetailPageTwo();
   let getBackgroundColorFromRedux = useBackgroundColor();
@@ -175,8 +178,7 @@ const ContentLayout = ({
 
   const handleOnPersonaChange = (data) =>{
     console.log(data)
-    dispatch(setGenPageTwo(data));
-    setSecondPageData(data);
+    dispatch(setGenPageThree(data));
   }
 
   const handleOnpageOneDataChange = (data) => {
@@ -317,6 +319,7 @@ const ContentLayout = ({
           updatePersona={(data) => { handleOnPersonaChange(data) }}
           firstPageData={firstPageData}
           secondPageData={secondPageData}
+          thirdPageData={thirdPageDataFRedux}
           select={select}
           sections={sections}
           handleOnSelect={handleOnSelect}

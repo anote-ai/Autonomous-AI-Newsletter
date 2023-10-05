@@ -131,11 +131,10 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${
-                    eachCategory.isActive
-                      ? "ring-4 outline-none ring-gray-300"
-                      : ""
-                  }`}
+                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
+                    ? "ring-4 outline-none ring-gray-300"
+                    : ""
+                    }`}
                   onClick={() => {
                     changeActive(
                       TemCategoryArray,
@@ -214,7 +213,7 @@ function DetailPage(props) {
                 setData(tem);
                 // console.log(data);
               }}
-              // className="flex w-64 bg-slate-100 ml-10"
+            // className="flex w-64 bg-slate-100 ml-10"
             >
               {fontsStyle.map((font, idx) => (
                 <option
@@ -348,11 +347,10 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${
-                    Demographics.isActive
-                      ? "ring-4 outline-none ring-gray-300"
-                      : ""
-                  }`}
+                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${Demographics.isActive
+                    ? "ring-4 outline-none ring-gray-300"
+                    : ""
+                    }`}
                   onClick={() => {
                     changeActive(
                       TemPeopleDemographics,
@@ -396,11 +394,10 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${
-                    eachAgeRange.isActive
-                      ? "ring-4 outline-none ring-gray-300"
-                      : ""
-                  }`}
+                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachAgeRange.isActive
+                    ? "ring-4 outline-none ring-gray-300"
+                    : ""
+                    }`}
                   onClick={() => {
                     changeActive(
                       TemAgeRange,
@@ -444,11 +441,10 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${
-                    eachIncomeLevel.isActive
-                      ? "ring-4 outline-none ring-gray-300"
-                      : ""
-                  }`}
+                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachIncomeLevel.isActive
+                    ? "ring-4 outline-none ring-gray-300"
+                    : ""
+                    }`}
                   onClick={() => {
                     changeActive(
                       TemIncomeLevel,
@@ -492,11 +488,10 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${
-                    eachStylisticChoice.isActive
-                      ? "ring-4 outline-none ring-gray-300"
-                      : ""
-                  }`}
+                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachStylisticChoice.isActive
+                    ? "ring-4 outline-none ring-gray-300"
+                    : ""
+                    }`}
                   onClick={() => {
                     changeActive(
                       TemStylisticChoice,
@@ -623,9 +618,8 @@ function DetailPage(props) {
             {TemThemeTopicArray.map((eachTheme) => (
               <div
                 key={eachTheme.name}
-                className={`w-1/4 mx-auto text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white text-base font-medium px-5 py-2.5 text-center mr-2 mb-3 dark:text-white ${
-                  eachTheme.isActive ? "ring-4 outline-none ring-gray-300" : ""
-                } flex flex-col justify-between`}
+                className={`w-1/4 mx-auto text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white text-base font-medium px-5 py-2.5 text-center mr-2 mb-3 dark:text-white ${eachTheme.isActive ? "ring-4 outline-none ring-gray-300" : ""
+                  } flex flex-col justify-between`}
               >
                 <div
                   className="h-full flex flex-col cursor-pointer"
@@ -761,6 +755,46 @@ function DetailPage(props) {
                 )}
               </div>
             </div>
+          </div>
+          <div
+            className="h-full flex flex-col cursor-pointer"
+
+          >
+            {eachdata.data === "The Sloane Ranger" && (
+              <>
+                <p className="text-xs my-auto">
+                  For this persona, you are a character who identifies as female, possesses a witty, intellectual, smart, and effortlessly classy personality, and primarily uses a friendly and informal tone. We will use this personality, tone, and character voice to write this article.
+                </p>
+              </>
+            )}
+            {eachdata.data === "The Saucy Intellect" && (
+              <>
+                <p className="text-xs my-auto">
+                For this persona you are a character who identifies as Neutral, has a creative, unconventional, and clever satirical—even slightly irreverent at times voice personality, and primarily uses a Satirical and Humorous or Creative and Absurd or Intellectual and Literary tone. We will use this personality, tone, and character voice to write this article.
+                </p>
+              </>
+            )}
+            {eachdata.data === "The Winsome Jester" && (
+              <>
+                <p className="text-xs my-auto">
+                For this persona, you are a character who identifies as masculine and has a voice that brings joy to the inbox world through humor, fun, irreverence, and often likes to make some mischief. We will use this personality, tone, and character voice to write this article.
+                </p>
+              </>
+            )}
+            {eachdata.data === "The On-Trend Everygirl" && (
+              <>
+                <p className="text-xs my-auto">
+                For this persona you are a character who identifies as female, has voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, and primarily uses a Irreverent and Edgy or Humorous and Sarcastic or Informal and Conversational tone. We will use this personality, tone, and character voice to write this article.
+                </p>
+              </>
+            )}
+            {eachdata.data === "The Energetic Expert" && (
+              <>
+                <p className="text-xs my-auto">
+                For this persona, you are a character who identifies as masculine, has a voice like an Energetic Expert—upbeat, persuasive, and passionate—and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, we will write this article.
+                </p>
+              </>
+            )}
           </div>
         </div>
       );
