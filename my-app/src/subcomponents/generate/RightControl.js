@@ -8,47 +8,50 @@ import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
 import { FormControl, MenuItem } from "@material-ui/core";
 import { fontSizes } from "../../constants/FontSize";
+import { CharacterList } from "../../constants/CharacterList";
 
 
 function RightControl(props) {
 
     const sectionArrangements = {
         'Freshly Brewed': [
-          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'High Gloss': [
-          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'content',title: "", content: [
-            { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          ], css: "flex items-center justify-center", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            {
+                id: 'content', title: "", content: [
+                    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                ], css: "flex items-center justify-center", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
+            },
+            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'The NewPort': [
-          { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          {
-            id: 'article1', title: "", content: ' \
+            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            {
+                id: 'article1', title: "", content: ' \
           #1 link of the day/related story of interest \
           #2 link of the day/related story of interest \
           #3 link of the day/related story of interest \
           ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
-          },
-          { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-          { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            },
+            { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
-      };
+    };
     let dispatch = useDispatch();
     const [loadingNews, setLoadingNews] = useState(false);
     let content
@@ -63,10 +66,9 @@ function RightControl(props) {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // let temNData = JSON.parse(JSON.stringify(nData));
             let topic = firstPageDataFRedux[1].data;
-            let characterStyle = secondPageDataFRedux[1].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
-            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle, newsId: newsId }));
+            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: secondPageDataFRedux[1].data, newsId: newsId }));
             // console.log(data.payload);
             console.log(data.payload)
             if (data.payload && data.payload.length !== 0) {
@@ -78,10 +80,10 @@ function RightControl(props) {
                         item.content = data.payload[0]['summary']
                         item.title = data.payload[0]['title']
                     }
-                    else if(item.id === "content"){
+                    else if (item.id === "content") {
                         item.content.forEach((subItem) => {
-                            console.log("subItem",subItem)
-                            if(subItem.id === data.payload[0].id){
+                            console.log("subItem", subItem)
+                            if (subItem.id === data.payload[0].id) {
                                 subItem.content = data.payload[0]['summary']
                                 subItem.title = data.payload[0]['title']
                             }
@@ -160,9 +162,9 @@ function RightControl(props) {
                     item.title = ""
                     item.content = data.payload["data"]
                 }
-                else if(item.id === "content"){
+                else if (item.id === "content") {
                     item.content.forEach((subItem) => {
-                        if(subItem.id === newsId){
+                        if (subItem.id === newsId) {
                             subItem.title = ""
                             subItem.content = data.payload["data"]
                         }
@@ -306,14 +308,14 @@ function RightControl(props) {
                             //     }
                             // })
                             temSections.forEach((item) => {
-                                console.log("props.select",props.select)
+                                console.log("props.select", props.select)
                                 if (item.id === props.select) {
                                     item.backgroundColor = e.target.value
                                 }
-                                else if(item.id === "content"){
+                                else if (item.id === "content") {
                                     item.content.forEach((subItem) => {
-                                        console.log("subItem",subItem)
-                                        if(subItem.id === props.select){
+                                        console.log("subItem", subItem)
+                                        if (subItem.id === props.select) {
                                             subItem.backgroundColor = e.target.value
                                         }
                                     })
@@ -363,11 +365,11 @@ function RightControl(props) {
                             temSections.forEach((item) => {
                                 if (item.id === props.select) {
                                     item.fontColor = e.target.value
-                                }   
-                                else if(item.id === "content"){
+                                }
+                                else if (item.id === "content") {
                                     item.content.forEach((subItem) => {
-                                        console.log("subItem",subItem)
-                                        if(subItem.id === props.select){
+                                        console.log("subItem", subItem)
+                                        if (subItem.id === props.select) {
                                             subItem.fontColor = e.target.value
                                         }
                                     })
@@ -418,10 +420,10 @@ function RightControl(props) {
                                 if (item.id === props.select) {
                                     item.fontSize = e.target.value
                                 }
-                                else if(item.id === "content"){
+                                else if (item.id === "content") {
                                     item.content.forEach((subItem) => {
-                                        console.log("subItem",subItem)
-                                        if(subItem.id === props.select){
+                                        console.log("subItem", subItem)
+                                        if (subItem.id === props.select) {
                                             subItem.fontSize = e.target.value
                                         }
                                     })
@@ -455,14 +457,14 @@ function RightControl(props) {
     let deleteElement = () => {
         let temSections = JSON.parse(JSON.stringify(props.sections));
         let newSections = temSections.filter((item) => {
-            console.log("item",item, "props.select",props.select)
+            console.log("item", item, "props.select", props.select)
             if (item.id === "content" && item.content.length !== 0) {
                 let newContent = item.content.filter((subItem) => {
                     return subItem.id !== props.select;
                 })
                 item.content = newContent;
                 return item;
-            }            
+            }
             return item.id !== props.select;
         })
         props.handleOnSelect(props.select);
@@ -485,6 +487,22 @@ function RightControl(props) {
                     {ThemeTopic.map((font, idx) => (
                         <option key={idx} value={font.name} style={{ fontSize: font }}>
                             {font.name}
+                        </option>
+                    ))}
+                </Select1>
+                <Select1
+                    value={props.secondPageData[1].data}
+                    onChange={(e) => {
+                        let tem = JSON.parse(JSON.stringify(props.secondPageData));
+                        tem[1].data = e.target.value
+                        console.log("tem", tem);
+                        props.updatePersona(tem)
+                    }}
+                >
+                    <option disabled key="default" value=""></option>
+                    {CharacterList.map((font, idx) => (
+                        <option key={idx} value={font.name} style={{ fontSize: font }}>
+                            {font.emoji + " " + font.name}
                         </option>
                     ))}
                 </Select1>
@@ -526,12 +544,12 @@ function RightControl(props) {
                             onChange={(e) => {
                                 let temSections = JSON.parse(JSON.stringify(props.sections));
                                 temSections.forEach((item) => {
-                                    if(item.id === 'content'){
+                                    if (item.id === 'content') {
                                         item.content.forEach((elem) => {
                                             elem.backgroundColor = e.target.value
                                         })
                                     }
-                                    else{
+                                    else {
                                         item.backgroundColor = e.target.value
                                     }
                                 })
@@ -566,12 +584,12 @@ function RightControl(props) {
                             onChange={(e) => {
                                 let temSections = JSON.parse(JSON.stringify(props.sections));
                                 temSections.forEach((item) => {
-                                    if(item.id === 'content'){
+                                    if (item.id === 'content') {
                                         item.content.forEach((elem) => {
                                             elem.fontColor = e.target.value
                                         })
-                                    }else{
-                                    item.fontColor = e.target.value
+                                    } else {
+                                        item.fontColor = e.target.value
                                     }
 
                                 })
@@ -610,16 +628,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
                 {/* <div className="flex flex-col items-center mx-10 my-5">
                     <div className="grid grid-cols-2 w-full items-center">
@@ -677,16 +695,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -700,16 +718,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -723,16 +741,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -746,16 +764,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -769,16 +787,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -801,16 +819,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -832,16 +850,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )
@@ -876,16 +894,16 @@ function RightControl(props) {
                 {fontColorChange()}
                 {fontSizeChange()}
                 <span className="flex space-x-2">
-                {clearData()}
-                <Button
-                    color="failure"
-                    outline
-                    onClick={(e) => {
-                        deleteElement();
-                    }}
-                >
-                    Delete Element
-                </Button>
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
                 </span>
             </div>
         )

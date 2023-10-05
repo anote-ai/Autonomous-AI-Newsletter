@@ -96,10 +96,10 @@ function EachNewsletter(props) {
                                                 </div>
                                             )}
                                             {id === "footer" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
-                                                    {content.map((each) => {
-                                                        return (<div> {each} </div>)
-                                                    })}
+                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                                    {content.length !== 0 ? (content.map((each, idx) => {
+                                                        return (<div key={idx}> <a href={each} target="_blank"> {each}</a> </div>)
+                                                    })) : (<div> footer </div>)}
                                                 </div>
                                             )}
                                             {id === "image" && (

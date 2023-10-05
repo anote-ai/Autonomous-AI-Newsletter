@@ -148,7 +148,7 @@ const ContentLayout = ({
         setSections(selectedSection || []);
       }
     }
-  }, [secondPageData]);
+  }, [secondPageDataFRedux[0].data]);
 
   const findSection = useCallback((id) => {
     // console.log("callback")
@@ -172,6 +172,12 @@ const ContentLayout = ({
       return updatedSections;
     });
   }, [findSection]);
+
+  const handleOnPersonaChange = (data) =>{
+    console.log(data)
+    dispatch(setGenPageTwo(data));
+    setSecondPageData(data);
+  }
 
   const handleOnpageOneDataChange = (data) => {
     if (select === "layOut") {
@@ -308,6 +314,7 @@ const ContentLayout = ({
       <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-gray-900 " aria-label="Sidebar with logo branding example">
         <RightControl
           updateData={(data) => { handleOnpageOneDataChange(data) }}
+          updatePersona={(data) => { handleOnPersonaChange(data) }}
           firstPageData={firstPageData}
           secondPageData={secondPageData}
           select={select}
