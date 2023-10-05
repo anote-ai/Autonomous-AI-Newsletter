@@ -160,7 +160,7 @@ function GenerateSession(props) {
     // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
   }
   let routes = [];
-  routes = ["Newsletter Setup", "Persona & Theme Selection", "Format NewsLetter", "Generate NewsLetter"];
+  routes = ["Newsletter Setup", "Persona & Theme Selection", "Format NewsLetter", "Save NewsLetter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li

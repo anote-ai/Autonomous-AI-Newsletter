@@ -789,8 +789,11 @@ function RightControl(props) {
     else if (props.select === "intro") {
         content = (
             <div>
-                {loadingNewsData}
+                {/* {loadingNewsData} */}
                 <Button
+                    className="w-full"
+                    outline
+                    color="success"
                     onClick={(e) => {
                         generateIntroData("intro")
                     }}

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
 import { setData, getGPTData, useTopic, clearData, useUrlArr, setUrlArr, useBackgroundColor, useAllData } from "../redux/newsLetterSlice"
 import { useParams } from 'react-router-dom';
+import { faCode, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 function EachNewsletter(props) {
     let { id } = useParams();
@@ -59,9 +60,9 @@ function EachNewsletter(props) {
         <div className="bg-gray-800 w-screen h-[94%]">
             <div className="w-screen flex flex-col">
                 <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
-                    <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
+                    <div class="bg-gray-900 relative min-h-[85vh] rounded-xl border-gray-300 border-2 text-center pt-3">
                         <div className="h-full w-full">
-                            <div className={`h-[85vh] max-h-[85vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
+                            <div className={`h-[80vh] max-h-[80vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
                                 <h2>{title}</h2>
                                 <div className="p-4">
                                     {data.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => (
@@ -111,11 +112,15 @@ function EachNewsletter(props) {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="fixed bottom-5 left-5">
-                <div className='flex flex-col h-24, w-32'>
-                    <Button onClick={copyHTMLContent}>Copy HTML Content</Button>
-                    <Button onClick={copyContentWithTitleAndFontColor}>Copy Content, Title, and Font Color</Button>
+                <div className='flex w-full justify-around mt-4'>
+                    <Button onClick={copyHTMLContent} className="w-max flex">
+                        <FontAwesomeIcon icon={faCode} className='mr-2 mt-0.5'/>
+                        Copy HTML Content
+                    </Button>
+                    <Button onClick={copyContentWithTitleAndFontColor} className="w-max flex">
+                        <FontAwesomeIcon icon={faCopy} className='mr-2 mt-0.5'/>
+                        Copy Content, Title, and Font Color
+                    </Button>
                 </div>
             </div>
         </div>
