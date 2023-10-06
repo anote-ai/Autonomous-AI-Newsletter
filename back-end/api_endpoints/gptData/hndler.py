@@ -54,11 +54,12 @@ def generateIntro(text):
     # print("title reply", reply)
     return prompt
 
-def generateStory(text, characterText):
+def generateStory(text, characterText, emoji):
     prompt = f'''
     Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
     {characterText}
-    you should only response the story datanonly without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
+    {emoji}
+    you should only response the story data only without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
     information:
 
     ```
@@ -69,10 +70,11 @@ def generateStory(text, characterText):
     # print("title reply", reply)
     return prompt
 
-def generateArticle(text, characterText):
+def generateArticle(text, characterText, emoji):
     prompt = f'''
     Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
     {characterText}
+    {emoji}
     you should only response the article data only without any other text or description or name or newsletter end or title of the article or Your Character Name something like this.
     information:
 
@@ -84,10 +86,11 @@ def generateArticle(text, characterText):
     # print("title reply", reply)
     return prompt
 
-def generatePrompt_summary(text, characterText):
+def generatePrompt_summary(text, characterText, emoji):
     prompt = f'''
     your task is to generate a brief summary of the recent news of the recent website text, delimited with triple backticks.
     {characterText}
+    'Use emojis in the summary?': {emoji},
     you should only response the summary when finished to get all the data related to the query without jumping to others articles.
 
     ```
@@ -210,13 +213,15 @@ personality = {
     "The Energetic Expert": "Imagine embodying the Energetic Expert a persuasive entrepreneur and marketing guru with an upbeat, passionate voice. Get ready for vibrant energy, unwavering confidence, and crystal-clear communication that captivates and engages your audience. Feel free to embody this persona when creating content!"
 }
 
-def getGPTData(request):
+def getGPTData(request, userEmail):
+    user_id = user_id_for_email(userEmail)
     key_word = request.json.get('topic')
     searchUrlArr = request.json.get('urlList', [])
     newsId = request.json.get('newsId', 'article1')
     characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
     characterText = personality[characterStyle]
     print("characterStyle", characterStyle)
+    resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
     session = requests.Session()
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0',
@@ -236,7 +241,9 @@ def getGPTData(request):
     print(searchUrlArr)
     url_obj = session.get(url, headers=headers)
     bs = BeautifulSoup(url_obj.text, 'html.parser')
-
+    emoji = "No"
+    if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+        emoji = "Yes"
     news = []
     for i in bs.find_all('a', class_="VDXfz"):
         try:
@@ -256,7 +263,7 @@ def getGPTData(request):
             bs = BeautifulSoup(url_obj.text, "html.parser")
             # print("bs", bs.text)
             # print("step2222")
-            prompt_summary = generatePrompt_summary(bs.text, characterText)
+            prompt_summary = generatePrompt_summary(bs.text, characterText, emoji)
             prompt_date = generatePrompt_date(bs.text)
             # print("prompt_summary")
             # print("prompt_date", prompt_date)
@@ -354,9 +361,9 @@ def getIdeasFromGPT(request, userEmail):
                 page_four_data[row.get('question_name')] = row.get('data')
         # print("step 2")
         # print("resultPageTwo", resultPageTwo.get('Does your brand writing style use emojis?'))
-        emoji = False
-        if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
-            emoji = True
+        # emoji = False
+        # if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+        #     emoji = True
         # print(emoji)
         data = {
             'Brand or Company Name': resultPageOne.get('Brand or Company Name'),
@@ -470,7 +477,7 @@ def getIntro(request, user_email):
     try:
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
         # print('pageOne')
-        # resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
+        resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         # print('pageTwo')
         resultPageThree = get_detail_by_userID_three_four(
             user_id, "userDetailPageThree")
@@ -494,15 +501,16 @@ def getIntro(request, user_email):
         #         page_four_data[row.get('question_name')] = row.get('data')
         # print("step 2")
         # print("resultPageTwo", resultPageTwo.get('Does your brand writing style use emojis?'))
-        # emoji = False
-        # if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
-        #     emoji = True
-        # print(emoji)
+        emoji = False
+        if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+            emoji = True
+        print("emoji", emoji)
         data = {
             'Brand or Company Name': resultPageOne.get('Brand or Company Name'),
             'Name of Publication or Newsletter': resultPageOne.get('Name of Publication or Newsletter'),
             'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
             'Business Category': resultPageOne.get('Business Category'),
+            'Use emojis in the content?': emoji,
             'Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice': page_three_data['Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice'],
         }
         print(data)
@@ -554,6 +562,7 @@ def getStory(request, user_email):
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
+        resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         resultPageThree = get_detail_by_userID_three_four(
             user_id, "userDetailPageThree")
         if (resultPageOne == False):
@@ -562,6 +571,10 @@ def getStory(request, user_email):
         if (resultPageThree != False):
             for row in resultPageThree:
                 page_three_data[row.get('question_name')] = row.get('data')
+        emoji = "Do not use emoji in the story"
+        if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+            emoji = "Use the emoji in the story"
+        print("emoji", emoji)
         data = {
             "idea for the newsletter": idea,
             "Recent Content description": content,
@@ -586,7 +599,8 @@ def getStory(request, user_email):
                 value_str = value
 
             formatted_text += f"{key}: {value_str}\n"
-        prompt = generateStory(formatted_text, characterText)
+        prompt = generateStory(formatted_text, characterText, emoji)
+        # print(prompt)
         intros = gpt(prompt)
         res = {"data": intros}
         # print("asdfasdf")
@@ -601,9 +615,14 @@ def getArticle(request, user_email):
     try:
         idea = request.json.get("idea", '')
         content = request.json.get("content", "")
+        resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
+        emoji = "Do not use emoji in the article"
+        if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
+            emoji = "Use the emoji in the article"
+        # print("emoji", emoji)
         data = {
             "idea for the Article": idea,
             "Recent Content description": content,
@@ -626,7 +645,7 @@ def getArticle(request, user_email):
 
             formatted_text += f"{key}: {value_str}\n"
         # print("formatted Text",formatted_text)
-        prompt = generateArticle(formatted_text, characterText)
+        prompt = generateArticle(formatted_text, characterText, emoji)
         # print(prompt)
         intros = gpt(prompt)
         res = {"data": intros}

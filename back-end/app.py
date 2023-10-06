@@ -398,7 +398,13 @@ def ViewUser():
 #     return flask.jsonify(user)
 
 @app.route('/run-script', methods = ['POST'])
-def queryGPTData():
+@jwt_or_session_token_required
+def queryGPTData(): 
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
     # try:
     #     user_email = extractUserEmailFromRequest(request)
     # except InvalidTokenError:
@@ -409,7 +415,7 @@ def queryGPTData():
     # return detail_get_Handler(request, user_email)
     # if (request.args.get('key_word') and not request.args.get('key_word').isspace()):
     try:
-        return getGPTData(request)
+        return getGPTData(request, user_email)
     except:
         response_data = {"message": "input should not be empty or space only"}
         response = jsonify(response_data)
