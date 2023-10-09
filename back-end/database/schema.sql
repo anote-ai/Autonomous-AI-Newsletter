@@ -1,5 +1,16 @@
 -- create schema newsLetter;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS StripeInfo;
+DROP TABLE IF EXISTS Subscriptions;
+DROP TABLE IF EXISTS freeTrialAllowlist;
+DROP TABLE IF EXISTS freeTrialsAccessed;
+DROP TABLE IF EXISTS userDetailPageOne;
+DROP TABLE IF EXISTS userDetailPageTwo;
+DROP TABLE IF EXISTS userDetailPageThree;
+DROP TABLE IF EXISTS userDetailPageFour;
+DROP TABLE IF EXISTS AllIdeas;
+DROP TABLE IF EXISTS AllNewsletterInfo;
+
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -68,7 +79,7 @@ CREATE TABLE userDetailPageOne (
     `Select your font styles` VARCHAR(255)
 );
 
-INSERT INTO userDetailPageOne (user_id, `Business Category`) VALUES (1, "[]");
+-- INSERT INTO userDetailPageOne (user_id, `Business Category`) VALUES (1, "[]");
 CREATE TABLE userDetailPageTwo (
     user_id INTEGER not null,
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -129,7 +140,7 @@ CREATE TABLE AllNewsletterInfo (
 
 
 
-INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (9, 1, CURRENT_TIMESTAMP);
+-- INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (9, 1, CURRENT_TIMESTAMP);
 
 
-INSERT INTO Subscriptions (stripe_info_id, subscription_id, start_date, paid_user) VALUES (4, 1, CURRENT_TIMESTAMP, 9);
+-- INSERT INTO Subscriptions (stripe_info_id, subscription_id, start_date, paid_user) VALUES (4, 1, CURRENT_TIMESTAMP, 9);
