@@ -75,14 +75,14 @@ def generateArticle(text, characterText, emoji):
     Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
     {characterText}
     {emoji}
-    you should only response the article data only without any other text or description or name or newsletter end or title of the article or Your Character Name something like this.
+    you should only response the article content only without any other text.
     information:
 
     ```
     {text}
     ```
     '''
-    # print(prompt)
+    print(prompt)
     # print("title reply", reply)
     return prompt
 
