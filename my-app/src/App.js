@@ -67,7 +67,7 @@ function App() {
           for (const pageName in data.payload) {
             const pageData = data.payload[pageName];
             const questions = temData[pageName];
-            
+
             if (pageData && questions) {
               questions.forEach((question) => {
                 const questionTitle = question.title;
@@ -185,7 +185,7 @@ function App() {
               />
             )}
             <Helmet>
-              <title>Ai News Letter</title>
+              <title>NWSLTR.AI</title>
             </Helmet>
             {/* {isLoggedIn && <Header />} */}
             {/* {isLoggedIn && <SideNav setIsLoggedInParent={setIsLoggedIn} />} */}
