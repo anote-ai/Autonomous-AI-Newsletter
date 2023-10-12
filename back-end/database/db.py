@@ -19,38 +19,38 @@ from db_enums import PaidUserStatus
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-# def get_db_connection():
-#     conn = mysql.connector.connect(
-#         user='root',
-#         password='1165205407',
-#         host='localhost',
-#         port=3306,
-#         database='newsLetter'
-#     )
-#     return conn, conn.cursor(dictionary=True)
-
 def get_db_connection():
-    if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-        conn = mysql.connector.connect(
-            user='root',
-            password='1165205407',
-            host='localhost',
-            port=3306,
-            database='newsLetter'
-        )
-    else:
-        db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-        db_name = "newsletter"
-        db_user = "admin"
-        db_password = ""
-        conn = mysql.connector.connect(
-            host=db_host,
-            user=db_user,
-            password=db_password,
-            database=db_name,
-        )
-    # conn.row_factory = sqlite3.Row
+    conn = mysql.connector.connect(
+        user='root',
+        password='1165205407',
+        host='localhost',
+        port=3306,
+        database='newsLetter'
+    )
     return conn, conn.cursor(dictionary=True)
+
+# def get_db_connection():
+#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
+#         conn = mysql.connector.connect(
+#             user='root',
+#             password='1165205407',
+#             host='localhost',
+#             port=3306,
+#             database='newsLetter'
+#         )
+#     else:
+#         db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
+#         db_name = "newsletter"
+#         db_user = "admin"
+#         db_password = ""
+#         conn = mysql.connector.connect(
+#             host=db_host,
+#             user=db_user,
+#             password=db_password,
+#             database=db_name,
+#         )
+#     # conn.row_factory = sqlite3.Row
+#     return conn, conn.cursor(dictionary=True)
 
 # test connection
 # try:
@@ -305,6 +305,18 @@ def verify_password_reset_code(email, passwordResetCode):
     conn.close()
     return isVerified
 
+def verify_verification_code(email, verificationCode):
+    conn, cursor = get_db_connection()
+    isVerified = False
+    NOW = datetime.now()
+    cursor.execute("SELECT * FROM users WHERE email = %s AND verification_token = %s AND verification_token_expiration > %s",
+                   [email, verificationCode, NOW])
+    users = cursor.fetchall()
+    if len(users) > 0:
+        isVerified = True
+    conn.close()
+    return isVerified
+
 
 def user_for_credentials(email, password_hash):
     conn, cursor = get_db_connection()
@@ -348,6 +360,16 @@ def create_user_from_credentials(email, password_hash, salt, session_token):
     conn.commit()
     conn.close()
 
+def update_verification_token(email, generated_token):
+    conn, cursor = get_db_connection()
+
+    NOW = datetime.now()
+    expiration_limit = NOW + kPasswordResetExpirationTime
+    cursor.execute("UPDATE users SET verification_token = %s , verification_token_expiration = %s WHERE email = %s", [
+                   generated_token, expiration_limit, email])
+
+    conn.commit()
+    conn.close()
 
 def update_password_reset_token(email, generated_token):
     conn, cursor = get_db_connection()

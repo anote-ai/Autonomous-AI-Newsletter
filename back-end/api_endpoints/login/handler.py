@@ -2,7 +2,7 @@ from flask import jsonify
 import secrets
 import string
 from datetime import datetime
-from database.db import user_for_credentials, update_session_token_for_user, get_salt_for_email, user_exists, create_user_from_credentials, update_user_credentials, verify_password_reset_code, update_password_reset_token
+from database.db import user_for_credentials, update_session_token_for_user, get_salt_for_email, user_exists, create_user_from_credentials, update_user_credentials, verify_password_reset_code, verify_verification_code, update_password_reset_token, update_verification_token
 import bcrypt
 import re
 from flask_mail import Message
@@ -106,6 +106,40 @@ def ResetPasswordHandler(request):
     return jsonify({
         "status": "OK",
         "token": token
+    })
+
+def getVerificationHandler(request, mail):
+    email = request.json["email"]
+    try:
+        if user_exists(email):
+            host = request.referrer or "https://newsletter.anote.ai"
+            # Generate and send the password reset email
+            msg = Message('Newsletter Password Reset', recipients=[email])
+            generated_token = generate_session_token()
+            update_verification_token(email, generated_token)
+            reset_link = f'{host}?email={email}&verification Code={generated_token}'
+            msg.body = f'Here is your password reset link.  This is valid for 15 minutes or until another code is generated: {reset_link}'
+            mail.send(msg)
+
+        return jsonify({
+            "status": "OK",
+        })
+    except Exception as e:
+        print("Error get verification:", str(e))
+        return "error"
+
+def checkVerificationHandler(request):
+    email = request.json["email"]
+    verificationCode = request.json["verificationCode"]
+
+    if not verify_verification_code(email, verificationCode):
+        return jsonify({
+        "status": "Invalid verification code",
+    })
+
+    return jsonify({
+        "status": "OK",
+        "token": verificationCode
     })
 
 def hash_password(password):

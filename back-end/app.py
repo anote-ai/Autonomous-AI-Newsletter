@@ -18,7 +18,7 @@ import jwt
 from functools import wraps
 from jwt import InvalidTokenError
 from urllib.parse import urlparse
-from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler
+from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler, getVerificationHandler, checkVerificationHandler
 from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreatePortalSessionHandler, StripeWebhookHandler
 from database.db import create_user_if_does_not_exist 
 from api_endpoints.view_user.handler import ViewUserHandler
@@ -277,6 +277,17 @@ def forgotPassword():
 @cross_origin(supports_credentials=True)
 def resetPassword():
     return ResetPasswordHandler(request)
+
+@app.route("/getVerification", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def getVerification():
+    return getVerificationHandler(request, mail)
+
+
+@app.route("/checkVerification", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def checkVerification():
+    return checkVerificationHandler(request)
 
 
 @app.route('/createCheckoutSession', methods=['POST'])
