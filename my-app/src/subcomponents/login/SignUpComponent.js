@@ -37,7 +37,7 @@ function SignUpComponent(props) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="mb-2">Sign Up</h1>
+      <h1 className="text-4xl my-5 font-semibold">Sign Up</h1>
       <TextInput
         id="dsearch"
         name="dsearch"

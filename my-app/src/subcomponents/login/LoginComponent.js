@@ -33,7 +33,7 @@ function LoginComponent(props) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>Log In</h1>
+      <h1 className="text-4xl my-5 font-semibold">Log In</h1>
       <TextInput
         id="dsearch"
         name="dsearch"

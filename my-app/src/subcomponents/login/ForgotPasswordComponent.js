@@ -21,8 +21,8 @@ function ForgotPasswordComponent(props) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>Reset Password</h1>
-      <p className={"resetPasswordText"}>
+      <h1 className="text-4xl my-5 font-semibold">Reset Password</h1>
+      <p className={"text-white mx-auto w-2/3 mb-3"}>
         Enter email address and we will send instructions to reset your password
       </p>
       <TextInput
@@ -56,7 +56,7 @@ function ForgotPasswordComponent(props) {
         Continue
       </button>
       <p
-        className={"UncursorableButton mt-2"}
+        className={"UncursorableButton mt-2 mb-4"}
         onClick={() => {
           props.setPageState(1);
         }}
