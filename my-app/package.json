@@ -34,6 +34,8 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
+    "uglify-js": "^3.17.4",
+    "uglifyjs": "^2.4.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
