@@ -20,18 +20,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_db_connection():
-<<<<<<< HEAD
-    conn = mysql.connector.connect(
-        user='root',
-        password='1165205407',
-        host='localhost',
-        port=3306,
-        database='newsLetter'
-    )
-=======
     print("in auth get_db_connection")
     print(socket.gethostname())
-    print(ocket.gethostname())
+    print(socket.gethostname())
     print(os.environ)
     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
         print("in local branch")
@@ -56,7 +47,6 @@ def get_db_connection():
         )
         print("connected")
     # conn.row_factory = sqlite3.Row
->>>>>>> main
     return conn, conn.cursor(dictionary=True)
 
 # def get_db_connection():
