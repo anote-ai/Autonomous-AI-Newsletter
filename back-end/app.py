@@ -30,12 +30,14 @@ from database.db_auth import extractUserEmailFromRequest, is_session_token_valid
 app = Flask(__name__)
 
 config = {
-    'ORIGINS': [
-        'http://localhost:3000'
-    ],
+  'ORIGINS': [
+    'http://localhost:3000',  # React
+    'https://nwsltr.anote.ai', # Frontend prod URL,
+    'https://newsletter.anote.ai', # Frontend prod URL,
+  ],
 }
-CORS(app, resources={
-     r'/*': {'origins': 'http://localhost:3000'}}, supports_credentials=True)
+CORS(app, resources={ r'/*': {'origins': config['ORIGINS']}}, supports_credentials=True)
+
 # CORS(app, resources={
 #      r'/*': {'origins': config['ORIGINS']}}, supports_credentials=True)
 
@@ -118,7 +120,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 # GOOGLE_CLIENT_ID = "261908856206-u67q6mdasnf7sflc49d6cl4panmnlfnf.apps.googleusercontent.com"  #enter your client id you got from Google console
 # GOOGLE_CLIENT_ID = "503188717568-epgsohj91lnf6h7k4tu85aq17u1k3fr9.apps.googleusercontent.com" # Sababa final prod key
-GOOGLE_CLIENT_ID = "474765804719-q09qgh41dt9dc0crsrm50fnpnjtn5u51.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = "180416107291-5bosgfv0d8ko33g5bujc1isup5kdvn40.apps.googleusercontent.com"
 # set the path to where the .json file you got Google console is
 client_secrets_file = os.path.join(
     pathlib.Path(__file__).parent, "client_secret.json")
@@ -147,7 +149,7 @@ def login():
         if netloc == "localhost:5000" or netloc == "127.0.0.1:5000":
             scheme = "http"
         else:
-            netloc = "newsletter.anote.ai"
+            netloc = "nwsltrapi.anote.ai"
         flow.redirect_uri = f'{scheme}://{netloc}/callback'
         # flow.redirect_uri = f'https://sababaapi.anote.ai/callback'
 
@@ -205,8 +207,8 @@ def callback():
     )
 
     # default_referrer = "http://localhost:3000"
-    # default_referrer = "https://newsletter.anote.ai"
-    default_referrer = "http://localhost:3000"
+    default_referrer = "https://nwsltr.anote.ai"
+    # default_referrer = "http://localhost:3000"
     user_id = create_user_if_does_not_exist(id_info.get("email"), id_info.get(
         "sub"), id_info.get("name"), id_info.get("picture"))
 

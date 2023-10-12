@@ -61,6 +61,7 @@ def extractUserEmailFromRequest(request):
 #         )
 #     return conn, conn.cursor(dictionary=True)
 def get_db_connection():
+<<<<<<< HEAD
     conn = mysql.connector.connect(
         user='root',
         password='1165205407',
@@ -68,6 +69,36 @@ def get_db_connection():
         port=3306,
         database='newsLetter'
     )
+=======
+    print("in auth get_db_connection")
+    print(socket.gethostname())
+    print(ocket.gethostname())
+    print(os.environ)
+
+    if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
+        print("in local branch")
+        conn = mysql.connector.connect(
+            user='root',
+            # password='1165205407',
+            host='localhost',
+            port=3306,
+            database='newsLetter'
+        )
+    else:
+        print("in remote branch")
+        db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
+        db_name = "newsletter"
+        db_user = "admin"
+        db_password = "R57sWqpGu83Xde"
+        conn = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_password,
+            database=db_name,
+        )
+        print("connected")
+    # conn.row_factory = sqlite3.Row
+>>>>>>> main
     return conn, conn.cursor(dictionary=True)
 # def get_db_connection():
 #     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
