@@ -332,7 +332,7 @@ const Pricing = (props) => {
     index
   ) {
     if (tier.price == "Contact us" || product.forceContactUs == true || !props.isCancelable || (showCurrentPlan && currentPlanIndexOverride != index && props.disableUpgrade)) {
-      var emailAddress = "support@anote.ai";
+      var emailAddress = "vidranatan@gmail.com";
       var subject = "Anote Sales: " + product.title;
       var body =
         "Hi, I am interested in Anote's " +

@@ -56,9 +56,9 @@ app.jwt_manager = jwt_manager
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'natan@anote.ai'
-app.config['MAIL_PASSWORD'] = 'lcoxybcxdjqdatxh'
-app.config['MAIL_DEFAULT_SENDER'] = 'natan@anote.ai'
+app.config['MAIL_USERNAME'] = 'vidranatan@gmail.com'
+app.config['MAIL_PASSWORD'] = 'fhytlgpsjyzutlnm'
+app.config['MAIL_DEFAULT_SENDER'] = 'vidranatan@gmail.com'
 mail = Mail(app)
 
 # host = 'pn7o2o2mdglj1umeufk8.us-east-1.aoss.amazonaws.com'

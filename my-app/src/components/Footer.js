@@ -17,7 +17,7 @@ const Footer = (props) => {
                 <a className="cursor-pointer text-white hover:text-gray-400" onClick={() => { navigate(tosPath); }}>Terms of Service</a>
                 <a className="cursor-pointer text-white hover:text-gray-400" onClick={() => { navigate(privatePolicyPath); }}>Privacy Policy</a>
                 <a className="cursor-pointer text-white hover:text-gray-400" onClick={() => { navigate(optOutPath); }}>Opt Out</a>
-                <a href="mailto:support@anote.ai" className="text-white hover:text-gray-400">support@anote.ai</a>
+                <a href="mailto:vidranatan@gmail.com" className="text-white hover:text-gray-400">vidranatan@gmail.com</a>
             </div>
             <div className="text-center text-white">
                 © 2023 Anote — <a className="text-white" target="_blank">All rights reserved</a>
