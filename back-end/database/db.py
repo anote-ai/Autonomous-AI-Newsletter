@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def get_db_connection():
     print("in auth get_db_connection")
     print(socket.gethostname())
-    print(ocket.gethostname())
+    print(socket.gethostname())
     print(os.environ)
     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
         print("in local branch")

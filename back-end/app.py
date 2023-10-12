@@ -139,10 +139,12 @@ flow = Flow.from_client_secrets_file(  # Flow is OAuth 2.0 a class that stores a
 @app.route("/login")  # the page where the user can login
 @cross_origin(supports_credentials=True)
 def login():
+    print("in login1")
     if request.args.get('email') and len(request.args.get('email')) > 0:
         # print(request.args.get('email'), request.args.get('email'))
         return LoginHandler(request)
     else:
+        print("in login2")
         o = urlparse(request.base_url)
         netloc = o.netloc
         scheme = "https"
@@ -150,6 +152,7 @@ def login():
             scheme = "http"
         else:
             netloc = "nwsltrapi.anote.ai"
+        print("in login3")
         flow.redirect_uri = f'{scheme}://{netloc}/callback'
         # flow.redirect_uri = f'https://sababaapi.anote.ai/callback'
 
@@ -157,6 +160,7 @@ def login():
             "redirect_uri": flow.redirect_uri
         }
 
+        print("in login4")
         if request.args.get('product_hash'):
             print("during checking product hash")
             state_dict["product_hash"] = request.args.get('product_hash')
@@ -167,16 +171,19 @@ def login():
         state = jwt.encode(
             state_dict, app.config["JWT_SECRET_KEY"], algorithm="HS256")
 
+        print("in login5")
         # Generate the authorization URL and use the JWT as the state value
         authorization_url, _ = flow.authorization_url(state=state)
-
+        print("in login6")
         response = Response(
             response=json.dumps({'auth_url': authorization_url}),
             status=200,
             mimetype='application/json'
         )
-        response.headers.add('Access-Control-Allow-Headers',
-                             'Origin, Content-Type, Accept')
+        print("in login7")
+        # response.headers.add('Access-Control-Allow-Headers',
+        #                      'Origin, Content-Type, Accept')
+        print("in login8")
         return response
 
 
