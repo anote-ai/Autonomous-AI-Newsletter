@@ -22,7 +22,9 @@ function LoginComponent(props) {
           console.log(response);
           if ("token" in response.payload) {
             localStorage.setItem("sessionToken", response.payload["token"]);
-            window.location.reload();
+            props.setPageState(5)
+            localStorage.removeItem("verificationToken");
+            // window.location.reload();
           }
         } else {
           props.setStatusMessage(response.payload["status"]);

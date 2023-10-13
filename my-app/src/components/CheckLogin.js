@@ -26,7 +26,8 @@ function CheckLogin(props) {
 
   const accessToken = localStorage.getItem("accessToken");
   const sessionToken = localStorage.getItem("sessionToken");
-  if (accessToken || sessionToken) {
+  const verificationToken = localStorage.getItem("verificationToken")
+  if ((accessToken || sessionToken) && verificationToken) {
     if (!isLoggedIn) {
       setIsLoggedIn(true);
     }
@@ -69,6 +70,7 @@ function CheckLogin(props) {
 
   useEffect(() => {
     const accessToken = new URLSearchParams(location.search).get("accessToken");
+    const verificationToken = new URLSearchParams(location.search).get("verificationToken");
     const refreshToken = new URLSearchParams(location.search).get(
       "refreshToken"
     );
@@ -91,6 +93,7 @@ function CheckLogin(props) {
     if (accessToken && refreshToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("verificationToken", verificationToken);
       props.setIsLoggedInParent(true);
       navigate("/");
     }

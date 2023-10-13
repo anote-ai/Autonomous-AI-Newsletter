@@ -108,17 +108,17 @@ def ResetPasswordHandler(request):
         "token": token
     })
 
-def getVerificationHandler(request, mail):
-    email = request.json["email"]
+def getVerificationHandler(request, mail, email):
+    # email = request.json["email"]
     try:
         if user_exists(email):
-            host = request.referrer or "https://newsletter.anote.ai"
+            # host = request.referrer or "https://newsletter.anote.ai"
             # Generate and send the password reset email
-            msg = Message('Newsletter Password Reset', recipients=[email])
+            msg = Message('Newsletter Verification', recipients=[email])
             generated_token = generate_session_token()
             update_verification_token(email, generated_token)
-            reset_link = f'{host}?email={email}&verification Code={generated_token}'
-            msg.body = f'Here is your password reset link.  This is valid for 15 minutes or until another code is generated: {reset_link}'
+            reset_link = f'email={email}&verification Code={generated_token}'
+            msg.body = f'Here is your Verification code.  This is valid for 15 minutes or until another code is generated: {reset_link}'
             mail.send(msg)
 
         return jsonify({
@@ -128,8 +128,8 @@ def getVerificationHandler(request, mail):
         print("Error get verification:", str(e))
         return "error"
 
-def checkVerificationHandler(request):
-    email = request.json["email"]
+def checkVerificationHandler(request, email):
+    # email = request.json["email"]
     verificationCode = request.json["verificationCode"]
 
     if not verify_verification_code(email, verificationCode):

@@ -13,7 +13,7 @@ from dateutil.relativedelta import relativedelta
 from database.db_auth import user_id_for_email
 from flask_mail import Message
 from email.mime.text import MIMEText
-from constants.global_constants import kSessionTokenExpirationTime, kPasswordResetExpirationTime, EMAIL_WHITELIST, planToCredits
+from constants.global_constants import kSessionTokenExpirationTime, kPasswordResetExpirationTime, EMAIL_WHITELIST, planToCredits, kValidationResetExpirationTime
 from db_enums import PaidUserStatus
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -28,7 +28,7 @@ def get_db_connection():
         print("in local branch")
         conn = mysql.connector.connect(
             user='root',
-            # password='1165205407',
+            password='1165205407',
             host='localhost',
             port=3306,
             database='newsLetter'
@@ -384,7 +384,7 @@ def update_verification_token(email, generated_token):
     conn, cursor = get_db_connection()
 
     NOW = datetime.now()
-    expiration_limit = NOW + kPasswordResetExpirationTime
+    expiration_limit = NOW + kValidationResetExpirationTime
     cursor.execute("UPDATE users SET verification_token = %s , verification_token_expiration = %s WHERE email = %s", [
                    generated_token, expiration_limit, email])
 

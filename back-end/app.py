@@ -281,15 +281,25 @@ def resetPassword():
     return ResetPasswordHandler(request)
 
 @app.route("/getVerification", methods=["POST"])
-@cross_origin(supports_credentials=True)
+@jwt_or_session_token_required
 def getVerification():
-    return getVerificationHandler(request, mail)
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    return getVerificationHandler(request, mail, user_email)
 
 
 @app.route("/checkVerification", methods=["POST"])
-@cross_origin(supports_credentials=True)
+@jwt_or_session_token_required
 def checkVerification():
-    return checkVerificationHandler(request)
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    return checkVerificationHandler(request, user_email)
 
 
 @app.route('/createCheckoutSession', methods=['POST'])
