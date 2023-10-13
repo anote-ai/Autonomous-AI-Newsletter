@@ -24,8 +24,17 @@ CREATE TABLE users (
     session_token VARCHAR(255),
     session_token_expiration TIMESTAMP,
     password_reset_token VARCHAR(255),
-    password_reset_token_expiration TIMESTAMP
+    password_reset_token_expiration TIMESTAMP,
+    verification_token VARCHAR(255),
+    verification_token_expiration TIMESTAMP
 );
+
+# ALTER TABLE users
+#   ADD verification_token VARCHAR(255)
+#     AFTER password_reset_token_expiration;
+# ALTER TABLE users
+#   ADD verification_token_expiration VARCHAR(255)
+#     AFTER verification_token;
 
 CREATE TABLE StripeInfo (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,

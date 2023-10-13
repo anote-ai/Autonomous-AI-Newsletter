@@ -32,6 +32,7 @@ export const logout = createAsyncThunk("user/logout", async (thunk) => {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("sessionToken");
     localStorage.removeItem("persist:root");
+    localStorage.removeItem("verificationToken");
     // Return an empty response
     return {};
 });
@@ -64,6 +65,31 @@ export const forgotPassword = createAsyncThunk("user/forgotPassword", async (pay
 
 export const resetPassword = createAsyncThunk("user/resetPassword", async (payload, thunk) => {
   const response = await fetcher("resetPassword", {
+    method: "POST",
+    headers: {
+    'Accept': 'application/json',
+    'Content-type': 'application/json',
+    },
+    body: JSON.stringify(payload)
+})
+  const response_str = await response.json();
+  return response_str;
+});
+
+export const getVerification = createAsyncThunk("user/getVerification", async (payload, thunk) => {
+  const response = await fetcher("getVerification", {
+    method: "POST",
+    headers: {
+    'Accept': 'application/json',
+    'Content-type': 'application/json',
+    },
+  })
+  const response_str = await response.json();
+  return response_str;
+});
+
+export const checkVerification = createAsyncThunk("user/checkVerification", async (payload, thunk) => {
+  const response = await fetcher("checkVerification", {
     method: "POST",
     headers: {
     'Accept': 'application/json',
