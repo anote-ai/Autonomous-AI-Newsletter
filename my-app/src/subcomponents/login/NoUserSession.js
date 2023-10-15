@@ -5,6 +5,7 @@ import "../../styles/Login.css";
 import LoginComponent from "./LoginComponent";
 import SignUpComponent from "./SignUpComponent";
 import ForgotPasswordComponent from "./ForgotPasswordComponent";
+import VerificationCheck from "./VerificationCheck"
 import PasswordReset from "./PasswordReset";
 import { useLocation } from "react-router-dom";
 import googleIcon from '../../assets/google_button_blue_enh.png';
@@ -144,12 +145,21 @@ function NoUserSession(props) {
               setStatusMessage={setStatusMessage}
             />
           )}
-          {pageState != 3 && pageState != 4 && (
+          {pageState == 5 && (
+            <VerificationCheck
+              forgotPasswordEmail={forgotPasswordEmail}
+              forgotPasswordCode={forgotPasswordCode}
+              setPageState={setPageStateWithReset}
+              statusMessage={statusMessage}
+              setStatusMessage={setStatusMessage}
+            />
+          )}
+          {pageState != 3 && pageState != 4 && pageState != 5 && (
             <p className="text-center my-4">
               ---------------- Or ----------------
             </p>
           )}
-          {pageState != 3 && pageState != 4 && (
+          {pageState != 3 && pageState != 4 && pageState != 5 && (
             // <button
             //   onClick={onLogin}
             //   type="button"

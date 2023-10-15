@@ -2,6 +2,7 @@ from datetime import timedelta
 from db_enums import PaidUserStatus
 
 kSessionTokenExpirationTime = timedelta(days=90)
+kValidationResetExpirationTime = timedelta(minutes=15)
 kPasswordResetExpirationTime = timedelta(minutes=15)
 
 EMAIL_WHITELIST = [

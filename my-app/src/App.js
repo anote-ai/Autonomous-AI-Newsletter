@@ -38,7 +38,8 @@ function App() {
   const [haveDeatil, setHaveDetail] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
   const sessionToken = localStorage.getItem("sessionToken");
-  if (accessToken || sessionToken) {
+  const verificationToken = localStorage.getItem("verificationToken")
+  if ((accessToken || sessionToken) && verificationToken) {
     if (!isLoggedIn) {
       setIsLoggedIn(true);
     }
@@ -67,7 +68,7 @@ function App() {
           for (const pageName in data.payload) {
             const pageData = data.payload[pageName];
             const questions = temData[pageName];
-            
+
             if (pageData && questions) {
               questions.forEach((question) => {
                 const questionTitle = question.title;
@@ -185,7 +186,7 @@ function App() {
               />
             )}
             <Helmet>
-              <title>Ai News Letter</title>
+              <title>NWSLTR.AI</title>
             </Helmet>
             {/* {isLoggedIn && <Header />} */}
             {/* {isLoggedIn && <SideNav setIsLoggedInParent={setIsLoggedIn} />} */}

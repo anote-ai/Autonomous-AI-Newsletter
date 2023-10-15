@@ -60,15 +60,6 @@ def extractUserEmailFromRequest(request):
 #             database=db_name,
 #         )
 #     return conn, conn.cursor(dictionary=True)
-# def get_db_connection():
-#     conn = mysql.connector.connect(
-#         user='root',
-#         password='1165205407',
-#         host='localhost',
-#         port=3306,
-#         database='newsLetter'
-#     )
-#     return conn, conn.cursor(dictionary=True)
 def get_db_connection():
     print("in auth get_db_connection")
     print(socket.gethostname())
@@ -79,7 +70,7 @@ def get_db_connection():
         print("in local branch")
         conn = mysql.connector.connect(
             user='root',
-            # password='1165205407',
+            password='1165205407',
             host='localhost',
             port=3306,
             database='newsLetter'
@@ -99,6 +90,28 @@ def get_db_connection():
         print("connected")
     # conn.row_factory = sqlite3.Row
     return conn, conn.cursor(dictionary=True)
+# def get_db_connection():
+#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
+#         conn = mysql.connector.connect(
+#             user='root',
+#             password='1165205407',
+#             host='localhost',
+#             port=3306,
+#             database='newsLetter'
+#         )
+#     else:
+#         db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
+#         db_name = "newsletter"
+#         db_user = "admin"
+#         db_password = ""
+#         conn = mysql.connector.connect(
+#             host=db_host,
+#             user=db_user,
+#             password=db_password,
+#             database=db_name,
+#         )
+#     # conn.row_factory = sqlite3.Row
+#     return conn, conn.cursor(dictionary=True)
 
 
 def user_email_for_session_token(session_token):

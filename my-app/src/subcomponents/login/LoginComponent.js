@@ -22,7 +22,9 @@ function LoginComponent(props) {
           console.log(response);
           if ("token" in response.payload) {
             localStorage.setItem("sessionToken", response.payload["token"]);
-            window.location.reload();
+            props.setPageState(5)
+            localStorage.removeItem("verificationToken");
+            // window.location.reload();
           }
         } else {
           props.setStatusMessage(response.payload["status"]);
@@ -33,7 +35,7 @@ function LoginComponent(props) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>Log In</h1>
+      <h1 className="text-4xl my-5 font-semibold">Log In</h1>
       <TextInput
         id="dsearch"
         name="dsearch"

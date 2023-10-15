@@ -18,7 +18,7 @@ import jwt
 from functools import wraps
 from jwt import InvalidTokenError
 from urllib.parse import urlparse
-from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler
+from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler, getVerificationHandler, checkVerificationHandler
 from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreatePortalSessionHandler, StripeWebhookHandler
 from database.db import create_user_if_does_not_exist 
 from api_endpoints.view_user.handler import ViewUserHandler
@@ -288,6 +288,27 @@ def forgotPassword():
 @cross_origin(supports_credentials=True)
 def resetPassword():
     return ResetPasswordHandler(request)
+
+@app.route("/getVerification", methods=["POST"])
+@jwt_or_session_token_required
+def getVerification():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    return getVerificationHandler(request, mail, user_email)
+
+
+@app.route("/checkVerification", methods=["POST"])
+@jwt_or_session_token_required
+def checkVerification():
+    try:
+        user_email = extractUserEmailFromRequest(request)
+    except InvalidTokenError:
+        # If the JWT is invalid, return an error
+        return jsonify({"error": "Invalid JWT"}), 401
+    return checkVerificationHandler(request, user_email)
 
 
 @app.route('/createCheckoutSession', methods=['POST'])
