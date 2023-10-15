@@ -25,6 +25,7 @@ from api_endpoints.view_user.handler import ViewUserHandler
 from api_endpoints.gptData.hndler import getGPTData, getIdeasFromGPT, deleteIdeas, getAllIdeas, updateIdeas, getIntro, getStory, getArticle
 from api_endpoints.newsLetter.handler import setNewsletter, getAllNewsletter, deleteNewsletter
 from database.db_auth import extractUserEmailFromRequest, is_session_token_valid, user_id_for_email, profile_lists_access_invalid, profiles_multi_access_invalid, sequences_access_invalid, sequence_texts_access_invalid, verifyAuthForSearch, verifyAuthForPaymentsTrustedTesters, verifyAuthForCheckoutSession, verifyAuthForPortalSession, sequence_texts_multi_access_invalid
+import stripe
 
 
 app = Flask(__name__)

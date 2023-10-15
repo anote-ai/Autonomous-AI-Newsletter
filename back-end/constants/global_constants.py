@@ -11,15 +11,15 @@ EMAIL_WHITELIST = [
 ]
 
 productHashMap = {
-    "newsletter1": "price_1O1KHeHylJOoKCxSEE3mEwRN",
-    # "sababa2": "price_1Ne91NAuWN19h35KHFQtLZsQ",
-    # "sababa3": "price_1Ne90vAuWN19h35Kb3DIpkfu"
+    "newsletter1": "price_1O1KquHylJOoKCxSizB3Pct1",
+    "newsletter2": "price_1O1Kr7HylJOoKCxS5A2GGAGX",
+    "newsletter3": "price_1O1KrFHylJOoKCxSPBEFRGeO"
 }
 
 priceToPaymentPlan = {
-    "price_1O1KHeHylJOoKCxSEE3mEwRN" : PaidUserStatus.BASIC_TIER,
-    # "price_1Ne91NAuWN19h35KHFQtLZsQ" : PaidUserStatus.STANDARD_TIER,
-    # "price_1Ne90vAuWN19h35Kb3DIpkfu" : PaidUserStatus.PREMIUM_TIER
+    "price_1O1KquHylJOoKCxSizB3Pct1" : PaidUserStatus.BASIC_TIER,
+    "price_1O1Kr7HylJOoKCxS5A2GGAGX" : PaidUserStatus.STANDARD_TIER,
+    "price_1O1KrFHylJOoKCxSPBEFRGeO" : PaidUserStatus.PREMIUM_TIER
 }
 
 planToCredits = {
