@@ -568,12 +568,12 @@ def config_for_payment_tiers(userEmail, newPaymentTier):
     paidLevel = paid_user_for_user_email_with_cursor(conn, cursor, userEmail)
     conn.close()
     config = ""
-    upgrade_to_standard = "bpc_1Ne99AAuWN19h35KDOIITw1Z"
-    upgrade_to_premier = "bpc_1Ne99AAuWN19h35K7QhZh9OY"
-    downgrade_to_basic = "bpc_1Ne99BAuWN19h35KE5oEz0u9"
-    downgrade_to_standard = "bpc_1Ne99BAuWN19h35KnutfEQEw"
+    upgrade_to_standard = ""
+    upgrade_to_premier = ""
+    downgrade_to_basic = ""
+    downgrade_to_standard = ""
     if newPaymentTier == PaidUserStatus.FREE_TIER:
-        config = "bpc_1NZVKQAuWN19h35KGJb9PeiP"
+        config = "bpc_1O1KTpHylJOoKCxSOiStEiTI"
     elif paidLevel == PaidUserStatus.BASIC_TIER:
         if newPaymentTier == PaidUserStatus.STANDARD_TIER:
             config = upgrade_to_standard

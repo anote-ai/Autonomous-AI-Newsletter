@@ -61,6 +61,8 @@ app.config['MAIL_PASSWORD'] = 'fhytlgpsjyzutlnm'
 app.config['MAIL_DEFAULT_SENDER'] = 'vidranatan@gmail.com'
 mail = Mail(app)
 
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
 # host = 'pn7o2o2mdglj1umeufk8.us-east-1.aoss.amazonaws.com'
 # region = 'us-east-1'
 # service = 'aoss'
@@ -338,7 +340,19 @@ def customer_portal():
     verifyAuthForPortalSession(request, user_email, mail)
     return CreatePortalSessionHandler(request, user_email)
 
+STRIPE_WEBHOOK_SECRET = "whsec_QmaWXc8OA3XnZIPAI2yuaztH2adjZqFq"
 
+@app.route('/stripeWebhook', methods=['POST'])
+def stripe_webhook():
+  sig_header = request.headers.get('Stripe-Signature')
+  try:
+      # Verify the signature of the event
+      event = stripe.Webhook.construct_event(
+          request.data, sig_header, STRIPE_WEBHOOK_SECRET
+      )
+  except (stripe.error.SignatureVerificationError, ValueError):
+      return 'Invalid signature', 400
+  return StripeWebhookHandler(request, event)
 
 # @app.route('/viewUnlockedProfiles', methods = ['POST'])
 # @jwt_or_session_token_required
