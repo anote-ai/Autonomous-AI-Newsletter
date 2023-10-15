@@ -11,11 +11,11 @@ function paidUserToStr(paidUserStatus) {
   if (paidUserStatus == PaidUserStatus.FREE_TIER) {
     return "Free Tier";
   } else if (paidUserStatus == PaidUserStatus.BASIC_TIER) {
-    return "Basic Tier";
+    return "Essential Edition";
   } else if (paidUserStatus == PaidUserStatus.STANDARD_TIER) {
-    return "Standard Tier";
+    return "Professional Publisher";
   } else if (paidUserStatus == PaidUserStatus.PREMIUM_TIER) {
-    return "Premium Tier";
+    return "Elite Communicator";
   } else if (paidUserStatus == PaidUserStatus.ENTERPRISE_TIER) {
     return "Enterprise Tier";
   }
