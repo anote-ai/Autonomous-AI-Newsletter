@@ -63,6 +63,16 @@ const PaymentsComponent = () => {
   return (
       <div className="text-white bg-gray-900 min-h-screen">
         <div className="relative flex justify-center py-20">
+          <div className="absolute  left-10 flex flex-col text-left">
+            <span>
+              <span className="font-semibold">Current Plan : </span>
+              {currentPlanStr}
+            </span>
+            {(endDate != "" && endDate != null) && <span>
+              <span className="font-semibold">Plan Expires: </span>
+              {endDate}
+            </span>}
+          </div>
           <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
             Newsletter Pricing Plans
           </h1>
