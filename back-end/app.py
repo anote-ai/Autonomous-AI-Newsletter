@@ -15,9 +15,11 @@ from google_auth_oauthlib.flow import Flow
 from google.oauth2 import id_token
 import google.auth.transport.requests
 import jwt
+from enum import Enum
 from functools import wraps
 from jwt import InvalidTokenError
 from urllib.parse import urlparse
+from api_endpoints.refresh_credits.handler import RefreshCreditsHandler
 from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler, getVerificationHandler, checkVerificationHandler
 from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreatePortalSessionHandler, StripeWebhookHandler
 from database.db import create_user_if_does_not_exist 
@@ -138,6 +140,34 @@ flow = Flow.from_client_secrets_file(  # Flow is OAuth 2.0 a class that stores a
 )
 # postmessage
 
+class ProtectedDatabaseTable(Enum):
+    PROFILE_LISTS = 1
+    PROFILES_MULTI = 2
+    SEQUENCES = 3
+    SEQUENCE_TEXTS = 4
+    SEQUENCE_TEXTS_MULTI = 5
+
+def verifyAuthForIDs(table, non_user_id):
+  try:
+    user_email = extractUserEmailFromRequest(request)
+  except InvalidTokenError:
+    # If the JWT is invalid, return an error
+    return jsonify({"error": "Invalid JWT"}), 401
+
+  access_denied = False
+  user_id = user_id_for_email(user_email)
+  if table == ProtectedDatabaseTable.PROFILE_LISTS:
+    access_denied = profile_lists_access_invalid(user_id, non_user_id)
+  elif table == ProtectedDatabaseTable.PROFILES_MULTI:
+    access_denied = profiles_multi_access_invalid(user_id, non_user_id)
+  elif table == ProtectedDatabaseTable.SEQUENCES:
+    access_denied = sequences_access_invalid(user_id, non_user_id)
+  elif table == ProtectedDatabaseTable.SEQUENCE_TEXTS:
+    access_denied = sequence_texts_access_invalid(user_id, non_user_id)
+  elif table == ProtectedDatabaseTable.SEQUENCE_TEXTS_MULTI:
+    access_denied = sequence_texts_multi_access_invalid(user_id, non_user_id)
+  if access_denied:
+    abort(401)
 
 @app.route("/login")  # the page where the user can login
 @cross_origin(supports_credentials=True)
@@ -310,6 +340,16 @@ def checkVerification():
         # If the JWT is invalid, return an error
         return jsonify({"error": "Invalid JWT"}), 401
     return checkVerificationHandler(request, user_email)
+
+@app.route('/refreshCredits', methods = ['POST'])
+@jwt_or_session_token_required
+def RefreshCredits():
+  try:
+    user_email = extractUserEmailFromRequest(request)
+  except InvalidTokenError:
+    # If the JWT is invalid, return an error
+    return jsonify({"error": "Invalid JWT"}), 401
+  return jsonify(RefreshCreditsHandler(request, user_email))
 
 
 @app.route('/createCheckoutSession', methods=['POST'])

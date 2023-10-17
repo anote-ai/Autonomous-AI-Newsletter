@@ -229,9 +229,11 @@ export const initialState = {
     },
     extraReducers: {
         [refreshCredits.fulfilled]: (state, action) => {
-            state.numCredits = action.payload["numCredits"];
+          console.log("call refresh credits")
+          state.numCredits = action.payload["numCredits"];
         },
         [viewUser.fulfilled]: (state, action) => {
+          // console.log("call view user")
           clearUser(state);
           var id = action.payload["id"];
           state.currentUser = id;

@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import { useDetailPageOne } from "../redux/DetailSlice";
 import { useIdeas } from "../redux/newsLetterSlice";
 import Allnewsletter from "../subcomponents/allNewsletter/Allnewsletter"
+import { refreshCredits } from "../redux/UserSlice";
 
 function Profile(props) {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function Profile(props) {
 
   useEffect(() => {
     async function getData() {
+      dispatch(refreshCredits())
       try {
         let getData = await dispatch(getAllNewsletter());
         let temData = [];

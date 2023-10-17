@@ -16,7 +16,7 @@ import Footer from "./components/Footer";
 import { Helmet } from "react-helmet";
 import { Flowbite } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { useUser, viewUser } from "./redux/UserSlice";
+import { useUser, viewUser, useNumCredits, refreshCredits } from "./redux/UserSlice";
 import { getDeatil, setCompanyName, setNewsLetterDetail, setIndustry } from './redux/DetailSlice'
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
@@ -50,6 +50,7 @@ function App() {
   }
 
   // var haveUserDetail = haveDeatil;
+  let numCredits = useNumCredits();
   var showRestrictedRouteRequiringUserSession = isLoggedIn;
 
   let dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(viewUser());
+      dispatch(refreshCredits())
       async function getDeatilData() {
         try {
           let allData = await dispatch(getAllIdeas());
@@ -152,7 +154,7 @@ function App() {
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
       <Route path={DetailPagePath} element={<DetailSession />} />
     ) : null,
-    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments && haveDeatil ? (
+    showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments && haveDeatil && numCredits !== 0 ? (
       <Route path={mainPagePath} element={<GenerateSession />} />
     ) : null,
     showRestrictedRouteRequiringUserSession && showRestrictedRouteRequiringPayments ? (
