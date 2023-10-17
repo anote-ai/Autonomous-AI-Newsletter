@@ -592,6 +592,36 @@ def config_for_payment_tiers(userEmail, newPaymentTier):
     return config
 
 
+def check_credits(user_email):
+    conn, cursor = get_db_connection()
+
+    # if user_email not in EMAIL_WHITELIST:
+        # Check if the user has enough credits
+    cursor.execute("SELECT credits FROM users WHERE email = %s", [user_email])
+    user_credits = cursor.fetchone()
+
+    # If not enough credits, return an error message or handle as necessary
+    if not user_credits or user_credits["credits"] <= 0:
+        conn.close()
+        return False
+
+    conn.commit()
+    conn.close()
+
+    return True
+
+def reduce_credits(user_id):
+    conn, cursor = get_db_connection()
+
+    cursor.execute("""
+        UPDATE users SET credits = credits - 1 WHERE id = %s
+    """, [user_id])
+
+    conn.commit()
+    conn.close()
+    
+    return True
+
 def paid_user_for_user_email_with_cursor(conn, cursor, user_email):
     cursor.execute(
         'SELECT gc.paid_user FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])

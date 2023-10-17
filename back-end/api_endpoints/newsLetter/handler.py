@@ -2,7 +2,7 @@ from flask import jsonify
 import secrets
 import string
 from datetime import datetime
-from database.db import add_newsletter, get_all_newsletter, user_id_for_email, delete_newsletter_byId
+from database.db import add_newsletter, get_all_newsletter, user_id_for_email, delete_newsletter_byId, check_credits, reduce_credits
 # from database.db import user_for_credentials, update_session_token_for_user, get_salt_for_email, user_exists, create_user_from_credentials, update_user_credentials, verify_password_reset_code, update_password_reset_token
 import bcrypt
 import re
@@ -35,7 +35,11 @@ def setNewsletter(request, userEmail):
     print(idea_id)
     try:
         # print(business_category)
+        check_credits_result = check_credits(userEmail)
+        if(check_credits_result == False):
+            return jsonify({"status": "Not enough credits to unlock the profiles"})
         result = add_newsletter(user_id, title, theme, idea_id, backgroundColor, character_name, data)
+        reduce_credits(user_id)
         return result
     except Exception as e:
         print("Error inserting newsletter:", str(e))

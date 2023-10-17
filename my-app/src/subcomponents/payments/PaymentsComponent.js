@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useUser, viewUser } from "../../redux/UserSlice";
+import { useUser, viewUser, refreshCredits } from "../../redux/UserSlice";
 import Pricing from "./Pricing";
 import { PaidUserStatus } from "../../constants/DbEnums";
 import { Button } from "flowbite-react";
@@ -51,6 +51,7 @@ const PaymentsComponent = () => {
 
   useEffect(() => {
     dispatch(viewUser());
+    dispatch(refreshCredits())
   }, []);
 
   var currentPlanStr = paidUserToStr(paidUserStatus);

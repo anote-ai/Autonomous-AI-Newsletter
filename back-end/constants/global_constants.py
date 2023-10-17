@@ -24,10 +24,10 @@ priceToPaymentPlan = {
 }
 
 planToCredits = {
-    PaidUserStatus.FREE_TIER: 0,
-    PaidUserStatus.BASIC_TIER: 200,
-    PaidUserStatus.STANDARD_TIER: 500,
-    PaidUserStatus.PREMIUM_TIER: 1500
+    PaidUserStatus.FREE_TIER: 10,
+    PaidUserStatus.BASIC_TIER: 4,
+    PaidUserStatus.STANDARD_TIER: 8,
+    PaidUserStatus.PREMIUM_TIER: 12
 }
 
 planToSearches = {

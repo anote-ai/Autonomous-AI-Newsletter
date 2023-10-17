@@ -26,9 +26,17 @@ CREATE TABLE users (
     password_reset_token VARCHAR(255),
     password_reset_token_expiration TIMESTAMP,
     verification_token VARCHAR(255),
-    verification_token_expiration TIMESTAMP
+    verification_token_expiration TIMESTAMP,
+    credits INTEGER NOT NULL DEFAULT 0,
+    credits_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+# ALTER TABLE users
+#   ADD credits INTEGER NOT NULL DEFAULT 0
+#     AFTER verification_token_expiration;
+# ALTER TABLE users
+#   ADD credits_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+#     AFTER credits;
 # ALTER TABLE users
 #   ADD verification_token VARCHAR(255)
 #     AFTER password_reset_token_expiration;

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { logout, useNumCredits } from "../redux/UserSlice";
+import { logout, useNumCredits, useUser, viewUser, refreshCredits, } from "../redux/UserSlice";
 import noUserImg from '../assets/noUserImg.png';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useDetailPageOne } from "../redux/DetailSlice"
-import { useUser, viewUser } from "../redux/UserSlice";
 import "../styles/Footer.css"
 
 function MainNav(props) {
@@ -24,6 +23,7 @@ function MainNav(props) {
 
   useEffect(() => {
     dispatch(viewUser());
+    dispatch(refreshCredits())
   }, []);
 
   return (
@@ -44,7 +44,15 @@ function MainNav(props) {
             props.setDarkTheme(themeMode);
           }}
         /> */}
-        <Button outline onClick={()=> navigate(mainPagePath)} className="cursor-pointer flex font-bold text-sm items-center text-white mr-5">
+        <Button outline onClick={() => {
+          console.log(numCredits)
+          if (numCredits === 0) {
+            alert("not have enough credits")
+          }
+          else {
+            navigate(mainPagePath)
+          }
+        }} className="cursor-pointer flex font-bold text-sm items-center text-white mr-5">
           <FontAwesomeIcon size="lg" icon={faPlus} className="mr-2" />
           <p>Create New NewsLetter</p>
         </Button>
