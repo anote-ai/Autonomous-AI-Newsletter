@@ -45,7 +45,7 @@ function MainNav(props) {
           }}
         /> */}
         <Button outline onClick={() => {
-          console.log(numCredits)
+          // console.log(numCredits)
           if (numCredits === 0) {
             alert("not have enough credits")
           }
