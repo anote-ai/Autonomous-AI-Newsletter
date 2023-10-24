@@ -24,7 +24,7 @@ priceToPaymentPlan = {
 }
 
 planToCredits = {
-    PaidUserStatus.FREE_TIER: 10,
+    PaidUserStatus.FREE_TIER: 0,
     PaidUserStatus.BASIC_TIER: 4,
     PaidUserStatus.STANDARD_TIER: 8,
     PaidUserStatus.PREMIUM_TIER: 12
