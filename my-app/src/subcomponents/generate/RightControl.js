@@ -111,7 +111,7 @@ function RightControl(props) {
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
-            let data = await dispatch(getIntroData());
+            let data = await dispatch(getIntroData({characterStyle: thirdPageDataFRedux[0].data}));
             temSections.forEach((item) => {
                 if (item.id === newsId) {
                     item.content = data.payload["data"]

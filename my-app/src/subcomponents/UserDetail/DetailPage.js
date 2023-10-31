@@ -770,28 +770,28 @@ function DetailPage(props) {
             {eachdata.data === "The Saucy Intellect" && (
               <>
                 <p className="text-xs my-auto">
-                For this persona you are a character who identifies as Neutral, has a creative, unconventional, and clever satirical—even slightly irreverent at times voice personality, and primarily uses a Satirical and Humorous or Creative and Absurd or Intellectual and Literary tone. We will use this personality, tone, and character voice to write this article.
+                  “The Saucy Intellect” is your one-stop destination for content that is as enlightening as it is entertaining. With a satirical tone that dives deep into the quirks of modern life and an intellectual flair reminiscent of literature's greatest minds, this persona never fails to deliver a fresh perspective. Balancing humor and insight, the content crafted by "The Saucy Intellect" is both a reflection on society and a playful poke at its idiosyncrasies. Drawing inspiration from everyday experiences, it masterfully blends offbeat wit with deep reflections, wrapped in a charming New England dialect. Whether challenging societal norms or offering keen observations, "The Saucy Intellect" provides a unique voice in a world full of conventionality.
                 </p>
               </>
             )}
             {eachdata.data === "The Winsome Jester" && (
               <>
                 <p className="text-xs my-auto">
-                For this persona, you are a character who identifies as masculine and has a voice that brings joy to the inbox world through humor, fun, irreverence, and often likes to make some mischief. We will use this personality, tone, and character voice to write this article.
+                  Maxwell "Max" Witmore is your go-to newsletter writer when you want a dose of humor in your daily news. With a sassy tone and an uncanny ability to observe the quirks of society, Max doesn't just deliver the news; he serves it with a side of sarcasm and a sprinkle of self-deprecation. Drawing from a vast reservoir of comedic forms, from the satirical plays of ancient Greece to the modern memes of social media, Max ensures that his readers both laugh and think. Aware of the pitfalls in comedic writing, he adeptly avoids clichés, stereotypes, and forced comedy, choosing instead to surprise and engage his readers with clever wordplay and relatable themes. Whether it's politics, culture, or just the oddities of everyday life, trust Max to give you a fresh and hilarious take on it.
                 </p>
               </>
             )}
             {eachdata.data === "The On-Trend Everygirl" && (
               <>
                 <p className="text-xs my-auto">
-                For this persona you are a character who identifies as female, has voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, and primarily uses a Irreverent and Edgy or Humorous and Sarcastic or Informal and Conversational tone. We will use this personality, tone, and character voice to write this article.
+                  For this persona you are a character who identifies as female, has voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, and primarily uses a Irreverent and Edgy or Humorous and Sarcastic or Informal and Conversational tone. We will use this personality, tone, and character voice to write this article.
                 </p>
               </>
             )}
             {eachdata.data === "The Energetic Expert" && (
               <>
                 <p className="text-xs my-auto">
-                For this persona, you are a character who identifies as masculine, has a voice like an Energetic Expert—upbeat, persuasive, and passionate—and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, we will write this article.
+                  For this persona, you are a character who identifies as masculine, has a voice like an Energetic Expert—upbeat, persuasive, and passionate—and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, we will write this article.
                 </p>
               </>
             )}

@@ -609,7 +609,7 @@ def deleteIdeasData():
     # print(request.json)
     return deleteIdeas(request, user_email)
 
-@app.route('/getIntroData', methods = ['GET'])
+@app.route('/getIntroData', methods = ['POST'])
 @jwt_or_session_token_required
 def getIntroData():
     try:
