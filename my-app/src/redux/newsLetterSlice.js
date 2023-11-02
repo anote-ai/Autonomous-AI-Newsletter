@@ -41,12 +41,16 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
 });
 
 export const getIntroData = createAsyncThunk("IntroData/get", async (payload, thunk) => {
+    let reqBody = {
+        characterStyle: payload.characterStyle,
+    }
     const response = await fetcher('getIntroData', {
-        method: "GET",
+        method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
         },
+        body: JSON.stringify(reqBody)
     });
     // console.log("step1111")
     const response_str = await response.json();

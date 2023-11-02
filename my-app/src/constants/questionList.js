@@ -223,18 +223,11 @@ export const questionList = {
             id: 5
         },
         {
-            title: 'Newsletter Header Image or Company Logo',
-            require: false,
-            type: 'url',
-            data: '',
-            id: 6
-        },
-        {
             title: 'Trusted News Sources',
             require: false,
             type: 'text',
             data: '',
-            id: 7
+            id: 6
         }
     ],
     pageFour: [

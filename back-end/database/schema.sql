@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS userDetailPageThree;
 DROP TABLE IF EXISTS userDetailPageFour;
 DROP TABLE IF EXISTS AllIdeas;
 DROP TABLE IF EXISTS AllNewsletterInfo;
+DROP TABLE IF EXISTS BrandVoice;
 
 
 CREATE TABLE users (
@@ -151,6 +152,12 @@ CREATE TABLE AllNewsletterInfo (
     idea_id BIGINT,
     backgroundColor VARCHAR(255),
     character_name VARCHAR(255),
+    data TEXT
+);
+
+CREATE TABLE BrandVoice (
+    user_id INTEGER not null,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     data TEXT
 );
 

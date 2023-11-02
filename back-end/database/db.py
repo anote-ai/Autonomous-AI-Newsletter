@@ -994,7 +994,65 @@ def delete_newsletter_byId(user_id, id):
         return {'message': 'Newsletter deleted successfully'}
     else:
         return 'user not exist'
+
+def add_brand_voice_withId(user_id, data):
+    conn, cursor = get_db_connection()
+    if check_user_by_id(user_id):
+        cursor.execute("INSERT INTO BrandVoice (user_id, data) VALUES (%s, %s)", (user_id, data))
+        # print("step3")
+        conn.commit()
+        inserted_id = cursor.lastrowid
+        conn.close()
+        return inserted_id
+    else:
+        return 'user not exist'
+
+def check_brand_voice_by_id(user_id):
+    conn, cursor = get_db_connection()
+    cursor.execute('SELECT id FROM BrandVoice WHERE user_id=%s;', [user_id])
+    brandVoice = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    if (brandVoice):
+        return brandVoice
+    return False
+
+def get_all_brand_voice(user_id):
+    conn, cursor = get_db_connection()
+    # print('step1')
+    if check_user_by_id(user_id):
+        # print('step2')
+            # Update the existing record
+            # Insert a new record
+        query = "SELECT id, data FROM BrandVoice WHERE user_id = %s"
+        cursor.execute(query, (user_id,))
+        brandVoice = cursor.fetchall()
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return brandVoice
+    else:
+        return 'user not exist'
     
+def update_Brand_voice_byId(user_id, id, data):
+    conn, cursor = get_db_connection()
+    cursor.execute("UPDATE BrandVoice SET data = %s WHERE user_id = %s AND id = %s", [
+                   data, user_id, id])
+    conn.commit()
+    conn.close()
+    return True
+    
+def delete_Brand_voice_byId(user_id, id):
+    conn, cursor = get_db_connection()
+    if check_user_by_id(user_id):
+        cursor.execute("DELETE FROM BrandVoice WHERE user_id = %s AND id = %s", (user_id, id))
+        # print("step3")
+        conn.commit()
+        conn.close()
+        return True
+    else:
+        return 'user not exist'
+
 def add_ideas_withId(user_id, data, subIdea):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):
