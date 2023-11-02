@@ -1,0 +1,15 @@
+export const originId = [
+    'logo',
+    'intro',
+    'article1',
+    'sponsor1',
+    'article2',
+    'article3',
+    'footer',
+    'image',
+    'content',
+    'content1',
+    'content2',
+    'content3',
+    'story1',
+];

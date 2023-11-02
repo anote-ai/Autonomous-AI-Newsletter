@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDetailPageTwo } from "../../redux/DetailSlice";
 
-const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, fontSize, id, title, content, moveSection, findSection }) => {
+const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, fontSize, id, type, title, content, moveSection, findSection }) => {
   let getUserDetailPageTwo = useDetailPageTwo();
   const originalIndex = findSection(id).index;
   const [{ isDragging }, drag] = useDrag({

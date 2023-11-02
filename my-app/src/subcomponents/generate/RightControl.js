@@ -6,6 +6,8 @@ import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getS
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
+import { types } from "../../constants/TypeDropdown";
+import { originId } from "../../constants/OriginIDType"
 import { FormControl, MenuItem } from "@material-ui/core";
 import { fontSizes } from "../../constants/FontSize";
 import { CharacterList } from "../../constants/CharacterList";
@@ -15,41 +17,41 @@ function RightControl(props) {
 
     const sectionArrangements = {
         'Freshly Brewed': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article1', type: "article", title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'sponsor1', type: "sponsor", title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article2', type: "article", title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article3', type: "article", title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'High Gloss': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'image', type: "image", title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article1', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
             {
-                id: 'content', title: "", content: [
-                    { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-                    { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-                    { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-                ], css: "flex items-center justify-center", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
+                id: 'content', type: "content", title: "", content: [
+                    { id: 'content1', type: "contentInside", title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                    { id: 'content2', type: "contentInside", title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                    { id: 'content3', type: "contentInside", title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+                ], css: "flex items-start justify-around w-full", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
             },
-            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
         'The NewPort': [
-            { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
             {
-                id: 'article1', title: "", content: ' \
+                id: 'article1', type: "article", title: "", content: ' \
           #1 link of the day/related story of interest \
           #2 link of the day/related story of interest \
           #3 link of the day/related story of interest \
           ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
             },
-            { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-            { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'article2', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+            { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
         ],
     };
     let dispatch = useDispatch();
@@ -111,7 +113,7 @@ function RightControl(props) {
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
-            let data = await dispatch(getIntroData({characterStyle: thirdPageDataFRedux[0].data}));
+            let data = await dispatch(getIntroData({ characterStyle: thirdPageDataFRedux[0].data }));
             temSections.forEach((item) => {
                 if (item.id === newsId) {
                     item.content = data.payload["data"]
@@ -185,36 +187,46 @@ function RightControl(props) {
 
     function clearDataToDefault() {
         let temSections = JSON.parse(JSON.stringify(props.sections));
+        if (originId.includes(props.select)) {
+            let sectionSelect = sectionArrangements[secondPageDataFRedux[0].data];
+            // console.log("sectionSelect",sectionSelect)
+            let defaultData = "";
+            sectionSelect.forEach((item) => {
+                if (item.id === props.select) {
+                    defaultData = item.content;
+                }
+                else if (item.id === "content") {
+                    item.content.forEach((subItem) => {
+                        if (subItem.id === props.select) {
+                            defaultData = subItem.content;
+                        }
+                    })
+                }
+            })
+            temSections.forEach((item) => {
+                if (item.id === props.select) {
+                    item.title = "";
+                    item.content = defaultData;
+                }
+                else if (item.id === "content") {
+                    item.content.forEach((subItem) => {
+                        if (subItem.id === props.select) {
+                            subItem.title = "";
+                            subItem.content = defaultData;
+                        }
+                    })
+                }
+            })
+        }
+        else {
+            temSections.forEach((item) => {
+                if (item.id === props.select) {
+                    item.title = "";
+                    item.content =item.type;
+                }
+            })
+        }
         // console.log("temSectons",temSections)
-        let sectionSelect = sectionArrangements[secondPageDataFRedux[0].data];
-        // console.log("sectionSelect",sectionSelect)
-        let defaultData = "";
-        sectionSelect.forEach((item) => {
-            if (item.id === props.select) {
-                defaultData = item.content;
-            }
-            else if( item.id === "content"){
-                item.content.forEach((subItem) => {
-                    if(subItem.id === props.select){
-                        defaultData = subItem.content;
-                    }
-                })
-            }
-        })
-        temSections.forEach((item) => {
-            if (item.id === props.select) {
-                item.title = "";
-                item.content = defaultData;
-            }
-            else if(item.id === "content"){
-                item.content.forEach((subItem) => {
-                    if(subItem.id === props.select){
-                        subItem.title = "";
-                        subItem.content = defaultData;
-                    }
-                })
-            }
-        })
         // console.log("temSections", temSections)
         props.setSections(temSections);
     }
@@ -276,6 +288,49 @@ function RightControl(props) {
                     }}>
                     Clear Data
                 </Button>
+            </div>
+        )
+    }
+    let changeTheboxType = () => {
+        let temSections = JSON.parse(JSON.stringify(props.sections));
+        // console.log(data)
+        // console.log(initialBackgroundColor.length)
+        return (
+            <div className="flex flex-col items-center my-5">
+                <div className="flex flex-col w-full items-center">
+                    <span>
+                        Select ContentType
+                    </span>
+                    <Select2
+                        onChange={(e) => {
+                            temSections.forEach((item) => {
+                                console.log("props.select", props.select)
+                                if (item.id === props.select) {
+                                    item.type = e.target.value
+                                    item.content = e.target.value
+                                }
+                            })
+                            console.log(temSections)
+                            props.setSections(temSections)
+                        }}
+                        className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+
+                    >
+                        {types.map((type, idx) => (
+                            <MenuItem key={idx} value={type}>
+                                <div
+                                    style={{
+                                        width: "80%",
+                                        height: "20px",
+                                        margin: "auto",
+                                    }}
+                                >
+                                    {type}
+                                </div>
+                            </MenuItem>
+                        ))}
+                    </Select2>
+                </div>
             </div>
         )
     }
@@ -802,7 +857,7 @@ function RightControl(props) {
             </div>
         )
     }
-    else if (props.select === "intro") {
+    else if (props.select === "intro" || props.selectType === "intro") {
         content = (
             <div>
                 {/* {loadingNewsData} */}
@@ -811,7 +866,7 @@ function RightControl(props) {
                     outline
                     color="success"
                     onClick={(e) => {
-                        generateIntroData("intro")
+                        generateIntroData(props.select)
                     }}
                 >
                     Generate Intro
@@ -834,7 +889,7 @@ function RightControl(props) {
             </div>
         )
     }
-    else if (props.select === "story1") {
+    else if (props.select === "story1" || props.selectType === "story") {
         content = (
             <div>
                 {/* {loadingNewsData} */}
@@ -842,7 +897,7 @@ function RightControl(props) {
                     outline
                     color="success"
                     onClick={(e) => {
-                        generateStoryData("story1")
+                        generateStoryData(props.select)
                     }}
                 >
                     Generate Story
@@ -865,7 +920,7 @@ function RightControl(props) {
             </div>
         )
     }
-    else if (props.select === "image") {
+    else if (props.select === "image" || props.selectType === "image") {
         let tem = JSON.parse(JSON.stringify(props.sections));
         let data
         tem.forEach((item) => {
@@ -915,6 +970,62 @@ function RightControl(props) {
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
+                <Button
+                    onClick={(e) => {
+                        deleteElement();
+                    }}
+                >
+                    Delete Element
+                </Button>
+            </div>
+        )
+    }
+    else if (props.selectType === "news") {
+        content = (
+            <div>
+                {generateNews()}
+                {backgroundColorChange()}
+                {fontColorChange()}
+                {fontSizeChange()}
+                <span className="flex space-x-2">
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
+                </span>
+            </div>
+        )
+    }
+    else if (props.select === "sponsor1") {
+        content = (
+            <div>
+                {backgroundColorChange()}
+                {fontColorChange()}
+                {fontSizeChange()}
+                <span className="flex space-x-2">
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
+                </span>
+            </div>
+        )
+    }
+    else {
+        content = (
+            <div>
+                {changeTheboxType()}
                 <Button
                     onClick={(e) => {
                         deleteElement();
