@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import DraggableSection from './DraggableSection'; // Adjust the import according to your file structure
 import { Button } from 'flowbite-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import update from 'immutability-helper';
 import RightControl from './RightControl';
 import { useDispatch } from "react-redux";
@@ -26,39 +26,41 @@ import { useDetailPageTwo } from "../../redux/DetailSlice"
 
 const sectionArrangements = {
   'Freshly Brewed': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'sponsor1', title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article2', title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article3', title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', type: "article", title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'sponsor1', type: "sponsor", title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', type: "article", title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article3', type: "article", title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'High Gloss': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'image', title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'content',title: "", content: [
-      { id: 'content1', title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-      { id: 'content2', title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-      { id: 'content3', title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    ], css: "flex items-start justify-around w-full", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'image', type: "image", title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    {
+      id: 'content', type: "content", title: "", content: [
+        { id: 'content1', type: "contentInside", title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+        { id: 'content2', type: "contentInside", title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+        { id: 'content3', type: "contentInside", title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+      ], css: "flex items-start justify-around w-full", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
+    },
+    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'The NewPort': [
-    { id: 'logo', title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'intro', title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'story1', title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     {
-      id: 'article1', title: "", content: ' \
+      id: 'article1', type: "article", title: "", content: ' \
     #1 link of the day/related story of interest \
     #2 link of the day/related story of interest \
     #3 link of the day/related story of interest \
     ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
     },
-    { id: 'article2', title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'footer', title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
 };
 
@@ -79,9 +81,42 @@ const ContentLayout = ({
   const [firstPageData, setFirstPageData] = useState(firstPageDataFRedux);
   const [secondPageData, setSecondPageData] = useState(secondPageDataFRedux);
   const [select, setSelect] = useState("layOut");
+  const [selectType, setSelectType] = useState("")
   const [sections, setSections] = useState([]);
 
 
+  function newObj() {
+    return {
+      id: '' + Math.random().toString(36).substring(7),
+      type: '',
+      title: '',
+      content: 'New Element',
+      css: 'h-max',
+      backgroundColor: '',
+      fontColor: '',
+      fontStyle: '',
+      fontSize: '',
+    }
+  }
+  const handleAddObjectAbove = (id) => {
+    const newEle = newObj()
+
+    const updatedLayout = sections.slice(); // Create a copy of the layout array
+    const index = sections.findIndex((item) => item.id === id);
+    updatedLayout.splice(index, 0, newEle); // Insert the new object above the clicked object
+
+    setSections(updatedLayout);
+  };
+
+  const handleAddObjectBelow = (id) => {
+    const newEle = newObj()
+
+    const updatedLayout = sections.slice(); // Create a copy of the layout array
+    const index = sections.findIndex((item) => item.id === id);
+    updatedLayout.splice(index + 1, 0, newEle); // Insert the new object below the clicked object
+
+    setSections(updatedLayout);
+  };
   // console.log("sections", sections)
   useEffect(() => {
     // console.log("useEffect")
@@ -106,7 +141,7 @@ const ContentLayout = ({
       // console.log("get in to the if first", getBackgroundColorFromRedux)
       // console.log("get in to the if first", majorityColor)
       setSections(getDataFromRedux);
-      if(getBackgroundColorFromRedux !== ""){
+      if (getBackgroundColorFromRedux !== "") {
         setMajorityColor(getBackgroundColorFromRedux)
       }
       // console.log("get in to the if first")
@@ -141,7 +176,7 @@ const ContentLayout = ({
             item.content = [];
             for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
               // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
-              if(secondPageDetailDataFRedux[i].data !== ''){
+              if (secondPageDetailDataFRedux[i].data !== '') {
                 item.content.push(secondPageDetailDataFRedux[i].data)
               }
             }
@@ -176,7 +211,7 @@ const ContentLayout = ({
     });
   }, [findSection]);
 
-  const handleOnPersonaChange = (data) =>{
+  const handleOnPersonaChange = (data) => {
     console.log(data)
     dispatch(setGenPageThree(data));
   }
@@ -187,47 +222,49 @@ const ContentLayout = ({
       setMajorityColor(firstPageDetailDataFRedux[6].data)
       dispatch(setGenPageTwo(data));
       let selectedSection = JSON.parse(JSON.stringify(sectionArrangements[data[0].data]));
-        selectedSection.forEach((item) => {
-          item.fontColor = firstPageDetailDataFRedux[7].data
-          item.fontStyle = firstPageDetailDataFRedux[8].data
-          item.fontSize = secondPageDetailDataFRedux[3].data
-          if (item.id == "content") {
-            item.content.forEach((each) => {
-              each.fontColor = firstPageDetailDataFRedux[7].data
-              each.fontStyle = firstPageDetailDataFRedux[8].data
-              each.fontSize = secondPageDetailDataFRedux[3].data
-            })
-          }
-          if (item.id === "logo") {
-            item.title = firstPageDetailDataFRedux[2].data
-            item.content = firstPageDetailDataFRedux[3].data
-          }
-          else if (item.id == "sponsor1") {
-            item.content = "Sponsor By " + firstPageDataFRedux[2].data;
-          }
-          else if (item.id == "footer") {
-            item.content = [];
-            for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
-              // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
-              if(secondPageDetailDataFRedux[i].data !== ''){
-                item.content.push(secondPageDetailDataFRedux[i].data)
-              }
+      selectedSection.forEach((item) => {
+        item.fontColor = firstPageDetailDataFRedux[7].data
+        item.fontStyle = firstPageDetailDataFRedux[8].data
+        item.fontSize = secondPageDetailDataFRedux[3].data
+        if (item.id == "content") {
+          item.content.forEach((each) => {
+            each.fontColor = firstPageDetailDataFRedux[7].data
+            each.fontStyle = firstPageDetailDataFRedux[8].data
+            each.fontSize = secondPageDetailDataFRedux[3].data
+          })
+        }
+        if (item.id === "logo") {
+          item.title = firstPageDetailDataFRedux[2].data
+          item.content = firstPageDetailDataFRedux[3].data
+        }
+        else if (item.id == "sponsor1") {
+          item.content = "Sponsor By " + firstPageDataFRedux[2].data;
+        }
+        else if (item.id == "footer") {
+          item.content = [];
+          for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
+            // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
+            if (secondPageDetailDataFRedux[i].data !== '') {
+              item.content.push(secondPageDetailDataFRedux[i].data)
             }
           }
-        })
+        }
+      })
       dispatch(setData(selectedSection))
-      console.log("change layOut",data)
+      console.log("change layOut", data)
       setSecondPageData(data);
     }
   }
 
-  const handleOnSelect = (data) => {
-    console.log("select",data)
+  const handleOnSelect = (data, type) => {
+    console.log("select", data)
     if (data !== select) {
       setSelect(data);
+      setSelectType(type);
     }
     else {
       setSelect("layOut");
+      setSelectType('');
     }
   }
 
@@ -238,53 +275,62 @@ const ContentLayout = ({
 
       <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
         <DndProvider backend={HTML5Backend}>
-        <div className="p-4">
-  {sections.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => {
-    const arrangement = sectionArrangements[secondPageData[0].data];
-    
-    if (arrangement && id == "content" && Array.isArray(content)) {
-      return (
-        <div key={id} className={css}>
-          {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
-            <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-5 w-2/5`} onClick={() => { handleOnSelect(id) }}>
-            <DraggableSection
-              css={css}
-              key={id}
-              backgroundColor={backgroundColor}
-              fontColor={fontColor}
-              fontStyle={fontStyle}
-              fontSize={fontSize}
-              id={id}
-              content={content}
-              title={title}
-              moveSection={moveSection}
-              findSection={findSection}
-            />
-            </div>
-          ))}
-        </div>
-      );
-    } else {
-      return (
-        <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-5`} onClick={() => { handleOnSelect(id) }}>
-          <DraggableSection
-            css={css}
-            key={id}
-            backgroundColor={backgroundColor}
-            fontColor={fontColor}
-            fontStyle={fontStyle}
-            fontSize={fontSize}
-            id={id}
-            content={content}
-            title={title}
-            moveSection={moveSection}
-            findSection={findSection}
-          />
-        </div>
-      );
-    }
-  })}
-</div>
+          <div className="p-4">
+            {sections.map(({ id, type, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => {
+              const arrangement = sectionArrangements[secondPageData[0].data];
+
+              if (arrangement && id == "content" && Array.isArray(content)) {
+                return (
+                  <div key={id} className={css}>
+                    {content.map(({ id, type, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
+                      <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-1 w-2/5`} onClick={() => { handleOnSelect(id, type) }}>
+                        <DraggableSection
+                          css={css}
+                          key={id}
+                          backgroundColor={backgroundColor}
+                          fontColor={fontColor}
+                          fontStyle={fontStyle}
+                          fontSize={fontSize}
+                          id={id}
+                          type={type}
+                          content={content}
+                          title={title}
+                          moveSection={moveSection}
+                          findSection={findSection}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
+              } else {
+                return (
+                  <div>
+                    <div className="w-full h-1 border-1 border-transparent group mb-4" onClick={() => handleAddObjectAbove(id)}>
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <FontAwesomeIcon icon={faPlus} className="text-white" />
+                      </div>
+                    </div>
+                    <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-1`} onClick={() => { handleOnSelect(id, type) }}>
+                      <DraggableSection
+                        css={css}
+                        key={id}
+                        backgroundColor={backgroundColor}
+                        fontColor={fontColor}
+                        fontStyle={fontStyle}
+                        fontSize={fontSize}
+                        id={id}
+                        type={type}
+                        content={content}
+                        title={title}
+                        moveSection={moveSection}
+                        findSection={findSection}
+                      />
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </div>
 
         </DndProvider>
       </div>
@@ -321,6 +367,7 @@ const ContentLayout = ({
           secondPageData={secondPageData}
           thirdPageData={thirdPageDataFRedux}
           select={select}
+          selectType = {selectType}
           sections={sections}
           handleOnSelect={handleOnSelect}
           setSections={setSections}
