@@ -23,6 +23,7 @@ def gpt(text):
     # print('reply', reply)
     return reply["choices"][0]["message"]["content"]
 
+
 def generateIdeas(text, format):
     prompt = f'''
     Your task is to come up with 10 day plan for email newsletter ideas. it should be based on the questions and answers we asked our users below to generate.
@@ -40,6 +41,7 @@ def generateIdeas(text, format):
     # print(prompt)
     return prompt
 
+
 def generateIntro(text, characterText):
     prompt = f'''
     Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
@@ -55,6 +57,7 @@ def generateIntro(text, characterText):
     # print(prompt)
     # print("title reply", reply)
     return prompt
+
 
 def generateStory(text, characterText, emoji):
     prompt = f'''
@@ -72,6 +75,7 @@ def generateStory(text, characterText, emoji):
     # print(prompt)
     # print("title reply", reply)
     return prompt
+
 
 def generateArticle(text, characterText, emoji):
     prompt = f'''
@@ -219,7 +223,7 @@ Imagine you are a character who identifies as Masculine, has voice like Energeti
 Imagine you are a character who identifies as Masculine, has voice like Energetic Expert is upbeat, persuasive, and passionate, and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, could you please use that character voice to write this summary?
 '''
 personality = {
-    "The Sloane Ranger" :'''
+    "The Sloane Ranger": '''
     Tone: Keep it casual, enthusiastic, and friendly.
     Word choice: Use informal, playful, and relatable language.
     Sentence structure: Maintain a mix of short to medium sentences, and don't hesitate to use fragments for emphasis.
@@ -239,7 +243,7 @@ personality = {
     Personal anecdotes: Add relatability by including personal anecdotes.
     Use of bold/italic: Highlight important points and draw attention to key messages.
     ''',
-    "The Saucy Intellect" : 
+    "The Saucy Intellect":
     '''
     Tone : satirical, humorous, intellectual, occasionally irreverent  
     Word choice : creative, unconventional, nuanced, reflective  
@@ -257,9 +261,8 @@ personality = {
     Dialect : Slightly New England, adding charm and distinctiveness  
     Error-avoidance : stays clear of conventionality, always maintaining a satirical edge  
 
-    '''
-    ,
-    "The Winsome Jester": 
+    ''',
+    "The Winsome Jester":
     '''
     Tone : sarcastic, sassy, self-deprecating, observational  
     Word choice : informal, witty, relatable  
@@ -277,11 +280,11 @@ personality = {
     Engagement technique : challenge audience's expectations, subvert conventional wisdom  
     Error-avoidance : shuns forced comedy, clichés, overexplaining, and poor pacing
 
-    '''
-    ,
+    ''',
     "The On-Trend Everygirl": "Imagine embodying a confident, edgy, and trendy character who loves taking charge as the roadtrip DJ. This persona's voice is irreverent, humorous, and informal, making it perfect for bold and witty banter. It's all about empowerment, pop culture savvy, and embracing a coastal American Millennial vibe. Feel free to embody this persona when creating content!",
     "The Energetic Expert": "Imagine embodying the Energetic Expert a persuasive entrepreneur and marketing guru with an upbeat, passionate voice. Get ready for vibrant energy, unwavering confidence, and crystal-clear communication that captivates and engages your audience. Feel free to embody this persona when creating content!"
 }
+
 
 def getGPTData(request, userEmail):
     user_id = user_id_for_email(userEmail)
@@ -321,9 +324,10 @@ def getGPTData(request, userEmail):
             url = "https://news.google.com/" + i['href']  # url at google
             url_obj = session.get(url, headers=headers)
             bs = BeautifulSoup(url_obj.text, "html.parser")
-            url = bs.find('a', href=True, rel="nofollow")["href"]  # real news url
+            url = bs.find('a', href=True, rel="nofollow")[
+                "href"]  # real news url
             # print("first", url)
-            if(url in searchUrlArr):
+            if (url in searchUrlArr):
                 continue
             # print("seconed", url)
             # print("real url", url)
@@ -333,7 +337,8 @@ def getGPTData(request, userEmail):
             bs = BeautifulSoup(url_obj.text, "html.parser")
             # print("bs", bs.text)
             # print("step2222")
-            prompt_summary = generatePrompt_summary(bs.text, characterText, emoji)
+            prompt_summary = generatePrompt_summary(
+                bs.text, characterText, emoji)
             prompt_date = generatePrompt_date(bs.text)
             # print("prompt_summary")
             # print("prompt_date", prompt_date)
@@ -402,6 +407,7 @@ def getGPTData(request, userEmail):
 
 #     return jsonify(news)
 
+
 def getIdeasFromGPT(request, userEmail):
     user_id = user_id_for_email(userEmail)
     try:
@@ -465,7 +471,8 @@ def getIdeasFromGPT(request, userEmail):
 
             formatted_text += f"{key}: {value_str}\n"
         # print("formatted", formatted_text)
-        formatData = {"newsletter_plan": [{"day":  "value", "idea": "value","sub_ideas": ["value", "value", "value"]}]}
+        formatData = {"newsletter_plan": [
+            {"day":  "value", "idea": "value", "sub_ideas": ["value", "value", "value"]}]}
         prompt = generateIdeas(formatted_text, formatData)
         # print("")
         ideas = gpt(prompt)
@@ -477,8 +484,9 @@ def getIdeasFromGPT(request, userEmail):
         res = []
         for each in ideas["newsletter_plan"]:
             # print(each)
-            id = add_ideas_withId(user_id, each["idea"], str(each["sub_ideas"]))
-            obj = {'id':id,
+            id = add_ideas_withId(
+                user_id, each["idea"], str(each["sub_ideas"]))
+            obj = {'id': id,
                    'title': each["idea"],
                    "subIdea": each["sub_ideas"],
                    'used': False}
@@ -489,7 +497,8 @@ def getIdeasFromGPT(request, userEmail):
     except Exception as e:
         print("Error generate Idea", str(e))
         return "error"
-    
+
+
 def getAllIdeas(userEmail):
     user_id = user_id_for_email(userEmail)
     # print(data)
@@ -509,38 +518,41 @@ def getAllIdeas(userEmail):
         print("Error get Idea", str(e))
         return "error"
 
+
 def updateIdeas(request, userEmail):
     user_id = user_id_for_email(userEmail)
     id = request.json.get("id", 'null')
     title = request.json.get("title", "null")
     used = request.json.get("used", False)
-    if(id == 'null' or id ==""):
+    if (id == 'null' or id == ""):
         return "not Id provide"
     # print("id", id)
     # print("title", title)
-    
+
     try:
         # print(business_category)
-        update_Ideas_byId (user_id, id, title, used)
+        update_Ideas_byId(user_id, id, title, used)
         return {'message': 'Idea update successfully'}
     except Exception as e:
         print("Error update ideas:", str(e))
         return "error"
 
+
 def deleteIdeas(request, userEmail):
     user_id = user_id_for_email(userEmail)
     id = request.json.get("data", '[]')
-    if(id == 'null' or id ==""):
+    if (id == 'null' or id == ""):
         return "not Id provide"
     print(id)
     try:
         # print(business_category)
         for eachData in id:
-            delete_Ideas_byId (user_id, eachData.get("id"))
+            delete_Ideas_byId(user_id, eachData.get("id"))
         return {'message': 'Idea deleted successfully'}
     except Exception as e:
         print("Error delete Ideas:", str(e))
         return "error"
+
 
 def getIntro(request, user_email):
     user_id = user_id_for_email(user_email)
@@ -551,7 +563,8 @@ def getIntro(request, user_email):
         # print('pageTwo')
         resultPageThree = get_detail_by_userID_three_four(
             user_id, "userDetailPageThree")
-        characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+        characterStyle = request.json.get(
+            'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
         # print('pageThree')
@@ -625,13 +638,15 @@ def getIntro(request, user_email):
     except Exception as e:
         print("Error generate Intro:", str(e))
         return "error"
-    
+
+
 def getStory(request, user_email):
     user_id = user_id_for_email(user_email)
     try:
         idea = request.json.get("idea", '')
         content = request.json.get("content", "")
-        characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+        characterStyle = request.json.get(
+            'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
@@ -682,14 +697,16 @@ def getStory(request, user_email):
     except Exception as e:
         print("Error generate Story:", str(e))
         return "error"
-    
+
+
 def getArticle(request, user_email):
     user_id = user_id_for_email(user_email)
     try:
         idea = request.json.get("idea", '')
         content = request.json.get("content", "")
         resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
-        characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+        characterStyle = request.json.get(
+            'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
         emoji = "Do not use emoji in the article"
