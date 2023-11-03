@@ -11,7 +11,7 @@ import { originId } from "../../constants/OriginIDType"
 import { FormControl, MenuItem } from "@material-ui/core";
 import { fontSizes } from "../../constants/FontSize";
 import { CharacterList } from "../../constants/CharacterList";
-
+import  DraggableNewBlock  from "./DraggableNewBlock"
 
 function RightControl(props) {
 
@@ -222,7 +222,7 @@ function RightControl(props) {
             temSections.forEach((item) => {
                 if (item.id === props.select) {
                     item.title = "";
-                    item.content =item.type;
+                    item.content = item.type;
                 }
             })
         }
@@ -668,6 +668,16 @@ function RightControl(props) {
                                 </MenuItem>
                             ))}
                         </Select2>
+                    </div>
+                </div>
+                <div className="flex flex-col w-full items-center">
+                    <span>
+                        New Block
+                    </span>
+                    <div className="flex flex-wrap">
+                        {types.map((type, idx) => (
+                            <DraggableNewBlock type ={type}></DraggableNewBlock>
+                        ))}
                     </div>
                 </div>
             </div>
