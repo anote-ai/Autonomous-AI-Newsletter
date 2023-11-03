@@ -1002,6 +1002,50 @@ function RightControl(props) {
             </div>
         )
     }
+    else if (props.selectType === "link") {
+        let tem = JSON.parse(JSON.stringify(props.sections));
+        let data
+        tem.forEach((item) => {
+            if (item.id === props.select) {
+                data = item.content
+            }
+        })
+        content = (
+            <div>
+                <TextInput
+                    addon="url"
+                    required
+                    type="text"
+                    placeholder="http://"
+                    onChange={(e) => {
+                        tem.forEach((item) => {
+                            if (item.id === props.select) {
+                                item.content = e.target.value
+                            }
+                        })
+                        props.setSections(tem);
+                    }}
+                    className="my-2 w-full mx-auto"
+                    value={data}
+                ></TextInput>
+                {backgroundColorChange()}
+                {fontColorChange()}
+                {fontSizeChange()}
+                <span className="flex space-x-2">
+                    {clearData()}
+                    <Button
+                        color="failure"
+                        outline
+                        onClick={(e) => {
+                            deleteElement();
+                        }}
+                    >
+                        Delete Element
+                    </Button>
+                </span>
+            </div>
+        )
+    }
     else if (props.select === "sponsor1") {
         content = (
             <div>
@@ -1019,6 +1063,12 @@ function RightControl(props) {
                         Delete Element
                     </Button>
                 </span>
+            </div>
+        )
+    }
+    else if (props.select === "logo") {
+        content = (
+            <div>
             </div>
         )
     }
