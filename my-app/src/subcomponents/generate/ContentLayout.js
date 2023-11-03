@@ -23,6 +23,7 @@ import {
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
+import DraggableNewBlock from "./DroppableNewBlock"
 
 const sectionArrangements = {
   'Freshly Brewed': [
@@ -85,12 +86,12 @@ const ContentLayout = ({
   const [sections, setSections] = useState([]);
 
 
-  function newObj() {
+  function newObj(type) {
     return {
       id: '' + Math.random().toString(36).substring(7),
-      type: '',
+      type: type,
       title: '',
-      content: 'New Element',
+      content: type,
       css: 'h-max',
       backgroundColor: '',
       fontColor: '',
@@ -98,8 +99,10 @@ const ContentLayout = ({
       fontSize: '',
     }
   }
-  const handleAddObjectAbove = (id) => {
-    const newEle = newObj()
+  const handleAddObjectAbove = (id, type) => {
+    console.log(id, type)
+    const newEle = newObj(type)
+    console.log(newEle)
 
     const updatedLayout = sections.slice(); // Create a copy of the layout array
     const index = sections.findIndex((item) => item.id === id);
@@ -305,11 +308,8 @@ const ContentLayout = ({
               } else {
                 return (
                   <div>
-                    <div className="w-full h-1 border-1 border-transparent group mb-4" onClick={() => handleAddObjectAbove(id)}>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <FontAwesomeIcon icon={faPlus} className="text-white" />
-                      </div>
-                    </div>
+                    <DraggableNewBlock index={id} handleAddObjectAbove = {(index, type)=>{handleAddObjectAbove(index, type)}} className="w-full h-1 border-1 border-transparent group mb-4">
+                    </DraggableNewBlock>
                     <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-1`} onClick={() => { handleOnSelect(id, type) }}>
                       <DraggableSection
                         css={css}
@@ -332,6 +332,22 @@ const ContentLayout = ({
             })}
           </div>
 
+          <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-gray-900 " aria-label="Sidebar with logo branding example">
+            <RightControl
+              updateData={(data) => { handleOnpageOneDataChange(data) }}
+              updatePersona={(data) => { handleOnPersonaChange(data) }}
+              firstPageData={firstPageData}
+              secondPageData={secondPageData}
+              thirdPageData={thirdPageDataFRedux}
+              select={select}
+              selectType={selectType}
+              sections={sections}
+              handleOnSelect={handleOnSelect}
+              setSections={setSections}
+              majorityColor={majorityColor}
+              setMajorityColor={setMajorityColor}
+            />
+          </div>
         </DndProvider>
       </div>
       <div className="absolute bottom-5 left-10">
@@ -358,22 +374,6 @@ const ContentLayout = ({
           Next
           <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
         </Button>
-      </div>
-      <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-gray-900 " aria-label="Sidebar with logo branding example">
-        <RightControl
-          updateData={(data) => { handleOnpageOneDataChange(data) }}
-          updatePersona={(data) => { handleOnPersonaChange(data) }}
-          firstPageData={firstPageData}
-          secondPageData={secondPageData}
-          thirdPageData={thirdPageDataFRedux}
-          select={select}
-          selectType = {selectType}
-          sections={sections}
-          handleOnSelect={handleOnSelect}
-          setSections={setSections}
-          majorityColor={majorityColor}
-          setMajorityColor={setMajorityColor}
-        />
       </div>
     </div>
   );
