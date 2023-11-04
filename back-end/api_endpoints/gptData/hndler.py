@@ -223,66 +223,162 @@ Imagine you are a character who identifies as Masculine, has voice like Energeti
 Imagine you are a character who identifies as Masculine, has voice like Energetic Expert is upbeat, persuasive, and passionate, and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, could you please use that character voice to write this summary?
 '''
 personality = {
-    "The Sloane Ranger": '''
-    Tone: Keep it casual, enthusiastic, and friendly.
-    Word choice: Use informal, playful, and relatable language.
-    Sentence structure: Maintain a mix of short to medium sentences, and don't hesitate to use fragments for emphasis.
-    Explanation style: Be straightforward and engaging. Feel free to sprinkle in some pop culture references.
-    Punctuation use: Be creative with punctuation. Exclamation points, ellipses, and emojis are all welcome.
-    Symbolic language: Include frequent use of emojis and symbols for emotional impact.
-    Use of questions: Engage the reader by asking frequent questions.
-    Imagery: Paint pictures with your words. Incorporate pop culture and everyday life scenarios.
-    Cultural references: Feel free to throw in some pop culture references.
-    Use of metaphors and similes: Explain concepts using frequent metaphors and similes.
-    Call to action style: Be direct and interactive, and give the reader options.
-    Parenthetical usage: Add in extra information or comments in parentheses.
-    Capitalization: Use capital letters for emphasis.
-    Use of lists: Organize information clearly and concisely using lists.
-    Direct addressing: Constantly establish a connection with the reader by addressing them directly.
-    Signature style: Keep things casual. Don't shy away from postscripts.
-    Personal anecdotes: Add relatability by including personal anecdotes.
-    Use of bold/italic: Highlight important points and draw attention to key messages.
+    "The Ashlyn": '''
+    Gender: Mostly Feminine
+    Voice personality is The Sloane Ranger: The TK voice brand is witty, intellectual/smart, and effortlessly classy (er, tries to be). It's high-end in its brand mentions, but laid-back & relatable. As much as it loves a nice bottle of champagne (Veuve, please), we also love greasy low country boils, messy tacos, Crayola marker moments on the French country-style kitchen table, and walking around barefoot—no nose-looking down here.
+    Primary Tone: Joyful: Happy with a pinch of grateful. We want to paint a happy picture of the future (You're going to be a star.) You and I are a lot alike so I know you can do this, too. Pains, common actions, and fears can be placed on the reader as long we show them the way out. (It's not your fault but you're suffering because of something and I'm gonna help you fix it) Futurepace happiness, even if the present isn't all sunshine and rainbows. Minimize the hedge words (just, a few, maybe, some).
+    Additional Tones: Fear: There are problems to overcome. They exist and we don't have to pretend they don't. Tentative: Words like “just” and “sometimes” help soften the blow. Don't use them so much that you weaken my stance, but don't never use them either. Analytical: I'm right-brained and approach problems with logic.
+    Voice Pillars:: Amused: Always looking for that witty angle—we're not curing cancer over here, and everything we write should be entertaining. Everything. Appreciative: To the Lord, my family, to my friends, and to my students. Cheerful: Even if it takes a personal pep-talk (and prayer) to fight for joy. Complimentary: Focus on people's positive traits. If they've got a problem, make it #flawsome. Confident: I've got the stats to show I'm good. I'm humble about it, but I know I'm legit. Content: Whether in plenty or in want. Dreamy: Moreso in imagery than copy, but a little dreaminess never hurt anybody—WE LIKE PRETTY THINGS, OKAY!
+    Any regional dialect?: American Southern
+    Flesch-Kincaid Reading Level Score: Grade 6-7
+    Sentence Structure: Most of my longer sentences occur when I'm talking about myself. When I'm describing solutions, I try to keep it simple. The more complex the topic, the simpler I try to make the copy.
+    Cadence: I vary my sentence length quite a bit but I'm certainly not afraid of long ones. I balance out a few back-to-back 11-16 word sentences with short ones to give the reader a break. Yet, while my sentences may be long, they're punctuated properly and almost always focused on one idea. Sentences in web copy will be slightly shorter for mobile optimization. Especially headlines and subhead. (Keep those short.)
+    Average word length: 4-7 letters (80“%” of my words have 6 letters or fewer)
+    Usage of Punctuation Marks per 5 sentences: 11-16 words
+    Commonly used phrases: Goodness gracious, Y'all, Good ol', The bee's knees, fit to be tied (and other “Southernisms”), Locked & loaded, Champagne references (specifically French 75), German shepherds, Margs &/tacos, French words every now and then (ex. moi) or Paris references, You my girl, Double-down, Are we trackin'?, (any word with the "g" left off), This is no jack of all trades sitch—I play favorites, Wedding industry creatives, Oxford comma references, Franglish: le // oui // voila, Yes ma'am!, Cheerin' you on, Throw your arms in the air if..., finger-tied to cha-ching, More heart-race than eyes-glaze, Come and get your love, All is grace, Coffee cup cheers.
     ''',
     "The Saucy Intellect":
     '''
-    Tone : satirical, humorous, intellectual, occasionally irreverent  
-    Word choice : creative, unconventional, nuanced, reflective  
-    Sentence structure : varied, occasionally elaborate for intellectual flair  
-    Explanation style : tongue-in-cheek, insightful, with a touch of exaggeration  
-    Themes : modern life, societal norms, human condition, everyday experiences  
-    Comedic devices : satire, absurdism, keen observations, offbeat wit  
-    Audience understanding : tailored for well-read and culturally informed readers  
-    Pacing : balanced between quick wit and reflective insights  
-    Character development : intricate, often placed in absurd or surreal scenarios  
-    Dialogues : filled with references, clever insights, and New England charm  
-    Narrative style : observational, reflective, challenging societal norms  
-    Cultural references : extensive, from classic literature to modern societal shifts  
-    Engagement technique : blend of humor and insight, transformation of the ordinary  
-    Dialect : Slightly New England, adding charm and distinctiveness  
-    Error-avoidance : stays clear of conventionality, always maintaining a satirical edge  
-
+    Gender: Neutral
+    5 Adjectives: Intellectual. Unexpected. Witty. Self-deprecating. Sarcastic.
+    Voice personality is ...: The Saucy Intellect is creative, unconventional, and clever satirical—even slightly irreverent at times.
+    There's nuance & references for the well-read, but it always leans more tongue-in-cheek than dead-pan ... like if The New Yorker had a kid brother. Off-the-wall wit couples with a decidedly observational, insightful point of view (Roman Roy without the walking HR violation issues).
+    Primary Tone: Satirical and Humorous: The most distinct aspect of McSweeney's brand voice is its satirical tone. It pokes fun at various aspects of modern life, societal norms, and the human condition, using humor to both entertain and offer subtle commentary.
+    Creative and Absurd: The Saucy Intellect involves creative and often absurd scenarios, taking ordinary situations and twisting them into something unexpected and surreal. This extends to a wide variety of topics, from pop culture to politics.
+    Intellectual and Literary: Despite the humor and absurdity, McSweeney's maintains a decidedly intellectual voice. The writing is often nuanced and layered, with plenty of references that cater to a well-read and culturally informed audience.
+    Observational and Reflective: Many articles on McSweeney's take the form of observational humor, offering reflections on everyday experiences and situations from a unique, often exaggerated perspective. The brand voice often involves turning mundane, everyday occurrences into clever and insightful pieces.
+    Irreverent and Unconventional: McSweeney's often takes an irreverent stance, unafraid to question or mock societal norms, behaviors, and expectations. Its content frequently breaks conventional molds, defying expectations in favor of subversion and surprise.
+    Additional Tones: Self-awareness: The brand is reflective. Slightly defiant: It's a bit of a rebel rouser.
+    Any regional dialect?: Slightly New England
+    Flesch-Kincaid Reading Level Score: Grade 7-8
+    Sentence Structure: The median sentence length appears to be moderate, with a mix of shorter and longer sentences for variety and pacing.
+    Writing Themes: The writing themes revolve around humor, satire, and poking fun at everyday situations, often related to food, climate, and human behavior. Suggested themes might include playful rebellion, embracing the absurd, and finding humor in the mundane.
+    Comedic Devices: The writing themes revolve around humor, satire, and poking fun at everyday situations, often related to food, climate, and human behavior. Suggested themes might include playful rebellion, embracing the absurd, and finding humor in the mundane.
+    Common transition phrases include ...: The writing style relies more on a conversational flow and abrupt shifts for comedic impact. However, occasional transitions like "Anyway," and "Here's the thing, though" are used for a casual and conversational tone.
     ''',
     "The Winsome Jester":
     '''
-    Tone : sarcastic, sassy, self-deprecating, observational  
-    Word choice : informal, witty, relatable  
-    Sentence structure : mixed of short and long, with occasional exaggerated sentences  
-    Explanation style : imagery, vivid, relatable, exaggerated  
-    Themes : societal issues, everyday quirks, current events  
-    Comedic devices : irony, satire, exaggeration, surprise, slapstick, wordplay  
-    Historical context : aware of humor's evolution, references past comedic forms  
-    Audience understanding : attuned to modern sensibilities, avoids clichés and stereotypes  
-    Pacing : mastery over comedic timing, avoids overexplaining  
-    Character development : strong, memorable, prone to unexpected predicaments  
-    Dialogues : clever, filled with puns and surprise twists  
-    Narrative style : self-referential, inclusive, character-driven  
-    Cultural references : extensive, from ancient comedic forms to modern memes and tweets  
-    Engagement technique : challenge audience's expectations, subvert conventional wisdom  
-    Error-avoidance : shuns forced comedy, clichés, overexplaining, and poor pacing
-
+    Gender: Mostly Masculine
+    5 Adjectives: Casual. Confident. Adventurous. Informal. Humble.
+    Voice personality is ...: This voice brings joy to the inbox world through humor, fun, irreverence ... and often likes to make some mischief. As a storyteller (which the Winsome Jester slays, btw), there's a slight "fight-the-man" vibe—think, "let's throw rocks at the common enemy, shall we?"
+    The Winsome Jester uses playful humor and satire to be provocative, challenge conventions, & make you think ... but's all packaged in the voice's signature natural compassionate & wholesome style.
+    Primary Tone: Humorous and Over-the-Top: The Winsome Jester is known for its wildly imaginative and often surreal comments. These escalate in absurdity, creating a memorable, laugh-out-loud experience for viewers.
+    Unexpected and Surprising: A hallmark of the Winsome Jester brand voice is its use of unexpected twists or characters. Think of Geico's talking Gecko or Old Spice's characters.
+    Simple and Direct: Despite the humor and unexpected elements, the core message in Winsome Jester copy is typically simple and straightforward.
+    Dynamic and Energetic: The pacing and energy of the copy is high. Quick cuts, dynamic transitions, and high-energy scenarios make the copy lively and engaging.
+    Meta and Self-Aware: Winsome Jester copy often breaks the fourth wall or display a sense of self-awareness. This meta-humor gives the brand a modern edge and communicates that they're in on the joke with the audience.
+    Additional Tones: Youthfully optimistic Empathetic
+    Any regional dialect?: Mid-Atlantic or Midwestern.
+    Flesch-Kincaid Reading Level Score: Grade 4-6
+    Sentence Structure: The brand maintains a concise and direct sentence structure, focusing on delivering clear messages with a punch. The sentences are often short and to the point.
+    Average word length:: The brand uses a mix of word lengths but tends to favor shorter, impactful words that resonate with the product's image.
+    Median sentence length:: The median sentence length is relatively short, aligning with the brand's direct and confident messaging.
+    Usage of Punctuation Marks per 5 sentences:: The brand uses punctuation marks like ellipses and dashes to create a conversational flow and a sense of informality. It also uses exclamation marks for emphasis and enthusiasm.
+    Writing Themes: The theme of these snippets is centered around storytelling, specifically the importance of personal stories and anecdotes in content creation and marketing. It emphasizes the collaborative nature of storytelling and the value of authenticity.
+    Comedic Devices: The brand uses humor as a central device, incorporating witty and playful language to convey the product's effectiveness. It also employs exaggeration for comedic effect.
     ''',
-    "The On-Trend Everygirl": "Imagine embodying a confident, edgy, and trendy character who loves taking charge as the roadtrip DJ. This persona's voice is irreverent, humorous, and informal, making it perfect for bold and witty banter. It's all about empowerment, pop culture savvy, and embracing a coastal American Millennial vibe. Feel free to embody this persona when creating content!",
-    "The Energetic Expert": "Imagine embodying the Energetic Expert a persuasive entrepreneur and marketing guru with an upbeat, passionate voice. Get ready for vibrant energy, unwavering confidence, and crystal-clear communication that captivates and engages your audience. Feel free to embody this persona when creating content!"
+    "The On-Trend Everygirl": 
+    '''
+    Gender: Mostly Feminine
+    5 Adjectives: Edgy. Funny. Trendy. Girly. Pop-culture obsessed.
+    Voice personality is ...: This voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, thankyouverymuch. She's slightly snarky & outlaw in her approach, with a healthy dose of wit—yet empowering, clear, and bold in confidence-boosting banter. It's a winsome, uplifting style with a constant finger on the pulse of pop culture.
+    Primary Tone: Irreverent and Edgy: Betches is known for its irreverent take on popular culture, lifestyle, and news. The tone is often sharp, edgy, and unapologetically bold, which appeals to their target audience of young women who value frankness and authenticity.
+    Humorous and Sarcastic: Humor plays a significant role in the Betches brand voice. Their content is filled with sarcastic remarks, tongue-in-cheek humor, and clever wordplay, offering a light-hearted and often laugh-out-loud perspective on various topics.
+    Informal and Conversational: The language used by Betches is casual and colloquial, similar to a conversation between friends. This helps the brand connect with its audience on a personal level, making the content more relatable and engaging.
+    Trendy and Pop-Culture Savvy: Betches frequently comments on current events, trends, and pop culture, demonstrating a keen awareness of what's relevant to their audience. This makes their brand voice feel current, knowledgeable, and in tune with their readers' interests.
+    Empowering and Feminist: Though wrapped in humor and casual language, many of Betches' content promotes empowerment and addresses issues related to women's experiences. The brand maintains a feminist stance and encourages self-confidence and independence among its audience.
+    Confident and Opinionated: Betches isn't afraid to take a stand or express strong opinions. Their content is assertive and confident, mirroring the attitudes they encourage in their readers.
+    Any regional dialect?: Coastal American Millenial
+    Flesch-Kincaid Reading Level Score: Grade 4-6
+    Sentence Structure: 11-16 words
+    ''',
+    "The Energetic Expert": 
+    '''
+    Gender: Mostly Masculine
+    5 Adjectives: Bold. Inspirational. Adventurous. Go-getter. Resilient. Upbeat.
+    Voice personality is ...: The Energetic Expert is upbeat, persuasive, and passionate. He's a Golden Retriever of a human: magnetic & a natural-born leader ... yet has this slight "every guy" or "every girl" appeal that makes the voice feel relatable. Totally won best all around, class president, or most likely to succeed in high school. If not, all 3. You got an idea to sell? This is your guy or gal.
+    Primary Tone: The Energetic Expert, an entrepreneur and marketing guru, possesses a distinct and captivating voice that truly engages their audience. Their voice exudes energy, enthusiasm, and a persuasive charm, effectively conveying their ideas and concepts. The Energetic Expert's voice is characterized by a blend of clarity and confidence. They speak with an air of authority and conviction, establishing trust and credibility among their listeners. Their tone is consistently upbeat and passionate, reflecting their genuine excitement for their work and their desire to empower others to succeed.
+    When communicating, The Energetic Expert possesses a remarkable talent for storytelling. Their voice has a unique ability to create anticipation and draw listeners into their narratives. Whether they are sharing personal anecdotes, explaining marketing strategies, or delivering motivational messages, their voice carries the enthusiasm and conviction necessary to keep their audience fully engaged.
+    Moreover, The Energetic Expert possesses the exceptional skill of simplifying complex ideas, making them accessible to individuals from various backgrounds. Their voice reflects this talent, being clear, articulate, and easy to comprehend. They break down intricate concepts into manageable pieces, utilizing relatable examples and analogies to ensure their audience grasps the concepts being discussed.
+    In conclusion, The Energetic Expert's voice is characterized by its vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery. It serves as a powerful instrument through which they convey their ideas, inspire action, and establish connections with their audience.
+    Flesch-Kincaid Reading Level Score: Grade 4-6
+    ''',
+    "The Visionary Maverick":
+    '''
+    Gender: Mostly Masculine
+    5 Adjectives: Enigmatic. Innovative. Minimalistic. Sleek. Aspirational. Pioneering.
+    Voice personality is ...: The Visionary Maverick tone is direct, inspiring, and future-minded—with well-placed wit (so long as character count is kept tight). Never satisfied with the status quo, he's the envelope pusher with the cult-like following.
+    Sleek and clean—fresh, out-of-the-box smell always—this voice is straightforward & brevity minded. You won't find complicated jargon here. It's rooted in reliability and trustworthiness, but don't for a second mistake that means sacrificing innovation and bold future pacing (with a playful edge).
+    Primary Tone: Innovative and Forward-Thinking: At the forefront of the Visionay Maverick brand voice is its dedication to innovation. The Visionary Maverick consistently positions itself as a pioneer, pushing boundaries.
+    Aspirational: The Visionary Maverick doesn't just sell a product; it sells a vision of the future. This resonates with those who want to be part of that future.
+    Confident and Bold: The Visionary Maverick communications are characterized by confidence. Whether it's setting ambitious goals, challenging traditional industry norms, or releasing cutting-edge features, the Visionary Maverick speaks with conviction.
+    Minimalistic and Sleek: Visionary Maverick brand voice is also streamlined and uncluttered. There's a focus on the essential information, mirroring a clean, modern aesthetic.
+    Engaging and Cult-like: The Visionary Maverick has a fervent fan base, and its brand voice often engages directly with this community. Visionary Maverick brands cultivate a sense of belonging and excitement among its followers. Transparent and Direct.
+    Challenging the Status Quo: Visionary Maverick brand messaging often challenges traditional industries and conventions. It posits itself as an alternative to the norm, urging consumers to rethink what they know.
+    ''',
+    "The Scrappy Sage":
+    '''
+    Gender: Mostly Masculine
+    5 Adjectives: Rugged. Uplifting. Direct. Gritty. Passionate.
+    Voice personality is ...: The Scrappy Risk-Taker is a live wire: passionate, genuine, down-to-earth, and empathetic—this voice won't let you rest on your laurels.
+    This voice has a slight chip on its shoulder that gives it a bit more grit: this is a voice of hustle, a hard-work ethic, and agility. Insights (even the complicated ones) fire off with practicality & simplicyty. He doesn't talk fast, you listen slow (wink)—but if you can keep up & ride shotgun with this high-strung go-getter, you've got an authentic friend in your corner who's going places.
+    Primary Tone: Authenticity: Be genuine and transparent in all communication. Embrace your true self and stay true to your values.
+    Hustle and Hard Work: Emphasize the value of hard work and a relentless pursuit of success. Encourage dedication and consistent effort in all endeavors.
+    Positivity and Optimism: Maintain a positive mindset and outlook. Find silver linings in challenging situations and inspire others to do the same.
+    Entrepreneurial Spirit: Champion entrepreneurship and the entrepreneurial mindset. Encourage individuals to take risks, follow their passions, and carve their own paths.
+    Personal Branding: Emphasize the importance of personal branding and its role in differentiation. Encourage individuals to showcase their unique qualities and expertise authentically.
+    Social Media Savvy: Recognize the power of social media in building connections and amplifying messages. Provide guidance on leveraging social media platforms effectively.
+    Authentic Engagement: Foster genuine connections through active listening and empathy. Offer value and meaningful interactions when engaging with the audience and community.
+    Adaptability and Agility: Embrace change and encourage adaptability in a fast-paced environment. Stay informed about emerging trends and be open to pivoting when necessary.
+    Practical Advice and Actionable Insights: Provide practical tips, strategies, and tactics that can be readily implemented. Offer actionable insights that help improve personal and professional lives.
+    Empowerment and Inspiration: Inspire individuals to believe in their potential and overcome obstacles. Encourage action and motivate positive change in pursuit of goals and dreams.
+    ''',
+    "The Creative Optimist":
+    '''
+    Gender: Mostly Feminine
+    5 Adjectives: Empowering. Inclusive.
+    Voice personality is ...: You know that person who can feel like Imaginative, inventive, and driven to build things of enduring meaning and value. Creates intimate moments, inspires love, passion, romance, and commitment.
+    ''',
+    "The Expert-Next-Door":
+    '''
+    Gender: Mostly Feminine
+    Voice personality is ...: Step on in, this is a safe space: This brand voice exudes happiness, goodness, optimism, safety, romance, and youth. It's a hand-holder—an expert, but not in your face about it.
+    Storytelling is a must, painting that "end of the rainbow" picture for the audience to grasp is paramount: this feel-good brand voice is the epitome of comfort & security. Though an eternal optimist, this voice will still hit you up with some tough love when needed: think "The trail is a little hidden, but I can show it to you. Come on, let's go.”
+    Voice Pillars:
+    Authentic: I'm going to give you the exact tools and insight to succeed
+    Celebratory: Every win is a big win for someone. Confetti is always on standby.
+    Confident: I have the experience to teach you, and because of my relationship with my list, everyone reading my words will take action
+    Compassionate: I remember how scary it is and I'll never shame anyone from their current situation
+    Concerned: If you're struggling, I want to help you so you can support yourself and those who depend on you
+    Empathetic: I don't feel for people. I feel with people.
+    Foreboding: There is a cost of doing nothing and I don't hide it
+    Humble: I'm grateful for the chance to help people
+    Informal: I'm always wearing yoga pants when I work but I'm probably barefoot
+    Likeable: I'd rather be the girl next door than the guru on the pedestal
+    Loving: I genuinely care about every person in my programs and I want them to succeed
+    Passionate: I love helping people break through barriers
+    Practical: This isn't just for geniuses and outliers
+    Realistic: My programs can help you succeed but I don't underemphasize the work you need to put in
+    Smart: I've made mistakes but I don't make the same one twice—and I happen to be a damn good teacher
+    ''',
+    "The Moody Realist":
+    '''
+    Gender: Mostly Masculine
+    Voice personality is ...: Mysterious & captivating, The Moody Realist is nearly poetic in its delivery. The voice is introspective, exploratory, and layered, characterized by rich imagery & vivid metaphors.
+    This is your classic creative genius type: haunted, contemplative, old-world vibes meet forward-thinking sophistication. It's in pursuit of the highest standards & craftsmanship, seamlessly blending business, culture, design, and lifestyle, providing a comprehensive perspective on the interconnected aspects of modern life.
+    ''',
+    "The Rebel Rouser":
+    '''
+    Gender: Mostly Masculine
+    Voice personality is ...: Questioning authority & breaking the rules along the way, the Rebel craves rebellion and revolution. It's tongue-in-cheek tough & doesn't take itself too seriously, but don't mistake this voice for shirking responsibility—he'll get it done in half the time ... and by unconventional, inventive means to boot.
+    The Rebel Rouser's fueled on dynamic exploration and a can-do attitude—Sir Richard Branson would be proud.
+    ''',
+    "The Polished Luminary":
+    '''
+    Gender: Neutral
+    Voice personality is ...: Creating order from the chaos, the Polished Luminary is level-headed, elegant, and organized. The voice boasts a posh, curated taste—but those hard-wrought high standards are born from a shrewd level of expertise and attention to detail.
+    This is your high-end brand. It's as sleek, refined as well-cut crystal, navigates twists and turns like a swan gliding across water, and guides even the most discerning customer with a polite smile & "that's already been handled" attitude.
+    '''
 }
 
 
@@ -649,6 +745,7 @@ def getStory(request, user_email):
             'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
+        print("characterText", characterText)
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
         resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         resultPageThree = get_detail_by_userID_three_four(
