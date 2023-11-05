@@ -25,13 +25,13 @@ function Content(props) {
         <div className="h-full w-full">
             <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
                 <div className="p-4">
-                    {getDataFromRedux.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => {
-                        if(id == "content" && Array.isArray(content)) {
+                    {getDataFromRedux.map(({ css, backgroundColor, id, type, title, content, fontColor, fontStyle, fontSize }, index, array) => {
+                        if (id == "content" && Array.isArray(content)) {
                             return (
                                 <div key={id} className={css}>
-                                  {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
-                                    <div className={`mb-5 w-2/5`} >
-                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
+                                    {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
+                                        <div className={`mb-5 w-2/5`} >
+                                            <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                                 {title && title !== '' && (
                                                     <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
                                                         {title}
@@ -39,10 +39,10 @@ function Content(props) {
                                                 )}
                                                 {content}
                                             </div>
-                                    </div>
-                                  ))}
+                                        </div>
+                                    ))}
                                 </div>
-                              );
+                            );
                         }
                         else {
                             return (
@@ -71,7 +71,27 @@ function Content(props) {
                                             </h5>)}
                                         </div>
                                     )}
-                                    {id !== "logo" && id !== "footer" && id !== "image" && (
+                                    {id === "sponsor1" && (
+                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                            {title && title !== '' && (
+                                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                    {title}
+                                                </h5>
+                                            )}
+                                            Sponsor By {content}
+                                        </div>
+                                    )}
+                                    {type === "Sponsor" && (
+                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                            {title && title !== '' && (
+                                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                    {title}
+                                                </h5>
+                                            )}
+                                            Sponsor By {content}
+                                        </div>
+                                    )}
+                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && (
                                         <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                             {title && title !== '' && (
                                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
@@ -82,8 +102,9 @@ function Content(props) {
                                         </div>
                                     )}
                                 </div>
-                        )
-                    }})}
+                            )
+                        }
+                    })}
                 </div>
             </div>
             <div className="absolute bottom-5 left-10">

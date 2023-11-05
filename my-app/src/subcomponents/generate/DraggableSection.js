@@ -67,6 +67,20 @@ const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, fontSize
       </div>
     )
   }
+  else if (id === "sponsor1" || type === "Sponsor") {
+    // console.log("footer")
+    // console.log(content)
+    allContent = (
+      <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+        {title && title !== '' && (
+          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+            {title}
+          </h5>
+        )}
+        Sponsor By {content}
+      </div>
+    )
+  }
   else {
     allContent = (
       <div ref={(node) => drag(drop(node))} style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>

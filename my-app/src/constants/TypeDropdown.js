@@ -4,4 +4,5 @@ export const types = [
     'news',
     'link',
     'story',
+    "Sponsor"
 ];

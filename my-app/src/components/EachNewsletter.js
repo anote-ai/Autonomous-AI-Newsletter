@@ -65,66 +65,86 @@ function EachNewsletter(props) {
                             <div className={`h-[80vh] max-h-[80vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
                                 <h2>{title}</h2>
                                 <div className="p-4">
-                                    {data.map(({ css, backgroundColor, id, title, content, fontColor, fontStyle, fontSize }, index, array) => {
-                                        if(id == "content" && Array.isArray(content)) {
+                                    {data.map(({ css, backgroundColor, id, title, type, content, fontColor, fontStyle, fontSize }, index, array) => {
+                                        if (id == "content" && Array.isArray(content)) {
                                             return (
-                                                    <div key={id} className={css}>
-                                                      {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
+                                                <div key={id} className={css}>
+                                                    {content.map(({ id, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
                                                         <div className={`mb-5 w-2/5`} >
                                                             <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
-                                                                    {title && title !== '' && (
-                                                                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
-                                                                            {title}
-                                                                        </h5>
-                                                                    )}
-                                                                    {content}
-                                                                </div>
+                                                                {title && title !== '' && (
+                                                                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                        {title}
+                                                                    </h5>
+                                                                )}
+                                                                {content}
+                                                            </div>
                                                         </div>
-                                                      ))}
-                                                    </div>
-                                                  );
+                                                    ))}
+                                                </div>
+                                            );
                                         }
-                                        else{
-                                        return (
-                                        <div className={`mb-5`}>
-                                            {id === "logo" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center px-5 py-2 rounded-md shadow-md`}>
-                                                    {content && content !== "" && (
-                                                        <img className='w-10 h-10' src={content}></img>
-                                                    )}
-                                                    {title}
-                                                </div>
-                                            )}
-                                            {id === "footer" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
-                                                    {content.length !== 0 ? (content.map((each, idx) => {
-                                                        return (<div key={idx}> <a href={each} target="_blank"> {each}</a> </div>)
-                                                    })) : (<div> footer </div>)}
-                                                </div>
-                                            )}
-                                            {id === "image" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
-                                                    {content && content !== "" && isURL(content) ? (
-                                                        <img className='w-10 h-10' src={content}></img>
-                                                    ) : (<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
-                                                        {content}
-                                                    </h5>)}
-                                                </div>
-                                            )}
-                                            {id !== "logo" && id !== "footer" && id !== "image" && (
-                                                <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
-                                                    {title && title !== '' && (
-                                                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                        else {
+                                            return (
+                                                <div className={`mb-5`}>
+                                                    {id === "logo" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} flex items-center px-5 py-2 rounded-md shadow-md`}>
+                                                            {content && content !== "" && (
+                                                                <img className='w-10 h-10' src={content}></img>
+                                                            )}
                                                             {title}
-                                                        </h5>
+                                                        </div>
                                                     )}
-                                                    {content}
+                                                    {id === "footer" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                                            {content.length !== 0 ? (content.map((each, idx) => {
+                                                                return (<div key={idx}> <a href={each} target="_blank"> {each}</a> </div>)
+                                                            })) : (<div> footer </div>)}
+                                                        </div>
+                                                    )}
+                                                    {id === "image" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
+                                                            {content && content !== "" && isURL(content) ? (
+                                                                <img className='w-10 h-10' src={content}></img>
+                                                            ) : (<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                {content}
+                                                            </h5>)}
+                                                        </div>
+                                                    )}
+                                                    {id === "sponsor1" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                                            {title && title !== '' && (
+                                                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                    {title}
+                                                                </h5>
+                                                            )}
+                                                            Sponsor By {content}
+                                                        </div>
+                                                    )}
+                                                    {type === "Sponsor" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} cursor-pointer p-2 rounded-md shadow-md`}>
+                                                            {title && title !== '' && (
+                                                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                    {title}
+                                                                </h5>
+                                                            )}
+                                                            Sponsor By {content}
+                                                        </div>
+                                                    )}
+                                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && (
+                                                        <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
+                                                            {title && title !== '' && (
+                                                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
+                                                                    {title}
+                                                                </h5>
+                                                            )}
+                                                            {content}
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                        </div>
-                                        )
+                                            )
                                         }
-                        })}
+                                    })}
                                 </div>
                             </div>
                         </div>
@@ -132,11 +152,11 @@ function EachNewsletter(props) {
                 </div>
                 <div className='flex w-full justify-around mt-4'>
                     <Button onClick={copyHTMLContent} className="w-max flex">
-                        <FontAwesomeIcon icon={faCode} className='mr-2 mt-0.5'/>
+                        <FontAwesomeIcon icon={faCode} className='mr-2 mt-0.5' />
                         Copy HTML Content
                     </Button>
                     <Button onClick={copyContentWithTitleAndFontColor} className="w-max flex">
-                        <FontAwesomeIcon icon={faCopy} className='mr-2 mt-0.5'/>
+                        <FontAwesomeIcon icon={faCopy} className='mr-2 mt-0.5' />
                         Copy Content, Title, and Font Color
                     </Button>
                 </div>
