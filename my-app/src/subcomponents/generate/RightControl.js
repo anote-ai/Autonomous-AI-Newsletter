@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, TextInput, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo, useGenPageThree } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo, useGenPageThree, useGenPageFour } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -62,16 +62,17 @@ function RightControl(props) {
     let firstPageDataFRedux = useTopic();
     let secondPageDataFRedux = useGenPageTwo();
     let thirdPageDataFRedux = useGenPageThree();
+    let fourPageDataFRedux = useGenPageFour();
     async function generateGPTData(newsId) {
         // console.log(firstPageDataFRedux[5].data);
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // let temNData = JSON.parse(JSON.stringify(nData));
-            let topic = firstPageDataFRedux[1].data;
+            let topic = thirdPageDataFRedux[0].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
-            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: thirdPageDataFRedux[0].data, newsId: newsId }));
+            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: fourPageDataFRedux[0].data, newsId: newsId }));
             // console.log(data.payload);
             console.log(data.payload)
             if (data.payload && data.payload.length !== 0) {
@@ -113,7 +114,7 @@ function RightControl(props) {
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
-            let data = await dispatch(getIntroData({ characterStyle: thirdPageDataFRedux[0].data }));
+            let data = await dispatch(getIntroData({ characterStyle: fourPageDataFRedux[0].data }));
             temSections.forEach((item) => {
                 if (item.id === newsId) {
                     item.content = data.payload["data"]
@@ -135,7 +136,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getStoryData({ idea: firstPageDataFRedux[1].data, content: firstPageDataFRedux[3].data, characterStyle: thirdPageDataFRedux[0].data }));
+            let data = await dispatch(getStoryData({ idea: thirdPageDataFRedux[0].data, characterStyle: fourPageDataFRedux[0].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -158,7 +159,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getArticleData({ idea: idea, content: firstPageDataFRedux[3].data, characterStyle: thirdPageDataFRedux[0].data }));
+            let data = await dispatch(getArticleData({ idea: idea, characterStyle: fourPageDataFRedux[0].data }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -547,9 +548,9 @@ function RightControl(props) {
                     ))}
                 </Select1>
                 <Select1
-                    value={props.thirdPageData[0].data}
+                    value={props.fourthPageData[0].data}
                     onChange={(e) => {
-                        let tem = JSON.parse(JSON.stringify(props.thirdPageData));
+                        let tem = JSON.parse(JSON.stringify(props.fourthPageData));
                         tem[0].data = e.target.value
                         console.log("tem", tem);
                         props.updatePersona(tem)
@@ -685,11 +686,11 @@ function RightControl(props) {
         )
     }
     else if (props.select === "content1") {
-        // console.log(firstPageDataFRedux[1].subIdea[0])
+        // console.log(thirdPageDataFRedux[0].subIdea[0])
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[0])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -756,7 +757,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[1])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[1])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -779,7 +780,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[2])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -802,7 +803,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[0])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[0])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -825,7 +826,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[1])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[1])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -848,7 +849,7 @@ function RightControl(props) {
         content = (
             <div>
                 {generateNews()}
-                {generateArticle(firstPageDataFRedux[1].subIdea[2])}
+                {generateArticle(thirdPageDataFRedux[0].subIdea[2])}
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}
@@ -1056,9 +1057,32 @@ function RightControl(props) {
             </div>
         )
     }
-    else if (props.select === "sponsor1") {
+    else if (props.select === "sponsor1" || props.selectType === "Sponsor") {
+        let tem = JSON.parse(JSON.stringify(props.sections));
+        let data
+        tem.forEach((item) => {
+            if (item.id === props.select) {
+                data = item.content
+            }
+        })
         content = (
             <div>
+                <TextInput
+                    addon="Sponsor By"
+                    required
+                    type="text"
+                    placeholder="http://"
+                    onChange={(e) => {
+                        tem.forEach((item) => {
+                            if (item.id === props.select) {
+                                item.content = e.target.value
+                            }
+                        })
+                        props.setSections(tem);
+                    }}
+                    className="my-2 w-full mx-auto"
+                    value={data}
+                ></TextInput>
                 {backgroundColorChange()}
                 {fontColorChange()}
                 {fontSizeChange()}

@@ -61,7 +61,6 @@ export const getIntroData = createAsyncThunk("IntroData/get", async (payload, th
 export const getStoryData = createAsyncThunk("StoryData/get", async (payload, thunk) => {
     let reqBody = {
         idea: payload.idea,
-        content: payload.content,
         characterStyle: payload.characterStyle
     }
     console.log("reererere", reqBody);
@@ -82,7 +81,6 @@ export const getStoryData = createAsyncThunk("StoryData/get", async (payload, th
 export const getArticleData = createAsyncThunk("ArticleData/get", async (payload, thunk) => {
     let reqBody = {
         idea: payload.idea,
-        content: payload.content,
         characterStyle: payload.characterStyle
     }
     console.log("reererere", reqBody);
@@ -118,9 +116,9 @@ export const setNewsletter = createAsyncThunk("newsletter/set", async (payload, 
         topic: payload.firstPageData[0].data,
         backgroundColor: payload.BackgroundColor,
         data: payload.data,
-        idea_id: payload.firstPageData[1].ideaId,
+        idea_id: payload.thirdPageData[0].ideaId,
         theme: payload.secondPageData[0].data,
-        character: payload.thirdPageData[0].data
+        character: payload.fourthPageData[0].data
     }
     console.log(reqBody)
     console.log(JSON.stringify(reqBody))
@@ -276,6 +274,15 @@ export function useGenPageThree() {
         }
     });
 }
+export function useGenPageFour() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.pageFour;
+        } catch (e) {
+            return null;
+        }
+    });
+}
 export function useIdeas() {
     return useSelector((state) => {
         try {
@@ -347,6 +354,9 @@ export const newsLetterSlice = createSlice({
         setGenPageThree: (state, action) => {
             state.pageThree = action.payload;
         },
+        setGenPageFour: (state, action) => {
+            state.pageFour = action.payload;
+        },
         setBackgroundColor: (state, action) => {
             state.backgroundColor = action.payload;
         },
@@ -400,6 +410,7 @@ export const {
     setTopic,
     setGenPageTwo,
     setGenPageThree,
+    setGenPageFour,
     setBackgroundColor,
     setIdeas,
     setData,

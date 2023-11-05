@@ -740,7 +740,6 @@ def getStory(request, user_email):
     user_id = user_id_for_email(user_email)
     try:
         idea = request.json.get("idea", '')
-        content = request.json.get("content", "")
         characterStyle = request.json.get(
             'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
@@ -762,7 +761,6 @@ def getStory(request, user_email):
         print("emoji", emoji)
         data = {
             "idea for the newsletter": idea,
-            "Recent Content description": content,
             'Description of Newsletter': resultPageOne.get('Description of Newsletter'),
             'Business Category': resultPageOne.get('Business Category'),
             'Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice': page_three_data['Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice'],
@@ -800,7 +798,6 @@ def getArticle(request, user_email):
     user_id = user_id_for_email(user_email)
     try:
         idea = request.json.get("idea", '')
-        content = request.json.get("content", "")
         resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         characterStyle = request.json.get(
             'characterStyle', 'The Saucy Intellect')
@@ -812,7 +809,6 @@ def getArticle(request, user_email):
         # print("emoji", emoji)
         data = {
             "idea for the Article": idea,
-            "Recent Content description": content,
         }
         print(data)
         for key, value in data.items():

@@ -728,6 +728,7 @@ function DetailPage(props) {
                 console.log("tem", tem);
                 setData(tem);
                 setCurrentCharacter(e.target.value);
+                console.log(currentCharacter, e.target.value)
               }}
             >
               <option disabled key="default" value=""></option>
@@ -760,7 +761,20 @@ function DetailPage(props) {
             className="h-full flex flex-col cursor-pointer"
 
           >
-            {eachdata.data === "The Sloane Ranger" && (
+            {currentCharacter === "" ? (
+                  <p className="text-xs my-auto">
+                    Choose Your Character-Style Writer Personas
+                  </p>
+                ) : (
+                  <p className="text-xs my-auto">
+                    {
+                      CharacterList.find(
+                        (char) => char.name === currentCharacter
+                      )?.description
+                    }
+                  </p>
+                )}
+            {/* {eachdata.data === "The Sloane Ranger" && (
               <>
                 <p className="text-xs my-auto">
                   For this persona, you are a character who identifies as female, possesses a witty, intellectual, smart, and effortlessly classy personality, and primarily uses a friendly and informal tone. We will use this personality, tone, and character voice to write this article.
@@ -794,7 +808,7 @@ function DetailPage(props) {
                   For this persona, you are a character who identifies as masculine, has a voice like an Energetic Expert—upbeat, persuasive, and passionate—and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, we will write this article.
                 </p>
               </>
-            )}
+            )} */}
           </div>
         </div>
       );
@@ -838,13 +852,15 @@ function DetailPage(props) {
                 value={eachdata.data}
                 onChange={(e) => {
                   let tem = JSON.parse(JSON.stringify(data));
+                  console.log("tem", tem)
                   const selectedOptionId =
                     e.target.options[e.target.selectedIndex].id;
                   const selectedOptionSubIdea =
                     e.target.options[e.target.selectedIndex].getAttribute(
                       "subIdea"
                     );
-                  // console.log(selectedOptionSubIdea)
+                  // console.log("selectedOptionId", Number(selectedOptionId))
+                  // console.log("selectedOptionSubIdea", selectedOptionSubIdea)
                   tem[eachdata.id - 1].ideaId = Number(selectedOptionId);
                   tem[eachdata.id - 1].subIdea = JSON.parse(
                     selectedOptionSubIdea

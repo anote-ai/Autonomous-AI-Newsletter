@@ -7,29 +7,29 @@ export const GenerateQestion = {
             data: '',
             id: 1
         },
-        {
-            title: 'Which idea you want for this NewsLetter',
-            require: true,
-            type: 'ideaSelect',
-            ideaId: 0,
-            data: '',
-            subIdea: [],
-            id: 2
-        },
-        {
-            title: 'Type in your Sponsor company',
-            require: false,
-            type: 'input',
-            data: '',
-            id: 3
-        },
-        {
-            title: "Recent Content description? (Use for generate the story)",
-            require: false,
-            type: 'text',
-            data: '',
-            id: 4
-        }
+        // {
+        //     title: 'Which idea you want for this NewsLetter',
+        //     require: true,
+        //     type: 'ideaSelect',
+        //     ideaId: 0,
+        //     data: '',
+        //     subIdea: [],
+        //     id: 2
+        // },
+        // {
+        //     title: 'Type in your Sponsor company',
+        //     require: false,
+        //     type: 'input',
+        //     data: '',
+        //     id: 3
+        // },
+        // {
+        //     title: "Recent Content description? (Use for generate the story)",
+        //     require: false,
+        //     type: 'text',
+        //     data: '',
+        //     id: 4
+        // }
     ],
     pageTwo: [
         {
@@ -41,6 +41,17 @@ export const GenerateQestion = {
         },
     ],
     pageThree: [
+        {
+            title: 'Which idea you want for this NewsLetter',
+            require: true,
+            type: 'ideaSelect',
+            ideaId: 0,
+            data: '',
+            subIdea: [],
+            id: 1
+        },
+    ],
+    pageFour: [
         {
             title: 'Choose Your Character-Style Writer Personas',
             require: true,

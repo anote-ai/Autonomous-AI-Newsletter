@@ -19,7 +19,9 @@ import {
   useGenPageTwo,
   setGenPageTwo,
   useGenPageThree,
-  setGenPageThree
+  setGenPageThree,
+  useGenPageFour,
+  setGenPageFour
 } from "../../redux/newsLetterSlice";
 import { useDetailPageOne } from "../../redux/DetailSlice"
 import { useDetailPageTwo } from "../../redux/DetailSlice"
@@ -74,6 +76,7 @@ const ContentLayout = ({
   let firstPageDataFRedux = useTopic();
   let secondPageDataFRedux = useGenPageTwo();
   let thirdPageDataFRedux = useGenPageThree();
+  let fourthPageDataFRedux = useGenPageFour();
   let firstPageDetailDataFRedux = useDetailPageOne();
   let secondPageDetailDataFRedux = useDetailPageTwo();
   let getBackgroundColorFromRedux = useBackgroundColor();
@@ -173,7 +176,7 @@ const ContentLayout = ({
             item.content = firstPageDetailDataFRedux[3].data
           }
           else if (item.id == "sponsor1") {
-            item.content = "Sponsor By " + firstPageDataFRedux[2].data;
+            item.content = "None ";
           }
           else if (item.id == "footer") {
             item.content = [];
@@ -216,7 +219,7 @@ const ContentLayout = ({
 
   const handleOnPersonaChange = (data) => {
     console.log(data)
-    dispatch(setGenPageThree(data));
+    dispatch(setGenPageFour(data));
   }
 
   const handleOnpageOneDataChange = (data) => {
@@ -241,7 +244,7 @@ const ContentLayout = ({
           item.content = firstPageDetailDataFRedux[3].data
         }
         else if (item.id == "sponsor1") {
-          item.content = "Sponsor By " + firstPageDataFRedux[2].data;
+          item.content = "Sponsor By ";
         }
         else if (item.id == "footer") {
           item.content = [];
@@ -339,6 +342,7 @@ const ContentLayout = ({
               firstPageData={firstPageData}
               secondPageData={secondPageData}
               thirdPageData={thirdPageDataFRedux}
+              fourthPageData={fourthPageDataFRedux}
               select={select}
               selectType={selectType}
               sections={sections}
