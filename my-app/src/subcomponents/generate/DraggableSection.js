@@ -54,7 +54,7 @@ const DraggableSection = ({ css, backgroundColor, fontColor, fontStyle, fontSize
       </div>
     )
   }
-  else if (id === "image") {
+  else if (id === "image" || type === "image") {
     // console.log("footer")
     // console.log(content)
     allContent = (

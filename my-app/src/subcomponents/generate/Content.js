@@ -62,7 +62,7 @@ function Content(props) {
                                             })) : (<div> footer </div>)}
                                         </div>
                                     )}
-                                    {id === "image" && (
+                                    {id === "image" || type === "image" && (
                                         <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                             {content && content !== "" && isURL(content) ? (
                                                 <img className='w-10 h-10' src={content}></img>
@@ -91,7 +91,7 @@ function Content(props) {
                                             Sponsor By {content}
                                         </div>
                                     )}
-                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && (
+                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && type !== "image" && (
                                         <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                             {title && title !== '' && (
                                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>

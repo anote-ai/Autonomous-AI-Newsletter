@@ -1,30 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, clearData, useUrlArr, setUrlArr, useBackgroundColor, useAllData } from "../redux/newsLetterSlice"
+import { Button, Alert } from 'flowbite-react';
+import {
+    useTopic,
+    useGenPageTwo,
+    useGenPageThree,
+    useGenPageFour,
+    setTopic,
+    setGenPageTwo,
+    setGenPageThree,
+    setGenPageFour,
+    setBackgroundColor,
+    setIdeas,
+    setData,
+    useAllData
+} from "../redux/newsLetterSlice"
 import { useParams } from 'react-router-dom';
 import { faCode, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 function EachNewsletter(props) {
     let { id } = useParams();
     let nData = useAllData();
+    let dispatch = useDispatch();
     // console.log(data)
-    const [backgroundColor, setBackgroundColor] = useState('')
-    const [data, setData] = useState([]);
+    const [cBackgroundColor, setCBackgroundColor] = useState('')
+    const [sectionData, setSectionData] = useState([]);
     const [theme, setTheme] = useState('');
     const [title, setTitle] = useState('');
+    const [alertTimer, setAlertTimer] = useState(false)
+    let firstPageDataFRedux = useTopic();
+    let secondPageDataFRedux = useGenPageTwo();
+    // let thirdPageDataFRedux = useGenPageThree();
+    // let fourthPageDataFRedux = useGenPageFour();
     useEffect(() => {
         id = Number(id)
         nData.forEach((item) => {
             if (item.id === id) {
-                setBackgroundColor(item.backgroundColor)
-                setData(item.data)
+                setCBackgroundColor(item.backgroundColor)
+                setSectionData(item.data)
                 setTheme(item.theme)
                 setTitle(item.title)
-                console.log(item.data)
+                // console.log(item)
             }
         })
     }, [])
@@ -55,17 +72,36 @@ function EachNewsletter(props) {
         document.body.removeChild(tempTextArea);
         alert("Copied to clipboard!");
     };
+
+    const copyAsTemplate = () => {
+        let temTopic = JSON.parse(JSON.stringify(firstPageDataFRedux));
+        let temTheme = JSON.parse(JSON.stringify(secondPageDataFRedux));
+        // let temSectionData = JSON.parse(JSON.stringify(sectionData));
+        temTopic[0].data = title;
+        temTheme[0].data = theme;
+        // console.log(temTopic, temTheme, temSectionData, backgroundColor)
+        dispatch(setTopic(temTopic));
+        dispatch(setData(sectionData));
+        dispatch(setBackgroundColor(cBackgroundColor));
+        dispatch(setGenPageTwo(temTheme));
+        setAlertTimer(true);
+    }
     const opacity = 1;
     return (
-        <div className="bg-gray-800 w-screen h-[94%]">
+        <div className="bg-gray-800 w-screen h-[94%] relative">
+            {alertTimer === true && (
+                <Alert className='absolute top-0 left-1/2 transform -translate-x-1/2 w-5/6 z-10' color="success" onDismiss={() => setAlertTimer(false)}>
+                    <span className="font-medium">Copy alert!</span> Copy the template successfully. Now, please go and create a new newsletter to check it.
+                </Alert>
+            )}
             <div className="w-screen flex flex-col">
                 <div className="w-3/4 mx-auto text-white my-auto overflow-scroll">
                     <div class="bg-gray-900 relative min-h-[85vh] rounded-xl border-gray-300 border-2 text-center pt-3">
                         <div className="h-full w-full">
-                            <div className={`h-[80vh] max-h-[80vh] overflow-y-scroll`} style={{ backgroundColor: backgroundColor }}>
+                            <div className={`h-[80vh] max-h-[80vh] overflow-y-scroll`} style={{ backgroundColor: cBackgroundColor }}>
                                 <h2>{title}</h2>
                                 <div className="p-4">
-                                    {data.map(({ css, backgroundColor, id, title, type, content, fontColor, fontStyle, fontSize }, index, array) => {
+                                    {sectionData.map(({ css, backgroundColor, id, title, type, content, fontColor, fontStyle, fontSize }, index, array) => {
                                         if (id == "content" && Array.isArray(content)) {
                                             return (
                                                 <div key={id} className={css}>
@@ -102,7 +138,7 @@ function EachNewsletter(props) {
                                                             })) : (<div> footer </div>)}
                                                         </div>
                                                     )}
-                                                    {id === "image" && (
+                                                    {id === "image" || type === "image" && (
                                                         <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                                             {content && content !== "" && isURL(content) ? (
                                                                 <img className='w-10 h-10' src={content}></img>
@@ -131,7 +167,7 @@ function EachNewsletter(props) {
                                                             Sponsor By {content}
                                                         </div>
                                                     )}
-                                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && (
+                                                    {id !== "logo" && id !== "footer" && id !== "image" && id !== "sponsor1" && type !== "Sponsor" && type !== "image" && (
                                                         <div style={{ opacity, backgroundColor: backgroundColor, color: fontColor, fontFamily: fontStyle, fontSize: fontSize }} className={`${css} p-2 rounded-md shadow-md`}>
                                                             {title && title !== '' && (
                                                                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ color: fontColor }}>
@@ -158,6 +194,10 @@ function EachNewsletter(props) {
                     <Button onClick={copyContentWithTitleAndFontColor} className="w-max flex">
                         <FontAwesomeIcon icon={faCopy} className='mr-2 mt-0.5' />
                         Copy Content, Title, and Font Color
+                    </Button>
+                    <Button onClick={copyAsTemplate} className="w-max flex">
+                        <FontAwesomeIcon icon={faCopy} className='mr-2 mt-0.5' />
+                        Copy As Template
                     </Button>
                 </div>
             </div>
