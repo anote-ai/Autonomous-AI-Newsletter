@@ -51,7 +51,7 @@ function DetailPage(props) {
     if (eachdata.type === "input") {
       return (
         <div className="flex flex-col items-center mx-10">
-          <div className="grid grid-cols-2 w-full items-center">
+          <div className="grid grid-cols-1 grid-rows-2 w-full items-center">
             <span className=" flex">
               {eachdata.title}
               {eachdata.require === true && (
@@ -71,6 +71,7 @@ function DetailPage(props) {
               }}
               className="my-2 w-full mx-auto"
               value={eachdata.data}
+              style={{"backgroundColor" : "#F7F5EC"}}
             ></TextInput>
           </div>
         </div>
@@ -78,7 +79,7 @@ function DetailPage(props) {
     } else if (eachdata.type === "url") {
       return (
         <div className="flex flex-col items-center mx-10">
-          <div className="grid grid-cols-2 w-full items-center">
+          <div className="grid grid-cols-1 grid-rows-2 w-full items-center">
             <span className=" flex">
               {eachdata.title}
               {eachdata.require === true && (
@@ -100,6 +101,7 @@ function DetailPage(props) {
                 // console.log(eachdata.data);
               }}
               className="my-2 w-full mx-auto"
+              style={{"backgroundColor" : "#F7F5EC"}}
               value={eachdata.data}
             ></TextInput>
           </div>
@@ -117,7 +119,7 @@ function DetailPage(props) {
       });
       return (
         <div className="flex flex-col mx-10 my-5">
-          <span className=" flex">
+          <span className="flex justify-center">
             {eachdata.title}
             {eachdata.require === true && (
               <span className="text-red-500 text-sm">&nbsp; *</span>
@@ -131,7 +133,7 @@ function DetailPage(props) {
               return (
                 <div
                   type="button"
-                  className={`text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
+                  className={`text-gray-900 bg-[#F7F5EC] border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white ${eachCategory.isActive
                     ? "ring-4 outline-none ring-gray-300"
                     : ""
                     }`}
@@ -174,7 +176,7 @@ function DetailPage(props) {
                 setData(tem);
                 // console.log(data);
               }}
-              className="flex w-full rounded-lg border border-gray-600 bg-gray-700"
+              className="flex w-full rounded-lg border border-gray-600 bg-white"
             >
               {colors.map((color, idx) => (
                 <MenuItem key={idx} value={color}>
@@ -554,6 +556,7 @@ function DetailPage(props) {
               tem[eachdata.id - 1].data = e.target.value;
               setData(tem);
             }}
+            style={{"backgroundColor" : "#F7F5EC"}}
           />
         </div>
       );
