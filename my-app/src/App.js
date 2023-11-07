@@ -33,7 +33,7 @@ import EachNewsletter from "./components/EachNewsletter"
 
 function App() {
   const pattern = /^\['.*'\]$/;
-  const [darkTheme, setDarkTheme] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [haveDeatil, setHaveDetail] = useState(true);
   const accessToken = localStorage.getItem("accessToken");

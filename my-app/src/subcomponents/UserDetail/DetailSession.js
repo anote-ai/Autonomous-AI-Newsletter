@@ -1,7 +1,7 @@
 // import { useDispatch } from "react-redux";
 // import { login } from "../../redux/UserSlice";
 import React, { useState, useEffect } from "react";
-import "../../styles/Detail.css";
+// import "../../styles/Detail.css";
 import DetailPage from "./DetailPage";
 import { useLocation, Link } from "react-router-dom";
 import { updateDetail } from "../../redux/DetailSlice"
@@ -111,45 +111,45 @@ function DetailSession(props) {
     function Step({ number, text, isActive, index, currentIndex, total }) {
         return (
             <li
-                className={`flex items-center ${index <= currentIndex
-                    ? " text-sky-500"
-                    : "text-gray-500 dark:text-gray-400"
+                className={`flex items-center justify-start ml-4 ${index <= currentIndex
+                    ? " text-sky-500 m-0"
+                    : "text-gray-500 dark:text-gray-400 m-0"
                     }`}
             >
                 {index >= currentIndex ? (
                     <span
-                        className={`flex items-center justify-center w-6 h-6 mr-2 text-xs border rounded-full shrink-0 ${index <= currentIndex
+                        className={`flex items-center justify-center w-6 h-6 text-xs shrink-0 ${index <= currentIndex
                             ? "border-sky-500"
                             : "border-gray-500 dark:border-gray-400"
                             }`}
                     >
-                        {number}
+                        |
                     </span>
                 ) : (
                     <svg
-                        class="w-6 h-6 mr-2"
+                        class="w-6 h-6 m-0"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8 pb-20.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                     </svg>
                 )}
                 <span
-                    className={`capitalize text-xl ${index === currentIndex ? "font-semibold" : ""
+                    className={`capitalize text-xl m-0 ${index === currentIndex ? "font-semibold" : ""
                         } `}
                 >
                     {text}
                 </span>
-                {index < total && (
+                {/* {index < total && (
                     <div
                         className={`ml-2 h-px w-12 border ${index >= currentIndex
                             ? "border-gray-500 bg-gray-500"
                             : "border-sky-500 bg-sky-500"
                             } `}
                     ></div>
-                )}
+                )} */}
             </li>
         );
     }
@@ -169,21 +169,27 @@ function DetailSession(props) {
         // <div className=" bg-gray-800 min-h-screen">
 
         <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">
-            <div class="w-3/4 mx-auto text-white my-auto">
-                <div class="bg-gray-900 relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
-                    <div className="mb-2">
-                        <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
-                            {routes.map((route, index) => (
-                                <Step
-                                    number={index + 1}
-                                    text={route}
-                                    isActive={pageState === index}
-                                    index={index}
-                                    currentIndex={pageState - 1}
-                                    total={routes.length - 1}
-                                />
-                            ))}
-                        </ol>
+            <div class="w-3/4 mx-auto text-white my-auto flex justify-between">
+                <div class="bg-white relative min-h-[90vh] border-zinc-950 border-2 text-center w-1/3 mr-2">
+                    <div className="h-full w-full">
+                        <div className="pt-48">
+                            <div className="w-full flex items-start px-9 flex-col">
+                                <p className="text-[#FE603D] font-bold">Basic Information</p>
+                                <h2 className="font-['Gambarino'] text-black text-2xl text-left">Tell us a little more about your newsletter</h2>
+                            </div>
+                            <ol className="flex justify-center items-start ml-7 flex-col w-full space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
+                                {routes.map((route, index) => (
+                                    <Step
+                                        number={index + 1}
+                                        text={route}
+                                        isActive={pageState === index}
+                                        index={index}
+                                        currentIndex={pageState - 1}
+                                        total={routes.length - 1}
+                                    />
+                                ))}
+                            </ol>
+                        </div>
                     </div>
                     {/* <Progress
                         className="w-2/3 mx-auto my-5"
@@ -191,65 +197,67 @@ function DetailSession(props) {
                         progress={progressValue}
                         size="lg"
                     /> */}
+                </div>
+                <div className="bg-white relative min-h-[90vh] border-zinc-950 border-2 text-center w-2/3">
                     {pageState == 1 && (
-                        <div className="h-[68vh] max-h-[68vh] overflow-y-scroll bg-gray-800 pt-8">
-                        <DetailPage
-                            qestionTitle={"Basic Information"}
-                            dataCurrent={firstPageData}
-                            pageNumber={pageState === pageTotal}
-                            questionList={firstPageData}
-                            previousPage={() => { getPreviousStep() }}
-                            nextPage={(data) => {
-                                MfirstPageData(data);
-                                getNextStep()
-                            }}
-                        />
+                        <div className="h-[90vh] max-h-[90vh] overflow-y-scroll bg-white pt-8 pb-20 text-black">
+                            <DetailPage
+                                qestionTitle={"Basic Information"}
+                                dataCurrent={firstPageData}
+                                pageNumber={pageState === pageTotal}
+                                questionList={firstPageData}
+                                previousPage={() => { getPreviousStep() }}
+                                nextPage={(data) => {
+                                    MfirstPageData(data);
+                                    getNextStep()
+                                }}
+                            />
                         </div>
                     )}
                     {pageState == 2 && (
-                        <div className="h-[68vh] max-h-[68vh] overflow-y-scroll bg-gray-800 pt-8">
-                        <DetailPage
-                            qestionTitle={"Basic Information"}
-                            dataCurrent={secondPageData}
-                            pageNumber={pageState === pageTotal}
-                            questionList={secondPageData}
-                            previousPage={() => { getPreviousStep() }}
-                            nextPage={(data) => {
-                                MsecondPageData(data);
-                                getNextStep()
-                            }}
+                        <div className="h-[90vh] max-h-[90vh] overflow-y-scroll bg-white pt-8 pb-20 text-black">
+                            <DetailPage
+                                qestionTitle={"Basic Information"}
+                                dataCurrent={secondPageData}
+                                pageNumber={pageState === pageTotal}
+                                questionList={secondPageData}
+                                previousPage={() => { getPreviousStep() }}
+                                nextPage={(data) => {
+                                    MsecondPageData(data);
+                                    getNextStep()
+                                }}
 
-                        />
+                            />
                         </div>
                     )}
                     {pageState == 3 && (
-                        <div className="h-[68vh] max-h-[68vh] overflow-y-scroll bg-gray-800 pt-8">
-                        <DetailPage
-                            qestionTitle={"Brand Specific Information"}
-                            dataCurrent={thirdPageData}
-                            pageNumber={pageState === pageTotal}
-                            questionList={thirdPageData}
-                            previousPage={() => { getPreviousStep() }}
-                            nextPage={(data) => {
-                                MthirdPageData(data);
-                                getNextStep()
-                            }}
-                        />
+                        <div className="h-[90vh] max-h-[90vh] overflow-y-scroll bg-white pt-8 pb-20 text-black">
+                            <DetailPage
+                                qestionTitle={"Brand Specific Information"}
+                                dataCurrent={thirdPageData}
+                                pageNumber={pageState === pageTotal}
+                                questionList={thirdPageData}
+                                previousPage={() => { getPreviousStep() }}
+                                nextPage={(data) => {
+                                    MthirdPageData(data);
+                                    getNextStep()
+                                }}
+                            />
                         </div>
                     )}
                     {pageState == 4 && (
-                        <div className="h-[68vh] max-h-[68vh] overflow-y-scroll bg-gray-800 pt-8">
-                        <DetailPage
-                            qestionTitle={"Brand Persona Interview Questions"}
-                            dataCurrent={fourthPageData}
-                            pageNumber={pageState === pageTotal}
-                            questionList={fourthPageData}
-                            previousPage={() => { getPreviousStep() }}
-                            nextPage={(data) => {
-                                MfourthPageData(data)
-                                getNextStep()
-                            }}
-                        />
+                        <div className="h-[90vh] max-h-[90vh] overflow-y-scroll bg-white pt-8 pb-20 text-black">
+                            <DetailPage
+                                qestionTitle={"Brand Persona Interview Questions"}
+                                dataCurrent={fourthPageData}
+                                pageNumber={pageState === pageTotal}
+                                questionList={fourthPageData}
+                                previousPage={() => { getPreviousStep() }}
+                                nextPage={(data) => {
+                                    MfourthPageData(data)
+                                    getNextStep()
+                                }}
+                            />
                         </div>
                     )}
                 </div>
