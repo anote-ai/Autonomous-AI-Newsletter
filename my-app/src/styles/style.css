@@ -40,7 +40,7 @@ body {
 
     /* Yellow */
 
-    background: #DEFE47;
+    background: #FE603D;
     border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
@@ -79,7 +79,7 @@ body {
 /* Search button styles */
 .search-button {
     margin-right: 4px;
-    background: #defe47;
+    background: #FE603D;
     height: 40px;
     display: none;
 }

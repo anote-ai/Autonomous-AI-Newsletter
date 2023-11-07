@@ -38,6 +38,20 @@ function SignUpComponent(props) {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-4xl my-5 font-semibold">Sign Up</h1>
+      <div className="LoginComponentDontHave">
+        <p>
+          Have an account?{" "}
+          <span
+            className={"UncursorableButton"}
+            onClick={() => {
+              props.setPageState(1);
+            }}
+            style={{ color: "#fe603d" }}
+          >
+            Log In
+          </span>
+        </p>
+      </div>
       <TextInput
         id="dsearch"
         name="dsearch"
@@ -113,20 +127,7 @@ function SignUpComponent(props) {
       {props.statusMessage && (
         <p style={{ color: "#F65F50" }}>{props.statusMessage}</p>
       )}
-      <div className="LoginComponentDontHave mt-2">
-        <p>
-          Have an account?{" "}
-          <span
-            className={"UncursorableButton"}
-            onClick={() => {
-              props.setPageState(1);
-            }}
-            style={{ color: "#defe47" }}
-          >
-            Log In
-          </span>
-        </p>
-      </div>
+      
     </div>
   );
 }

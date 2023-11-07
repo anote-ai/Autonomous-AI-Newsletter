@@ -119,7 +119,7 @@ function Profile(props) {
             <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
               <div class="md:w-2/5">
                 <div class="LP-Home-Insights-Item-Content text-white">
-                  Total idea used/generated
+                  Idea Generated
                 </div>
 
                 <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
@@ -128,7 +128,7 @@ function Profile(props) {
               </div>
               <div class="md:w-2/5">
                 <div class="LP-Home-Insights-Item-Content text-white">
-                  Total Newsletters Generated
+                  Newsletters Generated
                 </div>
 
                 <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
@@ -137,7 +137,7 @@ function Profile(props) {
               </div>
               <div class="md:w-2/5">
                 <div class="LP-Home-Insights-Item-Content text-white">
-                  Total News Searched
+                  News Searched
                 </div>
                 <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
                   {ndata && ndata.length

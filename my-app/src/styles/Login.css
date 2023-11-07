@@ -73,16 +73,96 @@
 }
 
 .SababaTitle {
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    color: white;
+    height: 45px;
+    width: 984px;
+  }
+  
+.SababaTitle .text-wrapper {
+    color: #2f2315;
+    font-family: "Archivo Expanded-ExtraBold", Helvetica;
+    font-size: 36px;
+    font-weight: 800;
+    height: 45px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 40px;
+    position: fixed;
+    top: 0;
+    white-space: nowrap;
+    margin-left: 137px;
+    margin-top: 150px;
+  }
+
+.label {
+    height: 107px;
+    width: 447px;
+  }
+  
+  .label .text-wrapper {
+    color: #7b7b7b;
+    font-family: "Archivo", Helvetica;
+    font-size: 18px;
+    font-weight: 500;
+    height: 107px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 40px;
+    position: fixed;
+    top: 0;
+    width: 447px;
+    margin-left: 137px;
+    margin-top: 223px;
+  }
+
+.formBox {
+    width: 458px;
+    height: 539px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.70);
+    box-shadow: 0px 3.2656px 6.53119px 6.53119px rgba(0, 0, 0, 0.05);
+    margin-top: 170px; 
+    margin-left: 123px; 
+
 }
 
+.formContent {
+
+}
+
+.inputForm {
+    border-radius: 32.656px;
+    background: #F4F4F4;
+    width: 374.727px;
+    height: 48.984px;
+}
+
+.box {
+    height: 49px;
+    width: 375px;
+  }
+  
+  .box .rectangle {
+    background-color: #f4f4f4;
+    border-radius: 32.66px;
+    height: 49px;
+    left: 0;
+    top: 0;
+    width: 375px;
+  }
 
 /* Header styles */
 .Header {
     text-align: center;
     margin-bottom: 20px;
+}
+
+.image {
+    width: 811px;
+    height: 614px;
+    flex-shrink: 0;
+    margin-left: 600px; 
+    margin-top: 150px; 
 }
 
 /* One-liner styles */
@@ -92,7 +172,7 @@
     font-style: italic;
     font-family: "Arial";
     margin: 0 0 1rem;
-    color: #defe47
+    color: #FE603D; 
   }
 .Dashboard-Rocket-Header {
     position: absolute;
@@ -114,7 +194,7 @@
     padding: 12px 16px 12px 42px;
     border-style: solid;
     border-color: black;
-    border-radius: 3px;
+    border-radius: 40.82px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
 
     color: #757575;
@@ -134,7 +214,7 @@
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
     border-style: solid;
     border-color: black;
-    border-radius: 3px;
+    border-radius: 40.82px;
 }
 
 .login-with-google-btn:active {
@@ -189,7 +269,7 @@
 
     padding: 12px 16px 12px 42px;
     border: 1px solid black;
-    border-radius: 3px;
+    border-radius: 40.82px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
 
     color: #757575;
@@ -236,6 +316,7 @@
     margin-bottom: 50px;
     width: 225px;
     height: 50px;
+    margin-left: 114px; 
     cursor: pointer;
     background-repeat: no-repeat;  /* Ensures the image does not repeat */
     background-size: cover;        /* Makes the image fill the entire button */
@@ -257,10 +338,10 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 22px;
-    color: #000000;
-    background: #DEFE47;
-    border-radius: 4px;
-    border: 1px solid black;
+    color: #FFF;
+    background: #FE603D;
+    border-radius: 40.82px;
+    border: 1px solid;
     display: inline-block;
     cursor: pointer;
   }
