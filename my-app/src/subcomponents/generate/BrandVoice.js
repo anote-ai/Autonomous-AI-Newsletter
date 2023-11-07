@@ -123,7 +123,7 @@ function BrandVoice(props) {
             )}
             {loading === false && brandVoiceData.length !== 0 && (
                 <div>
-                    {displayData(brandVoiceData)}
+                    {displayData(brandVoiceData[0])}
                     <div className="grid grid-cols-1 items-center mx-10 my-5">
                         <span className="flex">
                             Do you want to use the Brand Voice when you generate the newsletter?
