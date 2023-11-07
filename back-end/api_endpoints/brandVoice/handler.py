@@ -11,6 +11,16 @@ from database.db import add_brand_voice_withId, get_all_brand_voice, update_Bran
 import re
 from gpt.api import Gpt
 
+def gpt(text):
+    reply = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": text}
+        ]
+    )
+    # print('reply', reply)
+    return reply["choices"][0]["message"]["content"]
+
 def addBrandVoiceHandler(request, user_email):
     user_id = user_id_for_email(user_email)
     try:
@@ -23,7 +33,7 @@ def addBrandVoiceHandler(request, user_email):
         return jsonify("true")
     except Exception as e:
         print("Error add Brand Voice:", str(e))
-        return "error"
+        return jsonify("error")
     
 def getBrandVoiceHandler(request, user_email):
     user_id = user_id_for_email(user_email)
@@ -33,7 +43,7 @@ def getBrandVoiceHandler(request, user_email):
         return result
     except Exception as e:
         print("Error get Brand Voice:", str(e))
-        return "error"
+        return jsonify("error")
 
 
 def generateBrandVoiceHandler(request, user_email):
@@ -64,63 +74,111 @@ def generateBrandVoiceHandler(request, user_email):
             for row in resultPageFour:
                 page_four_data[row.get('question_name')] = row.get('data')
 
-        BrandVoiceGpt = Gpt()
-
         scenePrompt = generateBrandVoicePrompt1(resultPageOne.get('Brand or Company Name'), resultPageOne.get('URL'), resultPageOne.get("Business Category"), resultPageTwo.get(
             'Audience Demographics', 'N/A'), resultPageTwo.get('Audience Age Range', 'N/A'), resultPageTwo.get('Audience Income Level', 'N/A'), page_three_data.get(
                 "In a nutshell, what do you set out to do every day on the job? What do you do for your current clients, customers, students, or followers?", "N/A"), page_three_data.get(
-                    "Do you have a brand mission statement? It can be absolutely informal and messy—don't worry if it's not polished.", 'brand mission'))
+                    "Do you have a brand mission statement? It can be absolutely informal and messy—don't worry if it's not polished.", 'brand mission'),
+                    page_three_data.get("Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice"), 
+                    page_three_data.get("What are some phrases that sound just like you or your brand?", "N/A"),
+                    page_four_data.get("What are some other brands with aesthetics and/or voices you enjoy?", "N/A"),
+                    resultPageTwo.get('Do you adhere to a stylistic choice?', "N/A"),
+                    page_three_data.get("Any words to avoid in your newsletter?", "N/A"))
         
-        # print("prompt 1 : ", scenePrompt)
-        sceneResult = BrandVoiceGpt.chat(scenePrompt)
-        # print("prompt 1 result : ", sceneResult)
+        # BrandVoiceGpt = Gpt()
+
+        
+        print("prompt 1 : ", scenePrompt)
+        # sceneResult = BrandVoiceGpt.chat(scenePrompt)
+        sceneResult = gpt(scenePrompt)
+        print("prompt 1 result : ", sceneResult)
 
 
-        brandVoiceBenchmarkPrompt = generateBrandVoicePrompt2(resultPageOne.get('Brand or Company Name'), page_three_data.get("Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice"), page_three_data.get("What are some phrases that sound just like you or your brand?", "N/A"))
+        # brandVoiceBenchmarkPrompt = generateBrandVoicePrompt2(resultPageOne.get('Brand or Company Name'), page_three_data.get("Describe your brand in 3-10 words OR Select up to 5 words that would best describe your brand voice"), page_three_data.get("What are some phrases that sound just like you or your brand?", "N/A"))
 
-        # print("prompt 2 : ", brandVoiceBenchmarkPrompt)
-        brandVoiceBenchmarkResult = BrandVoiceGpt.chat(brandVoiceBenchmarkPrompt)
-        # print("prompt 2 result : ", brandVoiceBenchmarkResult)
-
-
-        aestheticsPrompt = page_four_data.get("What are some other brands with aesthetics and/or voices you enjoy?", "N/A")
-        aspirationalBrandsPrompt = "N/A"
-        aspirationalBrandsResult = "N/A"
-        if aestheticsPrompt != "N/A" and aestheticsPrompt != "" and not aestheticsPrompt.isspace():
-            aspirationalBrandsPrompt = generateBrandVoicePrompt3(aestheticsPrompt)
-            aspirationalBrandsResult = BrandVoiceGpt.chat(aspirationalBrandsPrompt)
-
-        # print("prompt 3 : ", aspirationalBrandsPrompt)
-        # print("prompt 3 result : ", aspirationalBrandsResult)
+        # # print("prompt 2 : ", brandVoiceBenchmarkPrompt)
+        # brandVoiceBenchmarkResult = BrandVoiceGpt.chat(brandVoiceBenchmarkPrompt)
+        # # print("prompt 2 result : ", brandVoiceBenchmarkResult)
 
 
-        labelPrompt = generateBrandVoicePrompt4(resultPageOne.get('Brand or Company Name'), sceneResult, brandVoiceBenchmarkResult, aspirationalBrandsResult)
+        # aestheticsPrompt = page_four_data.get("What are some other brands with aesthetics and/or voices you enjoy?", "N/A")
+        # aspirationalBrandsPrompt = "N/A"
+        # aspirationalBrandsResult = "N/A"
+        # if aestheticsPrompt != "N/A" and aestheticsPrompt != "" and not aestheticsPrompt.isspace():
+        #     aspirationalBrandsPrompt = generateBrandVoicePrompt3(aestheticsPrompt)
+        #     aspirationalBrandsResult = BrandVoiceGpt.chat(aspirationalBrandsPrompt)
 
-        print("prompt 4 : ", labelPrompt)
-        labelPromptResult = BrandVoiceGpt.chat(labelPrompt)
-        print("prompt 4 result : ", labelPromptResult)
+        # # print("prompt 3 : ", aspirationalBrandsPrompt)
+        # # print("prompt 3 result : ", aspirationalBrandsResult)
 
-        # resultOfBrandVoicePrompt = generateBrandVoicePrompt5(resultPageOne.get('Brand or Company Name'), labelPromptResult)
 
-        # print("prompt 5 : ", labelPrompt)
-        # resultOfBrandVoiceResult = BrandVoiceGpt.chat(resultOfBrandVoicePrompt)
-        # print("prompt 5 result : ", resultOfBrandVoiceResult)
+        # labelPrompt = generateBrandVoicePrompt4(resultPageOne.get('Brand or Company Name'), sceneResult, brandVoiceBenchmarkResult, aspirationalBrandsResult)
 
-        return jsonify(labelPromptResult)
+        # print("prompt 4 : ", labelPrompt)
+        # labelPromptResult = BrandVoiceGpt.chat(labelPrompt)
+        # print("prompt 4 result : ", labelPromptResult)
+
+        # # resultOfBrandVoicePrompt = generateBrandVoicePrompt5(resultPageOne.get('Brand or Company Name'), labelPromptResult)
+
+        # # print("prompt 5 : ", labelPrompt)
+        # # resultOfBrandVoiceResult = BrandVoiceGpt.chat(resultOfBrandVoicePrompt)
+        # # print("prompt 5 result : ", resultOfBrandVoiceResult)
+        BrandVoiceData = json.loads(sceneResult)
+        print(BrandVoiceData)
+        json_string = json.dumps(BrandVoiceData)
+        BrandVoiceExists = check_brand_voice_by_id(user_id)
+        if BrandVoiceExists != False:
+            update_Brand_voice_byId(user_id, BrandVoiceExists.get("id"), json_string)
+        else:
+            add_brand_voice_withId(user_id, json_string)
+        return BrandVoiceData
 
     except Exception as e:
         print("Error generate Brand Voice:", str(e))
-        return "error"
+        return jsonify("error")
 
 
-def generateBrandVoicePrompt1(companyName, Url, Category, audienceDemographics, ageRange, incomeLevel, theBusiness, brandMission):
+def generateBrandVoicePrompt1(companyName, Url, Category, audienceDemographics, ageRange, incomeLevel, theBusiness, brandMission, describeBrand, phrasesForYourBrand, aesthetics, stylistic , avoidWords):
     prompt = f'''
 
-    You are a columnist writing an article for a newsletter for {companyName}, found at {Url}. The business operates in a {Category} industry and services an audience that is audience demographics : {audienceDemographics} and audience age range: {ageRange} and audience income level: {incomeLevel}. The business: {theBusiness}. {companyName} describes its mission as "brand mission statement: {brandMission}". 
-    Your task is to analyze our brand's usage scenarios and tasks.
-    
-    you should only response the your answer only without any other text.
+    As a columnist crafting an article for {companyName}'s newsletter found at {Url}, serving Audience Demographics: {audienceDemographics} within the Business Category: {Category} industry, Audience age range: {ageRange}, Audience income level: {incomeLevel} you embody the company's mission to {theBusiness} and uphold its vision {brandMission}.
 
+    Your task is to absorb and articulate the brand's distinctive voice, encapsulated by the terms brand describtion: {describeBrand}. Familiarize yourself with the brand's common phrases: {phrasesForYourBrand} and synthesize this into a concise paragraph to capture {companyName}'s essence.
+
+    Determine the shared traits of the brand's aspirational peers, including {aesthetics}, and distill these into 3 succinct bullet points. Marry this analysis with your earlier paragraph to form a "Voice Synopsis," clearly stating, "The voice is similar to BRAND 1, BRAND 2, and BRAND 3."
+
+    Expand upon this with a detailed 13-point brand voice style guide, amalgamating the "Voice Synopsis" and these points to define the brand's comprehensive style.
+
+    As a columnist, your narrative must resonate with the established voice style standards. Remember, you're tasked with reflecting {companyName}'s daily impact on its audience through your writing.
+
+    Adhere to best practices for tight, active writing, respecting specific stylistic choices: {stylistic} and formatting conventions. Embrace creativity within a 500-word limit for the newsletter, avoiding prohibited words or phrases: {avoidWords}.
+
+    The newsletter will include various sections such as an introductory line, articles blurbs with takeaways, sponsored content, and a roundup of stories. Your introductory blurb for the WIREFRAME SECTION, Ex. Trend Watch should be concise, with three headline options and a summary that aligns with the brand's voice.
+
+    Lastly, your style guide should also detail the brand's tone, dialect, reading level, sentence structure, word and sentence length, punctuation usage, thematic content, and comedic devices based on the writing sample provided or inferred from the audience and business nature.
+
+    Understand the task at hand, and let's ensure the {companyName}'s voice resonates through each word. Do you comprehend the full scope of your role and the voice you are to channel?
+
+    You should only respond with the exact same JSON format like: {{
+        "Voice Synopsis": "Your answer",
+        "13-Point Brand Voice Style Guide": {{
+            "Tone": "Your answer",
+            "Dialect": "Your answer",
+            "Reading": "Your answer",
+            "Sentence Structure": "Your answer",
+            "Word Length": "Your answer",
+            "Sentence Length": "Your answer",
+            "Punctuation Usage": "Your answer",
+            "Thematic Content": "Your answer",
+            "Comedic Devices": "Your answer",
+            "Voice Consistency": "Your answer",
+            "Content Approach": "Your answer",
+            "Formatting Conventions": "Your answer",
+            "Creative Flourishes": "Your answer"
+        }},
+        "Writing Guidelines": "Your answer",
+        "Prohibited Words or Phrases": "Your answer",
+        "Summary": "Your answer"
+    }}
     '''
     # print(prompt)
     # print("title reply", reply)

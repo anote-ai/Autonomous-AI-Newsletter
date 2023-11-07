@@ -64,7 +64,9 @@ export const GenerateQestion = {
     ideas: [],
     data:[],
     urlArr: [],
-    allData: []
+    allData: [],
+    brandVoice: [],
+    useBrandVoice: false
 }
 export const GenerateQestionDemoData = {
     pageOne: [

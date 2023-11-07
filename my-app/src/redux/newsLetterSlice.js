@@ -236,6 +236,35 @@ export const deleteIdeas = createAsyncThunk("Ideas/delete", async (payload, thun
     return response_str;
     // return true
 });
+
+export const generateBrandVoice = createAsyncThunk("BrandVoice/generate", async (payload, thunk) => {
+    const response = await fetcher('generateBrandVoice', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
+export const getBrandVoice = createAsyncThunk("BrandVoice/get", async (payload, thunk) => {
+    const response = await fetcher('getBrandVoice', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+    });
+    const response_str = await response.json();
+    // console.log(response_str)
+    return response_str;
+    // return true
+});
+
 export function useBackgroundColor() {
     return useSelector((state) => {
         try {
@@ -319,6 +348,24 @@ export function useAllData() {
         }
     });
 }
+export function useBrandVoice() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.brandVoice;
+        } catch (e) {
+            return null;
+        }
+    });
+}
+export function useCheckBrandVoice() {
+    return useSelector((state) => {
+        try {
+            return state.newsLetterReducer.useBrandVoice;
+        } catch (e) {
+            return null;
+        }
+    });
+}
 
 
 // function clearCurrent(state) {
@@ -372,6 +419,12 @@ export const newsLetterSlice = createSlice({
         setAllData: (state, action) => {
             state.allData = action.payload;
         },
+        setBrandVoice: (state, action) => {
+            state.brandVoice = action.payload;
+        },
+        setCheckBrandVoice: (state, action) => {
+            state.useBrandVoice = action.payload;
+        },
         clearAllData: (state, action) => {
             state.data = [];
             for (let i = 0; i < 6; i++) {
@@ -416,6 +469,8 @@ export const {
     setData,
     setUrlArr,
     setAllData,
+    setBrandVoice,
+    setCheckBrandVoice,
     clearAllData,
     clearData
 } = newsLetterSlice.actions;

@@ -228,6 +228,13 @@ export const questionList = {
             type: 'text',
             data: '',
             id: 6
+        },
+        {
+            title: 'Any words to avoid in your newsletter?',
+            require: false,
+            type: 'text',
+            data: '',
+            id: 7
         }
     ],
     pageFour: [
