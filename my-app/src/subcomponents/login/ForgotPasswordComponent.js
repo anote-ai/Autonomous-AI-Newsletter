@@ -60,7 +60,7 @@ function ForgotPasswordComponent(props) {
         onClick={() => {
           props.setPageState(1);
         }}
-        style={{ color: "#defe47" }}
+        style={{ color: "#FE603D" }}
       >
         Back to Login
       </p>

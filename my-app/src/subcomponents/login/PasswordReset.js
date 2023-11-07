@@ -76,7 +76,7 @@ function PasswordReset(props) {
             onClick={() => {
               props.setPageState(1);
             }}
-            style={{ color: "#defe47" }}
+            style={{ color: "#FE603D" }}
           >
             Log In
           </span>

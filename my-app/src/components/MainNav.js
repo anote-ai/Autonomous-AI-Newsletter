@@ -33,7 +33,7 @@ function MainNav(props) {
         {/* Image only when the theme is light  */}
         {/* <div className="h-10 w-10 bg-center bg-contain bg-[url('../public/logo_light.png')] dark:bg-[url('../public/logo_dark.png')]"></div> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-[#374151]">
-          nwsltr.ai
+          NWSLTR.AI
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
@@ -54,7 +54,7 @@ function MainNav(props) {
           }
         }} className="cursor-pointer flex font-bold text-sm items-center text-white mr-5">
           <FontAwesomeIcon size="lg" icon={faPlus} className="mr-2" />
-          <p>Create New NewsLetter</p>
+          <p>Create Newsletter</p>
         </Button>
         <Dropdown
           theme={{

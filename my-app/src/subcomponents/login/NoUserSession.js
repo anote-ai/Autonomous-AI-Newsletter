@@ -52,15 +52,18 @@ function NoUserSession(props) {
 
   return (
     // <div className=" bg-gray-800 min-h-screen">
-    <div className="flex flex-col min-h-screen bg-gray-800">
+    <div className="flex flex-col min-h-screen bg-white">
+
     <div className="flex-grow">
-      <h1 className="SababaTitle companyName text-4xl font-semibold flex justify-center pt-10">
-        <img src="logo_dark.png" className="w-10 h-10" alt="logo" />
-        <span>nwsltr.ai</span>
-      </h1>
-      <h2 className="text-2xl text-center text-lime-300 font-semibold my-2">
+      <div className="SababaTitle">
+        <div className="text-wrapper">NWSLTR.AI</div>
+      </div>
+      {/* <h2 className="titleDescription">
         Search a keyword. Get related news.
-      </h2>
+      </h2> */}
+      {/* <div className="label">
+        <p className="text-wrapper">Search a keyword. Get related news.</p>
+      </div> */}
       {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
         See How It Works
       </Button>
@@ -113,8 +116,8 @@ function NoUserSession(props) {
       </Modal> */}
 
 
-      <div class="w-full md:w-1/3 mx-auto text-white py-8">
-        <div class="bg-gray-900 rounded-xl border-gray-300 border-2 text-center pt-3">
+      <div class="formBox">
+        <div class="formContent">
           {pageState == 1 && (
             <LoginComponent
               setPageState={setPageStateWithReset}
@@ -156,7 +159,6 @@ function NoUserSession(props) {
           )}
           {pageState != 3 && pageState != 4 && pageState != 5 && (
             <p className="text-center my-4">
-              ---------------- Or ----------------
             </p>
           )}
           {pageState != 3 && pageState != 4 && pageState != 5 && (
