@@ -102,11 +102,11 @@ function Profile(props) {
           />
           <div className="w-1/5 flex flex-col my-auto">
             <div className="w-full flex flex-col space-y-5 justify-start ml-3">
-              <div className="flex justify-start items-center font-bold h-full">
+              <div className="flex justify-start items-center font-bold text-black h-full">
                 <h3>{user && user.name ? user.name : user.email}</h3>
               </div>
               <Button
-                className="w-max"
+                className="w-max bg-slate-400"
                 onClick={() => {
                   navigate("/detail");
                 }}
@@ -118,28 +118,26 @@ function Profile(props) {
           <div className="w-full my-auto py-5 border-2 border-gray-700 rounded-xl">
             <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
               <div class="md:w-2/5">
-                <div class="LP-Home-Insights-Item-Content text-white">
+               <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-slate-400">
+                  {reduxIdeas && reduxIdeas.length ? reduxIdeas.length : 0}
+                </div>
+
+                <div class="LP-Home-Insights-Item-Content text-black">
                   Idea Generated
                 </div>
 
-                <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
-                  {reduxIdeas && reduxIdeas.length ? reduxIdeas.length : 0}
-                </div>
               </div>
               <div class="md:w-2/5">
-                <div class="LP-Home-Insights-Item-Content text-white">
-                  Newsletters Generated
-                </div>
-
-                <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
+               <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-slate-400">
                   {ndata && ndata.length ? ndata.length : 0}
                 </div>
+
+                <div class="LP-Home-Insights-Item-Content text-black">
+                  Newsletters Generated
+                </div>
               </div>
               <div class="md:w-2/5">
-                <div class="LP-Home-Insights-Item-Content text-white">
-                  News Searched
-                </div>
-                <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-cyan-600">
+                <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-slate-400">
                   {ndata && ndata.length
                     ? getAlluser.reduce(
                         (totalSearch, element) =>
@@ -147,6 +145,9 @@ function Profile(props) {
                         0
                       )
                     : 0}
+                </div>
+                <div class="LP-Home-Insights-Item-Content text-black">
+                  News Searched
                 </div>
               </div>
             </div>

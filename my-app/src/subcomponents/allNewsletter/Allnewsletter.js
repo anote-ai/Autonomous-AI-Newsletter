@@ -66,24 +66,24 @@ function Allnewsletter() {
         <div className="flex flex-col h-screen w-5/6 mx-auto my-5 border-gray-700 rounded-xl border-2 overflow-y-scroll">
             <div className='w-full h-[10%] flex items-center justify-center mb-2'>
                 <div className='w-5/6 h-full flex items-center justify-center border-b-2 border-b-slate-100'>
-                    <div className='text-xl py-5 text-sky-400 font-bold from-neutral-50'>All Newsletters</div>
+                    <div className='text-2xl py-5 text-black font-bold from-neutral-50'>All Newsletters</div>
                 </div>
             </div>
-            <div className="w-full text-white overflow-scroll">
+            <div className="w-full text-black overflow-scroll">
                 {loading === true && (
                     <div className='w-full h-full flex items-center justify-center'>
                         <div className='w-full flex justify-items-center flex-col'>
                             <div class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
                                 <div class="animate-pulse flex space-x-4">
-                                    <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                                    <div class="rounded-full bg-warmGray-300 h-10 w-10"></div>
                                     <div class="flex-1 space-y-6 py-1">
-                                        <div class="h-2 bg-slate-200 rounded"></div>
+                                        <div class="h-2 bg-stone-300 rounded"></div>
                                         <div class="space-y-3">
                                             <div class="grid grid-cols-3 gap-4">
-                                                <div class="h-2 bg-slate-200 rounded col-span-2"></div>
-                                                <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                                                <div class="h-2 bg-stone-300 rounded col-span-2"></div>
+                                                <div class="h-2 bg-stone-300 rounded col-span-1"></div>
                                             </div>
-                                            <div class="h-2 bg-slate-200 rounded"></div>
+                                            <div class="h-2 bg-stone-300 rounded"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,9 +97,10 @@ function Allnewsletter() {
                 {loading === false && nData && nData.length === 0 && (
                     <div className='w-full h-full flex items-center justify-center'>
                         <div className='flex items-center justify-center'>
-                            <h2 className='font-bold text-2xl'> You didn't create the newsletter before, so go ahead and create some.</h2>
+                            <h2 className='text-xl'> Seems like you haven't created any newsletters yet. Get started by clicking below!</h2>
                         </div>
                     </div>
+                    
                 )}
                 {console.log("nData", nData)}
                 {loading === false && nData && nData.length !== 0 && (
