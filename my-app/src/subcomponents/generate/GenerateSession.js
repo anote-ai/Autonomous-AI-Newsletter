@@ -61,7 +61,7 @@ function GenerateSession(props) {
   // const [sections, setSections] = useState([]);
   // const [loading, setLoding] = useState(false);
 
-  let pageTotal = 6;
+  let pageTotal = 7;
 
   // let ddddd = useTopic();
   // console.log(ddddd)
