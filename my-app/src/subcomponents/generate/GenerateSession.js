@@ -31,8 +31,11 @@ import {
   useGenPageThree,
   setGenPageThree,
   useGenPageFour,
-  setGenPageFour
+  setGenPageFour,
+  setBrandVoice,
+  setCheckBrandVoice,
 } from "../../redux/newsLetterSlice";
+import BrandVoice from "./BrandVoice";
 import FreshlyBrewed from '../../Images/FreshlyBrewed.png'
 import HighGloss from '../../Images/HighGloss.png'
 import theNewPort from '../../Images/theNewPort.png'
@@ -106,11 +109,11 @@ function GenerateSession(props) {
     }
   }
   async function getPreviousStep() {
-    if (pageState > 1 && pageState !== 4) {
+    if (pageState > 1 && pageState !== 5) {
       let tem = pageState;
       setPageState((tem -= 1));
     }
-    else if (pageState === 4) {
+    else if (pageState === 5) {
       dispatch(clearData())
       let tem = pageState;
       setPageState((tem -= 1));
@@ -151,6 +154,12 @@ function GenerateSession(props) {
       setPageState((tem += 1));
     }
   }
+
+  function MBrandVoiceCheckData(info, check) {
+    dispatch(setBrandVoice(info))
+    dispatch(setCheckBrandVoice(check));
+  }
+
   function MfirstPageData(info) {
     // console.log(info)
     setFirstPageData(info);
@@ -175,7 +184,7 @@ function GenerateSession(props) {
   }
 
   let routes = [];
-  routes = ["Newsletter Setup", "Theme Selection", "Idea Selection", "Persona NewsLetter", "Generate NewsLetter", "Save NewsLetter"];
+  routes = ["Brand Voice","Newsletter Setup", "Theme Selection", "Idea Selection", "Persona NewsLetter", "Generate NewsLetter", "Save NewsLetter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
@@ -244,8 +253,21 @@ function GenerateSession(props) {
                 ))}
               </ol>
             </div>
-
             {pageState == 1 && (
+              <BrandVoice
+                qestionTitle={"Brand Voice"}
+                pageNumber={pageState === pageTotal}
+                previousPage={() => {
+                  getPreviousStep();
+                }}
+                nextPage={(data, check) => {
+                  // console.log(data);
+                  MBrandVoiceCheckData(data, check);
+                  getNextStep();
+                }}
+              />
+            )}
+            {pageState == 2 && (
               <DetailPage
                 qestionTitle={"Generate Question"}
                 dataCurrent={firstPageData}
@@ -265,7 +287,7 @@ function GenerateSession(props) {
                 }}
               />
             )}
-            {pageState == 2 && (
+            {pageState == 3 && (
               <div>
                 <DetailPage
                   qestionTitle={"NewsLetter form"}
@@ -307,7 +329,7 @@ function GenerateSession(props) {
               </div>
             )
             }
-            {pageState == 3 && (
+            {pageState == 4 && (
               <div>
                 <DetailPage
                   qestionTitle={"Generate Idea"}
@@ -330,7 +352,7 @@ function GenerateSession(props) {
               </div>
             )
             }
-            {pageState == 4 && (
+            {pageState == 5 && (
               <div>
                 <DetailPage
                   qestionTitle={"select persona"}
@@ -350,7 +372,7 @@ function GenerateSession(props) {
               </div>
             )
             }
-            {pageState == 5 && (
+            {pageState == 6 && (
               <div className="">
                 <ContentLayout
                   previousPage={() => {
@@ -363,7 +385,7 @@ function GenerateSession(props) {
               </div>
             )
             }
-            {pageState == 6 && (
+            {pageState == 7 && (
               <Content
                 qestionTitle={"Here is your newsletter content"}
                 pageNumber={pageState === pageTotal}
