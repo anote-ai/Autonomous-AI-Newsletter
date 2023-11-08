@@ -304,7 +304,7 @@ Imagine you are a character who identifies as Masculine, has voice like Energeti
 Imagine you are a character who identifies as Masculine, has voice like Energetic Expert is upbeat, persuasive, and passionate, and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, could you please use that character voice to write this summary?
 '''
 personality = {
-    "The Ashlyn": '''
+    "The Sloane Ranger": '''
     Gender: Mostly Feminine
     Voice personality is The Sloane Ranger: The TK voice brand is witty, intellectual/smart, and effortlessly classy (er, tries to be). It's high-end in its brand mentions, but laid-back & relatable. As much as it loves a nice bottle of champagne (Veuve, please), we also love greasy low country boils, messy tacos, Crayola marker moments on the French country-style kitchen table, and walking around barefoot—no nose-looking down here.
     Primary Tone: Joyful: Happy with a pinch of grateful. We want to paint a happy picture of the future (You're going to be a star.) You and I are a lot alike so I know you can do this, too. Pains, common actions, and fears can be placed on the reader as long we show them the way out. (It's not your fault but you're suffering because of something and I'm gonna help you fix it) Futurepace happiness, even if the present isn't all sunshine and rainbows. Minimize the hedge words (just, a few, maybe, some).
@@ -524,7 +524,7 @@ def getGPTData(request, userEmail):
             prompt_summary = generatePrompt_summary(
                 bs.text, characterText, emoji, brandVoiceData)
             prompt_date = generatePrompt_date(bs.text)
-            # print(prompt_summary)
+            print(prompt_summary)
             # print("prompt_date", prompt_date)
             this_news['id'] = newsId
             this_news['title'] = generate_title(bs.text, characterText, brandVoiceData)

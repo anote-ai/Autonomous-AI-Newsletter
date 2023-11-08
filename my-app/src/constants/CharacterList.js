@@ -1,6 +1,6 @@
 export const CharacterList = [
   {
-    name: "The Ashlyn",
+    name: "The Sloane Ranger",
     emoji: "👑",
     description: "The TK voice brand is witty, intellectual/smart, and effortlessly classy (er, *tries to be*)."
   },

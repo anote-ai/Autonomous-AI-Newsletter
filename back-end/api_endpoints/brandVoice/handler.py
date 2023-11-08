@@ -144,7 +144,7 @@ def generateBrandVoicePrompt1(companyName, Url, Category, audienceDemographics, 
 
     Your task is to absorb and articulate the brand's distinctive voice, encapsulated by the terms brand describtion: {describeBrand}. Familiarize yourself with the brand's common phrases: {phrasesForYourBrand} and synthesize this into a concise paragraph to capture {companyName}'s essence.
 
-    Determine the shared traits of the brand's aspirational peers, including {aesthetics}, and distill these into 3 succinct bullet points. Marry this analysis with your earlier paragraph to form a "Voice Synopsis," clearly stating, "The voice is similar to BRAND 1, BRAND 2, and BRAND 3."
+    Determine the shared traits of the brand's aspirational peers, including {aesthetics}, and distill these into 3 succinct bullet points. Marry this analysis with your earlier paragraph to form a "Voice Synopsis," clearly stating, "The voice is similar to (your answer1), (your answer2), and (your answer3)."
 
     Expand upon this with a detailed 13-point brand voice style guide, amalgamating the "Voice Synopsis" and these points to define the brand's comprehensive style.
 
