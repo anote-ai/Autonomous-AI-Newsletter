@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, TextInput, Select as Select1 } from "flowbite-react";
 import { ThemeTopic } from "../../constants/ThemeTopic";
-import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo, useGenPageThree, useGenPageFour } from "../../redux/newsLetterSlice"
+import { setData, getGPTData, useTopic, useUrlArr, setUrlArr, getIntroData, getStoryData, getArticleData, useGenPageTwo, useGenPageThree, useGenPageFour, useCheckBrandVoice } from "../../redux/newsLetterSlice"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
 import { Select as Select2 } from "@material-ui/core";
 import { colors } from "../../constants/ColorDropdown";
@@ -63,6 +63,7 @@ function RightControl(props) {
     let secondPageDataFRedux = useGenPageTwo();
     let thirdPageDataFRedux = useGenPageThree();
     let fourPageDataFRedux = useGenPageFour();
+    let checkBrandVoiceFRedux = useCheckBrandVoice();
     async function generateGPTData(newsId) {
         // console.log(firstPageDataFRedux[5].data);
         setLoadingNews(true)
@@ -72,7 +73,8 @@ function RightControl(props) {
             let topic = thirdPageDataFRedux[0].data;
             let temUrlArr = JSON.parse(JSON.stringify(temUrlList));
             // console.log("first", temUrlArr);
-            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: fourPageDataFRedux[0].data, newsId: newsId }));
+            console.log(checkBrandVoiceFRedux)
+            let data = await dispatch(getGPTData({ topic, temUrlArr, characterStyle: fourPageDataFRedux[0].data, newsId: newsId, brandVoice: checkBrandVoiceFRedux }));
             // console.log(data.payload);
             console.log(data.payload)
             if (data.payload && data.payload.length !== 0) {
@@ -114,7 +116,7 @@ function RightControl(props) {
         setLoadingNews(true)
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
-            let data = await dispatch(getIntroData({ characterStyle: fourPageDataFRedux[0].data }));
+            let data = await dispatch(getIntroData({ characterStyle: fourPageDataFRedux[0].data, brandVoice: checkBrandVoiceFRedux }));
             temSections.forEach((item) => {
                 if (item.id === newsId) {
                     item.content = data.payload["data"]
@@ -136,7 +138,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getStoryData({ idea: thirdPageDataFRedux[0].data, characterStyle: fourPageDataFRedux[0].data }));
+            let data = await dispatch(getStoryData({ idea: thirdPageDataFRedux[0].data, characterStyle: fourPageDataFRedux[0].data, brandVoice: checkBrandVoiceFRedux }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
@@ -159,7 +161,7 @@ function RightControl(props) {
         try {
             let temSections = JSON.parse(JSON.stringify(props.sections));
             // console.log("sddssssssssss")
-            let data = await dispatch(getArticleData({ idea: idea, characterStyle: fourPageDataFRedux[0].data }));
+            let data = await dispatch(getArticleData({ idea: idea, characterStyle: fourPageDataFRedux[0].data, brandVoice: checkBrandVoiceFRedux }));
             // console.log(data.payload)
             temSections.forEach((item) => {
                 if (item.id === newsId) {
