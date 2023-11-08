@@ -7,7 +7,7 @@ import openai
 import sys
 import json
 from database.db import user_id_for_email, add_ideas_withId, delete_Ideas_byId, get_all_Ideas, update_Ideas_byId
-from database.db import get_detail_by_userID, get_detail_by_userID_three_four
+from database.db import get_detail_by_userID, get_detail_by_userID_three_four, get_all_brand_voice
 import re
 
 openai.api_key = "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"
@@ -42,72 +42,138 @@ def generateIdeas(text, format):
     return prompt
 
 
-def generateIntro(text, characterText):
-    prompt = f'''
-    Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
-    Take the following writing style below to write the intro.
-    {characterText}
-    you should only response the intro data without any other text or description.
-    information:
+def generateIntro(text, characterText, brandVoiceData):
+    if brandVoiceData != False:
+        prompt = f'''
+        Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
+        Take the following brand voice and writing style below to write the intro.
+        brand voice:
+        {brandVoiceData}
+        writing style:
+        {characterText}
+        you should only response the intro data without any other text or description.
+        information:
 
-    ```
-    {text}
-    ```
-    '''
+        ```
+        {text}
+        ```
+        '''
+    else:
+        prompt = f'''
+        Your task is to come up with an intro for an email newsletter based on the questions and answers we asked our users below to generate.
+        Take the following writing style below to write the intro.
+        {characterText}
+        you should only response the intro data without any other text or description.
+        information:
+
+        ```
+        {text}
+        ```
+        '''
     # print(prompt)
     # print("title reply", reply)
     return prompt
 
 
-def generateStory(text, characterText, emoji):
-    prompt = f'''
-    Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
-    Take the following writing style below to write the story.
-    {characterText}
-    {emoji}
-    you should only response the story data only without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
-    information:
+def generateStory(text, characterText, emoji, brandVoiceData):
+    if brandVoiceData != False:
+        prompt = f'''
+        Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
+        Take the following brand voice and writing style below to write the story.
+        brand voice:
+        {brandVoiceData}
+        writing style:
+        {characterText}
+        {emoji}
+        you should only response the story data only without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
+        information:
 
-    ```
-    {text}
-    ```
-    '''
+        ```
+        {text}
+        ```
+        '''
+    else:
+        prompt = f'''
+        Your task is to come up with an story for an email newsletter based on the questions and answers we asked our users below to generate.
+        Take the following writing style below to write the story.
+        {characterText}
+        {emoji}
+        you should only response the story data only without any other text or description or name or newsletter end or title of the story or Your Character Name something like this.
+        information:
+
+        ```
+        {text}
+        ```
+        '''
     # print(prompt)
     # print("title reply", reply)
     return prompt
 
 
-def generateArticle(text, characterText, emoji):
-    prompt = f'''
-    Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
-    Take the following writing style below to write the article.
-    {characterText}
-    {emoji}
-    you should only response the article content only without any other text.
-    information:
+def generateArticle(text, characterText, emoji, brandVoiceData):
+    if brandVoiceData != False:
+        prompt = f'''
+        Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
+        Take the following brand voice and writing style below to write the article.
+        brand voice:
+        {brandVoiceData}
+        writing style:
+        {characterText}
+        {emoji}
+        you should only response the article content only without any other text.
+        information:
 
-    ```
-    {text}
-    ```
-    '''
+        ```
+        {text}
+        ```
+        '''
+    else:
+        prompt = f'''
+        Your task is to come up with an article for an email newsletter based on idea and the questions and answers we asked our users below to generate.
+        Take the following writing style below to write the article.
+        {characterText}
+        {emoji}
+        you should only response the article content only without any other text.
+        information:
+
+        ```
+        {text}
+        ```
+        '''
     print(prompt)
     # print("title reply", reply)
     return prompt
 
 
 # your task is to generate a brief summary of the recent news of the recent website text,
-def generatePrompt_summary(text, characterText, emoji):
-    prompt = f'''
-    Your task is to generate a summary of the recent news from the website text, which we want to use in our newsletter. delimited with triple backticks.
-    Take the following writing style below to write the content.
-    {characterText}
-    'Use emojis in the summary?': {emoji},
-    you should only response the summary when finished to get all the data related to the query without jumping to others articles.
+def generatePrompt_summary(text, characterText, emoji, brandVoiceData):
+    if brandVoiceData != False:
+        prompt = f'''
+        Your task is to generate a summary of the recent news from the website text, which we want to use in our newsletter. delimited with triple backticks.
+        Take the following brand voice and writing style below to write the content.
+        brand voice:
+        {brandVoiceData}
+        writing style:
+        {characterText}
+        'Use emojis in the summary?': {emoji},
+        you should only response the summary when finished to get all the data related to the query without jumping to others articles.
 
-    ```
-    {text}
-    ```
-    '''
+        ```
+        {text}
+        ```
+        '''
+    else:
+        prompt = f'''
+        Your task is to generate a summary of the recent news from the website text, which we want to use in our newsletter. delimited with triple backticks.
+        Take the following writing style below to write the content.
+        {characterText}
+        'Use emojis in the summary?': {emoji},
+        you should only response the summary when finished to get all the data related to the query without jumping to others articles.
+
+        ```
+        {text}
+        ```
+        '''
     return prompt
 
 
@@ -125,17 +191,32 @@ def generatePrompt_date(text):
     return prompt
 
 
-def generate_title(summary, characterText):
-    prompt = f'''
-    your task is to generate a short title for the following article summary,
-    Take the following writing style below to write the content.
-    {characterText}
-    delimited with triple backticks.
+def generate_title(summary, characterText, brandVoiceData):
+    if brandVoiceData != False:
+        prompt = f'''
+        your task is to generate a short title for the following article summary,
+        Take the following brand voice and writing style below to write the content.
+        brand voice:
+        {brandVoiceData}
+        writing style:
+        {characterText}
+        delimited with triple backticks.
 
-    ```
-    {summary}
-    ```
-    '''
+        ```
+        {summary}
+        ```
+        '''
+    else:
+        prompt = f'''
+        your task is to generate a short title for the following article summary,
+        Take the following writing style below to write the content.
+        {characterText}
+        delimited with triple backticks.
+
+        ```
+        {summary}
+        ```
+        '''
 
     reply = openai.Completion.create(
         engine="text-davinci-003",
@@ -388,6 +469,13 @@ def getGPTData(request, userEmail):
     searchUrlArr = request.json.get('urlList', [])
     newsId = request.json.get('newsId', 'article1')
     characterStyle = request.json.get('characterStyle', 'The Saucy Intellect')
+    brandVoice = request.json.get("brandVoice")
+    print("brandVoice",brandVoice)
+    brandVoiceData = False
+    if brandVoice:
+        brandVoiceData = get_all_brand_voice(user_id)
+        brandVoiceData = brandVoiceData[0].get("data")
+    # print(brandVoiceData)
     characterText = personality[characterStyle]
     print("characterStyle", characterStyle)
     resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
@@ -434,12 +522,12 @@ def getGPTData(request, userEmail):
             # print("bs", bs.text)
             # print("step2222")
             prompt_summary = generatePrompt_summary(
-                bs.text, characterText, emoji)
+                bs.text, characterText, emoji, brandVoiceData)
             prompt_date = generatePrompt_date(bs.text)
-            # print("prompt_summary")
+            # print(prompt_summary)
             # print("prompt_date", prompt_date)
             this_news['id'] = newsId
-            this_news['title'] = generate_title(bs.text, characterText)
+            this_news['title'] = generate_title(bs.text, characterText, brandVoiceData)
             this_news['url'] = url
             this_news['summary'] = gpt(prompt_summary)
             this_news['date'] = gpt(prompt_date)
@@ -663,6 +751,14 @@ def getIntro(request, user_email):
             'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
+
+        brandVoice = request.json.get("brandVoice")
+        print("brandVoice",brandVoice)
+        brandVoiceData = False
+        if brandVoice:
+            brandVoiceData = get_all_brand_voice(user_id)
+            brandVoiceData = brandVoiceData[0].get("data")
+        # print(brandVoiceData)
         # print('pageThree')
         # resultPageFour = get_detail_by_userID_three_four(
         #     user_id, "userDetailPageFour")
@@ -713,7 +809,9 @@ def getIntro(request, user_email):
 
             formatted_text += f"{key}: {value_str}\n"
         # print("formatted_text", formatted_text)
-        prompt = generateIntro(formatted_text, characterText)
+        prompt = generateIntro(formatted_text, characterText, brandVoiceData)
+        # print(prompt)
+
         intros = gpt(prompt)
         # print(intros)
         # cleaned_data = [re.sub(r'^\d+\.\s*', '', item.strip()) for item in ideas.split('\n') if item.strip()]
@@ -745,6 +843,15 @@ def getStory(request, user_email):
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
         print("characterText", characterText)
+
+        brandVoice = request.json.get("brandVoice")
+        print("brandVoice",brandVoice)
+        brandVoiceData = False
+        if brandVoice:
+            brandVoiceData = get_all_brand_voice(user_id)
+            brandVoiceData = brandVoiceData[0].get("data")
+        # print(brandVoiceData)
+
         resultPageOne = get_detail_by_userID(user_id, "userDetailPageOne")
         resultPageTwo = get_detail_by_userID(user_id, "userDetailPageTwo")
         resultPageThree = get_detail_by_userID_three_four(
@@ -782,7 +889,7 @@ def getStory(request, user_email):
                 value_str = value
 
             formatted_text += f"{key}: {value_str}\n"
-        prompt = generateStory(formatted_text, characterText, emoji)
+        prompt = generateStory(formatted_text, characterText, emoji, brandVoiceData)
         # print(prompt)
         intros = gpt(prompt)
         res = {"data": intros}
@@ -803,6 +910,16 @@ def getArticle(request, user_email):
             'characterStyle', 'The Saucy Intellect')
         characterText = personality[characterStyle]
         print("characterStyle", characterStyle)
+
+        brandVoice = request.json.get("brandVoice")
+        # print("brandVoice",brandVoice)
+        brandVoiceData = False
+        # print(brandVoiceData, brandVoice)
+        if brandVoice:
+            brandVoiceData = get_all_brand_voice(user_id)
+            brandVoiceData = brandVoiceData[0].get("data")
+        # print(brandVoiceData)
+
         emoji = "Do not use emoji in the article"
         if (resultPageTwo.get('Does your brand writing style use emojis?') == 1):
             emoji = "Use the emoji in the article"
@@ -828,8 +945,8 @@ def getArticle(request, user_email):
 
             formatted_text += f"{key}: {value_str}\n"
         # print("formatted Text",formatted_text)
-        prompt = generateArticle(formatted_text, characterText, emoji)
-        # print(prompt)
+        prompt = generateArticle(formatted_text, characterText, emoji, brandVoiceData)
+        print(prompt)
         intros = gpt(prompt)
         res = {"data": intros}
         # print("asdfasdf")

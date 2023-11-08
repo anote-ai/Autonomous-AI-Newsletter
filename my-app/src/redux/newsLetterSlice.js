@@ -18,12 +18,13 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
     // else if(payload.topic.length > 1){
 
     // }
-    console.log(payload.topic);
+    // console.log(payload.brandVoice);
     let reqBody = {
         newsId: payload.newsId,
         characterStyle: payload.characterStyle,
         topic: payload.topic,
-        urlList: payload.temUrlArr
+        urlList: payload.temUrlArr,
+        brandVoice: payload.brandVoice,
     }
     console.log(JSON.stringify(reqBody))
     const response = await fetcher('run-script', {
@@ -43,6 +44,7 @@ export const getGPTData = createAsyncThunk("GPTData/get", async (payload, thunk)
 export const getIntroData = createAsyncThunk("IntroData/get", async (payload, thunk) => {
     let reqBody = {
         characterStyle: payload.characterStyle,
+        brandVoice: payload.brandVoice
     }
     const response = await fetcher('getIntroData', {
         method: "POST",
@@ -61,7 +63,8 @@ export const getIntroData = createAsyncThunk("IntroData/get", async (payload, th
 export const getStoryData = createAsyncThunk("StoryData/get", async (payload, thunk) => {
     let reqBody = {
         idea: payload.idea,
-        characterStyle: payload.characterStyle
+        characterStyle: payload.characterStyle,
+        brandVoice: payload.brandVoice
     }
     console.log("reererere", reqBody);
     const response = await fetcher('getStoryData', {
@@ -81,7 +84,8 @@ export const getStoryData = createAsyncThunk("StoryData/get", async (payload, th
 export const getArticleData = createAsyncThunk("ArticleData/get", async (payload, thunk) => {
     let reqBody = {
         idea: payload.idea,
-        characterStyle: payload.characterStyle
+        characterStyle: payload.characterStyle,
+        brandVoice: payload.brandVoice
     }
     console.log("reererere", reqBody);
     const response = await fetcher('getArticleData', {
