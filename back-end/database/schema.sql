@@ -164,7 +164,7 @@ CREATE TABLE BrandVoice (
 
 
 
-INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (9, 1, CURRENT_TIMESTAMP);
+-- INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (9, 1, CURRENT_TIMESTAMP); 
 
 
 -- INSERT INTO Subscriptions (stripe_info_id, subscription_id, start_date, paid_user) VALUES (4, 1, CURRENT_TIMESTAMP, 9);
