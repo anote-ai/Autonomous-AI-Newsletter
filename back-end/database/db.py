@@ -292,6 +292,15 @@ def add_user_detail_by_id_page_three_four(user_id, data_page, question_id, quest
     else:
         return 'user not exist'
 
+def create_7_day_free_trial(user_id):
+    conn, cursor = get_db_connection()
+    cursor.execute("INSERT INTO StripeInfo (user_id) VALUES (%s)", [user_id])
+    cursor.execute("SELECT LAST_INSERT_ID()")
+    stripe_info_id = cursor.fetchone()["LAST_INSERT_ID()"]
+    end_date = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute('INSERT INTO Subscriptions (stripe_info_id, subscription_id, end_date, paid_user, is_free_trial) VALUES (%s, %s, %s, 1, 1)', [stripe_info_id, "id", end_date])
+    conn.commit()
+    conn.close()
 
 def create_user_if_does_not_exist(email, google_id, person_name, profile_pic_url):
     conn, cursor = get_db_connection()
@@ -300,18 +309,25 @@ def create_user_if_does_not_exist(email, google_id, person_name, profile_pic_url
     count = cursor.fetchone()
     user_id = -1
     if count is None or count["COUNT(*)"] == 0:
-        # Create new user
-        cursor.execute('INSERT INTO users (email, google_id, person_name, profile_pic_url) VALUES (%s,%s,%s,%s)', [
-                       email, google_id, person_name, profile_pic_url])
+        # Create new user with 20 credits by default
+        cursor.execute('INSERT INTO users (credits, email, google_id, person_name, profile_pic_url) VALUES (20, %s,%s,%s,%s)', [email, google_id, person_name, profile_pic_url])
         row = cursor.fetchone()
         conn.commit()
         conn.close()
         user_id = cursor.lastrowid
+        create_7_day_free_trial(user_id)
     else:
         user_id = count["id"]
 
     return user_id
 
+def is_free_trial_for_user_email_with_cursor(conn, cursor, user_email):
+    cursor.execute('SELECT gc.is_free_trial FROM Subscriptions gc JOIN StripeInfo c ON c.id=gc.stripe_info_id JOIN users p ON p.id=c.user_id WHERE gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP) AND p.email = %s ORDER BY gc.start_date ASC LIMIT 1', [user_email])
+    paidUser = cursor.fetchone()
+    if paidUser:
+        return (paidUser["is_free_trial"] == 1)
+    else:
+        return False
 
 def verify_password_reset_code(email, passwordResetCode):
     conn, cursor = get_db_connection()
@@ -424,6 +440,7 @@ def stripe_subscription_for_user(userEmail):
         JOIN Subscriptions ON StripeInfo.id = Subscriptions.stripe_info_id
         WHERE users.email = %s AND (Subscriptions.end_date IS NULL OR Subscriptions.end_date > CURRENT_TIMESTAMP)
         AND Subscriptions.start_date < CURRENT_TIMESTAMP
+        AND StripeInfo.anchor_date IS NOT NULL
         ORDER BY Subscriptions.start_date DESC
         LIMIT 1
     """, [userEmail])
@@ -648,10 +665,12 @@ def no_subscriptions_with_end_date_null(user_email):
 def add_subscription(subscription, user_id, customer_id, payment_plan, free_trial_end):
     conn, cursor = get_db_connection()
     try:
-        cursor.execute("SELECT id FROM StripeInfo WHERE user_id=%s", [user_id])
+        cursor.execute("SELECT id, stripe_customer_id, anchor_date FROM StripeInfo WHERE user_id=%s", [user_id])
         stripe_info_id_db = cursor.fetchone()
         if stripe_info_id_db:
             stripe_info_id = stripe_info_id_db["id"]
+            if not stripe_info_id_db["stripe_customer_id"]:
+                cursor.execute("UPDATE StripeInfo SET stripe_customer_id = %s WHERE id=%s", [customer_id, stripe_info_id])
         else:
             cursor.execute(
                 "INSERT INTO StripeInfo (user_id, stripe_customer_id) VALUES (%s, %s)", (user_id, customer_id))
@@ -668,6 +687,12 @@ def add_subscription(subscription, user_id, customer_id, payment_plan, free_tria
             else:
                 cursor.execute(
                     "UPDATE StripeInfo SET anchor_date = CURRENT_TIMESTAMP WHERE user_id = %s", [user_id])
+        elif not stripe_info_id_db["anchor_date"]:
+            cursor.execute("SELECT id FROM Subscriptions c JOIN StripeInfo p ON c.stripe_info_id=p.id WHERE p.user_id=%s AND c.start_date < CURRENT_TIMESTAMP AND (c.end_date IS NULL OR c.end_date > CURRENT_TIMESTAMP)", [user_id])
+            activePaidSubscriptionDbs = cursor.fetchall()
+            for activePaidSubscriptionDb in activePaidSubscriptionDbs:
+                cursor.execute("UPDATE Subscriptions SET end_date = CURRENT_TIMESTAMP WHERE id = %s", [activePaidSubscriptionDb["id"]])
+            cursor.execute("UPDATE StripeInfo SET anchor_date = CURRENT_TIMESTAMP WHERE user_id = %s", [user_id])
 
         if free_trial_end:
             cursor.execute("INSERT INTO Subscriptions (stripe_info_id, subscription_id, paid_user, is_free_trial, end_date) VALUES (%s, %s, %s, %s, %s)", [
@@ -786,15 +811,25 @@ def refresh_credits(user_email):
         "SELECT c.anchor_date FROM StripeInfo c JOIN users p ON c.user_id=p.id WHERE p.id = %s", [result["id"]])
     anchorDateDb = cursor.fetchone()
     if (not anchorDateDb) or (not anchorDateDb["anchor_date"]):
-        if result["credits"] > 0:
-            cursor.execute(
-                "UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
-            conn.commit()
-        conn.close()
-        print("refresh_credits1")
-        return {
-            "numCredits": 0
-        }
+        # If no active subscriptions -> reset, else: do nothing
+        noActiveSubscriptions = True
+        cursor.execute("SELECT COUNT(*) FROM Subscriptions gc JOIN StripeInfo c ON gc.stripe_info_id=c.id JOIN users p ON p.id=c.user_id WHERE p.email = %s AND gc.start_date < CURRENT_TIMESTAMP AND (gc.end_date IS NULL OR gc.end_date > CURRENT_TIMESTAMP)", (user_email,))
+        subCount = cursor.fetchone()
+        if subCount and subCount["COUNT(*)"] > 0:
+            noActiveSubscriptions = False
+        if noActiveSubscriptions:
+            if result["credits"] > 0:
+                cursor.execute("UPDATE users SET credits=0, credits_updated=CURRENT_TIMESTAMP WHERE id=%s", [result["id"]])
+                conn.commit()
+            conn.close()
+            print("refresh_credits1")
+            return {
+                "numCredits": 0
+            }
+        else:
+            return {
+                "numCredits": result["credits"]
+            }
 
     previousAnchorDate = previous_anchor_time_for_user_with_cursor(
         conn, cursor, result["id"])
@@ -916,12 +951,15 @@ def view_user(user_email):
     if end_date:
         end_date = end_date.strftime("%Y-%m-%d")
 
+    is_free_trial = is_free_trial_for_user_email_with_cursor(conn, cursor, user_email)
+
     conn.close()
     return jsonify({
         "id": user["id"],
         "name": user["person_name"],
         "email": user["email"],
         "paid_user": paidLevel,
+        "is_free_trial": is_free_trial,
         "next_plan": next_plan,
         "end_date": end_date,
         "credits_refresh": credits_refresh_str,
