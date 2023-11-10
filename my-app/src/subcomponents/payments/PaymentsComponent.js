@@ -61,6 +61,12 @@ const PaymentsComponent = () => {
   }
   let currentPlanIndexOverride = paidUserStatus - 1;
 
+  var isDefaultFreeTrial = false;
+  if (user && "is_free_trial" in user && user["is_free_trial"] && (nextPlan == null)) {
+    isDefaultFreeTrial = true;
+    currentPlanStr = "Free Tier";
+  }
+
   return (
       <div className="text-white bg-gray-900 min-h-screen">
         <div className="relative flex justify-center py-20">
@@ -103,6 +109,7 @@ const PaymentsComponent = () => {
           nameOverride={"Plans"}
           isCancelable={isCancelable}
           disableUpgrade={true}
+          isDefaultFreeTrial={isDefaultFreeTrial}
         />
       </div>
   );
