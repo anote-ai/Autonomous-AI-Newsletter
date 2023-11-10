@@ -184,6 +184,15 @@ function App() {
     ) : null,
   ];
 
+  var daysStr = "";
+  if (numDaysLeft == "0") {
+    daysStr = "less than a day";
+  } else if (numDaysLeft == "1") {
+    daysStr = "1 day";
+  } else {
+    daysStr = numDaysLeft.toString() + " days";
+  }
+
   return (
     <Router>
       <Flowbite
@@ -194,7 +203,7 @@ function App() {
         <div className="DashboardView flex flex-col h-screen w-screen">
           <div id="wrapperDiv" className="flex-grow h-full">
             {isLoggedIn && isFreeTrial && <div className="mt-2 mb-2 ml-6" style={{color: "black", fontWeight: "bold"}}>
-              Your free trial ends in {numDaysLeft} days
+              Your free trial ends in {daysStr}
               <Link to={accountPath} className="ml-3 text-blue-500">Upgrade</Link>
             </div>}
             {isLoggedIn && (
