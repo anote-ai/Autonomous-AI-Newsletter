@@ -247,8 +247,8 @@ def callback():
         audience=GOOGLE_CLIENT_ID
     )
 
-    # default_referrer = "http://localhost:3000"
-    default_referrer = "https://nwsltr.anote.ai"
+    default_referrer = "http://localhost:3000"
+    # default_referrer = "https://nwsltr.anote.ai"
     # default_referrer = "http://localhost:3000"
     user_id = create_user_if_does_not_exist(id_info.get("email"), id_info.get(
         "sub"), id_info.get("name"), id_info.get("picture"))

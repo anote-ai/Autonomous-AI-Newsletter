@@ -70,7 +70,7 @@ def get_db_connection():
         print("in local branch")
         conn = mysql.connector.connect(
             user='root',
-            password='1165205407',
+            # password='1165205407',
             host='localhost',
             port=3306,
             database='newsLetter'
