@@ -345,7 +345,7 @@ const Pricing = (props) => {
         "&body=" +
         encodeURIComponent(body);
     } else {
-      if (!showCurrentPlan) {
+      if (!showCurrentPlan || isDefaultFreeTrial) {
         window.location =
           product.signUpBaseUrl + "?product_hash=" + tier.productHash;
       } else {
