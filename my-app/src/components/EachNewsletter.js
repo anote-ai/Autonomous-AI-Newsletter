@@ -88,7 +88,7 @@ function EachNewsletter(props) {
     }
     const opacity = 1;
     return (
-        <div className="bg-gray-800 w-screen h-[94%] relative">
+        <div className="bg-gray-600 w-screen h-[94%] relative">
             {alertTimer === true && (
                 <Alert className='absolute top-0 left-1/2 transform -translate-x-1/2 w-5/6 z-10' color="success" onDismiss={() => setAlertTimer(false)}>
                     <span className="font-medium">Copy alert!</span> Copy the template successfully. Now, please go and create a new newsletter to check it.

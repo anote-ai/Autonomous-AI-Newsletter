@@ -68,7 +68,7 @@ const PaymentsComponent = () => {
   }
 
   return (
-      <div className="text-white bg-gray-900 min-h-screen">
+      <div className="text-black bg-white min-h-screen">
         <div className="relative flex justify-center py-20">
           <div className="absolute  left-10 flex flex-col text-left">
             <span>
@@ -80,7 +80,7 @@ const PaymentsComponent = () => {
               {endDate}
             </span>}
           </div>
-          <h1 className="sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
+          <h1 className="font-['Gambarino'] sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
             Newsletter Pricing Plans
           </h1>
           <div className="absolute right-10 mx-auto flex">
