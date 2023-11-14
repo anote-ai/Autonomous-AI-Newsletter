@@ -235,7 +235,7 @@ function GenerateSession(props) {
 
   return (
     // <div className=" bg-gray-800 min-h-screen">
-    <div className="bg-gray-600 w-screen h-[94%]">
+    <div className="bg-white w-screen h-[94%]">
       <div className={`${pageState === 6 ? "w-5/6 " : "w-screen"} flex flex-col `}>
         <div className="w-3/4 mx-auto text-black my-auto overflow-scroll">
           <div class="bg-white relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">

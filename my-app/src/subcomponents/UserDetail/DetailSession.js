@@ -168,7 +168,7 @@ function DetailSession(props) {
     return (
         // <div className=" bg-gray-800 min-h-screen">
 
-        <div className="flex flex-col h-[94%] mt-auto w-screen bg-gray-600">
+        <div className="flex flex-col h-[94%] mt-auto w-screen bg-white">
             <div class="w-3/4 mx-auto text-white my-auto flex justify-between">
                 <div class="bg-white relative min-h-[90vh] border-zinc-950 border-2 text-center w-1/3 mr-2">
                     <div className="h-full w-full">

@@ -335,7 +335,7 @@ const ContentLayout = ({
             })}
           </div>
 
-          <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-gray-900 " aria-label="Sidebar with logo branding example">
+          <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-white " aria-label="Sidebar with logo branding example">
             <RightControl
               updateData={(data) => { handleOnpageOneDataChange(data) }}
               updatePersona={(data) => { handleOnPersonaChange(data) }}
