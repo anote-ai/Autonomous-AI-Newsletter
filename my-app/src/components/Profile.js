@@ -88,7 +88,7 @@ function Profile(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
 
-    <div className="flex flex-col h-full mt-auto w-screen text-white">
+    <div className="flex flex-col h-full mt-auto w-screen text-white bg-white">
       <div className="h-1/5 w-full flex justify-center items-center">
         <div className="h-3/5 w-5/6 flex justify-start">
           <img
@@ -115,7 +115,7 @@ function Profile(props) {
               </Button>
             </div>
           </div>
-          <div className="w-full my-auto py-5 border-2 border-gray-700 rounded-xl">
+          <div className="w-full my-auto py-5 border-2 border-gray-700 rounded-xl bg-white">
             <div class="flex flex-col md:flex-row justify-between text-center mx-auto">
               <div class="md:w-2/5">
                <div class="text-6xl lg:text-5xl font-semibold lg:font-bold text-slate-400">

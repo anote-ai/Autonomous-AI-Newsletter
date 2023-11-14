@@ -52,16 +52,16 @@ function BrandVoice(props) {
 
     const displayData = (data) => {
         return (
-            <ul className="list-disc pl-6">
+            <ul className="list-none list-inside m-4 p-4 bg-gray-100 rounded-lg text-black">
                 {Object.entries(data).map(([key, value]) => (
                     <li key={key}>
                         {typeof value === 'object' ? (
-                            <div>
+                            <div classname="">
                                 <p className="font-semibold">{key}:</p>
                                 {displayData(value)}
                             </div>
                         ) : (
-                            <p>{`${key}: ${value}`}</p>
+                            <p className="bg-orange-50 shadow-lg rounded-lg m-2 p-4">{`${key}: ${value}`}</p>
                         )}
                     </li>
                 ))}
@@ -90,7 +90,7 @@ function BrandVoice(props) {
     }
 
     return (
-        <div className="h-[70vh] max-h-[70vh] overflow-y-scroll">
+        <div className="h-[70vh] max-h-[70vh] overflow-y-scroll bg-gray-100">
             <Button outline gradientDuoTone="tealToLime"
                 disable={loading}
                 onClick={() => { triggerGenerateBrandVoice() }}
@@ -125,7 +125,7 @@ function BrandVoice(props) {
                 <div>
                     {displayData(brandVoiceData[0])}
                     <div className="grid grid-cols-1 items-center mx-10 my-5">
-                        <span className="flex">
+                        <span className="flex text-black">
                             Do you want to use the Brand Voice when you generate the newsletter?
                         </span>
                         <ToggleSwitch

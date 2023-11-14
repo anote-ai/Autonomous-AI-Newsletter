@@ -3,6 +3,13 @@ body {
     color: white;
 }
 
+ul {
+        background: #f7f5ec;
+    width: 598px;
+    height: 69px;
+    position: relative;
+}
+
 /* Feed container styles */
 .feed-container {
     padding-top: 20px;
@@ -74,6 +81,13 @@ body {
 
 .search-input::input-placeholder {
     color: white;
+}
+
+.card {
+    background: #f7f5ec;
+    width: 598px;
+    height: 69px;
+    position: relative;
 }
 
 /* Search button styles */
