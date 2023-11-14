@@ -291,10 +291,14 @@ const Pricing = (props) => {
   function buttonText(
     tier,
     product,
+    isDefaultFreeTrial,
     currentPlanIndexOverride,
     showCurrentPlan,
     index
   ) {
+    if (isDefaultFreeTrial) {
+      return "Sign Up";
+    }
     if (tier.price == "Contact us" || product.forceContactUs == true || !props.isCancelable) {
       return "Contact us";
     } else {
@@ -321,11 +325,12 @@ const Pricing = (props) => {
   function buttonAction(
     tier,
     product,
+    isDefaultFreeTrial,
     currentPlanIndexOverride,
     showCurrentPlan,
     index
   ) {
-    if (tier.price == "Contact us" || product.forceContactUs == true || !props.isCancelable || (showCurrentPlan && currentPlanIndexOverride != index && props.disableUpgrade)) {
+    if (tier.price == "Contact us" || product.forceContactUs == true || (!props.isCancelable && !isDefaultFreeTrial) || (showCurrentPlan && currentPlanIndexOverride != index && props.disableUpgrade && (!isDefaultFreeTrial))) {
       var emailAddress = "vidranatan@gmail.com";
       var subject = "Anote Sales: " + product.title;
       var body =
@@ -340,7 +345,7 @@ const Pricing = (props) => {
         "&body=" +
         encodeURIComponent(body);
     } else {
-      if (!showCurrentPlan) {
+      if (!showCurrentPlan || isDefaultFreeTrial) {
         window.location =
           product.signUpBaseUrl + "?product_hash=" + tier.productHash;
       } else {
@@ -422,13 +427,13 @@ const Pricing = (props) => {
                 <div
                   className={`${
                     (tier.popular && !showCurrentPlan) ||
-                    props.currentPlanIndexOverride == index
+                    (props.currentPlanIndexOverride == index && !props.isDefaultFreeTrial)
                       ? "border-teal-500 border-4"
                       : "border-sky-700 dark:border-gray-300 border-2"
                   } h-full p-6 rounded-lg  flex flex-col relative overflow-hidden`}
                 >
                   {((tier.popular && !showCurrentPlan) ||
-                    props.currentPlanIndexOverride == index) && (
+                    props.currentPlanIndexOverride == index) && !props.isDefaultFreeTrial && (
                     <span class="bg-teal-500 text-white font-semibold px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">
                       {showCurrentPlan ? "CURRENT PLAN" : "POPULAR"}
                     </span>
@@ -474,6 +479,7 @@ const Pricing = (props) => {
                       buttonAction(
                         tier,
                         product,
+                        props.isDefaultFreeTrial,
                         props.currentPlanIndexOverride,
                         showCurrentPlan,
                         index
@@ -483,6 +489,7 @@ const Pricing = (props) => {
                     {buttonText(
                       tier,
                       product,
+                      props.isDefaultFreeTrial,
                       props.currentPlanIndexOverride,
                       showCurrentPlan,
                       index

@@ -1,9 +1,9 @@
 -- create schema newsLetter;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS StripeInfo;
 DROP TABLE IF EXISTS Subscriptions;
-DROP TABLE IF EXISTS freeTrialAllowlist;
+DROP TABLE IF EXISTS StripeInfo;
 DROP TABLE IF EXISTS freeTrialsAccessed;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS freeTrialAllowlist;
 DROP TABLE IF EXISTS userDetailPageOne;
 DROP TABLE IF EXISTS userDetailPageTwo;
 DROP TABLE IF EXISTS userDetailPageThree;

@@ -3,7 +3,7 @@ import Feed from "./components/Feed";
 import CheckLogin from "./components/CheckLogin";
 import PaymentsComponent from "./subcomponents/payments/PaymentsComponent";
 import PaymentsProduct from "./subcomponents/payments/PaymentsProduct";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 import { loginPagePath, mainPagePath, DetailPagePath } from "./constants/RouteConstants";
 import {
   accountPath,
@@ -132,6 +132,19 @@ function App() {
     showRestrictedRouteRequiringPayments = true;
   }
 
+  var isFreeTrial = false;
+  if (user && user["is_free_trial"] == true) {
+    isFreeTrial = true;
+  }
+  var numDaysLeft = "";
+  if (user && user["end_date"]) {
+    var currentDate = new Date();
+    var endDate = new Date(user["end_date"]);
+    var timeDifference = endDate - currentDate;
+    var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    numDaysLeft = daysDifference.toString();
+  }
+
   // if (user && user["email"]) {
   //   var userEmail = user["email"];
   //   if (
@@ -171,6 +184,15 @@ function App() {
     ) : null,
   ];
 
+  var daysStr = "";
+  if (numDaysLeft == "0") {
+    daysStr = "less than a day";
+  } else if (numDaysLeft == "1") {
+    daysStr = "1 day";
+  } else {
+    daysStr = numDaysLeft.toString() + " days";
+  }
+
   return (
     <Router>
       <Flowbite
@@ -180,6 +202,10 @@ function App() {
       >
         <div className="DashboardView flex flex-col h-screen w-screen">
           <div id="wrapperDiv" className="flex-grow h-full">
+            {isLoggedIn && isFreeTrial && <div className="mt-2 mb-2 ml-6" style={{color: "black", fontWeight: "bold"}}>
+              Your free trial ends in {daysStr}
+              <Link to={accountPath} className="ml-3 text-blue-500">Upgrade</Link>
+            </div>}
             {isLoggedIn && (
               <MainNav
                 setIsLoggedInParent={setIsLoggedIn}
