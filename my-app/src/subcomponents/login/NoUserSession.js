@@ -10,6 +10,8 @@ import PasswordReset from "./PasswordReset";
 import { useLocation } from "react-router-dom";
 import googleIcon from '../../assets/google_button_blue_enh.png';
 import { Modal, ModalBody, ModalHeader, Button } from 'flowbite-react';
+import pic8 from '../../Images/pic8.png'
+import pic9 from '../../Images/pic9.png'
 
 function NoUserSession(props) {
   let dispatch = useDispatch();
@@ -52,19 +54,18 @@ function NoUserSession(props) {
 
   return (
     // <div className=" bg-gray-800 min-h-screen">
-    <div className="flex flex-col min-h-screen bg-white">
-
-    <div className="flex-grow">
-      <div className="SababaTitle">
-        <div className="text-wrapper">NWSLTR.AI</div>
-      </div>
-      {/* <h2 className="titleDescription">
+    <div className="flex flex-col min-h-screen w-full bg-white">
+      <div className="flex-grow h-full w-2/5">
+        <div className="SababaTitle">
+          <div className="text-wrapper">NWSLTR.AI</div>
+        </div>
+        {/* <h2 className="titleDescription">
         Search a keyword. Get related news.
       </h2> */}
-      {/* <div className="label">
+        {/* <div className="label">
         <p className="text-wrapper">Search a keyword. Get related news.</p>
       </div> */}
-      {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
+        {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
         See How It Works
       </Button>
       <Modal size={"7xl"} show={showVideoModal} onClose={() => setShowVideoModal(false)}>
@@ -93,10 +94,10 @@ function NoUserSession(props) {
               </Button>
           </Modal.Footer>
       </Modal> */}
-      {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
+        {/* <Button className="mx-auto mb-4" variant="primary" onClick={() => setShowVideoModal(true)}>
           See How It Works
       </Button> */}
-      {/* <Modal size={"7xl"} show={showVideoModal} onClose={() => setShowVideoModal(false)}>
+        {/* <Modal size={"7xl"} show={showVideoModal} onClose={() => setShowVideoModal(false)}>
           <Modal.Header className="bg-gray-800 text-white p-4">
             See How It Works
           </Modal.Header>
@@ -116,69 +117,73 @@ function NoUserSession(props) {
       </Modal> */}
 
 
-      <div class="formBox">
-        <div class="formContent">
-          {pageState == 1 && (
-            <LoginComponent
-              setPageState={setPageStateWithReset}
-              statusMessage={statusMessage}
-              setStatusMessage={setStatusMessage}
-            />
-          )}
-          {pageState == 2 && (
-            <SignUpComponent
-              setPageState={setPageStateWithReset}
-              statusMessage={statusMessage}
-              setStatusMessage={setStatusMessage}
-            />
-          )}
-          {pageState == 3 && (
-            <ForgotPasswordComponent
-              setPageState={setPageStateWithReset}
-              statusMessage={statusMessage}
-              setStatusMessage={setStatusMessage}
-            />
-          )}
-          {pageState == 4 && (
-            <PasswordReset
-              forgotPasswordEmail={forgotPasswordEmail}
-              forgotPasswordCode={forgotPasswordCode}
-              setPageState={setPageStateWithReset}
-              statusMessage={statusMessage}
-              setStatusMessage={setStatusMessage}
-            />
-          )}
-          {pageState == 5 && (
-            <VerificationCheck
-              forgotPasswordEmail={forgotPasswordEmail}
-              forgotPasswordCode={forgotPasswordCode}
-              setPageState={setPageStateWithReset}
-              statusMessage={statusMessage}
-              setStatusMessage={setStatusMessage}
-            />
-          )}
-          {pageState != 3 && pageState != 4 && pageState != 5 && (
-            <p className="text-center my-4">
-            </p>
-          )}
-          {pageState != 3 && pageState != 4 && pageState != 5 && (
-            // <button
-            //   onClick={onLogin}
-            //   type="button"
-            //   className="login-with-google-btn mt-2"
-            // >
-            //   Continue with Google
-            // </button>
-            <button
-              onClick={onLogin}
-              type="button"
-              className="login-with-google-btn-new"
-              style={{ backgroundImage: `url(${googleIcon})`, textColor: "transparent"}}
-            />
-          )}
+        <div class="formBox">
+          <div class="formContent">
+            {pageState == 1 && (
+              <LoginComponent
+                setPageState={setPageStateWithReset}
+                statusMessage={statusMessage}
+                setStatusMessage={setStatusMessage}
+              />
+            )}
+            {pageState == 2 && (
+              <SignUpComponent
+                setPageState={setPageStateWithReset}
+                statusMessage={statusMessage}
+                setStatusMessage={setStatusMessage}
+              />
+            )}
+            {pageState == 3 && (
+              <ForgotPasswordComponent
+                setPageState={setPageStateWithReset}
+                statusMessage={statusMessage}
+                setStatusMessage={setStatusMessage}
+              />
+            )}
+            {pageState == 4 && (
+              <PasswordReset
+                forgotPasswordEmail={forgotPasswordEmail}
+                forgotPasswordCode={forgotPasswordCode}
+                setPageState={setPageStateWithReset}
+                statusMessage={statusMessage}
+                setStatusMessage={setStatusMessage}
+              />
+            )}
+            {pageState == 5 && (
+              <VerificationCheck
+                forgotPasswordEmail={forgotPasswordEmail}
+                forgotPasswordCode={forgotPasswordCode}
+                setPageState={setPageStateWithReset}
+                statusMessage={statusMessage}
+                setStatusMessage={setStatusMessage}
+              />
+            )}
+            {pageState != 3 && pageState != 4 && pageState != 5 && (
+              <p className="text-center my-4">
+              </p>
+            )}
+            {pageState != 3 && pageState != 4 && pageState != 5 && (
+              // <button
+              //   onClick={onLogin}
+              //   type="button"
+              //   className="login-with-google-btn mt-2"
+              // >
+              //   Continue with Google
+              // </button>
+              <button
+                onClick={onLogin}
+                type="button"
+                className="login-with-google-btn-new"
+                style={{ backgroundImage: `url(${googleIcon})`, textColor: "transparent" }}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <div className="w-1/2">
+        <img src={pic8} alt="A person reading a newspaper" className="absolute right-0 top-0 -translate-x-1/2 z-50" />
+        <img src={pic9} alt="A person reading a newspaper" className="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
+      </div>
     </div>
   );
 }
