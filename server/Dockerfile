@@ -1,5 +1,6 @@
 # Use a base image with Node.js installed
-FROM node:14
+# FROM node:14
+FROM node:14-bullseye
 
 # Set the working directory inside the container
 WORKDIR /app
