@@ -38,6 +38,7 @@ config = {
     'http://localhost:3000',  # React
     'https://nwsltr.anote.ai', # Frontend prod URL,
     'https://newsletter.anote.ai', # Frontend prod URL,
+    'https://nwsltr.ai', # Frontend prod URL,
   ],
 }
 CORS(app, resources={ r'/*': {'origins': config['ORIGINS']}}, supports_credentials=True)
@@ -185,7 +186,7 @@ def login():
         if netloc == "localhost:5000" or netloc == "127.0.0.1:5000":
             scheme = "http"
         else:
-            netloc = "nwsltrapi.anote.ai"
+            netloc = "nwsltrapi.nwsltr.ai"
         print("in login3")
         flow.redirect_uri = f'{scheme}://{netloc}/callback'
         # flow.redirect_uri = f'https://sababaapi.anote.ai/callback'
@@ -248,7 +249,8 @@ def callback():
     )
 
     # default_referrer = "http://localhost:3000"
-    default_referrer = "https://nwsltr.anote.ai"
+    # default_referrer = "https://nwsltr.anote.ai"
+    default_referrer = "https://nwsltr.ai"
     # default_referrer = "http://localhost:3000"
     user_id = create_user_if_does_not_exist(id_info.get("email"), id_info.get(
         "sub"), id_info.get("name"), id_info.get("picture"))

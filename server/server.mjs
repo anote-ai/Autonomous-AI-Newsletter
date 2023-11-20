@@ -13,7 +13,7 @@ const upload = multer({ dest: "uploads/" });
 
 const isProd = process.env.NODE_ENV === "production";
 
-const frontendHost = isProd ?  "https://nwsltr.anote.ai" : "http://localhost:3000";
+const frontendHost = isProd ?  "https://nwsltr.ai" : "http://localhost:3000";
 
 app.use(
   cors({

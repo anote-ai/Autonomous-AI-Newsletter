@@ -187,7 +187,7 @@ const Pricing = (props) => {
     id: 4,
     title: "Newsletter",
     url: "https://docs.anote.ai/Newsletter/Newsletter.html",
-    signUpBaseUrl: "https://nwsltr.anote.ai",
+    signUpBaseUrl: "https://nwsltr.ai",
     // signUpBaseUrl: "http://localhost:3000",
     // extraBenefits: [
     //   "Additional credit packs available for purchase, starting at $50 for 500 credits.",

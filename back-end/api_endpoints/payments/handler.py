@@ -85,8 +85,8 @@ def CreateCheckoutSessionHandler(request, userEmail):
                     },
                 ],
                 mode='subscription',
-                success_url="https://nwsltr.anote.ai",
-                cancel_url="https://nwsltr.anote.ai",
+                success_url="https://nwsltr.ai",
+                cancel_url="https://nwsltr.ai",
                 metadata={
                     'user_id': user_id
                 },
@@ -129,7 +129,7 @@ def CreatePortalSessionHandler(request, userEmail):
     if no_subscriptions_with_end_date_null(userEmail):
         return jsonify({'status': "Already canceled."}), 400
 
-    return_url = "https://nwsltr.anote.ai"
+    return_url = "https://nwsltr.ai"
     print("return_url")
     config = config_for_payment_tiers(userEmail, request.json["paymentTier"])
     print("config")
