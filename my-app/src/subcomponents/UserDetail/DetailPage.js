@@ -10,6 +10,7 @@ import {
   Textarea,
   Select as Select1,
 } from "flowbite-react";
+import Modal from 'react-modal';
 import { categoryList } from "../../constants/categoryList";
 import { colors } from "../../constants/ColorDropdown";
 import { FormControl, MenuItem } from "@material-ui/core";
@@ -24,7 +25,7 @@ import { IncomeLevel } from "../../constants/IncomeLevel";
 import { StylisticChoice } from "../../constants/StylisticChoice";
 import { ThemeTopic } from "../../constants/ThemeTopic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { CharacterList } from "../../constants/CharacterList";
 import { useDispatch } from "react-redux";
 import { setIdeas, generateIdeas } from "../../redux/newsLetterSlice";
@@ -46,6 +47,27 @@ function DetailPage(props) {
   const [aIdeas, setAIdeas] = useState(props.ideas);
   const [validationErrors, setValidationErrors] = useState(false);
   const [currentCharacter, setCurrentCharacter] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setModalIsOpen(false);
+  };
+
+  const modalContentStyles = {
+    height: '90vh',
+    maxWidth: '50vw',
+    margin: 'auto',
+    top: '50%',
+    transform: 'translateY(-25%)',
+  };
+
   let viewCard = null;
   const buildCard = (eachdata) => {
     if (eachdata.type === "input") {
@@ -71,7 +93,37 @@ function DetailPage(props) {
               }}
               className="my-2 w-full mx-auto"
               value={eachdata.data}
-              style={{"backgroundColor" : "#F7F5EC"}}
+              style={{ "backgroundColor": "#F7F5EC" }}
+            ></TextInput>
+          </div>
+        </div>
+      );
+    }
+    else if (eachdata.type === "letterNameInput") {
+      return (
+        <div className="flex flex-col justify-center items-center mt-40 h-full">
+          <span className="text-red-500 text-sm flex justify-center">Let's create a newsletter</span>
+          <div className="flex flex-col">
+            <span className="flex justify-center items-center text-4xl">
+              {eachdata.title}
+              {eachdata.require === true && (
+                <span className="text-red-500 text-sm">&nbsp;*</span>
+              )}
+              {eachdata.require === false && (
+                <span className="text-sm">&nbsp; (optional)</span>
+              )}
+            </span>
+            <TextInput
+              required
+              type="text"
+              onChange={(e) => {
+                let tem = JSON.parse(JSON.stringify(data));
+                tem[eachdata.id - 1].data = e.target.value;
+                setData(tem);
+              }}
+              className="my-2 w-full mx-auto rounded-full"
+              value={eachdata.data}
+              style={{ "backgroundColor": "#F7F5EC" }}
             ></TextInput>
           </div>
         </div>
@@ -101,7 +153,7 @@ function DetailPage(props) {
                 // console.log(eachdata.data);
               }}
               className="my-2 w-full mx-auto"
-              style={{"backgroundColor" : "#F7F5EC"}}
+              style={{ "backgroundColor": "#F7F5EC" }}
               value={eachdata.data}
             ></TextInput>
           </div>
@@ -556,7 +608,7 @@ function DetailPage(props) {
               tem[eachdata.id - 1].data = e.target.value;
               setData(tem);
             }}
-            style={{"backgroundColor" : "#F7F5EC"}}
+            style={{ "backgroundColor": "#F7F5EC" }}
           />
         </div>
       );
@@ -572,8 +624,10 @@ function DetailPage(props) {
         }
       });
       return (
-        <div className="flex flex-col mx-10 my-5">
-          <span className=" flex">
+        <div className="flex flex-col mx-10 my-5 h-full">
+          <span className="flex justify-center">
+            Browse All
+            <br></br>
             {eachdata.title}
             {eachdata.require === true && (
               <span className="text-red-500 text-sm">&nbsp; *</span>
@@ -582,42 +636,7 @@ function DetailPage(props) {
               <span className="text-sm">&nbsp; (optional)</span>
             )}
           </span>
-          {/* <div className="flex items-start my-1 justify-center py-4 md:py-8 flex-wrap border-2 border-slate-600 rounded-lg">
-                        {TemThemeTopicArray.map((eachTheme) => {
-                            return (
-                                <div type="button" className={`w-1/4 text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white text-base font-medium px-5 py-2.5 text-center mr-2 mb-3 dark:text-white ${eachTheme.isActive
-                                    ? "ring-4 outline-none ring-gray-300"
-                                    : ""
-                                    }`}
-
-                                    onClick={() => {
-                                        themeChangeActive(TemThemeTopicArray, setThemeArray, eachTheme, 0);
-                                    }}>{eachTheme.name}
-                                    <div>
-                                        {eachTheme.name === "Freshly Brewed" && (
-                                            <div className="mx-auto h-full cursor-pointer">
-                                                <img src={FreshlyBrewed}></img>
-                                                <p>Good for The Expert-style brand & sharing content, The Infopreneur, brands that function as essentially media companies because they're constantly pushing content out. Think "I have a lot to say"</p>
-                                            </div>
-                                        )}
-                                        {eachTheme.name === "High Gloss" && (
-                                            <div className="mx-auto h-full cursor-pointer">
-                                                <img src={HighGloss}></img>
-                                                <p>Good for the Influencer or Ecommerce, aspirational brands, personal brands, lifestyle brands or brands that just put out less content or bigger, meatier pieces of content</p>
-                                            </div>
-                                        )}
-                                        {eachTheme.name === "The NewPort" && (
-                                            <div className="mx-auto h-full cursor-pointer">
-                                                <img src={theNewPort}></img>
-                                                <p>Good for The Teacher, The Nerd, think more deep dive, the newsletter IS the article</p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div> */}
-          <div className="flex flex-wrap border border-slate-600 rounded-lg">
+          <div className="flex flex-wrap border border-slate-600 rounded-lg h-full">
             {TemThemeTopicArray.map((eachTheme) => (
               <div
                 key={eachTheme.name}
@@ -625,7 +644,7 @@ function DetailPage(props) {
                   } flex flex-col justify-between`}
               >
                 <div
-                  className="h-full flex flex-col cursor-pointer"
+                  className="h-96 overflow-hidden cursor-pointer flex flex-col"
                   onClick={() => {
                     themeChangeActive(
                       TemThemeTopicArray,
@@ -637,10 +656,11 @@ function DetailPage(props) {
                 >
                   {eachTheme.name === "Freshly Brewed" && (
                     <>
+                      <p>Freshly Brewed</p>
                       <img
                         src={FreshlyBrewed}
                         alt="Freshly Brewed"
-                        className="border border-gray-500 rounded mb-2"
+                        className="border border-gray-500 rounded mb-2 w-full object-cover object-top h-3/5"
                       />
                       <p className="text-xs my-auto">
                         Good for The Expert-style brand & sharing content, The
@@ -648,14 +668,23 @@ function DetailPage(props) {
                         companies because they're constantly pushing content
                         out. Think "I have a lot to say"
                       </p>
+                      <div className="h-auto w-full flex justify-center">
+                        <button
+                          className=" cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 border-2 border-orange-500"
+                          onClick={() => openModal(FreshlyBrewed)}
+                        >
+                          Preview
+                        </button>
+                      </div>
                     </>
                   )}
                   {eachTheme.name === "High Gloss" && (
                     <>
+                      <p>High Gloss</p>
                       <img
                         src={HighGloss}
                         alt="High Gloss"
-                        className="border border-gray-500 rounded mb-2"
+                        className="border border-gray-500 rounded mb-2 object-cover object-top h-3/5"
                       />
                       <p className="text-xs my-auto">
                         Good for the Influencer or Ecommerce, aspirational
@@ -663,25 +692,53 @@ function DetailPage(props) {
                         just put out less content or bigger, meatier pieces of
                         content
                       </p>
+                      <div className="h-auto w-full flex justify-center">
+                        <button
+                          className=" cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 border-2 border-orange-500"
+                          onClick={() => openModal(HighGloss)}
+                        >
+                          Preview
+                        </button>
+                      </div>
                     </>
                   )}
                   {eachTheme.name === "The NewPort" && (
                     <>
+                      <p>The NewPort</p>
                       <img
                         src={theNewPort}
                         alt="The NewPort"
-                        className="border border-gray-500 rounded mb-2"
+                        className="border border-gray-500 rounded mb-2 object-cover object-top h-3/5"
                       />
                       <p className="text-xs my-auto">
                         Good for The Teacher, The Nerd, think more deep dive,
                         the newsletter IS the article
                       </p>
+                      <div className="h-auto w-full flex justify-center">
+                        <button
+                          className=" cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 border-2 border-orange-500"
+                          onClick={() => openModal(theNewPort)}
+                        >
+                          Preview
+                        </button>
+                      </div>
                     </>
                   )}
                 </div>
               </div>
             ))}
           </div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Image Preview Modal"
+            style={{ content: modalContentStyles }}
+          >
+            <div className="w-full p-11 flex justify-center relative">
+              <FontAwesomeIcon onClick={closeModal} icon={faCircleXmark} className="h-9 w-9 absolute right-0 top-0 cursor-pointer" />
+              {selectedImage && <img src={selectedImage} alt="Preview" className="w-full overflow-scroll" />}
+            </div>
+          </Modal>
         </div>
       );
       // return (
@@ -765,138 +822,148 @@ function DetailPage(props) {
 
           >
             {currentCharacter === "" ? (
-                  <p className="text-xs my-auto">
-                    Choose Your Character-Style Writer Personas
-                  </p>
-                ) : (
-                  <p className="text-xs my-auto">
-                    {
-                      CharacterList.find(
-                        (char) => char.name === currentCharacter
-                      )?.description
-                    }
-                  </p>
-                )}
-            {/* {eachdata.data === "The Sloane Ranger" && (
-              <>
-                <p className="text-xs my-auto">
-                  For this persona, you are a character who identifies as female, possesses a witty, intellectual, smart, and effortlessly classy personality, and primarily uses a friendly and informal tone. We will use this personality, tone, and character voice to write this article.
-                </p>
-              </>
+              <p className="text-xs my-auto">
+                Choose Your Character-Style Writer Personas
+              </p>
+            ) : (
+              <p className="text-xs my-auto">
+                {
+                  CharacterList.find(
+                    (char) => char.name === currentCharacter
+                  )?.description
+                }
+              </p>
             )}
-            {eachdata.data === "The Saucy Intellect" && (
-              <>
-                <p className="text-xs my-auto">
-                  “The Saucy Intellect” is your one-stop destination for content that is as enlightening as it is entertaining. With a satirical tone that dives deep into the quirks of modern life and an intellectual flair reminiscent of literature's greatest minds, this persona never fails to deliver a fresh perspective. Balancing humor and insight, the content crafted by "The Saucy Intellect" is both a reflection on society and a playful poke at its idiosyncrasies. Drawing inspiration from everyday experiences, it masterfully blends offbeat wit with deep reflections, wrapped in a charming New England dialect. Whether challenging societal norms or offering keen observations, "The Saucy Intellect" provides a unique voice in a world full of conventionality.
-                </p>
-              </>
-            )}
-            {eachdata.data === "The Winsome Jester" && (
-              <>
-                <p className="text-xs my-auto">
-                  Maxwell "Max" Witmore is your go-to newsletter writer when you want a dose of humor in your daily news. With a sassy tone and an uncanny ability to observe the quirks of society, Max doesn't just deliver the news; he serves it with a side of sarcasm and a sprinkle of self-deprecation. Drawing from a vast reservoir of comedic forms, from the satirical plays of ancient Greece to the modern memes of social media, Max ensures that his readers both laugh and think. Aware of the pitfalls in comedic writing, he adeptly avoids clichés, stereotypes, and forced comedy, choosing instead to surprise and engage his readers with clever wordplay and relatable themes. Whether it's politics, culture, or just the oddities of everyday life, trust Max to give you a fresh and hilarious take on it.
-                </p>
-              </>
-            )}
-            {eachdata.data === "The On-Trend Everygirl" && (
-              <>
-                <p className="text-xs my-auto">
-                  For this persona you are a character who identifies as female, has voice is edgy, on-trend, and assertive—she'd OBVIOUSLY like to command the roadtrip DJ seat, and primarily uses a Irreverent and Edgy or Humorous and Sarcastic or Informal and Conversational tone. We will use this personality, tone, and character voice to write this article.
-                </p>
-              </>
-            )}
-            {eachdata.data === "The Energetic Expert" && (
-              <>
-                <p className="text-xs my-auto">
-                  For this persona, you are a character who identifies as masculine, has a voice like an Energetic Expert—upbeat, persuasive, and passionate—and primarily uses vibrant energy, enthusiasm, unwavering confidence, and crystal-clear delivery tone. Using this personality and tone, we will write this article.
-                </p>
-              </>
-            )} */}
           </div>
         </div>
       );
     } else if (eachdata.type === "ideaSelect") {
       return (
-        <div>
-          <div className="grid grid-cols-2 items-center mx-10 my-5">
-            <span className=" flex">
-              {eachdata.title}
-              {eachdata.require === true && (
-                <span className="text-red-500 text-sm"> &nbsp; *</span>
-              )}
-              {eachdata.require === false && (
-                <span className="text-sm"> &nbsp; (optional) &nbsp;&nbsp;</span>
-              )}
-              {props.loadingIdeas && (
-                <div role="status" className="ml-auto">
-                  <svg
-                    aria-hidden="true"
-                    class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="currentFill"
-                    />
-                  </svg>
-                  <span class="sr-only">Loading...</span>
-                </div>
-              )}
-            </span>
-            <div className="flex">
-              <Select1
-                className="w-4/6"
-                value={eachdata.data}
-                onChange={(e) => {
-                  let tem = JSON.parse(JSON.stringify(data));
-                  console.log("tem", tem)
-                  const selectedOptionId =
-                    e.target.options[e.target.selectedIndex].id;
-                  const selectedOptionSubIdea =
-                    e.target.options[e.target.selectedIndex].getAttribute(
-                      "subIdea"
-                    );
-                  // console.log("selectedOptionId", Number(selectedOptionId))
-                  // console.log("selectedOptionSubIdea", selectedOptionSubIdea)
-                  tem[eachdata.id - 1].ideaId = Number(selectedOptionId);
-                  tem[eachdata.id - 1].subIdea = JSON.parse(
-                    selectedOptionSubIdea
+        <div className="w-full h-[65vh]">
+          <div className="px-10 py-5 h-full w-full flex justify-start">
+            <div className="h-full w-2/5 flex flex-col p-12">
+              <div className="w-full text-left">
+                <span className="text-3xl text-left">
+                  {eachdata.title}
+                </span>
+                {eachdata.require === true && (
+                  <span className="text-red-500 text-sm"> *</span>
+                )}
+                {eachdata.require === false && (
+                  <span className="text-sm"> (optional) &nbsp;&nbsp;</span>
+                )}
+              </div>
+              <div className="w-full my-10 flex justify-start">
+                <button
+                  className="cursor-pointer flex justify-center text-2xl items-center hover:text-white hover:bg-orange-500 rounded-full bg-white text-orange-500 border-2 border-orange-500 w-48 p-3"
+                  onClick={() => {
+                    console.log("generateIdea in detail");
+                    props.GenerateIdea();
+                    props.setLoadingIdeas(true);
+                  }}
+                >
+                  Generate Ideas
+                </button>
+                {props.loadingIdeas && (
+                  <div role="status" className="my-auto">
+                    <svg
+                      aria-hidden="true"
+                      class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill"
+                      />
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                )}
+
+              </div>
+            </div>
+            <div className="w-3/5 h-full">
+              <div className="flex flex-col items-center my-1 justify-center py-4 md:py-8 border-2 border-slate-600 rounded-lg p-4 h-full overflow-y-scroll">
+                {props.ideas.length === 0 &&(
+                  <div className=" w-full">
+                    You don't have ideas for your newsletter yet, go generate some.
+                  </div>
+                )}
+                {props.ideas.length !== 0 && props.ideas.map((idea, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      type="button"
+                      className={`w-full cursor-pointer text-gray-900 bg-[#F7F5EC] border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 text-base font-medium px-5 py-2.5 text-center my-3 dark:text-white ${eachdata.data == idea.title
+                        ? "ring-4 outline-none ring-gray-300"
+                        : ""
+                        }`}
+                      onClick={() => {
+                        let tem = JSON.parse(JSON.stringify(data));
+                        console.log("eachdata", eachdata)
+                        console.log("data", data)
+                        console.log("idea", idea)
+                        const selectedOptionId = idea.id;
+                        const selectedOptionSubIdea = idea.subIdea;
+                        // console.log("selectedOptionId", Number(selectedOptionId))
+                        // console.log("selectedOptionSubIdea", selectedOptionSubIdea)
+                        tem[eachdata.id - 1].ideaId = Number(selectedOptionId);
+                        tem[eachdata.id - 1].subIdea = selectedOptionSubIdea
+                        tem[eachdata.id - 1].data = idea.title;
+                        // console.log("tem", tem);
+                        setData(tem);
+                      }}
+                    >
+                      {idea.title}
+                    </div>
                   );
-                  tem[eachdata.id - 1].data = e.target.value;
-                  // console.log("tem", tem);
-                  setData(tem);
-                }}
-              >
-                <option disabled key="default" value=""></option>
-                {/* {console.log("props.ideas",props.ideas)} */}
-                {props.ideas.map((font, idx) => (
-                  <option
-                    key={idx}
-                    value={font.title}
-                    id={font.id}
-                    subIdea={JSON.stringify(font.subIdea)}
-                    style={{ fontSize: font }}
-                  >
-                    {font.title}
-                  </option>
-                ))}
-              </Select1>
-              <Button
-                className="ml-auto"
-                onClick={() => {
-                  console.log("generateIdea in detail");
-                  props.GenerateIdea();
-                  props.setLoadingIdeas(true);
-                }}
-              >
-                Generate Ideas
-              </Button>
+                })}
+              </div>
+              {/* <div className="flex">
+                <Select1
+                  className="w-4/6"
+                  value={eachdata.data}
+                  onChange={(e) => {
+                    let tem = JSON.parse(JSON.stringify(data));
+                    console.log("tem", tem)
+                    const selectedOptionId =
+                      e.target.options[e.target.selectedIndex].id;
+                    const selectedOptionSubIdea =
+                      e.target.options[e.target.selectedIndex].getAttribute(
+                        "subIdea"
+                      );
+                    // console.log("selectedOptionId", Number(selectedOptionId))
+                    // console.log("selectedOptionSubIdea", selectedOptionSubIdea)
+                    tem[eachdata.id - 1].ideaId = Number(selectedOptionId);
+                    tem[eachdata.id - 1].subIdea = JSON.parse(
+                      selectedOptionSubIdea
+                    );
+                    tem[eachdata.id - 1].data = e.target.value;
+                    // console.log("tem", tem);
+                    setData(tem);
+                  }}
+                >
+                  <option disabled key="default" value=""></option> */}
+                  {/* {console.log("props.ideas",props.ideas)} */}
+                  {/* {props.ideas.map((font, idx) => (
+                    <option
+                      key={idx}
+                      value={font.title}
+                      id={font.id}
+                      subIdea={JSON.stringify(font.subIdea)}
+                      style={{ fontSize: font }}
+                    >
+                      {font.title}
+                    </option>
+                  ))} */}
+                {/* </Select1> */}
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -1145,26 +1212,28 @@ function DetailPage(props) {
       )}
       {viewCard}
       <div className=" absolute bottom-5 left-10">
-        <Button
+        <button
           outline
           onClick={() => {
             props.previousPage();
           }}
+          className=" h-10 w-40 cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 hover:border-2 hover:border-orange-500"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-0.5" />
           Previous
-        </Button>
+        </button>
       </div>
       <div className="absolute bottom-5 right-10">
-        <Button
+        <button
           outline
           onClick={() => {
             validateAndNextPage();
           }}
+          className=" h-10 w-40 cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 hover:border-2 hover:border-orange-500"
         >
           Next
           <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
-        </Button>
+        </button>
       </div>
     </div>
   );

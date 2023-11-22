@@ -54,7 +54,7 @@ function NoUserSession(props) {
 
   return (
     // <div className=" bg-gray-800 min-h-screen">
-    <div className="flex flex-col min-h-screen w-full bg-white">
+    <div className="flex min-h-screen justify-start w-full bg-white">
       <div className="flex-grow h-full w-2/5">
         <div className="SababaTitle">
           <div className="text-wrapper">NWSLTR.AI</div>
@@ -117,7 +117,7 @@ function NoUserSession(props) {
       </Modal> */}
 
 
-        <div class="formBox">
+        <div class="formBox z-50 relative">
           <div class="formContent">
             {pageState == 1 && (
               <LoginComponent
@@ -180,9 +180,9 @@ function NoUserSession(props) {
           </div>
         </div>
       </div>
-      <div className="w-1/2">
-        <img src={pic8} alt="A person reading a newspaper" className="absolute right-0 top-0 -translate-x-1/2 z-50" />
-        <img src={pic9} alt="A person reading a newspaper" className="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
+      <div className="w-2/5 ml-auto">
+        <img src={pic8} alt="A person reading a newspaper" className="absolute right-0 top-0 -translate-x-1/2 z-30 w-2/6" />
+        <img src={pic9} alt="A person reading a newspaper" className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-3/6" />
       </div>
     </div>
   );

@@ -108,26 +108,28 @@ function Content(props) {
                 </div>
             </div>
             <div className="absolute bottom-5 left-10">
-                <Button
+                <button
                     outline
                     onClick={() => {
                         props.previousPage();
                     }}
+                    className=" h-10 w-40 cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 hover:border-2 hover:border-orange-500"
                 >
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2 mt-0.5" />
                     Previous
-                </Button>
+                </button>
             </div>
             <div className="absolute bottom-5 right-10">
-                <Button
+                <button
                     outline
                     onClick={() => {
                         props.nextPage();
                     }}
+                    className=" h-10 w-40 cursor-pointer flex justify-around font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-lg hover:bg-white hover:text-orange-500 hover:border-2 hover:border-orange-500"
                 >
                     Save
                     <FontAwesomeIcon icon={faArrowRight} className="ml-2 mt-0.5" />
-                </Button>
+                </button>
             </div>
         </div>
     );

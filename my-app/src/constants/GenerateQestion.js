@@ -1,9 +1,9 @@
 export const GenerateQestion = {
     pageOne: [
         {
-            title: 'NewsLetter Name',
+            title: 'Does your newsletter have a name?',
             require: true,
-            type: 'input',
+            type: 'letterNameInput',
             data: '',
             id: 1
         },
@@ -33,7 +33,7 @@ export const GenerateQestion = {
     ],
     pageTwo: [
         {
-            title: 'Which Theme you want for this NewsLetter',
+            title: 'Select a copy template for your newsletter',
             require: true,
             type: 'themeSelect',
             data: '',
@@ -42,7 +42,7 @@ export const GenerateQestion = {
     ],
     pageThree: [
         {
-            title: 'Which idea you want for this NewsLetter',
+            title: 'Select an idea for your newsletter',
             require: true,
             type: 'ideaSelect',
             ideaId: 0,

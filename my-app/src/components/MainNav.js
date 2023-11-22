@@ -28,7 +28,7 @@ function MainNav(props) {
 
   return (
     // <Navbar className="bg-zinc-200 navbar-fixed h-[6%]" fluid rounded>
-    <Navbar fluid >
+    <Navbar fluid className="box-border border-b-2 border-black" >
       <Navbar.Brand href="/">
         {/* Image only when the theme is light  */}
         {/* <div className="h-10 w-10 bg-center bg-contain bg-[url('../public/logo_light.png')] dark:bg-[url('../public/logo_dark.png')]"></div> */}
@@ -44,7 +44,7 @@ function MainNav(props) {
             props.setDarkTheme(themeMode);
           }}
         /> */}
-        <Button outline onClick={() => {
+        <button outline onClick={() => {
           // console.log(numCredits)
           if (numCredits === 0) {
             alert("not have enough credits")
@@ -52,10 +52,10 @@ function MainNav(props) {
           else {
             navigate(mainPagePath)
           }
-        }} className="cursor-pointer flex font-bold text-sm items-center text-white mr-5">
+        }} className="cursor-pointer flex justify-center font-bold text-sm items-center text-white mr-5 bg-orange-500 rounded-full hover:bg-white hover:text-orange-500 border-2 border-orange-500 w-48">
           <FontAwesomeIcon size="lg" icon={faPlus} className="mr-2" />
           <p>Create Newsletter</p>
-        </Button>
+        </button>
         <Dropdown
           theme={{
             arrowIcon: "text-[#374151] dark:text-[#9BA3AF] ml-2 h-4 w-4",
@@ -63,7 +63,7 @@ function MainNav(props) {
           inline
           label={
             // <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
-            getUserDetailPageOne[3].data === '' ? <Avatar img={noUserImg} rounded> </Avatar> : <Avatar img={getUserDetailPageOne[3].data} rounded></Avatar>
+            getUserDetailPageOne[3].data === '' ? <Avatar img={noUserImg} rounded> </Avatar> : <Avatar img={getUserDetailPageOne[3].data} rounded className="h-full"></Avatar>
           }
         >
           <Dropdown.Header>
