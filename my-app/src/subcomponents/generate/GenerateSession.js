@@ -195,7 +195,7 @@ function GenerateSession(props) {
       >
         {index >= currentIndex ? (
           <span
-            className={`flex items-center justify-center w-6 h-6 mr-2 text-xs border rounded-full shrink-0 ${index <= currentIndex
+            className={`flex flex-shrink-0 items-center justify-center w-6 h-6 mr-2 text-xs border rounded-full ${index <= currentIndex
               ? "border-sky-500"
               : "border-gray-500 dark:border-gray-400"
               }`}
@@ -235,11 +235,11 @@ function GenerateSession(props) {
 
   return (
     // <div className=" bg-gray-800 min-h-screen">
-    <div className="bg-white w-screen h-[94%]">
-      <div className={`${pageState === 6 ? "w-5/6 " : "w-screen"} flex flex-col `}>
-        <div className="w-3/4 mx-auto text-black my-auto overflow-scroll">
+    <div className="bg-white w-screen h-[93%]">
+      <div className={`${pageState === 6 ? "w-10/12" : "w-screen"} flex flex-col `}>
+        <div className="w-11/12 mx-auto text-black my-auto overflow-scroll">
           <div class="bg-white relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
-            <div className="mb-10">
+            <div className="mb-10 w-full overflow-x-auto">
               <ol className="flex justify-center items-center w-full p-3 space-x-2 text-xl font-medium text-center text-gray-500 shadow-sm dark:text-gray-400 sm:space-x-4">
                 {routes.map((route, index) => (
                   <Step
