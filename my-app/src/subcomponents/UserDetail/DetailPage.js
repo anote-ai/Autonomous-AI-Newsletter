@@ -768,73 +768,169 @@ function DetailPage(props) {
       // );
     } else if (eachdata.type === "characterSelect") {
       return (
-        <div className="grid grid-cols-2 items-center mx-10 my-5">
-          <span className=" flex">
-            {eachdata.title}
+        <div className="w-full h-[65vh] flex flex-col">
+          <div className="w-full">
+            <span className="text-3xl">
+              {eachdata.title}
+            </span>
             {eachdata.require === true && (
-              <span className="text-red-500 text-sm"> &nbsp; *</span>
+              <span className="text-red-500 text-sm"> *</span>
             )}
             {eachdata.require === false && (
-              <span className="text-sm"> &nbsp; (optional) &nbsp;&nbsp;</span>
+              <span className="text-sm"> (optional) &nbsp;&nbsp;</span>
             )}
-          </span>
-          <div className="flex items-center space-x-5">
-            <Select1
-              className="w-3/4"
-              value={eachdata.data}
-              onChange={(e) => {
-                let tem = JSON.parse(JSON.stringify(data));
-                tem[eachdata.id - 1].data = e.target.value;
-                console.log("tem", tem);
-                setData(tem);
-                setCurrentCharacter(e.target.value);
-                console.log(currentCharacter, e.target.value)
-              }}
-            >
-              <option disabled key="default" value=""></option>
-              {CharacterList.map((font, idx) => (
-                <option key={idx} value={font.name} style={{ fontSize: font }}>
-                  {font.emoji + " " + font.name}
-                </option>
-              ))}
-            </Select1>
-            <div className="relative inline-block group">
-              <span className="text-gray-200 cursor-pointer border border-gray-500 py-2 px-3 rounded-xl">?</span>
-              <div className="hidden group-hover:block w-40 absolute z-10 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 border border-gray-500 rounded-lg shadow-lg">
-                {currentCharacter === "" ? (
-                  <p className="text-gray-200 text-xs">
-                    Choose Your Character-Style Writer Personas
-                  </p>
-                ) : (
-                  <p className="text-gray-200">
-                    {
-                      CharacterList.find(
-                        (char) => char.name === currentCharacter
-                      )?.description
-                    }
-                  </p>
-                )}
-              </div>
+          </div>
+          <div className="px-10 py-5 h-full w-full flex justify-around">
+            <div className="h-full w-4/12 flex flex-col bg-[#EFEFEF] px-5 py-10 overflow-y-auto">
+              {CharacterList.map((eachCharacter, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    type="button"
+                    className={`w-full flex max-h-40 justify-start p-2 cursor-pointer text-gray-900 bg-white border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 text-base font-medium text-center my-1 dark:text-white ${eachdata.data == eachCharacter.name
+                      ? "ring-4 outline-none ring-gray-300 bg-[#eaead9]"
+                      : ""
+                      }`}
+                    onClick={() => {
+                      let tem = JSON.parse(JSON.stringify(data));
+                      tem[eachdata.id - 1].data = eachCharacter.name;
+                      console.log("tem", tem);
+                      setData(tem);
+                      setCurrentCharacter(eachCharacter.name);
+                      console.log(currentCharacter, eachCharacter.name)
+                    }}
+                  >
+                    <div className="h-full w-1/3">
+                      <img src={eachCharacter.img} alt={eachCharacter.name} className="h-full object-cover"></img>
+                    </div>
+                    <div className="h-full w-2/3 flex flex-col">
+                      <div className="text-left h-1/3">
+                        {eachCharacter.name}
+                      </div>
+                      <div className="text-left overflow-y-scroll h-2/3">
+                        {eachCharacter.description}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="w-7/12 h-full">
+              {CharacterList.map((eachCharacter, idx) => {
+                if (eachCharacter.name == eachdata.data) {
+                  return (
+                    <div className="flex justify-between bg-[#f3f3e6] rounded-lg h-full p-5">
+
+                      <div className="w-1/3 h-full flex flex-col p-3 bg-white mr-4">
+                        <div className="w-full flex justify-center items-center h-1/5 relative">
+                          <img src={eachCharacter.img} alt={eachCharacter.name} className="h-full object-cover rounded-full"></img>
+                        </div>
+                        <div className="w-full flex justify-center text-2xl font-bold items-center h-1/5">
+                          {eachCharacter.name}
+                        </div>
+                        <div className="w-full h-3/5 overflow-auto">
+                          <p>
+                            {eachCharacter.personality}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="w-2/3 h-full flex flex-col justify-between">
+                        <div className="w-full bg-white h-1/5 mb-2 flex flex-col overflow-y-scroll p-4">
+                          <p className="text-red-600 text-left">Voice Personality</p>
+                          <p className="text-left">{eachCharacter.personality}</p>
+                        </div>
+                        <div className="w-full bg-white h-4/5 p-4 flex flex-col">
+                          <p className="text-red-600 text-left mb-3">Primary Tones</p>
+                          <div className="flex flex-col flex-grow overflow-scroll w-full h-full">
+                            {eachCharacter.primaryTone.map((eachTone) => {
+                              const key = Object.keys(eachTone)[0];
+                              const value = eachTone[key];
+                              return (
+                                <div className="flex flex-col items-start justify-start mb-3">
+                                  <div className="bg-[#E1D293] inline-block rounded-lg border-l-8 border-r-8 border-[#E1D293]">
+                                    <p className=" text-white">{key}</p>
+                                  </div>
+                                  <p className="text-left">{value}</p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+              })}
             </div>
           </div>
-          <div
-            className="h-full flex flex-col cursor-pointer"
+          {/* <div className="grid grid-cols-2 items-center mx-10 my-5">
+            <span className=" flex">
+              {eachdata.title}
+              {eachdata.require === true && (
+                <span className="text-red-500 text-sm"> &nbsp; *</span>
+              )}
+              {eachdata.require === false && (
+                <span className="text-sm"> &nbsp; (optional) &nbsp;&nbsp;</span>
+              )}
+            </span>
+            <div className="flex items-center space-x-5">
+              <Select1
+                className="w-3/4"
+                value={eachdata.data}
+                onChange={(e) => {
+                  let tem = JSON.parse(JSON.stringify(data));
+                  tem[eachdata.id - 1].data = e.target.value;
+                  console.log("tem", tem);
+                  setData(tem);
+                  setCurrentCharacter(e.target.value);
+                  console.log(currentCharacter, e.target.value)
+                }}
+              >
+                <option disabled key="default" value=""></option>
+                {CharacterList.map((font, idx) => (
+                  <option key={idx} value={font.name} style={{ fontSize: font }}>
+                    {font.emoji + " " + font.name}
+                  </option>
+                ))}
+              </Select1>
+              <div className="relative inline-block group">
+                <span className="text-gray-200 cursor-pointer border border-gray-500 py-2 px-3 rounded-xl">?</span>
+                <div className="hidden group-hover:block w-40 absolute z-10 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 border border-gray-500 rounded-lg shadow-lg">
+                  {currentCharacter === "" ? (
+                    <p className="text-gray-200 text-xs">
+                      Choose Your Character-Style Writer Personas
+                    </p>
+                  ) : (
+                    <p className="text-gray-200">
+                      {
+                        CharacterList.find(
+                          (char) => char.name === currentCharacter
+                        )?.description
+                      }
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div
+              className="h-full flex flex-col cursor-pointer"
 
-          >
-            {currentCharacter === "" ? (
-              <p className="text-xs my-auto">
-                Choose Your Character-Style Writer Personas
-              </p>
-            ) : (
-              <p className="text-xs my-auto">
-                {
-                  CharacterList.find(
-                    (char) => char.name === currentCharacter
-                  )?.description
-                }
-              </p>
-            )}
-          </div>
+            >
+              {currentCharacter === "" ? (
+                <p className="text-xs my-auto">
+                  Choose Your Character-Style Writer Personas
+                </p>
+              ) : (
+                <p className="text-xs my-auto">
+                  {
+                    CharacterList.find(
+                      (char) => char.name === currentCharacter
+                    )?.description
+                  }
+                </p>
+              )}
+            </div>
+          </div> */}
         </div>
       );
     } else if (eachdata.type === "ideaSelect") {
@@ -890,7 +986,7 @@ function DetailPage(props) {
             </div>
             <div className="w-3/5 h-full">
               <div className="flex flex-col items-center my-1 justify-center py-4 md:py-8 border-2 border-slate-600 rounded-lg p-4 h-full overflow-y-scroll">
-                {props.ideas.length === 0 &&(
+                {props.ideas.length === 0 && (
                   <div className=" w-full">
                     You don't have ideas for your newsletter yet, go generate some.
                   </div>
@@ -950,8 +1046,8 @@ function DetailPage(props) {
                   }}
                 >
                   <option disabled key="default" value=""></option> */}
-                  {/* {console.log("props.ideas",props.ideas)} */}
-                  {/* {props.ideas.map((font, idx) => (
+              {/* {console.log("props.ideas",props.ideas)} */}
+              {/* {props.ideas.map((font, idx) => (
                     <option
                       key={idx}
                       value={font.title}
@@ -962,7 +1058,7 @@ function DetailPage(props) {
                       {font.title}
                     </option>
                   ))} */}
-                {/* </Select1> */}
+              {/* </Select1> */}
               {/* </div> */}
             </div>
           </div>
