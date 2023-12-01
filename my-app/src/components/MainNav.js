@@ -1,19 +1,16 @@
-import { React, useEffect, useState } from "react";
-import { logout, useNumCredits, useUser, viewUser, refreshCredits, } from "../redux/UserSlice";
+import { React, useEffect } from "react";
+import { logout, useNumCredits, useUser, viewUser, refreshCredits } from "../redux/UserSlice";
 import noUserImg from '../assets/noUserImg.png';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { accountPath, loginPagePath, mainPagePath, DetailPagePath, allnewsletter } from "../constants/RouteConstants";
-import { Dropdown, Navbar, Avatar, DarkThemeToggle, Button } from "flowbite-react";
+import { accountPath, mainPagePath } from "../constants/RouteConstants";
+import { Dropdown, Navbar, Avatar } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDetailPageOne } from "../redux/DetailSlice"
 import "../styles/Footer.css"
 
 function MainNav(props) {
-  // const tabNames = ["Profile", "Account", "All Letters", "Create"];
-  const location = useLocation();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let user = useUser();

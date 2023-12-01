@@ -1,4 +1,4 @@
-export const GenerateQestion = {
+export const GenerateQuestion = {
     pageOne: [
         {
             title: 'Does your newsletter have a name?',
@@ -7,29 +7,6 @@ export const GenerateQestion = {
             data: '',
             id: 1
         },
-        // {
-        //     title: 'Which idea you want for this NewsLetter',
-        //     require: true,
-        //     type: 'ideaSelect',
-        //     ideaId: 0,
-        //     data: '',
-        //     subIdea: [],
-        //     id: 2
-        // },
-        // {
-        //     title: 'Type in your Sponsor company',
-        //     require: false,
-        //     type: 'input',
-        //     data: '',
-        //     id: 3
-        // },
-        // {
-        //     title: "Recent Content description? (Use for generate the story)",
-        //     require: false,
-        //     type: 'text',
-        //     data: '',
-        //     id: 4
-        // }
     ],
     pageTwo: [
         {
@@ -68,7 +45,7 @@ export const GenerateQestion = {
     brandVoice: [],
     useBrandVoice: false
 }
-export const GenerateQestionDemoData = {
+export const GenerateQuestionDemoData = {
     pageOne: [
         {
             title: 'Which Theme you want for this NewsLetter',

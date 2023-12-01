@@ -1,8 +1,6 @@
 import axios from 'axios';
 const API_ENDPOINT = process.env.REACT_APP_BACK_END_HOST;
 
-
-
 export async function postUserDetail(data){
   try{
     console.log(data);
@@ -13,10 +11,6 @@ export async function postUserDetail(data){
     return e;
   }
 }
-
-
-
-
 
 export function defaultHeaders() {
   const accessToken = localStorage.getItem("accessToken");
@@ -32,7 +26,6 @@ export function defaultHeaders() {
     };
   }
 }
-
 
 function updateOptions(options) {
   const update = { ...options };

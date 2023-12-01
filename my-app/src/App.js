@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
-import Feed from "./components/Feed";
 import CheckLogin from "./components/CheckLogin";
 import PaymentsComponent from "./subcomponents/payments/PaymentsComponent";
 import PaymentsProduct from "./subcomponents/payments/PaymentsProduct";
 import { Link, BrowserRouter as Router } from "react-router-dom";
-import { loginPagePath, mainPagePath, DetailPagePath } from "./constants/RouteConstants";
+import { mainPagePath, DetailPagePath } from "./constants/RouteConstants";
 import {
   accountPath,
   pricingRedirectPath,
-  testPage,
   allnewsletter,
   eachNewsletterPath
 } from "./constants/RouteConstants";
-import Footer from "./components/Footer";
 import { Helmet } from "react-helmet";
 import { Flowbite } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { useUser, viewUser, useNumCredits, refreshCredits } from "./redux/UserSlice";
-import { getDeatil, setCompanyName, setNewsLetterDetail, setIndustry } from './redux/DetailSlice'
+import { getDeatil } from './redux/DetailSlice'
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
-import Profile from './components/Profile'
-import LeftNav from "./components/LeftNav";
-import Allnewsletter from "./subcomponents/allNewsletter/Allnewsletter"
 import AllnewsletterSession from "./subcomponents/allNewsletter/AllnewsletterSession"
 import { questionList } from "./constants/questionList";
 import { setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "./redux/DetailSlice"
@@ -59,7 +53,7 @@ function App() {
     if (isLoggedIn) {
       dispatch(viewUser());
       dispatch(refreshCredits())
-      async function getDeatilData() {
+      async function getDetailData() {
         try {
           let allData = await dispatch(getAllIdeas());
           // console.log('aaaaaaaa', allData.payload)
@@ -108,20 +102,7 @@ function App() {
           alert('error:' + e)
         }
       }
-      getDeatilData()
-      // getDeatilData();
-      // let getIdeas = async () => {
-      //   try {
-      //     let allData = await dispatch(getAllIdeas());
-      //     // console.log('aaaaaaaa', allData.payload)
-      //     dispatch(setIdeas(allData.payload))
-      //   }
-      //   catch (e) {
-      //     alert('error:' + e)
-      //   }
-      // }
-      // getIdeas();
-      // // dispatch(refreshCredits());
+      getDetailData()
     }
   }, [isLoggedIn]);
 
@@ -144,18 +125,6 @@ function App() {
     var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
     numDaysLeft = daysDifference.toString();
   }
-
-  // if (user && user["email"]) {
-  //   var userEmail = user["email"];
-  //   if (
-  //     userEmail == "t.clifford@wustl.edu" ||
-  //     userEmail == "vidranatan@gmail.com" ||
-  //     userEmail == "raghuwanshi.rajat10@gmail.com"
-  //   ) {
-  //     showRestrictedRouteRequiringPayments = true;
-  //   }
-  // }
-  // console.log("haveDeatil",haveDeatil)
 
   var routes = [
     <Route
@@ -209,44 +178,21 @@ function App() {
             {isLoggedIn && (
               <MainNav
                 setIsLoggedInParent={setIsLoggedIn}
-              // darkTheme={darkTheme}
-              // setDarkTheme={setDarkTheme}
               />
             )}
             <Helmet>
               <title>NWSLTR.AI</title>
             </Helmet>
-            {/* {isLoggedIn && <Header />} */}
-            {/* {isLoggedIn && <SideNav setIsLoggedInParent={setIsLoggedIn} />} */}
             <Routes>
               {routes}
-              {/* <Route path={tosPath} element={<TermsOfService />} />
-              <Route path={privatePolicyPath} element={<PrivatePolicy />} />
               <Route path={optOutPath} element={<OptOut />} /> */}
-              {/* <Route path={testPage} element={<Profile></Profile>}></Route> */}
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
-            {/* {!showRestrictedRouteRequiringPayments && <Navigate to={accountPath} />}, */}
           </div>
-          {/* <Footer /> */}
         </div>
       </Flowbite>
     </Router>
   )
-  // return (
-  //   <Router>
-  //     <Flowbite
-  //     theme={{
-  //       dark: darkTheme,
-  //     }}>
-  //       <Routes>
-  //         <Route path={loginPagePath} element={<CheckLogin darkTheme={darkTheme} setIsLoggedInParent={setIsLoggedIn} showRestrictedRouteRequiringPayments={showRestrictedRouteRequiringPayments} />}></Route>
-  //         <Route path = {DetailPagePath} element = {<DetailSession></DetailSession>}></Route>
-  //         <Route path={mainPagePath} element={<Feed />} />
-  //       </Routes>
-  //     </Flowbite>
-  //   </Router >
-  // );
 }
 
 export default App;

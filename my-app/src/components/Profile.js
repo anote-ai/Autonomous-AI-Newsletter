@@ -1,21 +1,14 @@
-// import { useDispatch } from "react-redux";
-// import { login } from "../../redux/UserSlice";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import "../../styles/Detail.css";
-import { Button, Table } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../redux/UserSlice";
-// import { setCompanyName, setNewsLetterDetail, setIndustry, useCompanyName, useNewsLetterDetail, useIndustry } from "../../redux/DetailSlice"
-import tommy from "../assets/tommy.png";
-import right from "../assets/angle-double-right.svg";
 import noUserImg from "../assets/noUserImg.png";
 import {
   useAllData,
   setAllData,
   getAllNewsletter,
 } from "../redux/newsLetterSlice";
-import { useLocation } from "react-router-dom";
 import { useDetailPageOne } from "../redux/DetailSlice";
 import { useIdeas } from "../redux/newsLetterSlice";
 import Allnewsletter from "../subcomponents/allNewsletter/Allnewsletter"
@@ -29,9 +22,6 @@ function Profile(props) {
   let navigate = useNavigate();
   let getUserDetailPageOne = useDetailPageOne();
   const [ndata, setNdata] = useState(getAlluser);
-
-  // console.log(getAlluser)
-  let totalSearch = 0;
 
   useEffect(() => {
     async function getData() {
