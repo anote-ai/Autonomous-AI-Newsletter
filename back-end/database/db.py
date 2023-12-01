@@ -13,7 +13,7 @@ from dateutil.relativedelta import relativedelta
 from database.db_auth import user_id_for_email
 from flask_mail import Message
 from email.mime.text import MIMEText
-from constants.global_constants import kSessionTokenExpirationTime, kPasswordResetExpirationTime, EMAIL_WHITELIST, planToCredits, kValidationResetExpirationTime
+from constants.global_constants import kSessionTokenExpirationTime, kPasswordResetExpirationTime, planToCredits, kValidationResetExpirationTime
 from db_enums import PaidUserStatus
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -560,8 +560,6 @@ def config_for_payment_tiers(userEmail, newPaymentTier):
 def check_credits(user_email):
     conn, cursor = get_db_connection()
 
-    # if user_email not in EMAIL_WHITELIST:
-        # Check if the user has enough credits
     cursor.execute("SELECT credits FROM users WHERE email = %s", [user_email])
     user_credits = cursor.fetchone()
 

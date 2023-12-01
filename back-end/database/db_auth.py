@@ -101,9 +101,6 @@ def paid_user_for_user_email_with_cursor(conn, cursor, user_email):
 def verifyAuthForSearch(user_email):
     conn, cursor = get_db_connection()
 
-    # if user_email in EMAIL_WHITELIST:
-    #     return True
-
     paid_user = paid_user_for_user_email_with_cursor(conn, cursor, user_email)
     if paid_user == PaidUserStatus.FREE_TIER:
         return False
@@ -174,12 +171,6 @@ def sequence_texts_multi_access_invalid(user_id, sequence_text_ids):
 
 def verifyAuthForPaymentsTrustedTesters(user_email):
     return True
-    # if user_email in EMAIL_WHITELIST:
-    #     print("email in whitelist")
-    #     return True
-    # else:
-    #     print("email not in whitelist")
-    #     return False
 
 def send_new_users_alert_email(mail, newSubscriptionsCount):
     msg = Message('Newsletter New Users Alert', recipients=[
