@@ -97,19 +97,6 @@ def CreateCheckoutSessionHandler(request, userEmail):
             print('Error creating checkout session:', e)
             return "Server error", 500
 
-# def CreatePortalSessionHandler(request, userEmail):
-#     checkout_session_id = stripe_session_for_user(userEmail)
-#     if not checkout_session_id:
-#         return jsonify({'status': "No Stripe session for user."}), 400
-#     checkout_session = stripe.checkout.Session.retrieve(checkout_session_id)
-#     return_url = "https://newsletter.anote.ai"
-
-#     portalSession = stripe.billing_portal.Session.create(
-#         customer=checkout_session.customer,
-#         return_url=return_url,
-#     )
-#     return jsonify({'url': portalSession.url}), 200
-
 def CreatePortalSessionHandler(request, userEmail):
     print("CreatePortalSessionHandler1")
     subscription_id = stripe_subscription_for_user(userEmail)
@@ -164,7 +151,7 @@ def StripeWebhookHandler(request, event):
 
         # Extract the price ID from the fetched subscription details
         price_id = subscription_details['items']['data'][0]['price']['id']
-    
+
         print("customer_id")
         print(customer_id)
         print("price_id")
@@ -200,7 +187,7 @@ def StripeWebhookHandler(request, event):
         # else:
         #     # price_id = subscription['display_items'][0]['price']['id']  # Assuming the first item is the main subscription
         #     price_id = subscription['items']['data'][0]['price']['id']
-        
+
         #     print("customer_id")
         #     print(customer_id)
         #     print("price_id")
@@ -211,9 +198,9 @@ def StripeWebhookHandler(request, event):
         #         payment_plan = priceToPaymentPlan[price_id]
         #         print("payment_plan")
         #         print(payment_plan)
-        
+
         #         print("path113")
-                
+
         #         # previous_attributes = event["data"]["previous_attributes"]
         #         # if "status" in previous_attributes and previous_attributes["status"] == "trialing":
         #         #     update_subscription_paid_start_time()

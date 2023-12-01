@@ -11,189 +11,11 @@ const Pricing = (props) => {
   var showCurrentPlan =
     !(typeof props.currentPlanIndexOverride == "undefined") &&
     props.currentPlanIndexOverride != -1;
-  const product1 = {
-    id: 1,
-    title: "Data Labeler",
-    url: "https://anote.ai/faqs",
-    tiers: [
-      {
-        name: "Basic",
-        price: "$250",
-        month: true,
-        productHash: "labeler1",
-        features: [
-          "Dataset size: Up to 5,000 rows",
-          "Annotations allowed: Up to 1,000 annotations",
-          "Number of users: Up to 5 (1 admin, 4 annotators)",
-        ],
-      },
-      {
-        name: "Standard",
-        price: "$500",
-        month: true,
-        popular: true,
-        productHash: "labeler2",
-        features: [
-          "Dataset size: Up to 25,000 rows",
-          "Annotations allowed: Up to 5,000 annotations",
-          "Number of users: Up to 15 (3 admin, 12 annotators)",
-        ],
-        extraFeature: "Priority email support",
-      },
-      {
-        name: "Premium",
-        price: "$1,000",
-        month: true,
-        productHash: "labeler3",
-        features: [
-          "Dataset size: Up to 50,000 rows",
-          "Annotations allowed: Up to 10,000 annotations",
-          "Number of users: Up to 30 (5 admin, 25 annotators)",
-          "API Access: limited functionality",
-        ],
-        extraFeature:
-          "Priority email support, annotator metrics, Recomposition capability",
-      },
-      {
-        name: "Enterprise",
-        price: "Contact us",
-        month: false,
-        features: [
-          "Dataset size: Custom (Negotiable)",
-          "Annotations allowed: Unlimited",
-          "Number of users: Unlimited",
-          "API Access: Unlimited",
-        ],
-        extraFeature: "Advanced customization options to your use case",
-      },
-    ],
-  };
-  const product2 = {
-    id: 2,
-    title: "AI newsletter",
-    url: "https://docs.anote.ai/newsletter/newsletter.html",
-    forceContactUs: true,
-    tiers: [
-      {
-        name: "Basic",
-        price: "$50",
-        month: true,
-        features: [
-          "Keyword-based customized and automated emails",
-          "Access to Google News as the data source",
-          "Emails sent from fixed email address",
-          "Maximum number of emails: 500/month",
-        ],
-      },
-      {
-        name: "Standard",
-        price: "$100",
-        month: true,
-        features: [
-          "All features from the Basic Tier",
-          "Custom styles of newsletters (colors, fonts, titles)",
-          "Ability to edit the newsletter content",
-          "Ability to send the newsletter from your email address",
-          "Ability to upload a CSV to send emails to contacts",
-          "Maximum number of emails: 5,000/month",
-        ],
-      },
-      {
-        name: "Premium",
-        price: "$250",
-        month: true,
-        popular: true,
-        features: [
-          "All features from the Standard Tier",
-          "Custom styles / user personas for emails (Einstein, Musk, via prompts)",
-          "Automated email sequence, in bulk, to your contacts every 3 days",
-          "Support for different data sources besides Google News",
-          "Maximum number of emails: 25,000/month",
-        ],
-      },
-      {
-        name: "Enterprise",
-        price: "Contact us",
-        month: false,
-        features: [
-          "All features from the Premium Tier",
-          "Full customization options for the newsletter style to meet your requirements",
-          "Unlimited email sends",
-        ],
-      },
-    ],
-  };
-  const product3 = {
-    id: 3,
-    title: "Private GPT",
-    url: "https://docs.anote.ai/privategpt/privategpt.html",
-    forceContactUs: true,
-    tiers: [
-      {
-        name: "Basic",
-        price: "Free",
-        month: false,
-        features: [
-          "Access to the standard GPT model without privacy-preserving features",
-          "Supported Text File Formats: PDFs only",
-          "Maximum Number of Files: Up to 5 files per session",
-          "Total File Size Limit: Up to 10 MB per session",
-          "Maximum Chats: 5 chats per month",
-        ],
-      },
-      {
-        name: "Standard",
-        price: "$500",
-        popular: true,
-        month: true,
-        features: [
-          "Privacy-preserving LLM using a model like GPT-4ALL or LLAMA",
-          "Limited file upload sizes",
-          "Supported Text File Formats: PDFs and TXT files",
-          "Maximum Number of Files: Up to 20 files per session",
-          "Total File Size Limit: Up to 50 MB per session",
-          "Maximum Chats: 20 chats per month",
-        ],
-      },
-      {
-        name: "Premium",
-        price: "$1,000",
-        month: true,
-        features: [
-          "Privacy-preserving LLM using a more powerful model like LLAMA2",
-          "Support for larger file upload sizes to handle more data",
-          "Supported Text File Formats: All text file types (e.g., PDFs, TXT files, DOCX files, etc.)",
-          "Maximum Number of Files: Up to 50 files per session",
-          "Total File Size Limit: Up to 100 MB per session",
-          "Maximum Chats: 50 chats per month",
-        ],
-      },
-      {
-        name: "Enterprise",
-        month: false,
-        price: "Contact us",
-        features: [
-          "Fully custom private LLM tailored to your specific use case and requirements",
-          "Advanced features and dedicated support",
-          "Supported Text File Formats: All text file types (e.g., PDFs, TXT files, DOCX files, etc.), and more based on your needs",
-          "Maximum Number of Files: Customizable based on enterprise requirements",
-          "Total File Size Limit: Customizable based on enterprise requirements",
-          "Maximum Chats: Unlimited chats per month",
-        ],
-      },
-    ],
-  };
   const product4 = {
     id: 4,
     title: "Newsletter",
     url: "https://docs.anote.ai/Newsletter/Newsletter.html",
     signUpBaseUrl: "https://nwsltr.ai",
-    // signUpBaseUrl: "http://localhost:3000",
-    // extraBenefits: [
-    //   "Additional credit packs available for purchase, starting at $50 for 500 credits.",
-    //   "Unused credits roll over to the next month for active subscribers.",
-    //   "Regular feature updates and enhancements included.",
-    // ],
     tiers: [
       {
         name: "Essential Edition",
@@ -248,15 +70,6 @@ const Pricing = (props) => {
 
   useEffect(() => {
     switch (selectedProductId) {
-      case product1.id:
-        setProduct(product1);
-        break;
-      case product2.id:
-        setProduct(product2);
-        break;
-      case product3.id:
-        setProduct(product3);
-        break;
       case product4.id:
         setProduct(product4);
         break;
@@ -377,36 +190,6 @@ const Pricing = (props) => {
           )}
           {props.productIndex == null && (
             <div className="flex mx-auto border-2 border-turquoise-500 rounded overflow-hidden mt-6">
-              <button
-                onClick={() => setSelectedProductId(product1.id)}
-                className={`py-1 px-4 ${
-                  selectedProductId === product1.id
-                    ? "bg-turquoise-500 text-black font-semibold"
-                    : "text-white border-r-2 border-turquoise-500"
-                } focus:outline-none`}
-              >
-                Data Labeler
-              </button>
-              <button
-                onClick={() => setSelectedProductId(product2.id)}
-                className={`py-1 px-4 ${
-                  selectedProductId === product2.id
-                    ? "bg-turquoise-500 text-black font-semibold"
-                    : "text-white border-r-2 border-turquoise-500"
-                } focus:outline-none`}
-              >
-                AI newsletter
-              </button>
-              <button
-                onClick={() => setSelectedProductId(product3.id)}
-                className={`py-1 px-4 ${
-                  selectedProductId === product3.id
-                    ? "bg-turquoise-500 text-black font-semibold"
-                    : "text-white border-r-2 border-turquoise-500"
-                } focus:outline-none`}
-              >
-                Private GPT
-              </button>
               <button
                 onClick={() => setSelectedProductId(product4.id)}
                 className={`py-1 px-4 ${

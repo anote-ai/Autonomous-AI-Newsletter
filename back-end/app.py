@@ -22,7 +22,7 @@ from urllib.parse import urlparse
 from api_endpoints.refresh_credits.handler import RefreshCreditsHandler
 from api_endpoints.login.handler import LoginHandler, SignUpHandler, ForgotPasswordHandler, ResetPasswordHandler, getVerificationHandler, checkVerificationHandler
 from api_endpoints.payments.handler import CreateCheckoutSessionHandler, CreatePortalSessionHandler, StripeWebhookHandler
-from database.db import create_user_if_does_not_exist 
+from database.db import create_user_if_does_not_exist
 from api_endpoints.view_user.handler import ViewUserHandler
 from api_endpoints.gptData.hndler import getGPTData, getIdeasFromGPT, deleteIdeas, getAllIdeas, updateIdeas, getIntro, getStory, getArticle
 from api_endpoints.brandVoice.handler import generateBrandVoiceHandler, addBrandVoiceHandler, getBrandVoiceHandler
@@ -189,7 +189,6 @@ def login():
             netloc = "nwsltrapi.nwsltr.ai"
         print("in login3")
         flow.redirect_uri = f'{scheme}://{netloc}/callback'
-        # flow.redirect_uri = f'https://sababaapi.anote.ai/callback'
 
         state_dict = {
             "redirect_uri": flow.redirect_uri
@@ -248,8 +247,6 @@ def callback():
         audience=GOOGLE_CLIENT_ID
     )
 
-    # default_referrer = "http://localhost:3000"
-    # default_referrer = "https://nwsltr.anote.ai"
     default_referrer = "https://nwsltr.ai"
     # default_referrer = "http://localhost:3000"
     user_id = create_user_if_does_not_exist(id_info.get("email"), id_info.get(
@@ -459,7 +456,7 @@ def setUserDetail():
     #     response = jsonify(response_data)
     #     response.status_code = 400
     #     return response
-    
+
 @app.route('/viewUser', methods = ['GET'])
 @jwt_or_session_token_required
 def ViewUser():
@@ -487,7 +484,7 @@ def ViewUser():
 
 @app.route('/run-script', methods = ['POST'])
 @jwt_or_session_token_required
-def queryGPTData(): 
+def queryGPTData():
     try:
         user_email = extractUserEmailFromRequest(request)
     except InvalidTokenError:
@@ -509,7 +506,7 @@ def queryGPTData():
         response = jsonify(response_data)
         response.status_code = 400
         return response
-    
+
 @app.route('/setNewsletterData', methods = ['POST'])
 @jwt_or_session_token_required
 def setNewsletterData():
@@ -533,7 +530,7 @@ def setNewsletterData():
         response = jsonify(response_data)
         response.status_code = 400
         return response
-    
+
 @app.route('/getNewsletterData', methods = ['GET'])
 @jwt_or_session_token_required
 def getAllNewsletterData():

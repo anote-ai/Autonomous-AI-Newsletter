@@ -69,7 +69,6 @@ def SignUpHandler(request):
 def ForgotPasswordHandler(request, mail):
     email = request.json["email"]
     if user_exists(email):
-        # host = request.referrer or "https://nwsltr.anote.ai"
         host = request.referrer or "https://nwsltr.ai"
         # Generate and send the password reset email
         msg = Message('Newsletter Password Reset', recipients=[email])
@@ -113,7 +112,6 @@ def getVerificationHandler(request, mail, email):
     # email = request.json["email"]
     try:
         if user_exists(email):
-            # host = request.referrer or "https://newsletter.anote.ai"
             # Generate and send the password reset email
             msg = Message('Newsletter Verification', recipients=[email])
             generated_token = generate_session_token()

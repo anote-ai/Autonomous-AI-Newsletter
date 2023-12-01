@@ -27,23 +27,13 @@ function MainNav(props) {
   }, []);
 
   return (
-    // <Navbar className="bg-zinc-200 navbar-fixed h-[6%]" fluid rounded>
     <Navbar fluid className="box-border border-b-2 border-black" >
       <Navbar.Brand href="/">
-        {/* Image only when the theme is light  */}
-        {/* <div className="h-10 w-10 bg-center bg-contain bg-[url('../public/logo_light.png')] dark:bg-[url('../public/logo_dark.png')]"></div> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-[#374151]">
           NWSLTR.AI
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
-        {/* <DarkThemeToggle
-          className="mr-4"
-          onClick={() => {
-            const themeMode = props.darkTheme === true ? false : true;
-            props.setDarkTheme(themeMode);
-          }}
-        /> */}
         <button outline onClick={() => {
           // console.log(numCredits)
           if (numCredits === 0) {
@@ -62,7 +52,6 @@ function MainNav(props) {
           }}
           inline
           label={
-            // <img src={getUserDetailPageOne[3].data !== ''? getUserDetailPageOne[3].data : noUserImg} alt="img" className="aspect-square rounded-full w-1/3"></img>
             getUserDetailPageOne[3].data === '' ? <Avatar img={noUserImg} rounded> </Avatar> : <Avatar img={getUserDetailPageOne[3].data} rounded className="h-full"></Avatar>
           }
         >
@@ -70,10 +59,6 @@ function MainNav(props) {
             {user && user.name && (
               <span className="block text-sm">{user.name}</span>
             )}
-            {/* <span className="block truncate text-sm font-medium">
-              {numCredits} Credits Remaining
-              <FontAwesomeIcon icon={faCoins} className="ml-2" />
-            </span> */}
           </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate(accountPath)}>
             Account
@@ -92,14 +77,6 @@ function MainNav(props) {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      {/* <Navbar.Collapse>
-        <Navbar.Link href="/">
-          <p>Profile</p>
-        </Navbar.Link>
-        <Navbar.Link href={allnewsletter}>
-          <p>All Letters</p>
-        </Navbar.Link>
-      </Navbar.Collapse> */}
     </Navbar>
   );
 }
