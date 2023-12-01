@@ -1,14 +1,9 @@
 import React from "react";
 import { useState, useMemo, useRef, useEffect } from "react";
-// import { login } from "../../redux/UserSlice";
 import { useDispatch } from "react-redux";
 import {
     Button,
-    Checkbox,
-    Label,
-    TextInput,
     ToggleSwitch,
-    Textarea,
     Select as Select1,
 } from "flowbite-react";
 import {
@@ -16,8 +11,6 @@ import {
     getBrandVoice,
     useBrandVoice,
     useCheckBrandVoice,
-    setBrandVoice,
-    setCheckBrandVoice
 } from "../../redux/newsLetterSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";

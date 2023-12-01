@@ -5,7 +5,6 @@ from flask import request
 import socket
 from jwt import InvalidTokenError
 from flask_jwt_extended import decode_token
-from constants.global_constants import EMAIL_WHITELIST, planToSearches
 from db_enums import PaidUserStatus
 from flask_mail import Message
 from constants.global_constants import productHashMap
@@ -41,31 +40,7 @@ def extractUserEmailFromRequest(request):
     else:
         raise InvalidTokenError()
 
-# def get_db_connection():
-#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-#         conn = mysql.connector.connect(
-#             user='root',
-#             unix_socket='/tmp/mysql.sock',
-#             database='sababa',
-#         )
-#     else:
-#         db_host = "sababa-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-#         db_name = "sababa"
-#         db_user = "admin"
-#         db_password = "MgElCheYaPfw5B9TR8SW"
-#         conn = mysql.connector.connect(
-#             host=db_host,
-#             user=db_user,
-#             password=db_password,
-#             database=db_name,
-#         )
-#     return conn, conn.cursor(dictionary=True)
 def get_db_connection():
-    # print("in auth get_db_connection")
-    # print(socket.gethostname())
-    # print(socket.gethostname())
-    # print(os.environ)
-
     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
         print("in local branch")
         conn = mysql.connector.connect(
@@ -90,29 +65,6 @@ def get_db_connection():
         print("connected")
     # conn.row_factory = sqlite3.Row
     return conn, conn.cursor(dictionary=True)
-# def get_db_connection():
-#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-#         conn = mysql.connector.connect(
-#             user='root',
-#             password='1165205407',
-#             host='localhost',
-#             port=3306,
-#             database='newsLetter'
-#         )
-#     else:
-#         db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-#         db_name = "newsletter"
-#         db_user = "admin"
-#         db_password = ""
-#         conn = mysql.connector.connect(
-#             host=db_host,
-#             user=db_user,
-#             password=db_password,
-#             database=db_name,
-#         )
-#     # conn.row_factory = sqlite3.Row
-#     return conn, conn.cursor(dictionary=True)
-
 
 def user_email_for_session_token(session_token):
     conn, cursor = get_db_connection()
@@ -149,9 +101,6 @@ def paid_user_for_user_email_with_cursor(conn, cursor, user_email):
 def verifyAuthForSearch(user_email):
     conn, cursor = get_db_connection()
 
-    # if user_email in EMAIL_WHITELIST:
-    #     return True
-
     paid_user = paid_user_for_user_email_with_cursor(conn, cursor, user_email)
     if paid_user == PaidUserStatus.FREE_TIER:
         return False
@@ -160,10 +109,7 @@ def verifyAuthForSearch(user_email):
     count = cursor.fetchone()
     access_invalid = False
 
-    if paid_user == PaidUserStatus.ENTERPRISE_TIER:
-        threshold = planToSearches[paid_user]
-    else:
-        threshold = planToSearches[PaidUserStatus.PREMIUM_TIER]
+    threshold = 6000
 
     if count["COUNT(*)"] > threshold:
         access_invalid = True
@@ -225,12 +171,6 @@ def sequence_texts_multi_access_invalid(user_id, sequence_text_ids):
 
 def verifyAuthForPaymentsTrustedTesters(user_email):
     return True
-    # if user_email in EMAIL_WHITELIST:
-    #     print("email in whitelist")
-    #     return True
-    # else:
-    #     print("email not in whitelist")
-    #     return False
 
 def send_new_users_alert_email(mail, newSubscriptionsCount):
     msg = Message('Newsletter New Users Alert', recipients=[
@@ -266,10 +206,10 @@ def verifyAuthForNewSubscriptipns(conn, cursor, mail, userEmail, newPaymentTier)
 
     # Check if user changed subscriptions more than once in the past month
     cursor.execute('''
-        SELECT COUNT(*) 
-        from Subscriptions s 
-        JOIN StripeInfo c ON c.id = s.stripe_info_id 
-        JOIN users p ON p.id = c.user_id 
+        SELECT COUNT(*)
+        from Subscriptions s
+        JOIN StripeInfo c ON c.id = s.stripe_info_id
+        JOIN users p ON p.id = c.user_id
         WHERE p.email = %s AND s.start_date >= NOW() - INTERVAL 1 MONTH
     ''', [userEmail])
     userChangesCount = cursor.fetchone()

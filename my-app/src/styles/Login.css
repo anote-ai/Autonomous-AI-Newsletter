@@ -72,12 +72,12 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.SababaTitle {
+.NewsletterTitle {
     height: 45px;
     width: 984px;
   }
-  
-.SababaTitle .text-wrapper {
+
+.NewsletterTitle .text-wrapper {
     color: #2f2315;
     font-family: "Archivo Expanded-ExtraBold", Helvetica;
     font-size: 36px;
@@ -97,7 +97,7 @@
     height: 107px;
     width: 447px;
   }
-  
+
   .label .text-wrapper {
     color: #7b7b7b;
     font-family: "Archivo", Helvetica;
@@ -121,8 +121,8 @@
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.70);
     box-shadow: 0px 3.2656px 6.53119px 6.53119px rgba(0, 0, 0, 0.05);
-    margin-top: 170px; 
-    margin-left: 123px; 
+    margin-top: 170px;
+    margin-left: 123px;
 
 }
 
@@ -141,7 +141,7 @@
     height: 49px;
     width: 375px;
   }
-  
+
   .box .rectangle {
     background-color: #f4f4f4;
     border-radius: 32.66px;
@@ -161,18 +161,18 @@
     width: 811px;
     height: 614px;
     flex-shrink: 0;
-    margin-left: 600px; 
-    margin-top: 150px; 
+    margin-left: 600px;
+    margin-top: 150px;
 }
 
 /* One-liner styles */
-.SababaSubTitle {
+.NewsletterSubTitle {
     font-size: 1.5rem;
     font-weight: bold;
     font-style: italic;
     font-family: "Arial";
     margin: 0 0 1rem;
-    color: #FE603D; 
+    color: #FE603D;
   }
 .Dashboard-Rocket-Header {
     position: absolute;
@@ -316,7 +316,7 @@
     margin-bottom: 50px;
     width: 225px;
     height: 50px;
-    margin-left: 114px; 
+    margin-left: 114px;
     cursor: pointer;
     background-repeat: no-repeat;  /* Ensures the image does not repeat */
     background-size: cover;        /* Makes the image fill the entire button */

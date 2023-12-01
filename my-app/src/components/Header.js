@@ -12,11 +12,6 @@ function Header() {
         </p>
       </div>
     </section>
-
-    // <div className="HeaderComponent title-container">
-    //   <h1 className="main-title">Sababa</h1>
-    //   <h3 className="sub-title">Search a keyword. Connect with people.</h3>
-    // </div>
   );
 }
 

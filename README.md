@@ -13,10 +13,13 @@ git clone https://github.com/nv78/Anote-AutonomousNewsletter.git
 
 #### To run the Backend
 ```
-cd server
-cd python
-npm run start
+cd back-end
+pip3 install -r requirements.txt
+export APP_ENV=local
+flask run
 ```
+
+change the default_referrer to localhost:3000, and initialize the development database with `python3 init_db_dev.py`
 
 #### To run the Frontend
 ```

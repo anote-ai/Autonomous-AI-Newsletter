@@ -1,10 +1,6 @@
 import React from "react";
-import { useState, useMemo, useRef, useEffect } from "react";
-// import { login } from "../../redux/UserSlice";
+import { useState } from "react";
 import {
-  Button,
-  Checkbox,
-  Label,
   TextInput,
   ToggleSwitch,
   Textarea,
@@ -13,7 +9,7 @@ import {
 import Modal from 'react-modal';
 import { categoryList } from "../../constants/categoryList";
 import { colors } from "../../constants/ColorDropdown";
-import { FormControl, MenuItem } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import { Select as Select2 } from "@material-ui/core";
 import { fontsStyle } from "../../constants/FontStyle";
 import { oftenTime } from "../../constants/OftenSend";
@@ -27,12 +23,9 @@ import { ThemeTopic } from "../../constants/ThemeTopic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { CharacterList } from "../../constants/CharacterList";
-import { useDispatch } from "react-redux";
-import { setIdeas, generateIdeas } from "../../redux/newsLetterSlice";
 import FreshlyBrewed from "../../Images/FreshlyBrewed.png";
 import HighGloss from "../../Images/HighGloss.png";
 import theNewPort from "../../Images/theNewPort.png";
-import { current } from "@reduxjs/toolkit";
 
 function DetailPage(props) {
   const [data, setData] = useState(props.dataCurrent);
@@ -1298,7 +1291,7 @@ function DetailPage(props) {
                     type="text"
                     onChange={(e) => {
                     }}
-                    
+
                     className="my-2 w-1/2 mx-auto"
                     value={'text'}
                 ></TextInput>

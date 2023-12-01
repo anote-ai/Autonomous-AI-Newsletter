@@ -1,15 +1,7 @@
-export const loginPagePath = "/";
 export const DetailPagePath = "/detail";
 export const mainPagePath = "/mainPage";
-export const testPage = "/textpage"
 export const profile = "/home";
 export const allnewsletter = "/allnewsletter"
 export const pricingRedirectPath = "/pricingRedirect";
 export const eachNewsletterPath = "/eachNewsletter/:id"
 export const accountPath = "/account";
-export const listsPath = "/lists";
-export const sequencesPath = "/templates";
-export const contactPath = "/contact";
-export const optOutPath = "/optout";
-export const tosPath = "/termsofservice";
-export const privatePolicyPath = "/privacypolicy";

@@ -161,9 +161,6 @@ CREATE TABLE BrandVoice (
     data TEXT
 );
 
-
-
-
 -- INSERT INTO StripeInfo (user_id, stripe_customer_id, anchor_date) VALUES (9, 1, CURRENT_TIMESTAMP);
 
 

@@ -127,25 +127,6 @@ const ContentLayout = ({
   useEffect(() => {
     // console.log("useEffect")
     if (getDataFromRedux && getDataFromRedux.length !== 0) {
-      // let newSections = JSON.parse(JSON.stringify(sectionArrangements[secondPageData[0].data]));
-      // let temGetDataFromRedux = JSON.parse(JSON.stringify(getDataFromRedux));
-      // newSections.forEach((item) =>{
-      //   if (item.id == "logo") {
-      //     item.title = firstPageDetailDataFRedux[2].data
-      //     item.content = firstPageDetailDataFRedux[3].data
-      //   }
-      //   if (item.id == "footer") {
-      //     item.content = [];
-      //     for (let i = 9; i < secondPageDetailDataFRedux.length; i++) {
-      //       // console.log("footerqweqweqwe", secondPageDetailDataFRedux[i].data)
-      //       if(secondPageDetailDataFRedux[i].data !== ''){
-      //         item.content.push(secondPageDetailDataFRedux[i].data)
-      //       }
-      //     }
-      //   }
-      // })
-      // console.log("get in to the if first", getBackgroundColorFromRedux)
-      // console.log("get in to the if first", majorityColor)
       setSections(getDataFromRedux);
       if (getBackgroundColorFromRedux !== "") {
         setMajorityColor(getBackgroundColorFromRedux)
