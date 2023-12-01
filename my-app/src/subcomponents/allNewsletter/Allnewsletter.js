@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { Button, Card } from 'flowbite-react';
-// import Image from 'next/image'
+import { Card } from 'flowbite-react';
 import { useAllData, setAllData, getAllNewsletter, clearData } from "../../redux/newsLetterSlice"
 import defaultCardImg from '../../Images/defaultCardImg.png'
 import { useNavigate } from "react-router-dom";
@@ -22,22 +21,6 @@ function Allnewsletter() {
             console.log(getData)
             if (getData && getData.payload.length !== 0) {
                 temData = getData.payload;
-
-                // temData = getData.payload.map((item) => {
-                //     let temObj = {};
-                //     temObj.title = item["title"];
-                //     console.log("item first", item);
-                //     let arrayData = item['data']
-                //         .replace(/"/g, '\\"')
-                //         .replace(/'/g, "\\'")
-                //         .replace(/\\"/g, '"')
-                //         .replace(/\\'/g, "'")
-                //     console.log('second cover', arrayData);
-                //     arrayData = JSON.parse(arrayData);
-                //     // console.log(arrayData[0]['summary'])
-                //     temObj["data"] = arrayData;
-                //     return temObj;
-                // })
             }
             console.log("data", temData);
             setNData(temData);
@@ -100,7 +83,7 @@ function Allnewsletter() {
                             <h2 className='text-xl'> Seems like you haven't created any newsletters yet. Get started by clicking below!</h2>
                         </div>
                     </div>
-                    
+
                 )}
                 {console.log("nData", nData)}
                 {loading === false && nData && nData.length !== 0 && (

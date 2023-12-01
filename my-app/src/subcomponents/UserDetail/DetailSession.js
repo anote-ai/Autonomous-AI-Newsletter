@@ -1,25 +1,15 @@
-// import { useDispatch } from "react-redux";
-// import { login } from "../../redux/UserSlice";
-import React, { useState, useEffect } from "react";
-// import "../../styles/Detail.css";
+import React, { useState } from "react";
 import DetailPage from "./DetailPage";
-import { useLocation, Link } from "react-router-dom";
 import { updateDetail } from "../../redux/DetailSlice"
-import { Modal, ModalBody, ModalHeader, Button, Progress } from 'flowbite-react';
-import { mainPagePath } from "../../constants/RouteConstants";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { questionList } from "../../constants/questionList"
 import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour, setPageOneQuestion, setPageTwoQuestion, setPageThreeQuestion, setPageFourQuestion } from "../../redux/DetailSlice"
-import { clearData, setBackgroundColor } from "../../redux/newsLetterSlice";
+import { clearData } from "../../redux/newsLetterSlice";
 
 function DetailSession(props) {
 
     const pageTotal = 4;
-    const navigate = useNavigate();
     let dispatch = useDispatch();
     const [pageState, setPageState] = useState(1);
-    const location = useLocation();
     let firstPageDataFRedux = useDetailPageOne();
     let secondPageDataFRedux = useDetailPageTwo();
     let thirdPageDataFRedux = useDetailPageThree();
@@ -28,23 +18,6 @@ function DetailSession(props) {
     const [secondPageData, setSecondPageData] = useState(secondPageDataFRedux);
     const [thirdPageData, setThirdPageData] = useState(thirdPageDataFRedux);
     const [fourthPageData, setFourthPageData] = useState(fourthPageDataFRedux);
-    const [progressValue, setProgressVaule] = useState(0);
-
-
-    // useEffect(() => {
-    //     let temValue = progressValue
-    //     let progressInterval = setInterval(() => {
-    //         if (parseInt(temValue) === parseInt(100 * (pageState / pageTotal))) {
-    //             clearInterval(progressInterval);
-    //         }
-    //         else if (parseInt(temValue) < parseInt(100 * (pageState / pageTotal))) {
-    //             setProgressVaule(temValue += 0.5)
-    //         }
-    //         else {
-    //             setProgressVaule(temValue -= 0.5)
-    //         }
-    //     }, 0.5)
-    // }, [pageState])
 
     let routes = []
     routes = [
@@ -56,19 +29,13 @@ function DetailSession(props) {
 
 
     function MfirstPageData(info) {
-        // console.log(info)
-        // dispatch(setBackgroundColor(info[6].data))
         setFirstPageData(info);
-        // console.log(firstPageData)
         dispatch(setPageOneQuestion(info));
-        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageOne' }))
-
     }
     function MsecondPageData(info) {
         setSecondPageData(info);
         console.log(info);
         dispatch(setPageTwoQuestion(info));
-        // dispatch(updateDetail({ payload: info, tableName: 'userDetailPageTwo' }))
     }
     function MthirdPageData(info) {
         setThirdPageData(info);

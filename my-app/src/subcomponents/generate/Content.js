@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from "react-redux";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DraggableSection from './DraggableSection';
-import { Button, Card, Modal, TextInput, Textarea } from 'flowbite-react';
-import { setData, getGPTData, useTopic, useData, clearData, useUrlArr, setUrlArr, useBackgroundColor, useGenPageTwo } from "../../redux/newsLetterSlice"
-import { useDetailPageOne, useDetailPageTwo, useDetailPageThree, useDetailPageFour } from "../../redux/DetailSlice"
+import { useTopic, useData, useBackgroundColor, useGenPageTwo } from "../../redux/newsLetterSlice"
+import { useDetailPageOne } from "../../redux/DetailSlice"
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 function Content(props) {
     let getUserDetailPageOne = useDetailPageOne();
     let dispatch = useDispatch();
     let getDataFromRedux = useData();
-    let firstPageDataFRedux = useTopic();
-    let secondPageDataFRedux = useGenPageTwo();
     let majorityColor = useBackgroundColor()
     const opacity = 1;
     function isURL(str) {
