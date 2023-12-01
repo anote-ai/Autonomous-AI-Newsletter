@@ -14,6 +14,7 @@ git clone https://github.com/nv78/Anote-AutonomousNewsletter.git
 #### To run the Backend
 ```
 cd back-end
+pip3 install -r requirements.txt
 export APP_ENV=local
 flask run
 ```
