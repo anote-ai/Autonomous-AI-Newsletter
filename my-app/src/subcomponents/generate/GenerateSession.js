@@ -184,7 +184,7 @@ function GenerateSession(props) {
   }
 
   let routes = [];
-  routes = ["Brand Voice","Newsletter Setup", "Theme Selection", "Idea Selection", "Persona NewsLetter", "Generate NewsLetter", "Save NewsLetter"];
+  routes = ["Brand Voice","Newsletter Setup", "Theme Selection", "Idea Selection", "Persona Newsletter", "Generate Newsletter", "Save Newsletter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
