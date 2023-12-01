@@ -41,25 +41,6 @@ def extractUserEmailFromRequest(request):
     else:
         raise InvalidTokenError()
 
-# def get_db_connection():
-#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-#         conn = mysql.connector.connect(
-#             user='root',
-#             unix_socket='/tmp/mysql.sock',
-#             database='sababa',
-#         )
-#     else:
-#         db_host = "sababa-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-#         db_name = "sababa"
-#         db_user = "admin"
-#         db_password = "MgElCheYaPfw5B9TR8SW"
-#         conn = mysql.connector.connect(
-#             host=db_host,
-#             user=db_user,
-#             password=db_password,
-#             database=db_name,
-#         )
-#     return conn, conn.cursor(dictionary=True)
 def get_db_connection():
     # print("in auth get_db_connection")
     # print(socket.gethostname())
@@ -266,10 +247,10 @@ def verifyAuthForNewSubscriptipns(conn, cursor, mail, userEmail, newPaymentTier)
 
     # Check if user changed subscriptions more than once in the past month
     cursor.execute('''
-        SELECT COUNT(*) 
-        from Subscriptions s 
-        JOIN StripeInfo c ON c.id = s.stripe_info_id 
-        JOIN users p ON p.id = c.user_id 
+        SELECT COUNT(*)
+        from Subscriptions s
+        JOIN StripeInfo c ON c.id = s.stripe_info_id
+        JOIN users p ON p.id = c.user_id
         WHERE p.email = %s AND s.start_date >= NOW() - INTERVAL 1 MONTH
     ''', [userEmail])
     userChangesCount = cursor.fetchone()
