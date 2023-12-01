@@ -29,40 +29,40 @@ import DraggableNewBlock from "./DroppableNewBlock"
 
 const sectionArrangements = {
   'Freshly Brewed': [
-    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', type: "article", title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'min-h-[10vh] text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', type: "article", title: "", content: 'Article #1 blurb & CTA to read full story on owned asset (ex. blog)', css: 'min-h-[25vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'sponsor1', type: "sponsor", title: "", content: 'Advertorial style sponsored content', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article2', type: "article", title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article3', type: "article", title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', type: "article", title: "", content: 'Article #2 blurb + breakdown + takeaway', css: 'min-h-[15vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article3', type: "article", title: "", content: 'Article #3 blurb + breakdown + takeaway', css: 'min-h-[15vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'High Gloss': [
-    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'image', type: "image", title: "", content: 'Image', css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'article1', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article1', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'min-h-[25vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     {
       id: 'content', type: "content", title: "", content: [
-        { id: 'content1', type: "contentInside", title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-        { id: 'content2', type: "contentInside", title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-        { id: 'content3', type: "contentInside", title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+        { id: 'content1', type: "contentInside", title: "", content: 'Recent piece of content #1, ~80 characters + CTA', css: 'min-h-[30vh] h-max m-2', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+        { id: 'content2', type: "contentInside", title: "", content: 'Recent piece of content #2, ~80 characters + CTA', css: 'min-h-[30vh] h-max m-2', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+        { id: 'content3', type: "contentInside", title: "", content: 'Recent piece of content #3, ~80 characters + CTA', css: 'min-h-[30vh] h-max m-2', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
       ], css: "flex items-start justify-around w-full", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
     },
-    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: "min-h-[15vh] h-max text-center flex items-center justify-center", backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
   'The NewPort': [
-    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'w-1/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'w-3/4 mx-auto', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
-    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'logo', type: "logo", title: "", content: 'LOGO/MASTHEAD', css: 'flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'intro', type: "intro", title: "", content: 'Intro 2-liner sentence, relevant or culture-related', css: 'min-h-[10vh] text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'story1', type: "story", title: "", content: 'Few stories of interest', css: 'min-h-[15vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     {
       id: 'article1', type: "article", title: "", content: ' \
     #1 link of the day/related story of interest \
     #2 link of the day/related story of interest \
     #3 link of the day/related story of interest \
-    ', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
+    ', css: 'min-h-[25vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: ""
     },
-    { id: 'article2', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'h-max', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
+    { id: 'article2', type: "article", title: "", content: 'Long-ish form article #1, ~100 lines or 3k words', css: 'min-h-[15vh] h-max text-center flex items-center justify-center', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
     { id: 'footer', type: "footer", title: "", content: [], css: '', backgroundColor: "", fontColor: "", fontStyle: "", fontSize: "" },
   ],
 };
@@ -259,10 +259,10 @@ const ContentLayout = ({
 
   return (
     <div>
-
-      <div className={`h-[70vh] max-h-[70vh] overflow-y-scroll`} style={{ backgroundColor: majorityColor }}>
+      <div className={`h-[65vh] max-h-[65vh] overflow-y-scroll`}>
         <DndProvider backend={HTML5Backend}>
-          <div className="p-4">
+          <div className='flex'>
+          <div className="px-10 w-3/4" style={{ backgroundColor: majorityColor }}>
             {sections.map(({ id, type, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }, index, array) => {
               const arrangement = sectionArrangements[secondPageData[0].data];
 
@@ -270,7 +270,7 @@ const ContentLayout = ({
                 return (
                   <div key={id} className={css}>
                     {content.map(({ id, type, content, title, css, backgroundColor, fontColor, fontStyle, fontSize }) => (
-                      <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-1 w-2/5`} onClick={() => { handleOnSelect(id, type) }}>
+                      <div key={id} className={`${select === id ? ' border-4 border-gray-500' : ''} mb-1 w-2/5`} onClick={() => { handleOnSelect(id, type) }}>
                         <DraggableSection
                           css={css}
                           key={id}
@@ -294,7 +294,7 @@ const ContentLayout = ({
                   <div>
                     <DraggableNewBlock index={id} handleAddObjectAbove = {(index, type)=>{handleAddObjectAbove(index, type)}} className="w-full h-1 border-1 border-transparent group mb-4">
                     </DraggableNewBlock>
-                    <div key={id} className={`${select === id ? 'border-2 border-white' : ''} mb-1`} onClick={() => { handleOnSelect(id, type) }}>
+                    <div key={id} className={`${select === id ? 'border-4 border-gray-500' : ''} mb-1`} onClick={() => { handleOnSelect(id, type) }}>
                       <DraggableSection
                         css={css}
                         key={id}
@@ -315,8 +315,9 @@ const ContentLayout = ({
               }
             })}
           </div>
+          
 
-          <div className="fixed px-5 rounded-xl right-10 top-24 w-1/6 bottom-24 bg-white " aria-label="Sidebar with logo branding example">
+          <div className="fixed right-20 top-44 bottom-10 w-[20%] bg-white " aria-label="Sidebar with logo branding example">
             <RightControl
               updateData={(data) => { handleOnpageOneDataChange(data) }}
               updatePersona={(data) => { handleOnPersonaChange(data) }}
@@ -333,6 +334,7 @@ const ContentLayout = ({
               setMajorityColor={setMajorityColor}
             />
           </div>
+          </div>
         </DndProvider>
       </div>
       <div className="absolute bottom-5 left-10">
@@ -347,7 +349,7 @@ const ContentLayout = ({
           Previous
         </button>
       </div>
-      <div className="absolute bottom-5 right-10">
+      <div className="absolute bottom-5 right-96">
         <button
           outline
           onClick={() => {

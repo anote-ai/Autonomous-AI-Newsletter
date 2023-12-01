@@ -184,7 +184,7 @@ function GenerateSession(props) {
   }
 
   let routes = [];
-  routes = ["Brand Voice","Newsletter Setup", "Theme Selection", "Idea Selection", "Persona NewsLetter", "Generate NewsLetter", "Save NewsLetter"];
+  routes = ["Brand Voice","Newsletter Setup", "Theme Selection", "Idea Selection", "Persona Newsletter", "Generate Newsletter", "Save Newsletter"];
   function Step({ number, text, isActive, index, currentIndex, total }) {
     return (
       <li
@@ -236,7 +236,8 @@ function GenerateSession(props) {
   return (
     // <div className=" bg-gray-800 min-h-screen">
     <div className="bg-white w-screen h-[93%]">
-      <div className={`${pageState === 6 ? "w-10/12" : "w-screen"} flex flex-col `}>
+      {/* <div className={`${pageState === 6 ? "w-10/12" : "w-screen"} flex flex-col `}> */}
+      <div className={` w-screen flex flex-col `}>
         <div className="w-11/12 mx-auto text-black my-auto overflow-scroll">
           <div class="bg-white relative min-h-[90vh] rounded-xl border-gray-300 border-2 text-center pt-3">
             <div className="mb-10 w-full overflow-x-auto">
