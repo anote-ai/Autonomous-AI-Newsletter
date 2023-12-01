@@ -90,13 +90,15 @@ function BrandVoice(props) {
     }
 
     return (
-        <div className="h-[70vh] max-h-[70vh] overflow-y-scroll bg-gray-100">
+        <div className="h-[65vh] max-h-[65vh] overflow-y-scroll bg-gray-100">
+            <div className="flex items-center justify-center">
             <Button outline gradientDuoTone="tealToLime"
                 disable={loading}
                 onClick={() => { triggerGenerateBrandVoice() }}
             >
                 Generate Brand Voice
             </Button>
+            </div>
             {loading && (
                 <div className='w-full h-full flex items-center justify-center'>
                     <div className='w-full flex justify-items-center flex-col'>
@@ -124,7 +126,7 @@ function BrandVoice(props) {
             {loading === false && brandVoiceData.length !== 0 && (
                 <div>
                     {displayData(brandVoiceData[0])}
-                    <div className="grid grid-cols-1 items-center mx-10 my-5">
+                    <div className="flex justify-center space-x-5 items-center mx-10 my-5">
                         <span className="flex text-black">
                             Do you want to use the Brand Voice when you generate the newsletter?
                         </span>

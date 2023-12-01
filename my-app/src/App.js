@@ -202,10 +202,10 @@ function App() {
       >
         <div className="DashboardView flex flex-col h-screen w-screen">
           <div id="wrapperDiv" className="flex-grow h-full">
-            {isLoggedIn && isFreeTrial && <div className="mt-2 mb-2 ml-6" style={{color: "black", fontWeight: "bold"}}>
+            {/* {isLoggedIn && isFreeTrial && <div className="mt-2 mb-2 ml-6" style={{color: "black", fontWeight: "bold"}}>
               Your free trial ends in {daysStr}
               <Link to={accountPath} className="ml-3 text-blue-500">Upgrade</Link>
-            </div>}
+            </div>} */}
             {isLoggedIn && (
               <MainNav
                 setIsLoggedInParent={setIsLoggedIn}

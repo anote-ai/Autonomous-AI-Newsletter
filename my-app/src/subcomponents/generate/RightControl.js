@@ -1124,7 +1124,7 @@ function RightControl(props) {
     }
 
     return (
-        <div className="w-full h-full flex flex-col overflow-y-scroll py-5 bg-white border-black border-2 rounded-lg">
+        <div className="w-full h-full flex flex-col overflow-y-scroll p-5 bg-white border-black border-2 rounded-lg">
             <div className="flex justify-center items-center w-full h-14">
                 <h3>Custom Styles</h3>
                 <span className="ml-2">{loadingNewsData}</span>
