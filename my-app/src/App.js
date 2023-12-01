@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet";
 import { Flowbite } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { useUser, viewUser, useNumCredits, refreshCredits } from "./redux/UserSlice";
-import { getDeatil } from './redux/DetailSlice'
+import { getDetail } from './redux/DetailSlice'
 import { Routes, Route, Navigate } from "react-router-dom";
 import DetailSession from "./subcomponents/UserDetail/DetailSession";
 import GenerateSession from "./subcomponents/generate/GenerateSession";
@@ -58,7 +58,7 @@ function App() {
           let allData = await dispatch(getAllIdeas());
           // console.log('aaaaaaaa', allData.payload)
           dispatch(setIdeas(allData.payload))
-          let data = await dispatch(getDeatil())
+          let data = await dispatch(getDetail())
           // console.log(data);
           let temData = JSON.parse(JSON.stringify(questionList));
           for (const pageName in data.payload) {
@@ -185,7 +185,6 @@ function App() {
             </Helmet>
             <Routes>
               {routes}
-              <Route path={optOutPath} element={<OptOut />} /> */}
               <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
           </div>

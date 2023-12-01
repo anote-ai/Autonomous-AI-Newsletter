@@ -5,7 +5,3 @@ export const allnewsletter = "/allnewsletter"
 export const pricingRedirectPath = "/pricingRedirect";
 export const eachNewsletterPath = "/eachNewsletter/:id"
 export const accountPath = "/account";
-export const listsPath = "/lists";
-export const sequencesPath = "/templates";
-export const contactPath = "/contact";
-export const optOutPath = "/optout";

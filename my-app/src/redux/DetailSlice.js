@@ -52,7 +52,7 @@ export const updateDetail = createAsyncThunk("detail/set", async (payload, thunk
 //     return response_str;
 // });
 
-export const getDeatil = createAsyncThunk("detail/get", async (thunk) => {
+export const getDetail = createAsyncThunk("detail/get", async (thunk) => {
     const response = await fetcher("getUserDetail");
     const response_str = await response.json();
     return response_str;

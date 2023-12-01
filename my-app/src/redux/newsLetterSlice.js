@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import fetcher from "../http/RequestConfig";
 import { useSelector } from 'react-redux';
-import { GenerateQestion } from "../constants/GenerateQestion";
+import { GenerateQuestion } from "../constants/GenerateQuestion";
 
 
 
@@ -382,7 +382,7 @@ export function useCheckBrandVoice() {
 //     state.current.styleInfo = {};
 // }
 
-export const initialState = GenerateQestion;
+export const initialState = GenerateQuestion;
 // export const initialState = {
 //     current: {
 //         topic: '',
@@ -438,29 +438,8 @@ export const newsLetterSlice = createSlice({
         clearData: (state, action) => {
             state.data = [];
             state.urlArr = [];
-            // for(let i = 0; i < 6; i++){
-            //     state.pageOne[i].data = '';
-            // }
         },
     },
-    // extraReducers: {
-    //     // [getDeatil.fulfilled]: (state, action) => {
-    //     //     console.log(action);
-    //     //     state.current = {
-    //     //         ...state.current,
-    //     //         companyName: action.payload.companyName,
-    //     //         newsLetterDetail: action.payload.newsLetterDetail,
-    //     //         industry: action.payload.industry,
-    //     //     };
-    //     // },
-    //     // [getGPTData.fulfilled]: (state, action) => {
-    //     //     console.log(action);
-    //     //     state.current = {
-    //     //         ...state.current,
-    //     //         data: action.payload
-    //     //     };
-    //     // },
-    // },
 });
 
 export const {
