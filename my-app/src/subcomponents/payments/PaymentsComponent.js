@@ -3,9 +3,6 @@ import { useDispatch } from "react-redux";
 import { useUser, viewUser, refreshCredits } from "../../redux/UserSlice";
 import Pricing from "./Pricing";
 import { PaidUserStatus } from "../../constants/DbEnums";
-import { Button } from "flowbite-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function paidUserToStr(paidUserStatus) {
   if (paidUserStatus == PaidUserStatus.FREE_TIER) {
@@ -83,25 +80,6 @@ const PaymentsComponent = () => {
           <h1 className="font-['Gambarino'] sm:text-4xl text-3xl font-bold title-font text-anoteblack-100">
             Newsletter Pricing Plans
           </h1>
-          <div className="absolute right-10 mx-auto flex">
-            <Button
-              onClick={() => {
-                window.open("https://anote.ai/pricing", "_blank");
-              }}
-              className="mr-2 font-semibold"
-            >
-              Other Products
-            </Button>
-            <Button
-              onClick={() => {
-                window.open("https://docs.anote.ai/newsletter/newsletter.html", "_blank");
-              }}
-              className="font-semibold"
-            >
-              <span>Learn More</span>
-              <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
         </div>
         <Pricing
           currentPlanIndexOverride={currentPlanIndexOverride}

@@ -14,7 +14,7 @@ const Pricing = (props) => {
   const product4 = {
     id: 4,
     title: "Newsletter",
-    url: "https://docs.anote.ai/Newsletter/Newsletter.html",
+    url: "https://anote-ai.medium.com/case-study-autonomous-ai-newsletter-7a20a7ada73e",
     signUpBaseUrl: "https://nwsltr.ai",
     tiers: [
       {

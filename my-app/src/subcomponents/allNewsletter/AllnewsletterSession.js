@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { Button, Card } from 'flowbite-react';
-// import Image from 'next/image'
-import { useAllData, setAllData, getAllNewsletter, clearData } from "../../redux/newsLetterSlice"
+import { useAllData, setAllData, getAllNewsletter } from "../../redux/newsLetterSlice"
 import defaultCardImg from '../../Images/defaultCardImg.png'
 import NewsletterPage from "./NewsletterPage";
 
@@ -21,22 +19,6 @@ function AllnewsletterSession() {
                 console.log(getData)
                 if (getData && getData.payload.length !== 0) {
                     temData = getData.payload;
-    
-                    // temData = getData.payload.map((item) => {
-                    //     let temObj = {};
-                    //     temObj.title = item["title"];
-                    //     console.log("item first", item);
-                    //     let arrayData = item['data']
-                    //         .replace(/"/g, '\\"')
-                    //         .replace(/'/g, "\\'")
-                    //         .replace(/\\"/g, '"')
-                    //         .replace(/\\'/g, "'")
-                    //     console.log('second cover', arrayData);
-                    //     arrayData = JSON.parse(arrayData);
-                    //     // console.log(arrayData[0]['summary'])
-                    //     temObj["data"] = arrayData;
-                    //     return temObj;
-                    // })
                 }
                 console.log("data", temData);
                 setNData(temData);
@@ -107,39 +89,12 @@ function AllnewsletterSession() {
                                 description={each.data[0].title}
                                 id = {each.id}
                                 deleteData = {(id) => handleDelete(id)}
-                                // route={"/labels"}
                             />
                         ))}
                     </div>
                 )}
             </div>
         </div >
-        // <div className="mx-5 lg:mx-24">
-        //   <div className="text-3xl sm:text-4xl lg:text-5xl my-10 text-center font-medium lg:font-bold">
-        //     Core Products
-        //   </div>
-        //   <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-        //     <LPProduct
-        //       image="/landing_page_assets/Products/anote_lp.png"
-        //       // image="/landing_page_assets/Products/anotelp_new.png"
-        //       title="Active Learner"
-        //       description="Learning from human feedback on data to actively improve generative AI LLMs over time"
-        //       route={"/labels"}
-        //     />
-        //     <LPProduct
-        //       image="/landing_page_assets/Products/privategpt_lpnew.png"
-        //       title="Private GPT"
-        //       description="Chat with your documents with LLMs while keeping your data private and secure"
-        //       route={"/privategpt"}
-        //     />
-        //     <LPProduct
-        //       image="/landing_page_assets/Products/sababa_lp.png"
-        //       title="Sababa"
-        //       description="Connect with people across the world as an autonomous AI agent"
-        //       route={"/sababa"}
-        //     />
-        //   </div>
-        // </div>
     );
 }
 
