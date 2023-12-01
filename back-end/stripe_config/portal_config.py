@@ -1,5 +1,3 @@
-
-
 import stripe
 
 stripe.api_key = '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'

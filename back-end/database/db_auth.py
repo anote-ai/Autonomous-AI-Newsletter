@@ -5,7 +5,6 @@ from flask import request
 import socket
 from jwt import InvalidTokenError
 from flask_jwt_extended import decode_token
-from constants.global_constants import EMAIL_WHITELIST, planToSearches
 from db_enums import PaidUserStatus
 from flask_mail import Message
 from constants.global_constants import productHashMap
@@ -42,11 +41,6 @@ def extractUserEmailFromRequest(request):
         raise InvalidTokenError()
 
 def get_db_connection():
-    # print("in auth get_db_connection")
-    # print(socket.gethostname())
-    # print(socket.gethostname())
-    # print(os.environ)
-
     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
         print("in local branch")
         conn = mysql.connector.connect(
@@ -71,29 +65,6 @@ def get_db_connection():
         print("connected")
     # conn.row_factory = sqlite3.Row
     return conn, conn.cursor(dictionary=True)
-# def get_db_connection():
-#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-#         conn = mysql.connector.connect(
-#             user='root',
-#             password='1165205407',
-#             host='localhost',
-#             port=3306,
-#             database='newsLetter'
-#         )
-#     else:
-#         db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-#         db_name = "newsletter"
-#         db_user = "admin"
-#         db_password = ""
-#         conn = mysql.connector.connect(
-#             host=db_host,
-#             user=db_user,
-#             password=db_password,
-#             database=db_name,
-#         )
-#     # conn.row_factory = sqlite3.Row
-#     return conn, conn.cursor(dictionary=True)
-
 
 def user_email_for_session_token(session_token):
     conn, cursor = get_db_connection()
@@ -141,10 +112,7 @@ def verifyAuthForSearch(user_email):
     count = cursor.fetchone()
     access_invalid = False
 
-    if paid_user == PaidUserStatus.ENTERPRISE_TIER:
-        threshold = planToSearches[paid_user]
-    else:
-        threshold = planToSearches[PaidUserStatus.PREMIUM_TIER]
+    threshold = 6000
 
     if count["COUNT(*)"] > threshold:
         access_invalid = True

@@ -20,10 +20,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_db_connection():
-    # print("in auth get_db_connection")
-    # print(socket.gethostname())
-    # print(socket.gethostname())
-    # print(os.environ)
     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
         print("in local branch")
         conn = mysql.connector.connect(
@@ -48,54 +44,6 @@ def get_db_connection():
         print("connected")
     # conn.row_factory = sqlite3.Row
     return conn, conn.cursor(dictionary=True)
-
-# def get_db_connection():
-#     if ('.local' in socket.gethostname() or '.lan' in socket.gethostname() or 'Shadow' in socket.gethostname()) or ('APP_ENV' in os.environ and os.environ['APP_ENV'] == 'local'):
-#         conn = mysql.connector.connect(
-#             user='root',
-#             password='1165205407',
-#             host='localhost',
-#             port=3306,
-#             database='newsLetter'
-#         )
-#     else:
-#         db_host = "newsletter-db.ctoizzxupont.us-east-1.rds.amazonaws.com"
-#         db_name = "newsletter"
-#         db_user = "admin"
-#         db_password = ""
-#         conn = mysql.connector.connect(
-#             host=db_host,
-#             user=db_user,
-#             password=db_password,
-#             database=db_name,
-#         )
-#     # conn.row_factory = sqlite3.Row
-#     return conn, conn.cursor(dictionary=True)
-
-# test connection
-# try:
-#     connection, cursor = get_db_connection()
-
-#     if connection.is_connected():
-#         print("Connected to MySQL database")
-
-# except mysql.connector.Error as error:
-#     print(f"Error: {error}")
-
-# finally:
-#     if 'connection' in locals() and connection.is_connected():
-#         connection.close()
-#         print("MySQL connection closed")
-
-# create a user
-
-# def create_user():
-#     conn, cursor = get_db_connection()
-#     NOW = datetime.now()
-#     cursor.execute('INSERT INTO users (company_name, news_letter_detail, industry) VALUES (NULL, NULL, NULL);')
-#     conn.commit()
-#     conn.close()
-
 
 def check_user_by_id(id):
     conn, cursor = get_db_connection()
@@ -160,17 +108,17 @@ def add_user_detail_by_id_page_one(user_id, company_name, url, newsletter_name, 
         if check_detail_by_userId(user_id, 'userDetailPageOne'):
             # print('step3')
             update_query = """
-                UPDATE userDetailPageOne 
-                SET 
-                    `Brand or Company Name` = %s, 
-                    `URL` = %s, 
-                    `Name of Publication or Newsletter` = %s, 
-                    `Newsletter Header Image or Company Logo` = %s, 
-                    `Description of Newsletter` = %s, 
-                    `Business Category` = %s, 
-                    `colors used on the majority of your branding` = %s, 
-                    `List your color palette` = %s, 
-                    `Select your font styles` = %s 
+                UPDATE userDetailPageOne
+                SET
+                    `Brand or Company Name` = %s,
+                    `URL` = %s,
+                    `Name of Publication or Newsletter` = %s,
+                    `Newsletter Header Image or Company Logo` = %s,
+                    `Description of Newsletter` = %s,
+                    `Business Category` = %s,
+                    `colors used on the majority of your branding` = %s,
+                    `List your color palette` = %s,
+                    `Select your font styles` = %s
                 WHERE user_id = %s
             """
             cursor.execute(update_query, (
@@ -182,10 +130,10 @@ def add_user_detail_by_id_page_one(user_id, company_name, url, newsletter_name, 
             # print("step4")
             print(business_category)
             insert_query = """
-                INSERT INTO userDetailPageOne 
-                (user_id, `Brand or Company Name`, `URL`, `Name of Publication or Newsletter`, 
-                `Newsletter Header Image or Company Logo`, `Description of Newsletter`, 
-                `Business Category`, `colors used on the majority of your branding`, 
+                INSERT INTO userDetailPageOne
+                (user_id, `Brand or Company Name`, `URL`, `Name of Publication or Newsletter`,
+                `Newsletter Header Image or Company Logo`, `Description of Newsletter`,
+                `Business Category`, `colors used on the majority of your branding`,
                 `List your color palette`, `Select your font styles`)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
@@ -194,7 +142,7 @@ def add_user_detail_by_id_page_one(user_id, company_name, url, newsletter_name, 
                 description, business_category, branding_colors,
                 color_palette, font_styles
             ])
-        
+
         conn.commit()
         conn.close()
         return True
@@ -209,25 +157,25 @@ def add_user_detail_by_id_page_two(user_id, email_platform, send_frequency, lang
         if check_detail_by_userId(user_id, 'userDetailPageTwo'):
             # print('step3')
             update_query = """
-                UPDATE userDetailPageTwo 
-                SET 
-                    `Which email platform do you use?` = %s, 
-                    `How often do you send your newsletter?` = %s, 
-                    `Publication Language` = %s, 
-                    `Newsletter Size` = %s, 
-                    `Audience Demographics` = %s, 
-                    `Audience Age Range` = %s, 
-                    `Audience Income Level` = %s, 
-                    `Do you adhere to a stylistic choice?` = %s, 
-                    `Does your brand writing style use emojis?` = %s, 
-                    `YouTube Channel URL` = %s, 
-                    `Facebook URL` = %s, 
-                    `Instagram URL` = %s, 
-                    `Twitter URL` = %s, 
-                    `Linkedin URL` = %s, 
-                    `Pinterest URL` = %s, 
-                    `Shop URL` = %s, 
-                    `Portfolio URL` = %s, 
+                UPDATE userDetailPageTwo
+                SET
+                    `Which email platform do you use?` = %s,
+                    `How often do you send your newsletter?` = %s,
+                    `Publication Language` = %s,
+                    `Newsletter Size` = %s,
+                    `Audience Demographics` = %s,
+                    `Audience Age Range` = %s,
+                    `Audience Income Level` = %s,
+                    `Do you adhere to a stylistic choice?` = %s,
+                    `Does your brand writing style use emojis?` = %s,
+                    `YouTube Channel URL` = %s,
+                    `Facebook URL` = %s,
+                    `Instagram URL` = %s,
+                    `Twitter URL` = %s,
+                    `Linkedin URL` = %s,
+                    `Pinterest URL` = %s,
+                    `Shop URL` = %s,
+                    `Portfolio URL` = %s,
                     `Threads URL` = %s
                 WHERE user_id = %s
             """
@@ -240,12 +188,12 @@ def add_user_detail_by_id_page_two(user_id, email_platform, send_frequency, lang
         else:
             # print('step4')
             insert_query = """
-                INSERT INTO userDetailPageTwo 
-                (user_id, `Which email platform do you use?`, `How often do you send your newsletter?`, 
-                `Publication Language`, `Newsletter Size`, `Audience Demographics`, 
-                `Audience Age Range`, `Audience Income Level`, `Do you adhere to a stylistic choice?`, 
-                `Does your brand writing style use emojis?`, `YouTube Channel URL`, `Facebook URL`, 
-                `Instagram URL`, `Twitter URL`, `Linkedin URL`, `Pinterest URL`, `Shop URL`, 
+                INSERT INTO userDetailPageTwo
+                (user_id, `Which email platform do you use?`, `How often do you send your newsletter?`,
+                `Publication Language`, `Newsletter Size`, `Audience Demographics`,
+                `Audience Age Range`, `Audience Income Level`, `Do you adhere to a stylistic choice?`,
+                `Does your brand writing style use emojis?`, `YouTube Channel URL`, `Facebook URL`,
+                `Instagram URL`, `Twitter URL`, `Linkedin URL`, `Pinterest URL`, `Shop URL`,
                 `Portfolio URL`, `Threads URL`)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
@@ -255,7 +203,7 @@ def add_user_detail_by_id_page_two(user_id, email_platform, send_frequency, lang
                 emojis, youtube_url, facebook_url, instagram_url, twitter_url,
                 linkedin_url, pinterest_url, shop_url, portfolio_url, threads_url
             ))
-        
+
         conn.commit()
         conn.close()
         return True
@@ -285,7 +233,7 @@ def add_user_detail_by_id_page_three_four(user_id, data_page, question_id, quest
                 INSERT INTO {data_page} (user_id, question_id, question_name, data)
                 VALUES (%s, %s, %s, %s)
             """, (user_id, question_id, question_name, question_data))
-        
+
         conn.commit()
         conn.close()
         return True
@@ -474,7 +422,7 @@ def user_has_free_trial(userEmail, free_trial_code):
     inFreeTrialsAccessedAlready = False
     cursor.execute('''
         SELECT id
-        FROM freeTrialAllowlist 
+        FROM freeTrialAllowlist
         WHERE email = %s AND token = %s AND token_expiration > CURRENT_TIMESTAMP LIMIT 1
     ''', [userEmail, free_trial_code])
     print("user_has_free_trial2")
@@ -488,7 +436,7 @@ def user_has_free_trial(userEmail, free_trial_code):
         print("user_has_free_trial5")
         cursor.execute('''
             SELECT id, max_non_email_count
-            FROM freeTrialAllowlist 
+            FROM freeTrialAllowlist
             WHERE token = %s AND token_expiration > CURRENT_TIMESTAMP LIMIT 1
         ''', [free_trial_code])
         print("user_has_free_trial6")
@@ -498,7 +446,7 @@ def user_has_free_trial(userEmail, free_trial_code):
             print("user_has_free_trial8")
             cursor.execute('''
                 SELECT COUNT(*)
-                FROM freeTrialsAccessed 
+                FROM freeTrialsAccessed
                 WHERE free_trial_allow_list_id = %s
             ''', [freeTrialAllowlist["id"]])
             print("user_has_free_trial9")
@@ -519,10 +467,10 @@ def user_has_free_trial(userEmail, free_trial_code):
     if inFreetrialAllowlist or inFreeTrialsAccessedAlready:
         print("user_has_free_trial12")
         cursor.execute('''
-            SELECT gc.id 
-            FROM users p 
-            JOIN StripeInfo c ON c.user_id=p.id 
-            JOIN Subscriptions gc ON gc.stripe_info_id = c.id 
+            SELECT gc.id
+            FROM users p
+            JOIN StripeInfo c ON c.user_id=p.id
+            JOIN Subscriptions gc ON gc.stripe_info_id = c.id
             WHERE p.email = %s
         ''', [userEmail])
         print("user_has_free_trial13")
@@ -636,7 +584,7 @@ def reduce_credits(user_id):
 
     conn.commit()
     conn.close()
-    
+
     return True
 
 def paid_user_for_user_email_with_cursor(conn, cursor, user_email):
@@ -924,11 +872,6 @@ def view_user(user_email):
     cursor.execute(
         'SELECT * FROM users WHERE email = %s LIMIT 1', [user_email])
     user = cursor.fetchone()
-    # if user["credits_updated"]:
-    #     credits_refresh_date = user["credits_updated"] + relativedelta(months=1)
-    #     credits_refresh_str = credits_refresh_date.strftime('%Y-%m-%d')
-    # else:
-    #     credits_refresh_str = None
     cursor.execute(
         'SELECT anchor_date FROM StripeInfo WHERE user_id = %s', [user["id"]])
     stripeInfo = cursor.fetchone()
@@ -975,56 +918,32 @@ def end_date_for_user_email_with_cursor(conn, cursor, user_email):
         return paidUser["end_date"]
     else:
         return None
-# print(add_user_detail_byID(1000, 'hhhh', 'ggg', 'ggg'))
-
-# def create_user_from_credentials(email, password_hash, salt, session_token):
-#     conn, cursor = get_db_connection()
-#     NOW = datetime.now()
-#     expiration_limit = NOW + kSessionTokenExpirationTime
-#     cursor.execute('INSERT INTO users (email, password_hash, session_token, session_token_expiration, salt) VALUES (%s, %s, %s, %s, %s)', [
-#                    email, password_hash, session_token, expiration_limit, salt])
-#     conn.commit()
-#     conn.close()
 
 def add_newsletter(user_id, title, theme, idea_id, backgroundColor, character_name,  data):
     conn, cursor = get_db_connection()
-    # print('step1')
     if check_user_by_id(user_id):
-        # print('step2')
-            # Update the existing record
-            # Insert a new record
         cursor.execute("INSERT INTO AllNewsletterInfo (user_id, title, theme, idea_id, backgroundColor, character_name, data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, title, theme, idea_id, backgroundColor, character_name, data))
-        # print("step3")
         conn.commit()
         conn.close()
         return True
     else:
         return 'user not exist'
-    
+
 def get_all_newsletter(user_id):
     conn, cursor = get_db_connection()
-    # print('step1')
     if check_user_by_id(user_id):
-        # print('step2')
-            # Update the existing record
-            # Insert a new record
         query = "SELECT id, title, theme, idea_id, backgroundColor, character_name, data FROM AllNewsletterInfo WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         newsletters = cursor.fetchall()
-        # print("step3")
         conn.commit()
         conn.close()
         return newsletters
     else:
         return 'user not exist'
-    
+
 def delete_newsletter_byId(user_id, id):
     conn, cursor = get_db_connection()
-    # print('step1')
     if check_user_by_id(user_id):
-        # print('step2')
-            # Update the existing record
-            # Insert a new record
         query = "DELETE FROM AllNewsletterInfo WHERE user_id = %s AND id = %s"
         cursor.execute(query, (user_id, id))
         conn.commit()
@@ -1057,11 +976,7 @@ def check_brand_voice_by_id(user_id):
 
 def get_all_brand_voice(user_id):
     conn, cursor = get_db_connection()
-    # print('step1')
     if check_user_by_id(user_id):
-        # print('step2')
-            # Update the existing record
-            # Insert a new record
         query = "SELECT id, data FROM BrandVoice WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         brandVoice = cursor.fetchall()
@@ -1071,7 +986,7 @@ def get_all_brand_voice(user_id):
         return brandVoice
     else:
         return 'user not exist'
-    
+
 def update_Brand_voice_byId(user_id, id, data):
     conn, cursor = get_db_connection()
     cursor.execute("UPDATE BrandVoice SET data = %s WHERE user_id = %s AND id = %s", [
@@ -1079,12 +994,11 @@ def update_Brand_voice_byId(user_id, id, data):
     conn.commit()
     conn.close()
     return True
-    
+
 def delete_Brand_voice_byId(user_id, id):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):
         cursor.execute("DELETE FROM BrandVoice WHERE user_id = %s AND id = %s", (user_id, id))
-        # print("step3")
         conn.commit()
         conn.close()
         return True
@@ -1095,21 +1009,16 @@ def add_ideas_withId(user_id, data, subIdea):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):
         cursor.execute("INSERT INTO AllIdeas (user_id, title, subIdea) VALUES (%s, %s, %s)", (user_id, data, subIdea))
-        # print("step3")
         conn.commit()
         inserted_id = cursor.lastrowid
         conn.close()
         return inserted_id
     else:
         return 'user not exist'
-    
+
 def get_all_Ideas(user_id):
     conn, cursor = get_db_connection()
-    # print('step1')
     if check_user_by_id(user_id):
-        # print('step2')
-            # Update the existing record
-            # Insert a new record
         query = "SELECT id, title, used, subIdea FROM AllIdeas WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         newsletters = cursor.fetchall()
@@ -1119,7 +1028,7 @@ def get_all_Ideas(user_id):
         return newsletters
     else:
         return 'user not exist'
-    
+
 def update_Ideas_byId(user_id, id, title, used):
     conn, cursor = get_db_connection()
     cursor.execute("UPDATE AllIdeas SET title = %s , used = %s WHERE user_id = %s AND id = %s", [
@@ -1127,7 +1036,7 @@ def update_Ideas_byId(user_id, id, title, used):
     conn.commit()
     conn.close()
     return True
-    
+
 def delete_Ideas_byId(user_id, id):
     conn, cursor = get_db_connection()
     if check_user_by_id(user_id):
