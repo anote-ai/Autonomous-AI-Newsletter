@@ -1,7 +1,6 @@
 # Anote-AutonomousNewsletter
 
-Medium Article:
-https://anote-ai.medium.com/case-study-building-an-autonomous-ai-newsletter-8a4e59aad292
+Medium Article: https://anote-ai.medium.com/case-study-autonomous-ai-newsletter-7a20a7ada73e
 
 ### To run the locally you should:
 
