@@ -1,7 +1,7 @@
 # Anote-AutonomousNewsletter
 
 
-This is an Autonomous AI newsletter system. This system utilizes AI technologies to search for relevant articles from Google News, extract the content using web scraping techniques, summarize the articles using GPT-3 and provides email functionality to distribute the summarized articles to a list of subscribers. To leran more, see this medium article: https://anote-ai.medium.com/case-study-autonomous-ai-newsletter-7a20a7ada73e
+This is an Autonomous AI newsletter system. This system utilizes AI technologies to search for relevant articles from Google News, extract the content using web scraping techniques, summarize the articles using GPT-3 and provides email functionality to distribute the summarized articles to a list of subscribers. To learn more, see this medium article: https://anote-ai.medium.com/case-study-autonomous-ai-newsletter-7a20a7ada73e
 
 ### To run the locally you should:
 
